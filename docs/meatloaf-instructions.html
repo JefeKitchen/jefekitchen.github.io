@@ -4,158 +4,131 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Redemption Meatloaf</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --black: #111010;
-    --char: #1c1b19;
-    --smoke: #2a2825;
-    --ember: #c94a1a;
-    --gold: #d4a940;
-    --cream: #f0ead8;
-    --muted: #7a7268;
-    --jeff: #2a4a7a;
-    --jaya: #6a2a4a;
-    --theo: #8a5c14;
+    --bg: #0e0e0e;
+    --surface: #171717;
+    --raised: #202020;
+    --border: #2c2c2c;
+    --gold: #b8953a;
+    --text: #ddd8cf;
+    --muted: #77716a;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
-    background: var(--black);
-    color: var(--cream);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    line-height: 1.5;
-    max-width: 390px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+    max-width: 480px;
     margin: 0 auto;
-    padding: 0 0 60px;
+    padding: 0 0 64px;
     overflow-x: hidden;
   }
   .hero {
-    background: var(--char);
-    padding: 28px 20px 20px;
-    border-bottom: 3px solid var(--ember);
+    background: var(--surface);
+    padding: 42px 20px 22px;
+    border-bottom: 1px solid var(--border);
   }
   .hero-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 48px;
-    line-height: 0.88;
-    letter-spacing: 2px;
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: 0.4px;
   }
-  .hero-title span { color: var(--ember); }
+  .hero-title span { color: var(--gold); }
   .hero-sub {
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+    font-size: 13px;
     color: var(--muted);
-    margin-top: 8px;
+    margin-top: 10px;
+    line-height: 1.45;
   }
   .legend {
-    display: flex;
-    gap: 12px;
-    padding: 14px 20px;
-    background: var(--smoke);
-    border-bottom: 1px solid var(--char);
-  }
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 12px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .legend-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    flex-shrink: 0;
+    display: none;
   }
   .sec {
-    padding: 20px 20px 12px;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 22px;
-    letter-spacing: 3px;
+    padding: 26px 20px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2.8px;
+    text-transform: uppercase;
     color: var(--gold);
     display: flex;
     align-items: center;
     gap: 10px;
   }
-  .sec::after { content: ''; flex: 1; height: 1px; background: var(--smoke); }
+  .sec::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
   /* MEASUREMENTS BANNER */
   .measure-banner {
     margin: 0 20px 14px;
-    background: var(--ember);
-    border-radius: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    border-radius: 6px;
     padding: 14px 16px;
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
+    display: block;
   }
-  .measure-banner .icon { font-size: 22px; flex-shrink: 0; }
-  .measure-banner p { font-size: 13px; line-height: 1.6; }
-  .measure-banner strong { font-weight: 700; display: block; font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: 1.5px; margin-bottom: 3px; }
+  .measure-banner .icon { display: none; }
+  .measure-banner p { font-size: 14px; line-height: 1.55; }
+  .measure-banner strong { font-weight: 600; display: block; font-size: 13px; letter-spacing: 1.8px; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
 
   .cook-block {
     margin: 0 20px 14px;
-    border-radius: 8px;
+    border-radius: 6px;
     overflow: hidden;
-    border: 1px solid var(--smoke);
+    border: 1px solid var(--border);
+    background: var(--surface);
   }
   .cook-head {
-    padding: 11px 14px;
+    padding: 13px 14px;
     display: flex;
     align-items: center;
-    gap: 12px;
+    border-bottom: 1px solid var(--border);
   }
-  .cook-head .color-bar { width: 4px; height: 28px; border-radius: 2px; flex-shrink: 0; }
-  .cook-head .badge { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); display: block; }
-  .cook-head h3 { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1.5px; color: var(--cream); line-height: 1.1; }
-  .cook-head .cook-emoji { margin-left: auto; font-size: 20px; flex-shrink: 0; }
-  .jeff .cook-head { background: #1a2a3a; }
-  .jaya .cook-head { background: #2a1a22; }
-  .theo .cook-head { background: #2a1e0a; }
+  .cook-head .color-bar { display: none; }
+  .cook-head .badge { font-size: 10px; letter-spacing: 1.6px; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 2px; }
+  .cook-head h3 { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 600; color: var(--text); line-height: 1.18; }
+  .cook-head .cook-emoji { display: none; }
 
-  .cook-steps { background: var(--char); padding: 10px 14px; list-style: none; counter-reset: s; }
+  .cook-steps { background: transparent; padding: 8px 14px; list-style: none; counter-reset: s; }
   .cook-steps li {
     counter-increment: s;
     display: flex;
     gap: 12px;
-    padding: 9px 0;
-    border-bottom: 1px solid var(--smoke);
-    font-size: 13px;
-    line-height: 1.6;
-    color: #d4cfc4;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text);
     word-break: break-word;
     overflow-wrap: break-word;
   }
   .cook-steps li:last-child { border-bottom: none; }
   .cook-steps li::before {
     content: counter(s);
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 20px;
-    color: var(--ember);
-    min-width: 18px;
-    line-height: 1.1;
+    color: var(--gold);
+    min-width: 20px;
+    font-weight: 600;
+    line-height: 1.45;
     flex-shrink: 0;
   }
   .cook-steps li .st { flex: 1; min-width: 0; }
-  .ing { color: var(--gold); font-weight: 700; }
+  .ing { color: var(--gold); font-weight: 600; }
 
   .timing {
     margin: 10px 20px 0;
-    background: var(--smoke);
-    border-radius: 8px;
+    background: var(--surface);
+    border-radius: 6px;
     padding: 16px;
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-    border: 1px solid var(--ember);
+    display: block;
+    border: 1px solid var(--border);
   }
-  .timing .t-icon { font-size: 24px; flex-shrink: 0; }
-  .timing h4 { font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: 1.5px; margin-bottom: 4px; color: var(--gold); }
-  .timing p { font-size: 12.5px; line-height: 1.6; }
+  .timing .t-icon { display: none; }
+  .timing h4 { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; margin-bottom: 5px; color: var(--text); }
+  .timing p { font-size: 14px; line-height: 1.55; }
 </style>
 </head>
 <body>

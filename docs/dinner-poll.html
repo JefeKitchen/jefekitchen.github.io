@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Dinner Poll</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0e0e;
+    --surface: #171717;
+    --raised: #202020;
+    --border: #2c2c2c;
+    --gold: #b8953a;
+    --green: #6f8f64;
+    --red: #a4564b;
+    --text: #ddd8cf;
+    --muted: #77716a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Source Sans 3', sans-serif;
+    max-width: 480px;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 0 0 60px;
+  }
+  .back-bar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 16px;
+  }
+  .back-bar a {
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 13px;
+  }
+  .hero {
+    background: var(--surface);
+    padding: 34px 20px 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    color: var(--green);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 46px;
+    font-weight: 600;
+    line-height: 0.98;
+  }
+  .hero-title span { color: var(--gold); }
+  .hero-sub {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.45;
+    margin-top: 10px;
+  }
+  .poll-rules {
+    margin: 16px 0 0;
+    padding: 11px 13px;
+    border: 1px solid #6f603d;
+    border-left: 4px solid var(--gold);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 13px;
+    line-height: 1.35;
+    background: #141413;
+  }
+  .poll-list {
+    padding: 18px 20px 20px;
+    counter-reset: poll;
+  }
+  .poll-option {
+    counter-increment: poll;
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr);
+    gap: 12px;
+    align-items: center;
+    padding: 15px 14px;
+    margin-bottom: 13px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .poll-option::before {
+    content: counter(poll);
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--raised);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .poll-option:nth-child(2n)::before {
+    border-color: var(--green);
+    color: var(--green);
+  }
+  .poll-option:nth-child(3n)::before {
+    border-color: var(--red);
+    color: var(--red);
+  }
+  .poll-option:active {
+    background: var(--raised);
+  }
+  .option-title {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  .option-note {
+    display: block;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.4;
+    margin-top: 5px;
+  }
+  .option-action {
+    display: block;
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    margin-top: 9px;
+  }
+</style>
+</head>
+<body>
+<div class="back-bar"><a href="../index.html">&#8249; Kitchen</a></div>
+
+<div class="hero">
+  <div class="eyebrow">Tonight's Ballot</div>
+  <div class="hero-title">Dinner<br><span>Poll</span></div>
+  <div class="hero-sub">Pick one and Messages will open with a reply ready to send.</div>
+  <div class="poll-rules">Tap a choice to generate a randomly silly text. Democracy, but with horseradish.</div>
+</div>
+
+<div class="poll-list">
+  <a class="poll-option" href="sms:&body=Survey%20says%3A%20charcoal%20chicken." data-choice="charcoal chicken with the fancy horseradish sauce">
+    <span>
+      <span class="option-title">Charcoal Chicken</span>
+      <span class="option-note">Creamy horseradish-Dijon broth sauce</span>
+      <span class="option-action">Text this vote</span>
+    </span>
+  </a>
+  <a class="poll-option" href="sms:&body=Survey%20says%3A%20grilled%20chicken%20sandwiches." data-choice="grilled chicken sandwiches">
+    <span>
+      <span class="option-title">Grilled Chicken Sandwiches</span>
+      <span class="option-note">Horseradish broth jus</span>
+      <span class="option-action">Text this vote</span>
+    </span>
+  </a>
+  <a class="poll-option" href="sms:&body=Survey%20says%3A%20chicken%20and%20potatoes%20with%20horseradish%20gravy." data-choice="chicken and potatoes with horseradish gravy">
+    <span>
+      <span class="option-title">Chicken and Potatoes</span>
+      <span class="option-note">Horseradish broth gravy</span>
+      <span class="option-action">Text this vote</span>
+    </span>
+  </a>
+  <a class="poll-option" href="sms:&body=Survey%20says%3A%20chicken%20skewers." data-choice="chicken skewers">
+    <span>
+      <span class="option-title">Chicken Skewers</span>
+      <span class="option-note">Horseradish-Dijon glaze</span>
+      <span class="option-action">Text this vote</span>
+    </span>
+  </a>
+</div>
+
+<script>
+  const responses = [
+    choice => `Survey says: ${choice}.`,
+    choice => `Survey says: ${choice}. Final answer. No notes.`,
+    choice => `Survey says: ${choice}. The council has spoken.`,
+    choice => `Survey says: ${choice}. I will now await dinner like royalty.`,
+    choice => `Survey says: ${choice}. Please alert the kitchen staff.`,
+    choice => `Survey says: ${choice}. This is legally binding in the court of dinner.`,
+    choice => `Survey says: ${choice}. I have consulted my heart and my stomach.`,
+    choice => `Survey says: ${choice}. A bold choice by me, a visionary.`,
+    choice => `Survey says: ${choice}. Let the record show I was brave.`,
+    choice => `Survey says: ${choice}. I regret nothing and anticipate snacks.`
+  ];
+
+  document.querySelectorAll('.poll-option').forEach(option => {
+    option.addEventListener('click', event => {
+      event.preventDefault();
+      const choice = option.dataset.choice;
+      const response = responses[Math.floor(Math.random() * responses.length)](choice);
+      window.location.href = `sms:&body=${encodeURIComponent(response)}`;
+    });
+  });
+</script>
+
+</body>
+</html>

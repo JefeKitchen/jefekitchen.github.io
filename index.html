@@ -88,6 +88,36 @@
     list-style: none;
     -webkit-tap-highlight-color: transparent;
   }
+  .direct-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 18px;
+    background: var(--gold);
+    border: 1px solid #d0b35f;
+    border-radius: 8px;
+    color: var(--text);
+    text-decoration: none;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.34);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .direct-card:active { filter: brightness(1.08); }
+  .poll-section {
+    margin-top: 18px;
+  }
+  .direct-card .card-title {
+    color: #111010;
+    font-size: 22px;
+  }
+  .direct-card .card-subtitle {
+    color: rgba(17, 16, 16, 0.76);
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .direct-card .link-arrow {
+    color: #111010;
+    font-size: 18px;
+  }
   .card-header::-webkit-details-marker { display: none; }
   .card[open] .card-header { border-bottom: 1px solid var(--border); }
   .card-copy {
@@ -150,6 +180,15 @@
   <div class="app-title">JEFE'S<br><span>KITCHEN</span></div>
 </div>
 
+<div class="section poll-section">
+  <a class="direct-card" href="./docs/dinner-poll.html">
+    <div class="card-copy">
+      <div class="card-title">Jaya Pick Din</div>
+    </div>
+    <span class="link-arrow">›</span>
+  </a>
+</div>
+
 <div class="group-label">Beef</div>
 
 <!-- SLIDER NIGHT -->
@@ -183,7 +222,7 @@
   <details class="card">
     <summary class="card-header">
       <div class="card-copy">
-        <div class="card-title">Redemption Meatloaf</div>
+        <div class="card-title">Meatloaf</div>
         <span class="card-subtitle">Horseradish · Potatoes</span>
       </div>
       <span class="dropdown-icon">›</span>
