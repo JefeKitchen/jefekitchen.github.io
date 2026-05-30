@@ -381,6 +381,8 @@ ol {
 .cook-head .badge {
   font-size: 10px !important;
   letter-spacing: 1.5px !important;
+  line-height: 1.25 !important;
+  margin-bottom: 4px !important;
   text-transform: uppercase !important;
   color: var(--muted) !important;
   display: block !important;
