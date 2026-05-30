@@ -364,6 +364,105 @@
     color: var(--gold);
     flex-shrink: 0;
   }
+
+  @media (min-width: 760px) {
+    body {
+      max-width: 1120px;
+      padding: 24px 28px 72px;
+    }
+
+    .app-header {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin: 0 0 22px;
+      padding: 22px 26px;
+      position: static;
+    }
+
+    .app-title {
+      font-size: 48px;
+      line-height: 1;
+    }
+
+    .app-title br {
+      display: none;
+    }
+
+    .poll-section {
+      margin: 0 0 24px;
+    }
+
+    .direct-card {
+      min-height: 94px;
+      padding: 22px 26px;
+    }
+
+    .direct-card .card-title {
+      font-size: 34px;
+    }
+
+    .recipe-group {
+      margin: 0 0 12px;
+    }
+
+    .recipe-group.featured {
+      margin: 0 0 14px;
+      padding: 0;
+    }
+
+    .recipe-group[open] {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px 12px;
+    }
+
+    .recipe-group > summary,
+    .recipe-group.featured > summary {
+      grid-column: 1 / -1;
+      margin: 12px 0 4px;
+    }
+
+    .recipe-group[open] > summary,
+    .recipe-group.featured[open] > summary {
+      margin-bottom: 0;
+    }
+
+    .recipe-group .section,
+    .recipe-group.featured .section {
+      margin: 0;
+    }
+
+    .recipe-card {
+      min-height: 66px;
+      padding: 13px 14px 13px 16px;
+    }
+
+    .card {
+      height: 100%;
+      margin-bottom: 0;
+    }
+
+    .card-title {
+      font-size: 19px;
+    }
+
+    .card-subtitle {
+      font-size: 12px;
+    }
+
+    .dot-divider {
+      margin: 6px 0 10px;
+    }
+
+    .misc {
+      margin: 18px 0 0;
+      max-width: 360px;
+    }
+
+    .choice-sheet {
+      align-items: center;
+    }
+  }
 </style>
 </head>
 <body>
