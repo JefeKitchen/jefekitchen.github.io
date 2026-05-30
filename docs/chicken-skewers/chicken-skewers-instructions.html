@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Chicken Skewers Instructions</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../theme.css?v=3">
+<link rel="stylesheet" href="../theme.css?v=4">
 </head>
 <body>
 <div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
@@ -13,6 +13,56 @@
 <div class="hero">
   <div class="hero-title">Chicken <span>Skewers</span></div>
   <div class="hero-sub">Serves 2–3 · ~55 minutes</div>
+</div>
+
+<div class="ingredient-pull">
+  <div class="ingredient-pull-title">Pull Out</div>
+  <div class="ingredient-pull-group">
+    <span class="ingredient-pull-label">Skewers & Pita</span>
+    <div class="ingredient-pull-list">
+      <span class="ingredient-pill">Chicken thighs</span>
+      <span class="ingredient-pill">Skewers</span>
+      <span class="ingredient-pill">Pita</span>
+      <span class="ingredient-pill">Garlic</span>
+      <span class="ingredient-pill">Paprika</span>
+      <span class="ingredient-pill">Oregano</span>
+    </div>
+  </div>
+  <div class="ingredient-pull-group">
+    <span class="ingredient-pull-label">Sauce</span>
+    <div class="ingredient-pull-list">
+      <span class="ingredient-pill">Chicken broth</span>
+      <span class="ingredient-pill">Horseradish</span>
+    </div>
+  </div>
+  <div class="ingredient-pull-group">
+    <span class="ingredient-pull-label">Salad</span>
+    <div class="ingredient-pull-list">
+      <span class="ingredient-pill">Cucumber</span>
+      <span class="ingredient-pill">Tomatoes</span>
+      <span class="ingredient-pill">Parsley</span>
+    </div>
+  </div>
+  <div class="ingredient-pull-group">
+    <span class="ingredient-pull-label">Dessert</span>
+    <div class="ingredient-pull-list">
+      <span class="ingredient-pill">Extra pita</span>
+      <span class="ingredient-pill">Cinnamon</span>
+      <span class="ingredient-pill">Vanilla</span>
+    </div>
+  </div>
+  <div class="ingredient-pull-group">
+    <span class="ingredient-pull-label">Shared</span>
+    <div class="ingredient-pull-list">
+      <span class="ingredient-pill">Lemons</span>
+      <span class="ingredient-pill">Olive oil</span>
+      <span class="ingredient-pill">Honey</span>
+      <span class="ingredient-pill">Dijon</span>
+      <span class="ingredient-pill">Greek yogurt</span>
+      <span class="ingredient-pill">Salt</span>
+      <span class="ingredient-pill">Pepper</span>
+    </div>
+  </div>
 </div>
 
 <div class="sec">Prep First</div>
@@ -108,5 +158,38 @@
     <li><span class="st">Serve the warm pita chips with the honey yogurt dip.</span></li>
   </ol>
 </div>
+<script>
+  const pullStateKey = 'chicken-skewers-pulled-ingredients';
+  let pulledIngredients = {};
+
+  try {
+    pulledIngredients = JSON.parse(localStorage.getItem(pullStateKey) || '{}');
+  } catch {
+    pulledIngredients = {};
+  }
+
+  document.querySelectorAll('.ingredient-pill').forEach(pill => {
+    const name = pill.textContent.trim();
+    pill.setAttribute('role', 'button');
+    pill.setAttribute('tabindex', '0');
+    pill.setAttribute('aria-pressed', pulledIngredients[name] ? 'true' : 'false');
+    pill.classList.toggle('is-pulled', !!pulledIngredients[name]);
+
+    const toggle = () => {
+      pulledIngredients[name] = !pulledIngredients[name];
+      pill.classList.toggle('is-pulled', pulledIngredients[name]);
+      pill.setAttribute('aria-pressed', pulledIngredients[name] ? 'true' : 'false');
+      localStorage.setItem(pullStateKey, JSON.stringify(pulledIngredients));
+    };
+
+    pill.addEventListener('click', toggle);
+    pill.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        toggle();
+      }
+    });
+  });
+</script>
 </body>
 </html>

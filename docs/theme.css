@@ -361,6 +361,78 @@ ol {
   background: var(--border) !important;
 }
 
+.ingredient-pull {
+  margin: 16px 20px 10px !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  border: 1px solid var(--border) !important;
+  background: var(--surface) !important;
+}
+
+.ingredient-pull-title {
+  background: var(--raised) !important;
+  border-bottom: 1px solid var(--border) !important;
+  color: var(--gold) !important;
+  font-family: 'Source Sans 3', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 1.6px !important;
+  line-height: 1.35 !important;
+  padding: 8px 12px !important;
+  text-transform: uppercase !important;
+}
+
+.ingredient-pull-list {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 6px !important;
+  padding: 10px 12px 12px !important;
+}
+
+.ingredient-pull-group {
+  border-top: 1px solid var(--border) !important;
+  padding: 9px 12px 10px !important;
+}
+
+.ingredient-pull-group:first-of-type {
+  border-top: 0 !important;
+}
+
+.ingredient-pull-label {
+  color: var(--muted) !important;
+  display: block !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  letter-spacing: 1.4px !important;
+  line-height: 1.2 !important;
+  margin-bottom: 6px !important;
+  text-transform: uppercase !important;
+}
+
+.ingredient-pull-group .ingredient-pull-list {
+  padding: 0 !important;
+}
+
+.ingredient-pill {
+  border: 1px solid var(--border) !important;
+  border-radius: 999px !important;
+  color: var(--text) !important;
+  cursor: pointer !important;
+  font-size: 12px !important;
+  line-height: 1.2 !important;
+  padding: 4px 8px !important;
+  background: var(--raised) !important;
+  white-space: nowrap !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.ingredient-pill.is-pulled {
+  background: var(--gold) !important;
+  border-color: var(--gold) !important;
+  color: var(--bg) !important;
+  font-weight: 600 !important;
+}
+
 .cook-block {
   margin: 0 20px 10px !important;
   border-radius: 8px !important;
