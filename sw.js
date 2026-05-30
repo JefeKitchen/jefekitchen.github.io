@@ -1,7 +1,10 @@
-const CACHE_NAME = 'jeffs-kitchen-v2';
+const CACHE_NAME = 'jeffs-kitchen-v6';
 
 const PAGES = [
+  './',
   './index.html',
+  './manifest.json',
+  './icon.svg',
   './docs/slider-guide-lineup-a.html',
   './docs/slider-menu.html',
   './docs/slider-prep-order.html',
@@ -19,16 +22,11 @@ const PAGES = [
   './docs/teriyaki-spread-instructions.html',
   './docs/teriyaki-menu.html',
   './docs/grocery-list-combined-2.html',
-  './docs/sarah-menu.html',
-  './docs/sarah-grilled-cheese.html',
-  './docs/sarah-mac-and-cheese.html',
-  './docs/sarah-full-menu-instructions.html',
-  './docs/griddle-initial-seasoning.html',
-  './docs/griddle-reseasoning.html',
-  './docs/dinner-menu.html',
 ];
 
-// Install — cache everything
+const PAGE_URLS = new Set(PAGES.map(page => new URL(page, self.registration.scope).href));
+
+// Install - cache the app shell and linked pages.
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => cache.addAll(PAGES))
@@ -36,7 +34,7 @@ self.addEventListener('install', event => {
   self.skipWaiting();
 });
 
-// Activate — clear old caches
+// Activate - clear old caches.
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys =>
@@ -46,16 +44,14 @@ self.addEventListener('activate', event => {
   self.clients.claim();
 });
 
-// Fetch — cache first, network fallback
+// Fetch - cache first for known app pages, network otherwise.
 self.addEventListener('fetch', event => {
+  if (event.request.method !== 'GET') return;
+
+  const requestUrl = new URL(event.request.url);
+  if (!PAGE_URLS.has(requestUrl.href)) return;
+
   event.respondWith(
-    caches.match(event.request).then(cached => {
-      return cached || fetch(event.request).then(response => {
-        return caches.open(CACHE_NAME).then(cache => {
-          cache.put(event.request, response.clone());
-          return response;
-        });
-      });
-    })
+    caches.match(event.request).then(cached => cached || fetch(event.request))
   );
 });

@@ -61,25 +61,6 @@
   .section {
     margin: 22px 20px 0;
   }
-  .section-label {
-    font-family: 'Source Sans 3', sans-serif;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .section-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
   /* CARD */
   .card {
     background: var(--surface);
@@ -91,12 +72,20 @@
   .card-header {
     padding: 14px 16px;
     background: var(--raised);
-    border-bottom: 1px solid var(--border);
     display: flex;
     align-items: center;
     gap: 12px;
+    cursor: pointer;
+    list-style: none;
+    -webkit-tap-highlight-color: transparent;
   }
+  .card-header::-webkit-details-marker { display: none; }
+  .card[open] .card-header { border-bottom: 1px solid var(--border); }
   .card-emoji { font-size: 20px; flex-shrink: 0; }
+  .card-copy {
+    flex: 1;
+    min-width: 0;
+  }
   .card-title {
     font-family: 'Playfair Display', serif;
     font-size: 17px;
@@ -111,6 +100,14 @@
     display: block;
     margin-top: 2px;
   }
+  .dropdown-icon {
+    color: var(--gold);
+    font-size: 16px;
+    line-height: 1;
+    transform: rotate(0deg);
+    transition: transform 150ms ease;
+  }
+  .card[open] .dropdown-icon { transform: rotate(180deg); }
 
   /* LINKS */
   .link-list { padding: 4px 0; }
@@ -162,15 +159,15 @@
 
 <!-- SLIDER NIGHT -->
 <div class="section">
-  <div class="section-label">🏀 Game 7 · Slider Night</div>
-  <div class="card">
-    <div class="card-header">
+  <details class="card">
+    <summary class="card-header">
       <div class="card-emoji">🍔</div>
-      <div>
+      <div class="card-copy">
         <div class="card-title">Smash Sliders</div>
         <span class="card-subtitle">Bad Boy · French Press · Motor City Closer</span>
       </div>
-    </div>
+      <span class="dropdown-icon">⌄</span>
+    </summary>
     <div class="link-list">
       <a class="link-item" href="./docs/slider-menu.html">
         <span class="link-icon">🏀</span>
@@ -197,20 +194,20 @@
         <span class="link-arrow">›</span>
       </a>
     </div>
-  </div>
+  </details>
 </div>
 
 <!-- HONEY MUSTARD CHICKEN -->
 <div class="section">
-  <div class="section-label">🍋 Honey Mustard Chicken</div>
-  <div class="card">
-    <div class="card-header">
+  <details class="card">
+    <summary class="card-header">
       <div class="card-emoji">🍗</div>
-      <div>
+      <div class="card-copy">
         <div class="card-title">Honey Mustard Chicken</div>
         <span class="card-subtitle">Potatoes · Green Salad</span>
       </div>
-    </div>
+      <span class="dropdown-icon">⌄</span>
+    </summary>
     <div class="link-list">
       <a class="link-item" href="./docs/grocery-list-honey-mustard.html">
         <span class="link-icon">🛒</span>
@@ -231,20 +228,20 @@
         <span class="link-arrow">›</span>
       </a>
     </div>
-  </div>
+  </details>
 </div>
 
 <!-- HONEY GARLIC CHICKEN -->
 <div class="section">
-  <div class="section-label">🧄 Honey Garlic Chicken</div>
-  <div class="card">
-    <div class="card-header">
+  <details class="card">
+    <summary class="card-header">
       <div class="card-emoji">🍯</div>
-      <div>
+      <div class="card-copy">
         <div class="card-title">Honey Garlic Chicken</div>
         <span class="card-subtitle">Green Beans · Rice · Cucumber Bites</span>
       </div>
-    </div>
+      <span class="dropdown-icon">⌄</span>
+    </summary>
     <div class="link-list">
       <a class="link-item" href="./docs/grocery-list-honey-garlic.html">
         <span class="link-icon">🛒</span>
@@ -265,20 +262,20 @@
         <span class="link-arrow">›</span>
       </a>
     </div>
-  </div>
+  </details>
 </div>
 
 <!-- JALAPEÑO GRUYÈRE -->
 <div class="section">
-  <div class="section-label">🌶️ Jalapeño Gruyère Chicken</div>
-  <div class="card">
-    <div class="card-header">
+  <details class="card">
+    <summary class="card-header">
       <div class="card-emoji">🧀</div>
-      <div>
+      <div class="card-copy">
         <div class="card-title">Jalapeño Gruyère Chicken</div>
         <span class="card-subtitle">Bok Choy · Cream Sauce · Do Not Be Cyril</span>
       </div>
-    </div>
+      <span class="dropdown-icon">⌄</span>
+    </summary>
     <div class="link-list">
       <a class="link-item" href="./docs/grocery-list-jalapeno-gruyere.html">
         <span class="link-icon">🛒</span>
@@ -293,20 +290,20 @@
         <span class="link-arrow">›</span>
       </a>
     </div>
-  </div>
+  </details>
 </div>
 
 <!-- MEATLOAF -->
 <div class="section">
-  <div class="section-label">🥩 Redemption Meatloaf</div>
-  <div class="card">
-    <div class="card-header">
+  <details class="card">
+    <summary class="card-header">
       <div class="card-emoji">🍖</div>
-      <div>
+      <div class="card-copy">
         <div class="card-title">Redemption Meatloaf</div>
         <span class="card-subtitle">Horseradish Mashed Potatoes · Measured Carefully</span>
       </div>
-    </div>
+      <span class="dropdown-icon">⌄</span>
+    </summary>
     <div class="link-list">
       <a class="link-item" href="./docs/grocery-list-meatloaf.html">
         <span class="link-icon">🛒</span>
@@ -321,20 +318,20 @@
         <span class="link-arrow">›</span>
       </a>
     </div>
-  </div>
+  </details>
 </div>
 
 <!-- TERIYAKI SPREAD -->
 <div class="section">
-  <div class="section-label">🍍 Pineapple Teriyaki Spread</div>
-  <div class="card">
-    <div class="card-header">
+  <details class="card">
+    <summary class="card-header">
       <div class="card-emoji">🍊</div>
-      <div>
+      <div class="card-copy">
         <div class="card-title">Pineapple Orange Teriyaki</div>
         <span class="card-subtitle">Cucumber Bites · Coconut Rice</span>
       </div>
-    </div>
+      <span class="dropdown-icon">⌄</span>
+    </summary>
     <div class="link-list">
       <a class="link-item" href="./docs/teriyaki-menu.html">
         <span class="link-icon">📄</span>
@@ -355,7 +352,7 @@
         <span class="link-arrow">›</span>
       </a>
     </div>
-  </div>
+  </details>
 </div>
 
 
