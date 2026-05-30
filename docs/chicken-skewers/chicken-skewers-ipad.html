@@ -198,8 +198,21 @@
 
     .board {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-areas:
+        "drink prep"
+        "charcoal charcoal"
+        "grill sauce"
+        "side dessert";
       align-items: start;
     }
+
+    .section-card.prep { grid-area: prep; }
+    .section-card.drink { grid-area: drink; }
+    .section-card.charcoal { grid-area: charcoal; }
+    .section-card.grill { grid-area: grill; }
+    .section-card.sauce { grid-area: sauce; }
+    .section-card.side { grid-area: side; }
+    .section-card.dessert { grid-area: dessert; }
 
     .section-card.charcoal {
       grid-column: 1 / -1;
@@ -228,7 +241,7 @@
   </header>
 
   <div class="board">
-    <section class="section-card">
+    <section class="section-card prep">
       <div class="section-head">
         <span class="section-label">Prep First</span>
         <h2>Marinate and organize</h2>
@@ -252,6 +265,26 @@
       </ol>
     </section>
 
+    <section class="section-card drink">
+      <div class="section-head">
+        <span class="section-label">Drink</span>
+        <h2>Cucumber gin highball</h2>
+      </div>
+      <div class="pull">
+        <span class="pill">Gin</span>
+        <span class="pill">Soda water</span>
+        <span class="pill">Cucumber</span>
+        <span class="pill">Lemon</span>
+        <span class="pill">Honey</span>
+        <span class="pill">Ice</span>
+      </div>
+      <ol>
+        <li>In a glass, stir <span class="ing">2 oz gin</span>, <span class="ing">1/2 oz lemon juice</span>, and <span class="ing">1/2 tsp honey</span> until the honey loosens.</li>
+        <li>Add ice and a few thin <span class="ing">cucumber slices</span>. Top with <span class="ing">soda water</span>.</li>
+        <li>Give it one gentle stir. Taste and add a little more lemon or honey if you want it sharper or softer.</li>
+      </ol>
+    </section>
+
     <section class="section-card charcoal">
       <div class="section-head">
         <span class="section-label">Charcoal Setup</span>
@@ -266,7 +299,7 @@
       </ol>
     </section>
 
-    <section class="section-card">
+    <section class="section-card grill">
       <div class="section-head">
         <span class="section-label">Grill</span>
         <h2>Chicken and pita</h2>
@@ -283,7 +316,7 @@
       </ol>
     </section>
 
-    <section class="section-card">
+    <section class="section-card sauce">
       <div class="section-head">
         <span class="section-label">Sauce</span>
         <h2>Creamy dipping sauce</h2>
@@ -304,7 +337,7 @@
       </ol>
     </section>
 
-    <section class="section-card">
+    <section class="section-card side">
       <div class="section-head">
         <span class="section-label">Cold Side</span>
         <h2>Cucumber tomato salad</h2>
@@ -324,27 +357,7 @@
       </ol>
     </section>
 
-    <section class="section-card">
-      <div class="section-head">
-        <span class="section-label">Drink</span>
-        <h2>Cucumber gin highball</h2>
-      </div>
-      <div class="pull">
-        <span class="pill">Gin</span>
-        <span class="pill">Soda water</span>
-        <span class="pill">Cucumber</span>
-        <span class="pill">Lemon</span>
-        <span class="pill">Honey</span>
-        <span class="pill">Ice</span>
-      </div>
-      <ol>
-        <li>In a glass, stir <span class="ing">2 oz gin</span>, <span class="ing">1/2 oz lemon juice</span>, and <span class="ing">1/2 tsp honey</span> until the honey loosens.</li>
-        <li>Add ice and a few thin <span class="ing">cucumber slices</span>. Top with <span class="ing">soda water</span>.</li>
-        <li>Give it one gentle stir. Taste and add a little more lemon or honey if you want it sharper or softer.</li>
-      </ol>
-    </section>
-
-    <section class="section-card">
+    <section class="section-card dessert">
       <div class="section-head">
         <span class="section-label">Dessert</span>
         <h2>Honey-cinnamon pita chips</h2>
