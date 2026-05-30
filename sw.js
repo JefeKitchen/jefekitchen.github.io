@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v12';
+const CACHE_NAME = 'jeffs-kitchen-v13';
 
 const PAGES = [
   './',
@@ -10,13 +10,9 @@ const PAGES = [
   './docs/slider-prep-order.html',
   './docs/grocery-list.html',
   './docs/honey-mustard-instructions.html',
-  './docs/honey-mustard-instructions-laptop.html',
   './docs/grocery-list-honey-mustard.html',
   './docs/honey-garlic-chicken-instructions.html',
-  './docs/honey-garlic-ipad.html',
   './docs/grocery-list-honey-garlic.html',
-  './docs/jalapeno-gruyere-chicken.html',
-  './docs/grocery-list-jalapeno-gruyere.html',
   './docs/meatloaf-instructions.html',
   './docs/grocery-list-meatloaf.html',
   './docs/teriyaki-spread-instructions.html',

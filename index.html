@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-title" content="Kitchen">
 <link rel="manifest" href="./manifest.json">
 <link rel="apple-touch-icon" href="./icon.jpeg">
-<title>Jeff's Kitchen</title>
+<title>Jefe's Kitchen</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -49,14 +49,6 @@
     color: var(--text);
   }
   .app-title span { color: var(--gold); }
-  .app-sub {
-    font-size: 11px;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-top: 6px;
-  }
-
   /* SECTIONS */
   .group-label {
     margin: 24px 20px 8px;
@@ -123,7 +115,7 @@
     transform: rotate(0deg);
     transition: transform 150ms ease;
   }
-  .card[open] .dropdown-icon { transform: rotate(180deg); }
+  .card[open] .dropdown-icon { transform: rotate(90deg); }
 
   /* LINKS */
   .link-list { padding: 4px 0; }
@@ -155,8 +147,7 @@
 
 <!-- HEADER -->
 <div class="app-header">
-  <div class="app-title">JEFF'S<br><span>KITCHEN</span></div>
-  <div class="app-sub">Recipes · Grocery Lists · Instructions</div>
+  <div class="app-title">JEFE'S<br><span>KITCHEN</span></div>
 </div>
 
 <div class="group-label">Beef</div>
@@ -168,7 +159,7 @@
       <div class="card-copy">
         <div class="card-title">Smash Sliders</div>
       </div>
-      <span class="dropdown-icon">⌄</span>
+      <span class="dropdown-icon">›</span>
     </summary>
     <div class="link-list">
       <a class="link-item" href="./docs/slider-menu.html">
@@ -179,12 +170,8 @@
         <span class="link-text">Grocery List</span>
         <span class="link-arrow">›</span>
       </a>
-      <a class="link-item" href="./docs/slider-guide-lineup-a.html">
-        <span class="link-text">Cooking Instructions</span>
-        <span class="link-arrow">›</span>
-      </a>
       <a class="link-item" href="./docs/slider-prep-order.html">
-        <span class="link-text">Prep Order</span>
+        <span class="link-text">Cooking Instructions</span>
         <span class="link-arrow">›</span>
       </a>
     </div>
@@ -199,7 +186,7 @@
         <div class="card-title">Redemption Meatloaf</div>
         <span class="card-subtitle">Horseradish · Potatoes</span>
       </div>
-      <span class="dropdown-icon">⌄</span>
+      <span class="dropdown-icon">›</span>
     </summary>
     <div class="link-list">
       <a class="link-item" href="./docs/grocery-list-meatloaf.html">
@@ -224,7 +211,7 @@
         <div class="card-title">Honey Mustard Chicken</div>
         <span class="card-subtitle">Potatoes</span>
       </div>
-      <span class="dropdown-icon">⌄</span>
+      <span class="dropdown-icon">›</span>
     </summary>
     <div class="link-list">
       <a class="link-item" href="./docs/grocery-list-honey-mustard.html">
@@ -232,10 +219,6 @@
         <span class="link-arrow">›</span>
       </a>
       <a class="link-item" href="./docs/honey-mustard-instructions.html">
-        <span class="link-text">Cooking Instructions</span>
-        <span class="link-arrow">›</span>
-      </a>
-      <a class="link-item" href="./docs/honey-mustard-instructions-laptop.html">
         <span class="link-text">Cooking Instructions</span>
         <span class="link-arrow">›</span>
       </a>
@@ -251,7 +234,7 @@
         <div class="card-title">Honey Garlic Chicken</div>
         <span class="card-subtitle">Green Beans · Rice · Cucumber</span>
       </div>
-      <span class="dropdown-icon">⌄</span>
+      <span class="dropdown-icon">›</span>
     </summary>
     <div class="link-list">
       <a class="link-item" href="./docs/grocery-list-honey-garlic.html">
@@ -259,33 +242,6 @@
         <span class="link-arrow">›</span>
       </a>
       <a class="link-item" href="./docs/honey-garlic-chicken-instructions.html">
-        <span class="link-text">Cooking Instructions</span>
-        <span class="link-arrow">›</span>
-      </a>
-      <a class="link-item" href="./docs/honey-garlic-ipad.html">
-        <span class="link-text">Cooking Instructions</span>
-        <span class="link-arrow">›</span>
-      </a>
-    </div>
-  </details>
-</div>
-
-<!-- JALAPEÑO GRUYÈRE -->
-<div class="section">
-  <details class="card">
-    <summary class="card-header">
-      <div class="card-copy">
-        <div class="card-title">Jalapeño Gruyère Chicken</div>
-        <span class="card-subtitle">Bok Choy · Cream</span>
-      </div>
-      <span class="dropdown-icon">⌄</span>
-    </summary>
-    <div class="link-list">
-      <a class="link-item" href="./docs/grocery-list-jalapeno-gruyere.html">
-        <span class="link-text">Grocery List</span>
-        <span class="link-arrow">›</span>
-      </a>
-      <a class="link-item" href="./docs/jalapeno-gruyere-chicken.html">
         <span class="link-text">Cooking Instructions</span>
         <span class="link-arrow">›</span>
       </a>
@@ -301,7 +257,7 @@
         <div class="card-title">Pineapple Orange Teriyaki</div>
         <span class="card-subtitle">Cucumber · Coconut · Rice</span>
       </div>
-      <span class="dropdown-icon">⌄</span>
+      <span class="dropdown-icon">›</span>
     </summary>
     <div class="link-list">
       <a class="link-item" href="./docs/teriyaki-menu.html">
