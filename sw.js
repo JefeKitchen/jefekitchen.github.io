@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v31';
+const CACHE_NAME = 'jeffs-kitchen-v32';
 
 const PAGES = [
   './',
@@ -31,6 +31,7 @@ const PAGES = [
   './docs/chicken-skewers/grocery-list-chicken-skewers.html',
   './docs/chicken-skewers/chicken-skewers-menu.html',
   './docs/chicken-skewers/chicken-skewers-instructions.html',
+  './docs/chicken-skewers/chicken-skewers-ipad.html',
 ];
 
 const PAGE_URLS = new Set(PAGES.map(page => new URL(page, self.registration.scope).href));

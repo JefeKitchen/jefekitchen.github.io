@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chicken Skewers iPad Instructions</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0e0e;
+    --surface: #171717;
+    --raised: #202020;
+    --border: #2c2c2c;
+    --gold: #b8953a;
+    --text: #ddd8cf;
+    --muted: #8b857c;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Source Sans 3', sans-serif;
+    min-height: 100vh;
+    padding: 46px 22px 28px;
+  }
+
+  .back-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: #171717;
+    border-bottom: 1px solid #2c2c2c;
+    padding: 4px 10px;
+  }
+
+  .back-bar a {
+    color: var(--gold);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 32px;
+    font-family: -apple-system, sans-serif;
+    font-size: 30px;
+    line-height: 1;
+    text-decoration: none;
+  }
+
+  .shell {
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 18px;
+    align-items: end;
+    margin-bottom: 18px;
+    padding: 16px 18px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .hero-title span { color: var(--gold); }
+
+  .hero-sub {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.4;
+    text-align: right;
+  }
+
+  .board {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .section-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    overflow: hidden;
+  }
+
+  .section-card.wide {
+    grid-column: 1 / -1;
+  }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 11px 14px 9px;
+    border-bottom: 1px solid var(--border);
+    background: var(--raised);
+  }
+
+  .section-label {
+    color: var(--gold);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.15;
+  }
+
+  .pull {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    background: #141414;
+  }
+
+  .pill {
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--raised);
+    color: var(--text);
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 1.2;
+    padding: 5px 9px;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .pill.is-pulled {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #111;
+    font-weight: 600;
+  }
+
+  ol {
+    counter-reset: step;
+    list-style: none;
+    padding: 11px 14px 13px;
+  }
+
+  li {
+    counter-increment: step;
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 10px;
+    align-items: start;
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.45;
+    padding: 8px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  li:first-child { border-top: 0; padding-top: 0; }
+  li:last-child { padding-bottom: 0; }
+
+  li::before {
+    content: counter(step);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--gold);
+    color: #111;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .ing {
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  @media (orientation: landscape) and (min-width: 760px) {
+    body { padding: 48px 24px 24px; }
+
+    .board {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: start;
+    }
+
+    .section-card.charcoal {
+      grid-row: span 2;
+    }
+  }
+
+  @media (min-width: 1080px) {
+    .board {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .section-card.charcoal {
+      grid-row: span 1;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
+
+<main class="shell">
+  <header class="hero">
+    <div class="hero-title">Chicken <span>Skewers</span></div>
+    <div class="hero-sub">Serves 2-3<br>~55 minutes</div>
+  </header>
+
+  <div class="board">
+    <section class="section-card">
+      <div class="section-head">
+        <span class="section-label">Prep First</span>
+        <h2>Marinate and organize</h2>
+      </div>
+      <div class="pull">
+        <span class="pill">Chicken thighs</span>
+        <span class="pill">Skewers</span>
+        <span class="pill">Pita</span>
+        <span class="pill">Lemons</span>
+        <span class="pill">Garlic</span>
+        <span class="pill">Olive oil</span>
+        <span class="pill">Paprika</span>
+        <span class="pill">Oregano</span>
+        <span class="pill">Dijon</span>
+        <span class="pill">Salt & pepper</span>
+      </div>
+      <ol>
+        <li>If using wooden skewers, soak them in water for <span class="ing">30 minutes</span> so they do not scorch immediately.</li>
+        <li>Cut chicken thighs into 1 1/2 inch pieces. Toss with olive oil, lemon zest, lemon juice, grated garlic, <span class="ing">1 1/2 tsp kosher salt</span>, pepper, smoked paprika, oregano, and <span class="ing">1 tsp Dijon</span>.</li>
+        <li>Thread chicken onto skewers with a tiny bit of space between pieces. Crowded skewers steam instead of grill.</li>
+      </ol>
+    </section>
+
+    <section class="section-card charcoal">
+      <div class="section-head">
+        <span class="section-label">Charcoal Setup</span>
+        <h2>Build a two-zone fire</h2>
+      </div>
+      <ol>
+        <li>Open the bottom vent and lid vent all the way. Charcoal heat is controlled by air. More open means hotter; more closed means cooler.</li>
+        <li>Fill a chimney starter about <span class="ing">2/3 full</span>. Light it with a starter cube or newspaper underneath. Skip lighter fluid.</li>
+        <li>Wait until the top coals are gray around the edges and you see a glow down in the chimney, usually <span class="ing">15-20 minutes</span>. If the top is still mostly black, wait.</li>
+        <li>Pour coals onto one side of the grill only. Leave the other side empty. This gives you a hot side for searing and a safe side for finishing or rescuing food from flare-ups.</li>
+        <li>Set the grate on, close the lid for <span class="ing">5 minutes</span>, then scrape and oil the grate. Put the lid vent over the cooler side so heat travels across the food.</li>
+      </ol>
+    </section>
+
+    <section class="section-card">
+      <div class="section-head">
+        <span class="section-label">Grill</span>
+        <h2>Chicken and pita</h2>
+      </div>
+      <div class="pull">
+        <span class="pill">Skewers</span>
+        <span class="pill">Pita</span>
+      </div>
+      <ol>
+        <li>Start skewers over direct heat. Grill with the lid open, turning every <span class="ing">2-3 minutes</span>, until the outside has good color.</li>
+        <li>If the chicken is browning too fast or dripping causes flare-ups, slide skewers to the cooler side and close the lid.</li>
+        <li>Cook chicken to <span class="ing">165 F</span>. Thigh pieces usually take <span class="ing">10-14 minutes</span> total depending on heat.</li>
+        <li>Warm pita for <span class="ing">30-60 seconds per side</span> at the end. Watch closely; bread burns fast over charcoal.</li>
+      </ol>
+    </section>
+
+    <section class="section-card">
+      <div class="section-head">
+        <span class="section-label">Sauce</span>
+        <h2>Creamy dipping sauce</h2>
+      </div>
+      <div class="pull">
+        <span class="pill">Chicken broth</span>
+        <span class="pill">Greek yogurt</span>
+        <span class="pill">Horseradish</span>
+        <span class="pill">Honey</span>
+        <span class="pill">Dijon</span>
+        <span class="pill">Lemon</span>
+        <span class="pill">Pepper</span>
+      </div>
+      <ol>
+        <li>Simmer <span class="ing">1 cup chicken broth</span> with <span class="ing">1 tbsp Dijon</span>, <span class="ing">1 tsp honey</span>, and a squeeze of lemon until reduced by about a third.</li>
+        <li>Cool for a minute. Whisk in <span class="ing">1/3 cup Greek yogurt or sour cream</span> and <span class="ing">1-2 tbsp horseradish</span>. Season with pepper and more lemon.</li>
+        <li>Keep warm but do not boil after the dairy goes in. Serve as a dip for chicken and pita.</li>
+      </ol>
+    </section>
+
+    <section class="section-card">
+      <div class="section-head">
+        <span class="section-label">Cold Side</span>
+        <h2>Cucumber tomato salad</h2>
+      </div>
+      <div class="pull">
+        <span class="pill">Cucumber</span>
+        <span class="pill">Tomatoes</span>
+        <span class="pill">Parsley</span>
+        <span class="pill">Lemon</span>
+        <span class="pill">Olive oil</span>
+        <span class="pill">Salt & pepper</span>
+      </div>
+      <ol>
+        <li>Slice cucumber, halve tomatoes, and thinly slice a little red onion if using.</li>
+        <li>Toss with olive oil, lemon juice, parsley, salt, and pepper.</li>
+        <li>Serve everything together: skewers, salad, grilled pita, and sauce for dragging bites through.</li>
+      </ol>
+    </section>
+
+    <section class="section-card">
+      <div class="section-head">
+        <span class="section-label">Drink</span>
+        <h2>Cucumber gin highball</h2>
+      </div>
+      <div class="pull">
+        <span class="pill">Gin</span>
+        <span class="pill">Soda water</span>
+        <span class="pill">Cucumber</span>
+        <span class="pill">Lemon</span>
+        <span class="pill">Honey</span>
+        <span class="pill">Ice</span>
+      </div>
+      <ol>
+        <li>In a glass, stir <span class="ing">2 oz gin</span>, <span class="ing">1/2 oz lemon juice</span>, and <span class="ing">1/2 tsp honey</span> until the honey loosens.</li>
+        <li>Add ice and a few thin <span class="ing">cucumber slices</span>. Top with <span class="ing">soda water</span>.</li>
+        <li>Give it one gentle stir. Taste and add a little more lemon or honey if you want it sharper or softer.</li>
+      </ol>
+    </section>
+
+    <section class="section-card">
+      <div class="section-head">
+        <span class="section-label">Dessert</span>
+        <h2>Honey-cinnamon pita chips</h2>
+      </div>
+      <div class="pull">
+        <span class="pill">Extra pita</span>
+        <span class="pill">Greek yogurt</span>
+        <span class="pill">Honey</span>
+        <span class="pill">Cinnamon</span>
+        <span class="pill">Vanilla</span>
+        <span class="pill">Salt</span>
+      </div>
+      <ol>
+        <li>Cut extra pita or naan into wedges. Brush lightly with olive oil and sprinkle with <span class="ing">cinnamon</span> and a tiny pinch of salt.</li>
+        <li>Grill over the cooler side for <span class="ing">30-60 seconds per side</span>, just until warm, crisp at the edges, and lightly marked. Watch closely; they go fast.</li>
+        <li>Stir <span class="ing">Greek yogurt</span> with <span class="ing">honey</span>, a splash of vanilla, and a pinch of cinnamon.</li>
+        <li>Serve the warm pita chips with the honey yogurt dip.</li>
+      </ol>
+    </section>
+  </div>
+</main>
+
+<script>
+  const pullStateKey = 'chicken-skewers-ipad-pulled-ingredients';
+  let pulledIngredients = {};
+
+  try {
+    pulledIngredients = JSON.parse(localStorage.getItem(pullStateKey) || '{}');
+  } catch {
+    pulledIngredients = {};
+  }
+
+  document.querySelectorAll('.pill').forEach((pill, index) => {
+    const name = pill.textContent.trim();
+    const stateKey = `${index}-${name}`;
+    pill.setAttribute('role', 'button');
+    pill.setAttribute('tabindex', '0');
+    pill.setAttribute('aria-pressed', pulledIngredients[stateKey] ? 'true' : 'false');
+    pill.classList.toggle('is-pulled', !!pulledIngredients[stateKey]);
+
+    const toggle = () => {
+      pulledIngredients[stateKey] = !pulledIngredients[stateKey];
+      pill.classList.toggle('is-pulled', pulledIngredients[stateKey]);
+      pill.setAttribute('aria-pressed', pulledIngredients[stateKey] ? 'true' : 'false');
+      localStorage.setItem(pullStateKey, JSON.stringify(pulledIngredients));
+    };
+
+    pill.addEventListener('click', toggle);
+    pill.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        toggle();
+      }
+    });
+  });
+</script>
+</body>
+</html>
