@@ -202,31 +202,29 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
       grid-template-areas:
         "drink prep"
-        "charcoal charcoal"
-        "grill sauce"
-        "side dessert";
+        "light sauce"
+        "side fire"
+        "grill grill"
+        "dessert shutdown";
       align-items: stretch;
     }
 
     .section-card.prep { grid-area: prep; }
     .section-card.drink { grid-area: drink; }
-    .section-card.charcoal { grid-area: charcoal; }
+    .section-card.light { grid-area: light; }
+    .section-card.fire { grid-area: fire; }
     .section-card.grill { grid-area: grill; }
     .section-card.sauce { grid-area: sauce; }
     .section-card.side { grid-area: side; }
     .section-card.dessert { grid-area: dessert; }
+    .section-card.shutdown { grid-area: shutdown; }
 
-    .section-card.charcoal {
-      grid-column: 1 / -1;
-      grid-row: auto;
-    }
-
-    .section-card.charcoal ol {
+    .section-card.grill ol {
       column-count: 2;
       column-gap: 24px;
     }
 
-    .section-card.charcoal li {
+    .section-card.grill li {
       break-inside: avoid;
       page-break-inside: avoid;
     }
@@ -288,34 +286,17 @@
       </ol>
     </section>
 
-    <section class="section-card charcoal">
+    <section class="section-card light">
       <div class="section-head">
-        <span class="section-label">Charcoal Setup</span>
-        <h2>Build a two-zone fire</h2>
+        <span class="section-label">Light Charcoal</span>
+        <h2>Get the chimney going</h2>
       </div>
       <ol>
-        <li>Open the bottom vent and lid vent all the way. Charcoal heat is controlled by air. More open means hotter; more closed means cooler.</li>
-        <li>Fill a chimney starter about <span class="ing">2/3 full</span>. Light it with a starter cube or newspaper underneath. Skip lighter fluid.</li>
-        <li>Wait until the top coals are gray around the edges and you see a glow down in the chimney, usually <span class="ing">15-20 minutes</span>. If the top is still mostly black, wait.</li>
-        <li>Pour coals onto one side of the grill only. Leave the other side empty. This gives you a hot side for searing and a safe side for finishing or rescuing food from flare-ups.</li>
-        <li>Set the grate on, close the lid for <span class="ing">5 minutes</span>, then scrape and oil the grate. Put the lid vent over the cooler side so heat travels across the food.</li>
-      </ol>
-    </section>
-
-    <section class="section-card grill">
-      <div class="section-head">
-        <span class="section-label">Grill</span>
-        <h2>Chicken and pita</h2>
-      </div>
-      <div class="pull">
-        <span class="pill">Skewers</span>
-        <span class="pill">Pita</span>
-      </div>
-      <ol>
-        <li>Start skewers over direct heat. Grill with the lid open, turning every <span class="ing">2-3 minutes</span>, until the outside has good color.</li>
-        <li>If the chicken is browning too fast or dripping causes flare-ups, slide skewers to the cooler side and close the lid.</li>
-        <li>Cook chicken to <span class="ing">165 F</span>. Thigh pieces usually take <span class="ing">10-14 minutes</span> total depending on heat.</li>
-        <li>Warm pita for <span class="ing">30-60 seconds per side</span> at the end. Watch closely; bread burns fast over charcoal.</li>
+        <li>Open the bottom vent and lid vent all the way. More open means hotter; more closed means cooler.</li>
+        <li>Set the chimney starter on the charcoal grate, not on a table, deck, or plastic surface.</li>
+        <li>Put <span class="ing">1 lighter cube</span> under the chimney. Fill the chimney about <span class="ing">2/3 full</span>. Skip lighter fluid.</li>
+        <li>Light the cube through a lower chimney hole. Leave it alone for <span class="ing">15-20 minutes</span>.</li>
+        <li>The coals are ready when the top pieces are gray around the edges and you can see orange glow down in the chimney. If the top is still mostly black, wait.</li>
       </ol>
     </section>
 
@@ -356,7 +337,37 @@
       <ol>
         <li>Slice cucumber, halve tomatoes, and thinly slice a little red onion if using.</li>
         <li>Toss with olive oil, lemon juice, parsley, salt, and pepper.</li>
-        <li>Serve everything together: skewers, salad, grilled pita, and sauce for dragging bites through.</li>
+        <li>Set aside until the skewers and pita are done.</li>
+      </ol>
+    </section>
+
+    <section class="section-card fire">
+      <div class="section-head">
+        <span class="section-label">Build Fire</span>
+        <h2>Hot side and safe side</h2>
+      </div>
+      <ol>
+        <li>Carefully pour the lit coals onto <span class="ing">one side</span> of the grill. Leave the other side mostly empty.</li>
+        <li>Put the cooking grate on, close the lid, and preheat for <span class="ing">5 minutes</span>.</li>
+        <li>Scrape the grate clean. Oil it lightly with a paper towel held in tongs if the chicken may stick.</li>
+        <li>Put the lid vent over the cooler side so heat and smoke travel across the food instead of straight out.</li>
+      </ol>
+    </section>
+
+    <section class="section-card grill">
+      <div class="section-head">
+        <span class="section-label">Grill</span>
+        <h2>Chicken and pita</h2>
+      </div>
+      <div class="pull">
+        <span class="pill">Skewers</span>
+        <span class="pill">Pita</span>
+      </div>
+      <ol>
+        <li>Start skewers over direct heat. Grill with the lid open, turning every <span class="ing">2-3 minutes</span>, until the outside has good color.</li>
+        <li>If the chicken is browning too fast or dripping causes flare-ups, slide skewers to the cooler side and close the lid.</li>
+        <li>Cook chicken to <span class="ing">165 F</span>. Thigh pieces usually take <span class="ing">10-14 minutes</span> total depending on heat.</li>
+        <li>Warm pita for <span class="ing">30-60 seconds per side</span> at the end. Watch closely; bread burns fast over charcoal.</li>
       </ol>
     </section>
 
@@ -378,6 +389,17 @@
         <li>Grill over the cooler side for <span class="ing">30-60 seconds per side</span>, just until warm, crisp at the edges, and lightly marked. Watch closely; they go fast.</li>
         <li>Stir <span class="ing">Greek yogurt</span> with <span class="ing">honey</span>, a splash of vanilla, and a pinch of cinnamon.</li>
         <li>Serve the warm pita chips with the honey yogurt dip.</li>
+      </ol>
+    </section>
+
+    <section class="section-card shutdown">
+      <div class="section-head">
+        <span class="section-label">Shut Down</span>
+        <h2>Close the vents</h2>
+      </div>
+      <ol>
+        <li>Close the bottom vent and lid vent all the way to starve the coals of oxygen.</li>
+        <li>Leave ash and spent coals in the grill until fully cool. Empty them later into a metal ash bucket or lidded metal container.</li>
       </ol>
     </section>
   </div>
