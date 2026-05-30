@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Charcoal Shopping List</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../theme.css?v=4">
+</head>
+<body>
+<div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
+
+<div class="page-title">Charcoal List</div>
+<div class="page-sub">Charcoal-specific gear only</div>
+
+<div class="section">
+  <div class="section-header need">Start Here</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="char1"><label for="char1">Charcoal briquettes<span class="item-note">Most predictable for learning; lump is fine later</span></label></div>
+    <div class="item"><input type="checkbox" id="char2"><label for="char2">Chimney starter</label></div>
+    <div class="item"><input type="checkbox" id="char3"><label for="char3">Lighter cubes<span class="item-note">Cleaner and easier than lighter fluid</span></label></div>
+    <div class="item"><input type="checkbox" id="char4"><label for="char4">Long lighter or matches<span class="item-note">Only if you do not already have one</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Coal Handling</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="char5"><label for="char5">Metal ash bucket or lidded metal container<span class="item-note">For fully cooled spent coals and ash</span></label></div>
+    <div class="item"><input type="checkbox" id="char6"><label for="char6">Charcoal baskets<span class="item-note">Optional, useful for easy two-zone fires</span></label></div>
+    <div class="item"><input type="checkbox" id="char7"><label for="char7">Disposable aluminum drip pans<span class="item-note">Good for catching drips on the cool side</span></label></div>
+    <div class="item"><input type="checkbox" id="char8"><label for="char8">Heavy-duty foil</label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Skip</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="char9"><label for="char9">Lighter fluid<span class="item-note">Do not buy this; cubes plus chimney are cleaner</span></label></div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    const key = `charcoal-shopping-${cb.id}`;
+    cb.checked = localStorage.getItem(key) === 'checked';
+    cb.addEventListener('change', () => localStorage.setItem(key, cb.checked ? 'checked' : ''));
+  });
+</script>
+</body>
+</html>

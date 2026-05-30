@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v46';
+const CACHE_NAME = 'jeffs-kitchen-v47';
 
 const PAGES = [
   './',
@@ -32,6 +32,8 @@ const PAGES = [
   './docs/teriyaki/teriyaki-menu.html',
   './docs/teriyaki/grocery-list-combined-2.html',
   './docs/seasoning/griddle-initial-seasoning.html',
+  './docs/charcoal-basics/charcoal-shopping-list.html',
+  './docs/charcoal-basics/charcoal-lighting-instructions.html',
   './docs/overnight-oats/grocery-list-overnight-oats.html',
   './docs/overnight-oats/overnight-oats-instructions.html',
   './docs/overnight-oats/overnight-oats-wide.html',
