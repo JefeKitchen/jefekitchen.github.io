@@ -235,6 +235,63 @@
   .icon-link:active {
     filter: brightness(1.15);
   }
+  .choice-sheet {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: none;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 18px;
+    background: rgba(0, 0, 0, 0.56);
+  }
+  .choice-sheet.is-open {
+    display: flex;
+  }
+  .choice-panel {
+    width: min(100%, 360px);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.44);
+  }
+  .choice-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.15;
+    margin-bottom: 4px;
+  }
+  .choice-subtitle {
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+  }
+  .choice-actions {
+    display: grid;
+    gap: 8px;
+  }
+  .choice-button {
+    appearance: none;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--raised);
+    color: var(--text);
+    font: inherit;
+    font-size: 15px;
+    padding: 12px 14px;
+    text-align: left;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .choice-button:active {
+    filter: brightness(1.12);
+  }
+  .choice-cancel {
+    color: var(--muted);
+    text-align: center;
+  }
   .misc {
     margin: 16px 20px 0;
   }
@@ -257,19 +314,29 @@
   .misc[open] summary::before {
     background: var(--gold);
   }
-  .misc-link {
+  .misc-link,
+  .misc-button {
+    background: none;
+    border: 0;
     color: var(--muted);
     display: block;
     font-size: 13px;
+    font-family: inherit;
     margin-top: 4px;
     padding: 4px 0;
     text-decoration: none;
+    text-align: left;
+    width: 100%;
     -webkit-tap-highlight-color: transparent;
+  }
+  .misc-button {
+    cursor: pointer;
   }
   .misc-link + .misc-link {
     margin-top: 0;
   }
-  .misc-link:active {
+  .misc-link:active,
+  .misc-button:active {
     color: var(--gold);
   }
 
@@ -339,8 +406,7 @@
     </div>
     <div class="card-actions" aria-label="This Week Chicken Skewers links">
       <a class="icon-link" href="./docs/chicken-skewers/chicken-skewers-menu.html" aria-label="Chicken Skewers menu" title="Menu">📜</a>
-      <a class="icon-link" href="./docs/chicken-skewers/chicken-skewers-instructions.html" aria-label="Chicken Skewers cooking instructions" title="Cooking Instructions">🥘</a>
-      <a class="icon-link" href="./docs/chicken-skewers/chicken-skewers-ipad.html" aria-label="Chicken Skewers iPad cooking instructions" title="iPad Instructions">🖥️</a>
+      <a class="icon-link instruction-choice-link" href="./docs/chicken-skewers/chicken-skewers-instructions.html" data-phone="./docs/chicken-skewers/chicken-skewers-instructions.html" data-ipad="./docs/chicken-skewers/chicken-skewers-ipad.html" aria-label="Chicken Skewers cooking instructions" title="Cooking Instructions">🥘</a>
     </div>
   </div>
 </div>
@@ -449,8 +515,7 @@
     <div class="card-actions" aria-label="Chicken Skewers links">
       <a class="icon-link" href="./docs/chicken-skewers/chicken-skewers-menu.html" aria-label="Chicken Skewers menu" title="Menu">📜</a>
       <a class="icon-link" href="./docs/chicken-skewers/grocery-list-chicken-skewers.html" aria-label="Chicken Skewers grocery list" title="Grocery List">🛒</a>
-      <a class="icon-link" href="./docs/chicken-skewers/chicken-skewers-instructions.html" aria-label="Chicken Skewers cooking instructions" title="Cooking Instructions">🥘</a>
-      <a class="icon-link" href="./docs/chicken-skewers/chicken-skewers-ipad.html" aria-label="Chicken Skewers iPad cooking instructions" title="iPad Instructions">🖥️</a>
+      <a class="icon-link instruction-choice-link" href="./docs/chicken-skewers/chicken-skewers-instructions.html" data-phone="./docs/chicken-skewers/chicken-skewers-instructions.html" data-ipad="./docs/chicken-skewers/chicken-skewers-ipad.html" aria-label="Chicken Skewers cooking instructions" title="Cooking Instructions">🥘</a>
     </div>
   </div>
 </div>
@@ -495,12 +560,27 @@
 <details class="misc" data-section="misc">
   <summary aria-label="Open miscellaneous"></summary>
   <a class="misc-link" href="./docs/seasoning/griddle-initial-seasoning.html">Seasoning</a>
+  <button class="misc-button" type="button" id="resetInstructionChoice">Reset instruction layout</button>
 </details>
+
+<div class="choice-sheet" id="instructionChoice" aria-hidden="true">
+  <div class="choice-panel" role="dialog" aria-modal="true" aria-labelledby="instructionChoiceTitle">
+    <div class="choice-title" id="instructionChoiceTitle">Cooking Instructions</div>
+    <div class="choice-subtitle">Choose the layout you want.</div>
+    <div class="choice-actions">
+      <button class="choice-button" type="button" data-choice="phone">Phone layout</button>
+      <button class="choice-button" type="button" data-choice="ipad">iPad layout</button>
+      <button class="choice-button choice-cancel" type="button" data-choice="cancel">Cancel</button>
+    </div>
+  </div>
+</div>
 
 
 <script>
   const sectionStateKey = 'jefes-kitchen-open-sections';
+  const instructionPreferenceKey = 'jefes-kitchen-instruction-layout';
   let savedSections = {};
+  let pendingInstructionLinks = null;
 
   try {
     savedSections = JSON.parse(localStorage.getItem(sectionStateKey) || '{}');
@@ -516,6 +596,86 @@
       savedSections[sectionName] = section.open;
       localStorage.setItem(sectionStateKey, JSON.stringify(savedSections));
     });
+  });
+
+  const instructionChoice = document.getElementById('instructionChoice');
+  const resetInstructionChoice = document.getElementById('resetInstructionChoice');
+
+  function detectedInstructionLayout() {
+    const ua = navigator.userAgent || '';
+    const platform = navigator.platform || '';
+    const touchPoints = navigator.maxTouchPoints || 0;
+    const looksLikeIpad = /iPad/i.test(ua) || (platform === 'MacIntel' && touchPoints > 1);
+    const looksLikePhone = /iPhone|iPod|Android.*Mobile/i.test(ua);
+
+    if (looksLikePhone) return 'phone';
+    if (looksLikeIpad) return 'ipad';
+    return 'ipad';
+  }
+
+  function closeInstructionChoice() {
+    instructionChoice.classList.remove('is-open');
+    instructionChoice.setAttribute('aria-hidden', 'true');
+    pendingInstructionLinks = null;
+  }
+
+  function openInstructionChoice(links) {
+    pendingInstructionLinks = links;
+    instructionChoice.classList.add('is-open');
+    instructionChoice.setAttribute('aria-hidden', 'false');
+  }
+
+  document.querySelectorAll('.instruction-choice-link').forEach(link => {
+    link.addEventListener('click', event => {
+      event.preventDefault();
+      const links = {
+        phone: link.dataset.phone,
+        ipad: link.dataset.ipad
+      };
+      const savedPreference = localStorage.getItem(instructionPreferenceKey);
+      const devicePreference = detectedInstructionLayout();
+      const preference = savedPreference === 'ask' ? '' : (savedPreference || devicePreference);
+
+      if (preference && links[preference]) {
+        if (!savedPreference) localStorage.setItem(instructionPreferenceKey, preference);
+        window.location.href = links[preference];
+        return;
+      }
+
+      openInstructionChoice(links);
+    });
+  });
+
+  instructionChoice.addEventListener('click', event => {
+    if (event.target === instructionChoice) {
+      closeInstructionChoice();
+      return;
+    }
+
+    const choice = event.target.dataset.choice;
+    if (!choice) return;
+    if (choice === 'cancel') {
+      closeInstructionChoice();
+      return;
+    }
+    if (pendingInstructionLinks && pendingInstructionLinks[choice]) {
+      localStorage.setItem(instructionPreferenceKey, choice);
+      window.location.href = pendingInstructionLinks[choice];
+    }
+  });
+
+  resetInstructionChoice.addEventListener('click', () => {
+    localStorage.setItem(instructionPreferenceKey, 'ask');
+    resetInstructionChoice.textContent = 'Instruction layout reset';
+    setTimeout(() => {
+      resetInstructionChoice.textContent = 'Reset instruction layout';
+    }, 1400);
+  });
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && instructionChoice.classList.contains('is-open')) {
+      closeInstructionChoice();
+    }
   });
 
   if ('serviceWorker' in navigator) {
