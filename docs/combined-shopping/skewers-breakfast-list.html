@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Grocery List - Skewers + Breakfast</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../theme.css?v=3">
+</head>
+<body>
+<div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
+
+<div class="page-title">Grocery List</div>
+<div class="page-sub">Chicken Skewers + Overnight Oats</div>
+
+<div class="section">
+  <div class="section-header need">Protein & Dairy</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="combo1"><label for="combo1">2 lb boneless skinless chicken thighs</label></div>
+    <div class="item"><input type="checkbox" id="combo2"><label for="combo2">Plain Greek yogurt<span class="item-note">Get enough for sauce and 5 oat jars, about 3 cups total</span></label></div>
+    <div class="item"><input type="checkbox" id="combo3"><label for="combo3">Milk<span class="item-note">Dairy or non-dairy, about 2 1/2 cups</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Produce</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="combo4"><label for="combo4">2 lemons</label></div>
+    <div class="item"><input type="checkbox" id="combo5"><label for="combo5">Fresh parsley</label></div>
+    <div class="item"><input type="checkbox" id="combo6"><label for="combo6">3 cloves garlic</label></div>
+    <div class="item"><input type="checkbox" id="combo7"><label for="combo7">1 cucumber</label></div>
+    <div class="item"><input type="checkbox" id="combo8"><label for="combo8">1 pint cherry tomatoes</label></div>
+    <div class="item"><input type="checkbox" id="combo9"><label for="combo9">Small red onion<span class="item-note">Optional for salad</span></label></div>
+    <div class="item"><input type="checkbox" id="combo10"><label for="combo10">Blueberries or mixed berries</label></div>
+    <div class="item"><input type="checkbox" id="combo11"><label for="combo11">Bananas</label></div>
+    <div class="item"><input type="checkbox" id="combo12"><label for="combo12">Apples</label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Bread & Grains</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="combo13"><label for="combo13">Pita or naan</label></div>
+    <div class="item"><input type="checkbox" id="combo14"><label for="combo14">Old-fashioned rolled oats<span class="item-note">About 2 1/2 cups for 5 jars</span></label></div>
+    <div class="item"><input type="checkbox" id="combo15"><label for="combo15">Granola or chopped nuts<span class="item-note">Keep separate from oats until eating</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Sauce & Pantry</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="combo16"><label for="combo16">Chicken broth<span class="item-note">About 1 cup</span></label></div>
+    <div class="item"><input type="checkbox" id="combo17"><label for="combo17">Prepared horseradish</label></div>
+    <div class="item"><input type="checkbox" id="combo18"><label for="combo18">Dijon mustard</label></div>
+    <div class="item"><input type="checkbox" id="combo19"><label for="combo19">Honey or maple syrup<span class="item-note">Honey works for both skewers sauce and oats</span></label></div>
+    <div class="item"><input type="checkbox" id="combo20"><label for="combo20">Vanilla extract</label></div>
+    <div class="item"><input type="checkbox" id="combo21"><label for="combo21">Chia seeds</label></div>
+    <div class="item"><input type="checkbox" id="combo22"><label for="combo22">Peanut butter or almond butter<span class="item-note">Optional for oats</span></label></div>
+    <div class="item"><input type="checkbox" id="combo23"><label for="combo23">Olive oil</label></div>
+    <div class="item"><input type="checkbox" id="combo24"><label for="combo24">Smoked paprika</label></div>
+    <div class="item"><input type="checkbox" id="combo25"><label for="combo25">Dried oregano</label></div>
+    <div class="item"><input type="checkbox" id="combo26"><label for="combo26">Cinnamon</label></div>
+    <div class="item"><input type="checkbox" id="combo27"><label for="combo27">Kosher salt and black pepper</label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Gear</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="combo28"><label for="combo28">Wood or metal skewers<span class="item-note">Soak wood skewers 30 minutes</span></label></div>
+    <div class="item"><input type="checkbox" id="combo29"><label for="combo29">5 jars or containers with lids</label></div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    const key = `skewers-breakfast-${cb.id}`;
+    cb.checked = localStorage.getItem(key) === 'checked';
+    cb.addEventListener('change', () => localStorage.setItem(key, cb.checked ? 'checked' : ''));
+  });
+</script>
+</body>
+</html>

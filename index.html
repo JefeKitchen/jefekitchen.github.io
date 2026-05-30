@@ -67,6 +67,26 @@
     height: 1px;
     background: var(--border);
   }
+  .recipe-group {
+    margin: 0;
+  }
+  .recipe-group > summary {
+    list-style: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .recipe-group > summary::-webkit-details-marker { display: none; }
+  .recipe-group > summary::before {
+    content: '›';
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1;
+    transform: translateY(-1px) rotate(0deg);
+    transition: transform 150ms ease;
+  }
+  .recipe-group[open] > summary::before {
+    transform: translateY(-1px) rotate(90deg);
+  }
   .section {
     margin: 0 20px 8px;
   }
@@ -255,7 +275,26 @@
   </a>
 </div>
 
-<div class="group-label">Beef</div>
+<details class="recipe-group" data-section="breakfast">
+<summary class="group-label">Breakfast</summary>
+
+<!-- OVERNIGHT OATS -->
+<div class="section">
+  <div class="card recipe-card">
+    <div class="card-copy">
+      <div class="card-title">Overnight Oats</div>
+      <span class="card-subtitle">Greek Yogurt · Fruit · Oats</span>
+    </div>
+    <div class="card-actions" aria-label="Overnight Oats links">
+      <a class="icon-link" href="./docs/overnight-oats/grocery-list-overnight-oats.html" aria-label="Overnight Oats grocery list" title="Grocery List">🛒</a>
+      <a class="icon-link" href="./docs/overnight-oats/overnight-oats-instructions.html" aria-label="Overnight Oats instructions" title="Instructions">🥘</a>
+    </div>
+  </div>
+</div>
+</details>
+
+<details class="recipe-group" data-section="beef">
+<summary class="group-label">Beef</summary>
 
 <!-- SLIDER NIGHT -->
 <div class="section">
@@ -284,8 +323,10 @@
     </div>
   </div>
 </div>
+</details>
 
-<div class="group-label">Chicken</div>
+<details class="recipe-group" data-section="chicken">
+<summary class="group-label">Chicken</summary>
 
 <!-- HONEY MUSTARD CHICKEN -->
 <div class="section">
@@ -343,10 +384,12 @@
     </div>
   </div>
 </div>
+</details>
 
 <details class="misc" data-section="misc">
   <summary aria-label="Open miscellaneous"></summary>
   <a class="misc-link" href="./docs/seasoning/griddle-initial-seasoning.html">Seasoning</a>
+  <a class="misc-link" href="./docs/combined-shopping/skewers-breakfast-list.html">Skewers + Breakfast</a>
 </details>
 
 
