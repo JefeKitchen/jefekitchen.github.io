@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Grocery List</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #f2f2f0;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: #111;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+  }
+
+  .page-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    letter-spacing: 2px;
+    color: #111;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .page-sub {
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 28px;
+  }
+
+  .section {
+    margin-bottom: 24px;
+    background: #fff;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+  }
+
+  .section-header {
+    background: #111;
+    padding: 9px 16px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: #fff;
+  }
+
+  .item-list {
+    padding: 6px 0;
+  }
+
+  .item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 16px;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+  }
+  .item:last-child { border-bottom: none; }
+
+  .item input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    accent-color: #111;
+    cursor: pointer;
+  }
+
+  .item label {
+    font-size: 14.5px;
+    color: #111;
+    cursor: pointer;
+    flex: 1;
+    line-height: 1.4;
+    pointer-events: none;
+  }
+
+  .item input[type="checkbox"]:checked ~ label {
+    color: #aaa;
+    text-decoration: line-through;
+  }
+
+  .item-note {
+    font-size: 11.5px;
+    color: #999;
+    display: block;
+    margin-top: 1px;
+  }
+
+</style>
+<link rel="stylesheet" href="../theme.css?v=2">
+</head>
+<body>
+<style>.back-bar{position:sticky;top:0;z-index:1000;background:#171717;border-bottom:1px solid #2c2c2c;padding:4px 10px;}.back-bar a{color:#b8953a;text-decoration:none;font-family:-apple-system,sans-serif;font-size:30px;line-height:1;display:inline-flex;align-items:center;justify-content:center;width:36px;height:32px;}</style>
+<div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
+
+
+<div class="page-title">Grocery List</div>
+<div class="page-sub">Game 7 · Sliders Only</div>
+
+<!-- MEAT -->
+<div class="section">
+  <div class="section-header">Meat & Seafood</div>
+  <div class="item-list">
+    <div class="item">
+      <input type="checkbox" id="i1">
+      <label for="i1">2 lbs 80/20 ground chuck</label>
+    </div>
+  </div>
+</div>
+
+<!-- BAKERY -->
+<div class="section">
+  <div class="section-header">Bakery</div>
+  <div class="item-list">
+    <div class="item">
+      <input type="checkbox" id="i2">
+      <label for="i2">Kings Hawaiian slider rolls<span class="item-note">2 packs</span></label>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCE -->
+<div class="section">
+  <div class="section-header">Produce</div>
+  <div class="item-list">
+    <div class="item">
+      <input type="checkbox" id="i3">
+      <label for="i3">White onions<span class="item-note">5 total — 2 smash, 2 caramelize, 1 raw topping</span></label>
+    </div>
+  </div>
+</div>
+
+<!-- DAIRY -->
+<div class="section">
+  <div class="section-header">Dairy</div>
+  <div class="item-list">
+    <div class="item">
+      <input type="checkbox" id="i4">
+      <label for="i4">Pepper Jack<span class="item-note">Sliced or block</span></label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="i5">
+      <label for="i5">Gruyère<span class="item-note">Sliced or block</span></label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="i6">
+      <label for="i6">Sharp Cheddar<span class="item-note">Sliced or block</span></label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="i7">
+      <label for="i7">Butter</label>
+    </div>
+  </div>
+</div>
+
+<!-- CONDIMENTS -->
+<div class="section">
+  <div class="section-header">Condiments & Pickles</div>
+  <div class="item-list">
+    <div class="item">
+      <input type="checkbox" id="i8">
+      <label for="i8">Mayo<span class="item-note">Duke's preferred</span></label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="i9">
+      <label for="i9">Yellow mustard</label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="i10">
+      <label for="i10">Dijon mustard</label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="i11">
+      <label for="i11">Horseradish<span class="item-note">Jar, in condiments aisle</span></label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="i12">
+      <label for="i12">Sriracha</label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="i13">
+      <label for="i13">Dill pickle chips<span class="item-note">1 jar</span></label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="i14">
+      <label for="i14">Pickled jalapeños<span class="item-note">1 jar</span></label>
+    </div>
+  </div>
+</div>
+
+<!-- PANTRY -->
+<div class="section">
+  <div class="section-header">Pantry & Other</div>
+  <div class="item-list">
+    <div class="item">
+      <input type="checkbox" id="i15">
+      <label for="i15">Parchment paper</label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="i16">
+      <label for="i16">Salt & pepper<span class="item-note">If you need it</span></label>
+    </div>
+  </div>
+</div>
+
+<script>
+  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+  // Restore saved state on load
+  checkboxes.forEach(cb => {
+    if (localStorage.getItem(cb.id) === 'checked') {
+      cb.checked = true;
+    }
+  });
+
+  // Save state on change
+  checkboxes.forEach(cb => {
+    cb.addEventListener('change', () => {
+      localStorage.setItem(cb.id, cb.checked ? 'checked' : '');
+    });
+  });
+</script>
+
+</body>
+</html>

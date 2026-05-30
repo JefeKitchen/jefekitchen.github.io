@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Pineapple Teriyaki Spread</title>
+<title>Honey Mustard Night — Cook Together</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -14,6 +14,8 @@
     --gold: #d4a940;
     --cream: #f0ead8;
     --muted: #7a7268;
+    --jeff: #2a4a7a;
+    --jaya: #6a2a4a;
     --theo: #8a5c14;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -29,6 +31,7 @@
     overflow-x: hidden;
   }
 
+  /* HERO */
   .hero {
     background: var(--char);
     padding: 28px 20px 20px;
@@ -36,7 +39,7 @@
   }
   .hero-title {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 42px;
+    font-size: 48px;
     line-height: 0.88;
     letter-spacing: 2px;
   }
@@ -49,6 +52,31 @@
     margin-top: 8px;
   }
 
+  /* LEGEND */
+  .legend {
+    display: flex;
+    gap: 12px;
+    padding: 14px 20px;
+    background: var(--smoke);
+    border-bottom: 1px solid var(--char);
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* SEC */
   .sec {
     padding: 20px 20px 12px;
     font-family: 'Bebas Neue', sans-serif;
@@ -61,6 +89,7 @@
   }
   .sec::after { content: ''; flex: 1; height: 1px; background: var(--smoke); }
 
+  /* COOK BLOCKS */
   .cook-block {
     margin: 0 20px 14px;
     border-radius: 8px;
@@ -72,17 +101,44 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    background: #1e1a10;
   }
-  .cook-head .color-bar { width: 4px; height: 28px; border-radius: 2px; flex-shrink: 0; background: var(--ember); }
-  .cook-head .badge { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); display: block; }
-  .cook-head h3 { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1.5px; color: var(--cream); line-height: 1.1; }
-  .cook-head .cook-emoji { margin-left: auto; font-size: 20px; flex-shrink: 0; }
+  .cook-head .color-bar {
+    width: 4px;
+    height: 28px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .cook-head .badge {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+  }
+  .cook-head h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    color: var(--cream);
+    line-height: 1.1;
+  }
+  .cook-head .cook-emoji {
+    margin-left: auto;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
 
+  .jeff .cook-head { background: #1a2a3a; }
+  .jaya .cook-head { background: #2a1a22; }
   .theo .cook-head { background: #2a1e0a; }
-  .theo .cook-head .color-bar { background: #c8850a; }
 
-  .cook-steps { background: var(--char); padding: 10px 14px; list-style: none; counter-reset: s; }
+  /* STEPS */
+  .cook-steps {
+    background: var(--char);
+    padding: 10px 14px;
+    list-style: none;
+    counter-reset: s;
+  }
   .cook-steps li {
     counter-increment: s;
     display: flex;
@@ -106,25 +162,10 @@
     flex-shrink: 0;
   }
   .cook-steps li .st { flex: 1; min-width: 0; }
+
   .ing { color: var(--gold); font-weight: 700; }
 
-  .note-card {
-    margin: 0 20px 10px;
-    background: var(--char);
-    border: 1px solid var(--smoke);
-    border-left: 3px solid var(--gold);
-    border-radius: 6px;
-    padding: 12px 14px;
-  }
-  .note-card h4 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 13px;
-    letter-spacing: 2px;
-    color: var(--gold);
-    margin-bottom: 5px;
-  }
-  .note-card p { font-size: 12.5px; color: #c0b9ae; line-height: 1.6; }
-
+  /* TIMING */
   .timing {
     margin: 10px 20px 0;
     background: var(--ember);
@@ -135,7 +176,12 @@
     align-items: flex-start;
   }
   .timing .t-icon { font-size: 24px; flex-shrink: 0; }
-  .timing h4 { font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: 1.5px; margin-bottom: 4px; }
+  .timing h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+    letter-spacing: 1.5px;
+    margin-bottom: 4px;
+  }
   .timing p { font-size: 12.5px; line-height: 1.6; }
 
   /* CLASSIC INSTRUCTION RESTYLE */
@@ -419,175 +465,197 @@
   }
 
 </style>
-<link rel="stylesheet" href="./theme.css?v=2">
+<link rel="stylesheet" href="../theme.css?v=2">
 </head>
 <body>
 <style>.back-bar{position:sticky;top:0;z-index:1000;background:#171717;border-bottom:1px solid #2c2c2c;padding:4px 10px;}.back-bar a{color:#b8953a;text-decoration:none;font-family:-apple-system,sans-serif;font-size:30px;line-height:1;display:inline-flex;align-items:center;justify-content:center;width:36px;height:32px;}</style>
-<div class="back-bar"><a href="../index.html" aria-label="Back to kitchen">&#8249;</a></div>
+<div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
 
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-title">PINEAPPLE<br><span>TERIYAKI</span><br>SPREAD</div>
-  <div class="hero-sub">Serves 3 · Cucumber Bites · Chicken · Coconut Rice</div>
+  <div class="hero-title">HONEY<br><span>MUSTARD</span><br>NIGHT</div>
+  <div class="hero-sub">Chicken · Potatoes · Salad</div>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="legend-item">
+    <div class="legend-dot" style="background:#4a7abf;"></div>
+    Jeff
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:#bf4a7a;"></div>
+    Jaya
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:#c8850a;"></div>
+    Theo
+  </div>
 </div>
 
 <!-- PREP -->
-<div class="sec">Prep First</div>
+<div class="sec">Prep</div>
 
-<div class="cook-block">
+<!-- JEFF: Preheat -->
+<div class="cook-block jeff">
   <div class="cook-head">
-    <div class="color-bar"></div>
+    <div class="color-bar" style="background:#4a7abf;"></div>
     <div>
-      <span class="badge">Do First · All Dishes</span>
-      <h3>Break Down the Pineapple</h3>
+      <span class="badge">Jeff · First Thing</span>
+      <h3>Preheat the Oven</h3>
     </div>
-    <div class="cook-emoji">🍍</div>
+    <div class="cook-emoji">🌡️</div>
   </div>
   <ol class="cook-steps">
-    <li><span class="st">Cut the top and bottom off the pineapple. Stand it upright and slice off the skin in strips from top to bottom. Remove any remaining eyes.</span></li>
-    <li><span class="st">Cut into quarters lengthwise and remove the core from each quarter.</span></li>
-    <li><span class="st">From one quarter, cut small bite-sized chunks for the <span class="ing">cucumber bites</span>. Set aside.</span></li>
-    <li><span class="st">From another quarter, cut slightly larger chunks for the <span class="ing">finished teriyaki dish</span>. Set aside.</span></li>
-    <li><span class="st">Squeeze or press the remaining pineapple over a bowl to collect <span class="ing">pineapple juice</span> for the sauce — you need about <span class="ing">3 tbsp</span>.</span></li>
+    <li><span class="st">Turn oven to <span class="ing">400°F</span>. Do this before anything else so it's fully up to temp by the time the potatoes are ready.</span></li>
   </ol>
 </div>
 
-<div class="cook-block">
+<!-- JAYA: Honey Mustard Glaze -->
+<div class="cook-block jaya">
   <div class="cook-head">
-    <div class="color-bar"></div>
+    <div class="color-bar" style="background:#bf4a7a;"></div>
     <div>
-      <span class="badge">Make Ahead · Starter</span>
-      <h3>Cucumber Bites</h3>
+      <span class="badge">Jaya · While Jeff Preps Potatoes</span>
+      <h3>Make the Glaze</h3>
     </div>
-    <div class="cook-emoji">🥒</div>
+    <div class="cook-emoji">🍯</div>
   </div>
   <ol class="cook-steps">
-    <li><span class="st">Slice the <span class="ing">cucumber</span> into rounds about <span class="ing">¼ inch thick</span>.</span></li>
-    <li><span class="st">Top each round with a small piece of <span class="ing">fresh pineapple</span>.</span></li>
-    <li><span class="st">Drizzle lightly with <span class="ing">honey</span> and add a small pinch of <span class="ing">salt</span> over the whole tray.</span></li>
-    <li><span class="st">Add a small <span class="ing">mint leaf</span> on top of each if using. Cover and refrigerate until ready to serve. These can be made an hour ahead.</span></li>
+    <li><span class="st">In a small bowl whisk together <span class="ing">3 tbsp Dijon</span>, <span class="ing">3 tbsp yellow mustard</span>, <span class="ing">4 tbsp honey</span>, and <span class="ing">2 tbsp melted butter</span>. Season with salt and pepper.</span></li>
+    <li><span class="st">Taste it. Should be sweet, tangy, and a little sharp. Adjust honey or mustard to your liking.</span></li>
+    <li><span class="st">Split into <span class="ing">two separate bowls</span> — one for cooking, one for the table as a dipping sauce. Once a bowl touches raw chicken it never goes on the table. Keep them separate from here.</span></li>
   </ol>
 </div>
 
-<!-- THEO -->
+<!-- THEO: Honey taste test -->
 <div class="cook-block theo">
   <div class="cook-head">
-    <div class="color-bar"></div>
+    <div class="color-bar" style="background:#c8850a;"></div>
     <div>
-      <span class="badge">Theo · Tropical Interest</span>
-      <h3>Pineapple Assessment</h3>
+      <span class="badge">Theo · Quality Control</span>
+      <h3>Honey Taste Test</h3>
     </div>
     <div class="cook-emoji">🐾</div>
   </div>
   <ol class="cook-steps">
-    <li><span class="st">Theo has never seen a pineapple this close before and is deeply suspicious of it. He may have a very small piece of plain pineapple — it's safe for dogs in small amounts. This will not satisfy him. Nothing satisfies him. Proceed.</span></li>
+    <li><span class="st">Let Theo lick a tiny bit of <span class="ing">honey</span> off your finger. He has been present in the kitchen for 30 seconds and already considers himself the head chef. Besides, you were going to do it anyway.</span></li>
   </ol>
 </div>
 
-<!-- RICE -->
-<div class="sec">Coconut Rice</div>
-
-<div class="cook-block">
+<!-- JEFF: Prep Potatoes -->
+<div class="cook-block jeff">
   <div class="cook-head">
-    <div class="color-bar"></div>
+    <div class="color-bar" style="background:#4a7abf;"></div>
     <div>
-      <span class="badge">Start Before Chicken</span>
-      <h3>Coconut Rice</h3>
+      <span class="badge">Jeff · Potatoes First</span>
+      <h3>Prep the Potatoes</h3>
     </div>
-    <div class="cook-emoji">🍚</div>
+    <div class="cook-emoji">🥔</div>
   </div>
   <ol class="cook-steps">
-    <li><span class="st">Rinse <span class="ing">1.5 cups jasmine rice</span> under cold water until the water runs mostly clear.</span></li>
-    <li><span class="st">Combine in a pot with <span class="ing">1 can coconut milk</span> plus enough water to bring the total liquid to <span class="ing">2.25 cups</span>. Add <span class="ing">½ tsp salt</span> and <span class="ing">1 tsp sugar</span>.</span></li>
-    <li><span class="st">Bring to a boil over medium-high, then reduce to <span class="ing">low</span>, cover, and cook <span class="ing">18 minutes</span>. Do not lift the lid.</span></li>
-    <li><span class="st">Remove from heat and rest covered <span class="ing">5 minutes</span>. Fluff with a fork. It will hold just fine while you finish the chicken.</span></li>
+    <li><span class="st">Wash the potatoes. Cut into roughly <span class="ing">1-inch chunks</span> — no need to peel them.</span></li>
+    <li><span class="st">In a large bowl toss with <span class="ing">2 tbsp Dijon</span>, <span class="ing">2 tbsp olive oil</span>, a generous pinch of <span class="ing">salt</span>, and <span class="ing">black pepper</span>.</span></li>
+    <li><span class="st">Spread in a single layer on a sheet pan. Don't crowd them or they'll steam instead of crisp.</span></li>
   </ol>
 </div>
 
-<!-- CHICKEN -->
-<div class="sec">Teriyaki Chicken</div>
-
-<div class="cook-block">
+<!-- JAYA: Vinaigrette -->
+<div class="cook-block jaya">
   <div class="cook-head">
-    <div class="color-bar"></div>
+    <div class="color-bar" style="background:#bf4a7a;"></div>
     <div>
-      <span class="badge">Mix the Sauce</span>
-      <h3>Teriyaki Sauce</h3>
+      <span class="badge">Jaya · While Jeff Preps Chicken</span>
+      <h3>Make the Vinaigrette</h3>
     </div>
-    <div class="cook-emoji">🥢</div>
+    <div class="cook-emoji">🥗</div>
   </div>
   <ol class="cook-steps">
-    <li><span class="st">In a small bowl whisk together <span class="ing">¼ cup soy sauce</span>, <span class="ing">3 tbsp honey</span>, <span class="ing">3 tbsp pineapple juice</span>, <span class="ing">juice of 1 orange</span>, <span class="ing">3 garlic cloves minced</span>, and <span class="ing">1 tsp fresh grated ginger</span>.</span></li>
-    <li><span class="st">In a separate small bowl mix <span class="ing">1 tbsp cornstarch</span> with <span class="ing">2 tbsp cold water</span> until smooth. Set aside — this thickens the sauce at the end.</span></li>
+    <li><span class="st">In a small jar or bowl combine <span class="ing">1 tsp Dijon</span>, <span class="ing">3 tbsp olive oil</span>, <span class="ing">1 tbsp apple cider vinegar</span>, salt and pepper.</span></li>
+    <li><span class="st">Whisk or shake until emulsified. Taste and adjust — more vinegar for tang, more oil to mellow it out.</span></li>
+    <li><span class="st">Set aside. Don't dress the greens until right before serving or they'll wilt.</span></li>
   </ol>
 </div>
 
-<div class="cook-block">
+<!-- JEFF: Prep Chicken -->
+<div class="cook-block jeff">
   <div class="cook-head">
-    <div class="color-bar"></div>
+    <div class="color-bar" style="background:#4a7abf;"></div>
     <div>
-      <span class="badge">One Skillet</span>
-      <h3>Sear & Sauce the Chicken</h3>
+      <span class="badge">Jeff · Chicken</span>
+      <h3>Prep the Chicken</h3>
     </div>
-    <div class="cook-emoji">🍳</div>
+    <div class="cook-emoji">🍗</div>
   </div>
   <ol class="cook-steps">
-    <li><span class="st">Pat chicken thighs dry. Season both sides with <span class="ing">salt and pepper</span>.</span></li>
-    <li><span class="st">Heat <span class="ing">1 tbsp oil</span> in a large skillet over <span class="ing">medium-high</span>. Sear chicken smooth-side down <span class="ing">5–6 minutes</span> without moving until golden. Flip and cook <span class="ing">4 minutes</span> more. Remove to a plate — not fully cooked yet, that's fine.</span></li>
-    <li><span class="st">Drop heat to <span class="ing">medium</span>. Pour the <span class="ing">teriyaki sauce</span> into the same pan and bring to a simmer, scraping up any browned bits.</span></li>
-    <li><span class="st">Stir in the <span class="ing">cornstarch slurry</span>. The sauce will thicken within a minute — stir constantly. If it gets too thick add a small splash of water.</span></li>
-    <li><span class="st">Return the chicken to the pan. Add the <span class="ing">pineapple chunks</span>. Spoon sauce over everything. Simmer on low <span class="ing">5–6 minutes</span> until chicken is cooked through and sauce is glossy.</span></li>
-    <li><span class="st">Garnish with <span class="ing">sesame seeds</span> and <span class="ing">sliced green onion</span> if using.</span></li>
+    <li><span class="st">Pat chicken thighs dry with paper towels — key for getting a good crust without skin.</span></li>
+    <li><span class="st">Season both sides generously with <span class="ing">salt and pepper</span>.</span></li>
+    <li><span class="st">Brush a <span class="ing">light layer of glaze</span> from the cooking bowl over the top of each thigh. Just a thin coat — the heavy glaze goes on halfway through. This gets flavor in early without burning.</span></li>
+    <li><span class="st">Place on a baking dish or sheet pan.</span></li>
   </ol>
 </div>
 
-<!-- THEO FINAL -->
+<!-- COOK -->
+<div class="sec">Cook</div>
+
+<!-- JEFF: Roast -->
+<div class="cook-block jeff">
+  <div class="cook-head">
+    <div class="color-bar" style="background:#4a7abf;"></div>
+    <div>
+      <span class="badge">Jeff · Oven · 400°F</span>
+      <h3>Roast Everything</h3>
+    </div>
+    <div class="cook-emoji">🔥</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Put the <span class="ing">potatoes</span> in the oven first. Set a timer for <span class="ing">10 minutes</span>.</span></li>
+    <li><span class="st">After 10 minutes, add the <span class="ing">chicken</span> to the oven on a separate rack.</span></li>
+    <li><span class="st">At the halfway point for the chicken (<span class="ing">~15 min in</span>), flip the potatoes and brush a <span class="ing">generous layer of glaze</span> from the cooking bowl over the chicken. This is when the caramelization happens — don't skip it.</span></li>
+    <li><span class="st">Chicken is done when internal temp hits <span class="ing">165°F</span> — boneless skinless thighs will be ready in roughly <span class="ing">20–25 min</span>. Check early and don't let them go over or they'll dry out.</span></li>
+    <li><span class="st">Potatoes are done when golden and crispy on the edges — roughly <span class="ing">40–45 min</span> total. Soft inside, crispy outside.</span></li>
+  </ol>
+</div>
+
+<!-- THEO: Cooked chicken reward -->
 <div class="cook-block theo">
   <div class="cook-head">
-    <div class="color-bar"></div>
+    <div class="color-bar" style="background:#c8850a;"></div>
     <div>
-      <span class="badge">Theo · Final Word</span>
-      <h3>Post-Cook Review</h3>
+      <span class="badge">Theo · Well Earned</span>
+      <h3>Final Taste Test</h3>
     </div>
     <div class="cook-emoji">🐾</div>
   </div>
   <ol class="cook-steps">
-    <li><span class="st">Theo can have a small piece of plain <span class="ing">cooked chicken</span> — no sauce, the soy and garlic make it off limits for him. He will look at the pineapple chunks and then back at you. Give him the chicken. Not the pineapple chunks. The chicken.</span></li>
+    <li><span class="st">While the chicken rests, pull off a small piece of <span class="ing">plain cooked chicken</span> — no glaze, no seasoning — and give it to Theo. He has supervised this entire cook and his feedback has been invaluable.</span></li>
+    <li><span class="st">Also give him a small plain <span class="ing">cooked potato chunk</span>. He has been staring at them for 40 minutes. It's the right thing to do.</span></li>
   </ol>
 </div>
 
-<!-- SERVE -->
-<div class="sec">Serve</div>
-
-<div class="cook-block">
+<!-- JAYA: Finish Salad -->
+<div class="cook-block jaya">
   <div class="cook-head">
-    <div class="color-bar"></div>
+    <div class="color-bar" style="background:#bf4a7a;"></div>
     <div>
-      <span class="badge">Plating</span>
-      <h3>Putting It Together</h3>
+      <span class="badge">Jaya · While Chicken Rests</span>
+      <h3>Finish the Salad</h3>
     </div>
-    <div class="cook-emoji">🍽️</div>
+    <div class="cook-emoji">🥗</div>
   </div>
   <ol class="cook-steps">
-    <li><span class="st">Put the <span class="ing">cucumber bites</span> out first while you plate the main — they're the starter and keep people busy.</span></li>
-    <li><span class="st">Spoon <span class="ing">coconut rice</span> into bowls or onto plates. Lay the <span class="ing">chicken</span> on top and spoon the <span class="ing">teriyaki sauce and pineapple chunks</span> generously over everything.</span></li>
-    <li><span class="st">Finish with <span class="ing">sesame seeds</span> and <span class="ing">green onion</span> if using. Serve immediately.</span></li>
+    <li><span class="st">Once the chicken comes out of the oven, dress the <span class="ing">greens</span> with the vinaigrette. Toss well and season with salt and pepper.</span></li>
+    <li><span class="st">Serve immediately alongside the chicken and potatoes.</span></li>
   </ol>
-</div>
-
-<!-- NOTE -->
-<div class="note-card" style="margin-top:20px;">
-  <h4>On the Sauce</h4>
-  <p>The cornstarch slurry thickens fast — have everything ready before you add it and keep stirring. If the sauce gets too thick before the chicken goes back in, add a small splash of water and stir.</p>
 </div>
 
 <!-- TIMING -->
-<div class="timing" style="margin-top:14px;">
+<div class="timing" style="margin-top:20px;">
   <div class="t-icon">⏱️</div>
   <div>
-    <h4>Total Time · ~45 Minutes</h4>
-    <p>Make cucumber bites first — they sit in the fridge. Start rice before the chicken. Rice takes 23 minutes total, chicken about 20. Everything lands at the same time.</p>
+    <h4>Total Time</h4>
+    <p>About 45 minutes start to finish at 400°F. Potatoes go in first, chicken 10 minutes later. Boneless skinless thighs cook fast — check temp at 20 minutes. Heavy glaze goes on the chicken at the halfway mark. Two glaze bowls — cooking and table. Never mix them.</p>
   </div>
 </div>
 

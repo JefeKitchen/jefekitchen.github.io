@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Grocery List</title>
+<title>Grocery List — Honey Mustard Night</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -35,7 +35,7 @@
   }
 
   .section {
-    margin-bottom: 24px;
+    margin-bottom: 16px;
     background: #fff;
     border-radius: 6px;
     overflow: hidden;
@@ -43,17 +43,42 @@
   }
 
   .section-header {
-    background: #111;
     padding: 9px 16px;
     font-family: 'Bebas Neue', sans-serif;
     font-size: 14px;
     letter-spacing: 3px;
+  }
+
+  .section-header.need {
+    background: #111;
     color: #fff;
   }
 
-  .item-list {
-    padding: 6px 0;
+  .section-header.have {
+    background: #888;
+    color: #fff;
   }
+
+  .divider-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: #888;
+    text-align: center;
+    margin: 28px 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .divider-label::before,
+  .divider-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #ccc;
+  }
+
+  .item-list { padding: 6px 0; }
 
   .item {
     display: flex;
@@ -71,6 +96,10 @@
     flex-shrink: 0;
     accent-color: #111;
     cursor: pointer;
+  }
+
+  .item.have-item input[type="checkbox"] {
+    accent-color: #888;
   }
 
   .item label {
@@ -95,136 +124,99 @@
   }
 
 </style>
-<link rel="stylesheet" href="./theme.css?v=2">
+<link rel="stylesheet" href="../theme.css?v=2">
 </head>
 <body>
 <style>.back-bar{position:sticky;top:0;z-index:1000;background:#171717;border-bottom:1px solid #2c2c2c;padding:4px 10px;}.back-bar a{color:#b8953a;text-decoration:none;font-family:-apple-system,sans-serif;font-size:30px;line-height:1;display:inline-flex;align-items:center;justify-content:center;width:36px;height:32px;}</style>
-<div class="back-bar"><a href="../index.html" aria-label="Back to kitchen">&#8249;</a></div>
+<div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
 
 
 <div class="page-title">Grocery List</div>
-<div class="page-sub">Game 7 · Sliders Only</div>
+<div class="page-sub">Honey Mustard Night</div>
 
-<!-- MEAT -->
+<!-- NEED TO BUY -->
 <div class="section">
-  <div class="section-header">Meat & Seafood</div>
+  <div class="section-header need">Meat</div>
   <div class="item-list">
     <div class="item">
       <input type="checkbox" id="i1">
-      <label for="i1">2 lbs 80/20 ground chuck</label>
+      <label for="i1">Chicken thighs<span class="item-note">Bone-in, skin-on preferred. Get enough for 2.</span></label>
     </div>
   </div>
 </div>
 
-<!-- BAKERY -->
 <div class="section">
-  <div class="section-header">Bakery</div>
+  <div class="section-header need">Produce</div>
   <div class="item-list">
     <div class="item">
       <input type="checkbox" id="i2">
-      <label for="i2">Kings Hawaiian slider rolls<span class="item-note">2 packs</span></label>
+      <label for="i2">Potatoes<span class="item-note">Yukon Gold or red potatoes work best</span></label>
     </div>
-  </div>
-</div>
-
-<!-- PRODUCE -->
-<div class="section">
-  <div class="section-header">Produce</div>
-  <div class="item-list">
     <div class="item">
       <input type="checkbox" id="i3">
-      <label for="i3">White onions<span class="item-note">5 total — 2 smash, 2 caramelize, 1 raw topping</span></label>
+      <label for="i3">Salad greens<span class="item-note">Whatever looks good — arugula, mixed greens, romaine</span></label>
     </div>
   </div>
 </div>
 
-<!-- DAIRY -->
 <div class="section">
-  <div class="section-header">Dairy</div>
+  <div class="section-header need">Pantry</div>
   <div class="item-list">
     <div class="item">
       <input type="checkbox" id="i4">
-      <label for="i4">Pepper Jack<span class="item-note">Sliced or block</span></label>
+      <label for="i4">Honey</label>
     </div>
     <div class="item">
       <input type="checkbox" id="i5">
-      <label for="i5">Gruyère<span class="item-note">Sliced or block</span></label>
-    </div>
-    <div class="item">
-      <input type="checkbox" id="i6">
-      <label for="i6">Sharp Cheddar<span class="item-note">Sliced or block</span></label>
-    </div>
-    <div class="item">
-      <input type="checkbox" id="i7">
-      <label for="i7">Butter</label>
+      <label for="i5">Olive oil<span class="item-note">If you don't already have it</span></label>
     </div>
   </div>
 </div>
 
-<!-- CONDIMENTS -->
+<!-- DIVIDER -->
+<div class="divider-label">Already Have — Check & Confirm</div>
+
+<!-- ALREADY HAVE -->
 <div class="section">
-  <div class="section-header">Condiments & Pickles</div>
+  <div class="section-header have">Condiments</div>
   <div class="item-list">
-    <div class="item">
-      <input type="checkbox" id="i8">
-      <label for="i8">Mayo<span class="item-note">Duke's preferred</span></label>
+    <div class="item have-item">
+      <input type="checkbox" id="h1">
+      <label for="h1">Dijon mustard</label>
     </div>
-    <div class="item">
-      <input type="checkbox" id="i9">
-      <label for="i9">Yellow mustard</label>
+    <div class="item have-item">
+      <input type="checkbox" id="h2">
+      <label for="h2">Yellow mustard</label>
     </div>
-    <div class="item">
-      <input type="checkbox" id="i10">
-      <label for="i10">Dijon mustard</label>
-    </div>
-    <div class="item">
-      <input type="checkbox" id="i11">
-      <label for="i11">Horseradish<span class="item-note">Jar, in condiments aisle</span></label>
-    </div>
-    <div class="item">
-      <input type="checkbox" id="i12">
-      <label for="i12">Sriracha</label>
-    </div>
-    <div class="item">
-      <input type="checkbox" id="i13">
-      <label for="i13">Dill pickle chips<span class="item-note">1 jar</span></label>
-    </div>
-    <div class="item">
-      <input type="checkbox" id="i14">
-      <label for="i14">Pickled jalapeños<span class="item-note">1 jar</span></label>
+    <div class="item have-item">
+      <input type="checkbox" id="h3">
+      <label for="h3">Apple cider vinegar</label>
     </div>
   </div>
 </div>
 
-<!-- PANTRY -->
 <div class="section">
-  <div class="section-header">Pantry & Other</div>
+  <div class="section-header have">Dairy & Other</div>
   <div class="item-list">
-    <div class="item">
-      <input type="checkbox" id="i15">
-      <label for="i15">Parchment paper</label>
+    <div class="item have-item">
+      <input type="checkbox" id="h4">
+      <label for="h4">Butter</label>
     </div>
-    <div class="item">
-      <input type="checkbox" id="i16">
-      <label for="i16">Salt & pepper<span class="item-note">If you need it</span></label>
+    <div class="item have-item">
+      <input type="checkbox" id="h5">
+      <label for="h5">Salt & pepper</label>
     </div>
   </div>
 </div>
 
 <script>
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-
-  // Restore saved state on load
   checkboxes.forEach(cb => {
-    if (localStorage.getItem(cb.id) === 'checked') {
+    if (localStorage.getItem('hm-' + cb.id) === 'checked') {
       cb.checked = true;
     }
-  });
-
-  // Save state on change
-  checkboxes.forEach(cb => {
     cb.addEventListener('change', () => {
-      localStorage.setItem(cb.id, cb.checked ? 'checked' : '');
+      localStorage.setItem('hm-' + cb.id, cb.checked ? 'checked' : '');
     });
   });
 </script>

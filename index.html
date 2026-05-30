@@ -120,6 +120,12 @@
   }
   .card-header::-webkit-details-marker { display: none; }
   .card[open] .card-header { border-bottom: 1px solid var(--border); }
+  .recipe-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 12px 11px 14px;
+  }
   .card-copy {
     flex: 1;
     min-width: 0;
@@ -146,6 +152,30 @@
     transition: transform 150ms ease;
   }
   .card[open] .dropdown-icon { transform: rotate(90deg); }
+  .card-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .icon-link {
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--raised);
+    color: var(--gold);
+    font-size: 16px;
+    line-height: 1;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .icon-link:active {
+    filter: brightness(1.15);
+  }
   .misc {
     margin: 28px 20px 0;
   }
@@ -218,7 +248,7 @@
 </div>
 
 <div class="section poll-section">
-  <a class="direct-card" href="./docs/dinner-poll.html">
+  <a class="direct-card" href="./docs/poll/dinner-poll.html">
     <div class="card-copy">
       <div class="card-title">Pick Din</div>
     </div>
@@ -229,154 +259,94 @@
 
 <!-- SLIDER NIGHT -->
 <div class="section">
-  <details class="card" data-section="smash-sliders">
-    <summary class="card-header">
-      <div class="card-copy">
-        <div class="card-title">Smash Sliders</div>
-      </div>
-      <span class="dropdown-icon">›</span>
-    </summary>
-    <div class="link-list">
-      <a class="link-item" href="./docs/slider-menu.html">
-        <span class="link-text">Game 7 Menu</span>
-        <span class="link-arrow">›</span>
-      </a>
-      <a class="link-item" href="./docs/grocery-list.html">
-        <span class="link-text">Grocery List</span>
-        <span class="link-arrow">›</span>
-      </a>
-      <a class="link-item" href="./docs/slider-prep-order.html">
-        <span class="link-text">Cooking Instructions</span>
-        <span class="link-arrow">›</span>
-      </a>
+  <div class="card recipe-card">
+    <div class="card-copy">
+      <div class="card-title">Smash Sliders</div>
     </div>
-  </details>
+    <div class="card-actions" aria-label="Smash Sliders links">
+      <a class="icon-link" href="./docs/smash-sliders/slider-menu.html" aria-label="Smash Sliders menu" title="Menu">☰</a>
+      <a class="icon-link" href="./docs/smash-sliders/grocery-list.html" aria-label="Smash Sliders grocery list" title="Grocery List">🛒</a>
+      <a class="icon-link" href="./docs/smash-sliders/slider-prep-order.html" aria-label="Smash Sliders cooking instructions" title="Cooking Instructions">📋</a>
+    </div>
+  </div>
 </div>
 
 <!-- MEATLOAF -->
 <div class="section">
-  <details class="card" data-section="meatloaf">
-    <summary class="card-header">
-      <div class="card-copy">
-        <div class="card-title">Meatloaf</div>
-        <span class="card-subtitle">Horseradish · Potatoes</span>
-      </div>
-      <span class="dropdown-icon">›</span>
-    </summary>
-    <div class="link-list">
-      <a class="link-item" href="./docs/grocery-list-meatloaf.html">
-        <span class="link-text">Grocery List</span>
-        <span class="link-arrow">›</span>
-      </a>
-      <a class="link-item" href="./docs/meatloaf-instructions.html">
-        <span class="link-text">Cooking Instructions</span>
-        <span class="link-arrow">›</span>
-      </a>
+  <div class="card recipe-card">
+    <div class="card-copy">
+      <div class="card-title">Meatloaf</div>
+      <span class="card-subtitle">Horseradish · Potatoes</span>
     </div>
-  </details>
+    <div class="card-actions" aria-label="Meatloaf links">
+      <a class="icon-link" href="./docs/meatloaf/grocery-list-meatloaf.html" aria-label="Meatloaf grocery list" title="Grocery List">🛒</a>
+      <a class="icon-link" href="./docs/meatloaf/meatloaf-instructions.html" aria-label="Meatloaf cooking instructions" title="Cooking Instructions">📋</a>
+    </div>
+  </div>
 </div>
 
 <div class="group-label">Chicken</div>
 
 <!-- HONEY MUSTARD CHICKEN -->
 <div class="section">
-  <details class="card" data-section="honey-mustard">
-    <summary class="card-header">
-      <div class="card-copy">
-        <div class="card-title">Honey Mustard Chicken</div>
-        <span class="card-subtitle">Potatoes</span>
-      </div>
-      <span class="dropdown-icon">›</span>
-    </summary>
-    <div class="link-list">
-      <a class="link-item" href="./docs/grocery-list-honey-mustard.html">
-        <span class="link-text">Grocery List</span>
-        <span class="link-arrow">›</span>
-      </a>
-      <a class="link-item" href="./docs/honey-mustard-instructions.html">
-        <span class="link-text">Cooking Instructions</span>
-        <span class="link-arrow">›</span>
-      </a>
+  <div class="card recipe-card">
+    <div class="card-copy">
+      <div class="card-title">Honey Mustard Chicken</div>
+      <span class="card-subtitle">Potatoes</span>
     </div>
-  </details>
+    <div class="card-actions" aria-label="Honey Mustard Chicken links">
+      <a class="icon-link" href="./docs/honey-mustard/grocery-list-honey-mustard.html" aria-label="Honey Mustard Chicken grocery list" title="Grocery List">🛒</a>
+      <a class="icon-link" href="./docs/honey-mustard/honey-mustard-instructions.html" aria-label="Honey Mustard Chicken cooking instructions" title="Cooking Instructions">📋</a>
+    </div>
+  </div>
 </div>
 
 <!-- HONEY GARLIC CHICKEN -->
 <div class="section">
-  <details class="card" data-section="honey-garlic">
-    <summary class="card-header">
-      <div class="card-copy">
-        <div class="card-title">Honey Garlic Chicken</div>
-        <span class="card-subtitle">Green Beans · Rice · Cucumber</span>
-      </div>
-      <span class="dropdown-icon">›</span>
-    </summary>
-    <div class="link-list">
-      <a class="link-item" href="./docs/grocery-list-honey-garlic.html">
-        <span class="link-text">Grocery List</span>
-        <span class="link-arrow">›</span>
-      </a>
-      <a class="link-item" href="./docs/honey-garlic-chicken-instructions.html">
-        <span class="link-text">Cooking Instructions</span>
-        <span class="link-arrow">›</span>
-      </a>
+  <div class="card recipe-card">
+    <div class="card-copy">
+      <div class="card-title">Honey Garlic Chicken</div>
+      <span class="card-subtitle">Green Beans · Rice · Cucumber</span>
     </div>
-  </details>
+    <div class="card-actions" aria-label="Honey Garlic Chicken links">
+      <a class="icon-link" href="./docs/honey-garlic/grocery-list-honey-garlic.html" aria-label="Honey Garlic Chicken grocery list" title="Grocery List">🛒</a>
+      <a class="icon-link" href="./docs/honey-garlic/honey-garlic-chicken-instructions.html" aria-label="Honey Garlic Chicken cooking instructions" title="Cooking Instructions">📋</a>
+    </div>
+  </div>
 </div>
 
 <!-- TERIYAKI SPREAD -->
 <div class="section">
-  <details class="card" data-section="teriyaki">
-    <summary class="card-header">
-      <div class="card-copy">
-        <div class="card-title">Pineapple Orange Teriyaki</div>
-        <span class="card-subtitle">Cucumber · Coconut · Rice</span>
-      </div>
-      <span class="dropdown-icon">›</span>
-    </summary>
-    <div class="link-list">
-      <a class="link-item" href="./docs/teriyaki-menu.html">
-        <span class="link-text">Dinner Menu</span>
-        <span class="link-arrow">›</span>
-      </a>
-      <a class="link-item" href="./docs/grocery-list-combined-2.html">
-        <span class="link-text">Grocery List</span>
-        <span class="link-arrow">›</span>
-      </a>
-      <a class="link-item" href="./docs/teriyaki-spread-instructions.html">
-        <span class="link-text">Cooking Instructions</span>
-        <span class="link-arrow">›</span>
-      </a>
+  <div class="card recipe-card">
+    <div class="card-copy">
+      <div class="card-title">Pineapple Orange Teriyaki</div>
+      <span class="card-subtitle">Cucumber · Coconut · Rice</span>
     </div>
-  </details>
+    <div class="card-actions" aria-label="Pineapple Orange Teriyaki links">
+      <a class="icon-link" href="./docs/teriyaki/teriyaki-menu.html" aria-label="Pineapple Orange Teriyaki dinner menu" title="Dinner Menu">☰</a>
+      <a class="icon-link" href="./docs/teriyaki/grocery-list-combined-2.html" aria-label="Pineapple Orange Teriyaki grocery list" title="Grocery List">🛒</a>
+      <a class="icon-link" href="./docs/teriyaki/teriyaki-spread-instructions.html" aria-label="Pineapple Orange Teriyaki cooking instructions" title="Cooking Instructions">📋</a>
+    </div>
+  </div>
 </div>
 
 <!-- CHICKEN SKEWERS -->
 <div class="section">
-  <details class="card" data-section="chicken-skewers">
-    <summary class="card-header">
-      <div class="card-copy">
-        <div class="card-title">Chicken Skewers</div>
-        <span class="card-subtitle">Pita · Cucumber · Tomato</span>
-      </div>
-      <span class="dropdown-icon">›</span>
-    </summary>
-    <div class="link-list">
-      <a class="link-item" href="./docs/grocery-list-chicken-skewers.html">
-        <span class="link-text">Grocery List</span>
-        <span class="link-arrow">›</span>
-      </a>
-      <a class="link-item" href="./docs/chicken-skewers-instructions.html">
-        <span class="link-text">Cooking Instructions</span>
-        <span class="link-arrow">›</span>
-      </a>
+  <div class="card recipe-card">
+    <div class="card-copy">
+      <div class="card-title">Chicken Skewers</div>
+      <span class="card-subtitle">Pita · Cucumber · Tomato</span>
     </div>
-  </details>
+    <div class="card-actions" aria-label="Chicken Skewers links">
+      <a class="icon-link" href="./docs/chicken-skewers/grocery-list-chicken-skewers.html" aria-label="Chicken Skewers grocery list" title="Grocery List">🛒</a>
+      <a class="icon-link" href="./docs/chicken-skewers/chicken-skewers-instructions.html" aria-label="Chicken Skewers cooking instructions" title="Cooking Instructions">📋</a>
+    </div>
+  </div>
 </div>
 
 <details class="misc" data-section="misc">
   <summary aria-label="Open miscellaneous"></summary>
-  <a class="misc-link" href="./docs/griddle-initial-seasoning.html">Seasoning</a>
+  <a class="misc-link" href="./docs/seasoning/griddle-initial-seasoning.html">Seasoning</a>
 </details>
 
 

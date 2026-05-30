@@ -266,6 +266,11 @@ label,
   pointer-events: none !important;
 }
 
+.item input[type="checkbox"]:checked ~ label {
+  color: var(--muted) !important;
+  text-decoration: line-through !important;
+}
+
 .item-name,
 .side-name,
 .option-title,

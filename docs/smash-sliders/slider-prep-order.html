@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Honey Mustard Night — Cook Together</title>
+<title>Slider Prep Order</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -14,9 +14,10 @@
     --gold: #d4a940;
     --cream: #f0ead8;
     --muted: #7a7268;
-    --jeff: #2a4a7a;
-    --jaya: #6a2a4a;
-    --theo: #8a5c14;
+    --s1: #8a1f2e;
+    --s2: #7a5510;
+    --s3: #3a5a2a;
+    --shared: #4a3a1a;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -36,47 +37,145 @@
     background: var(--char);
     padding: 28px 20px 20px;
     border-bottom: 3px solid var(--ember);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
   }
   .hero-title {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 48px;
+    font-size: 56px;
     line-height: 0.88;
     letter-spacing: 2px;
   }
   .hero-title span { color: var(--ember); }
-  .hero-sub {
+  .hero-meta {
+    text-align: right;
     font-size: 11px;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--muted);
-    margin-top: 8px;
+    line-height: 1.8;
   }
 
-  /* LEGEND */
-  .legend {
-    display: flex;
-    gap: 12px;
-    padding: 14px 20px;
-    background: var(--smoke);
-    border-bottom: 1px solid var(--char);
+  /* PHASE HEADER */
+  .phase {
+    margin: 0 20px 14px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--smoke);
   }
-  .legend-item {
+
+  .phase-head {
+    padding: 12px 14px;
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 12px;
-    letter-spacing: 1px;
+    gap: 12px;
+    background: var(--smoke);
+  }
+  .phase-head .phase-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--ember);
+    line-height: 1;
+    min-width: 24px;
+  }
+  .phase-head-text {}
+  .phase-head .phase-label {
+    font-size: 10px;
+    letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--muted);
+    display: block;
   }
-  .legend-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    flex-shrink: 0;
+  .phase-head h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    color: var(--cream);
+    line-height: 1.1;
+  }
+  .phase-head .phase-time {
+    margin-left: auto;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: var(--gold);
+    white-space: nowrap;
   }
 
-  /* SEC */
+  /* PHASE SECTION WITHIN BLOCK */
+  .phase-section {
+    background: var(--char);
+    border-top: 1px solid var(--smoke);
+  }
+  .phase-section-label {
+    padding: 8px 14px 4px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--muted);
+  }
+
+  /* STEPS */
+  .steps {
+    padding: 4px 14px 12px;
+    list-style: none;
+    counter-reset: s;
+  }
+  .steps li {
+    counter-increment: s;
+    display: flex;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--smoke);
+    font-size: 13px;
+    line-height: 1.6;
+    color: #d4cfc4;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+  .steps li:last-child { border-bottom: none; }
+  .steps li::before {
+    content: counter(s);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--ember);
+    min-width: 18px;
+    line-height: 1.1;
+    flex-shrink: 0;
+  }
+  .steps li .st { flex: 1; min-width: 0; }
+
+  /* PLAIN STEPS (no counter) */
+  .plain-steps {
+    padding: 4px 14px 12px;
+    list-style: none;
+  }
+  .plain-steps li {
+    display: flex;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--smoke);
+    font-size: 13px;
+    line-height: 1.6;
+    color: #d4cfc4;
+    align-items: flex-start;
+  }
+  .plain-steps li:last-child { border-bottom: none; }
+  .plain-steps li::before {
+    content: '—';
+    color: var(--muted);
+    flex-shrink: 0;
+    font-size: 13px;
+  }
+
+  /* INGREDIENT HIGHLIGHT */
+  .ing { color: var(--gold); font-weight: 700; }
+
+  /* PHASE GAP */
+  .phase-gap { height: 14px; }
+
+  /* SEC LABEL between phases */
   .sec {
     padding: 20px 20px 12px;
     font-family: 'Bebas Neue', sans-serif;
@@ -89,83 +188,7 @@
   }
   .sec::after { content: ''; flex: 1; height: 1px; background: var(--smoke); }
 
-  /* COOK BLOCKS */
-  .cook-block {
-    margin: 0 20px 14px;
-    border-radius: 8px;
-    overflow: hidden;
-    border: 1px solid var(--smoke);
-  }
-  .cook-head {
-    padding: 11px 14px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .cook-head .color-bar {
-    width: 4px;
-    height: 28px;
-    border-radius: 2px;
-    flex-shrink: 0;
-  }
-  .cook-head .badge {
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--muted);
-    display: block;
-  }
-  .cook-head h3 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 18px;
-    letter-spacing: 1.5px;
-    color: var(--cream);
-    line-height: 1.1;
-  }
-  .cook-head .cook-emoji {
-    margin-left: auto;
-    font-size: 20px;
-    flex-shrink: 0;
-  }
-
-  .jeff .cook-head { background: #1a2a3a; }
-  .jaya .cook-head { background: #2a1a22; }
-  .theo .cook-head { background: #2a1e0a; }
-
-  /* STEPS */
-  .cook-steps {
-    background: var(--char);
-    padding: 10px 14px;
-    list-style: none;
-    counter-reset: s;
-  }
-  .cook-steps li {
-    counter-increment: s;
-    display: flex;
-    gap: 12px;
-    padding: 9px 0;
-    border-bottom: 1px solid var(--smoke);
-    font-size: 13px;
-    line-height: 1.6;
-    color: #d4cfc4;
-    word-break: break-word;
-    overflow-wrap: break-word;
-  }
-  .cook-steps li:last-child { border-bottom: none; }
-  .cook-steps li::before {
-    content: counter(s);
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 20px;
-    color: var(--ember);
-    min-width: 18px;
-    line-height: 1.1;
-    flex-shrink: 0;
-  }
-  .cook-steps li .st { flex: 1; min-width: 0; }
-
-  .ing { color: var(--gold); font-weight: 700; }
-
-  /* TIMING */
+  /* TIMING BANNER */
   .timing {
     margin: 10px 20px 0;
     background: var(--ember);
@@ -465,197 +488,176 @@
   }
 
 </style>
-<link rel="stylesheet" href="./theme.css?v=2">
+<link rel="stylesheet" href="../theme.css?v=2">
 </head>
 <body>
 <style>.back-bar{position:sticky;top:0;z-index:1000;background:#171717;border-bottom:1px solid #2c2c2c;padding:4px 10px;}.back-bar a{color:#b8953a;text-decoration:none;font-family:-apple-system,sans-serif;font-size:30px;line-height:1;display:inline-flex;align-items:center;justify-content:center;width:36px;height:32px;}</style>
-<div class="back-bar"><a href="../index.html" aria-label="Back to kitchen">&#8249;</a></div>
+<div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
 
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-title">HONEY<br><span>MUSTARD</span><br>NIGHT</div>
-  <div class="hero-sub">Chicken · Potatoes · Salad</div>
+  <div class="hero-title">PREP<br><span>ORDER</span></div>
+  <div class="hero-meta">3 Sliders<br>12 Total<br>Flat Top</div>
 </div>
 
-<!-- LEGEND -->
-<div class="legend">
-  <div class="legend-item">
-    <div class="legend-dot" style="background:#4a7abf;"></div>
-    Jeff
-  </div>
-  <div class="legend-item">
-    <div class="legend-dot" style="background:#bf4a7a;"></div>
-    Jaya
-  </div>
-  <div class="legend-item">
-    <div class="legend-dot" style="background:#c8850a;"></div>
-    Theo
-  </div>
-</div>
+<!-- ══ PHASE 1 ══ -->
+<div class="sec">Do First</div>
 
-<!-- PREP -->
-<div class="sec">Prep</div>
-
-<!-- JEFF: Preheat -->
-<div class="cook-block jeff">
-  <div class="cook-head">
-    <div class="color-bar" style="background:#4a7abf;"></div>
-    <div>
-      <span class="badge">Jeff · First Thing</span>
-      <h3>Preheat the Oven</h3>
+<div class="phase">
+  <div class="phase-head">
+    <div class="phase-num">1</div>
+    <div class="phase-head-text">
+      <span class="phase-label">French Press · Stovetop</span>
+      <h3>Caramelized Onions</h3>
     </div>
-    <div class="cook-emoji">🌡️</div>
+    <div class="phase-time">25–30 min</div>
   </div>
-  <ol class="cook-steps">
-    <li><span class="st">Turn oven to <span class="ing">400°F</span>. Do this before anything else so it's fully up to temp by the time the potatoes are ready.</span></li>
-  </ol>
+  <div class="phase-section">
+    <ol class="steps">
+      <li><span class="st">Slice <span class="ing">2 onions paper thin</span>.</span></li>
+      <li><span class="st">Melt a generous knob of <span class="ing">butter</span> in a pan on <span class="ing">medium-low</span>.</span></li>
+      <li><span class="st">Add onions and a pinch of salt. Stir occasionally. <span class="ing">Do not rush or crank the heat.</span> They need the full time to get deep golden and jammy.</span></li>
+      <li><span class="st">Once done, pull off heat and set aside. They'll stay warm on their own.</span></li>
+    </ol>
+  </div>
 </div>
 
-<!-- JAYA: Honey Mustard Glaze -->
-<div class="cook-block jaya">
-  <div class="cook-head">
-    <div class="color-bar" style="background:#bf4a7a;"></div>
-    <div>
-      <span class="badge">Jaya · While Jeff Preps Potatoes</span>
-      <h3>Make the Glaze</h3>
+<!-- ══ PHASE 2 ══ -->
+<div class="sec">While Onions Cook</div>
+
+<div class="phase">
+  <div class="phase-head">
+    <div class="phase-num">2</div>
+    <div class="phase-head-text">
+      <span class="phase-label">All Sliders · Cold Prep</span>
+      <h3>Onions, Sauce & Cheese</h3>
     </div>
-    <div class="cook-emoji">🍯</div>
+    <div class="phase-time">10 min</div>
   </div>
-  <ol class="cook-steps">
-    <li><span class="st">In a small bowl whisk together <span class="ing">3 tbsp Dijon</span>, <span class="ing">3 tbsp yellow mustard</span>, <span class="ing">4 tbsp honey</span>, and <span class="ing">2 tbsp melted butter</span>. Season with salt and pepper.</span></li>
-    <li><span class="st">Taste it. Should be sweet, tangy, and a little sharp. Adjust honey or mustard to your liking.</span></li>
-    <li><span class="st">Split into <span class="ing">two separate bowls</span> — one for cooking, one for the table as a dipping sauce. Once a bowl touches raw chicken it never goes on the table. Keep them separate from here.</span></li>
-  </ol>
+  <div class="phase-section">
+    <div class="phase-section-label">Onions</div>
+    <ol class="steps">
+      <li><span class="st">Slice <span class="ing">1 onion paper thin</span> for smashing into The Bad Boy patties. Set aside in a small pile.</span></li>
+      <li><span class="st">Slice <span class="ing">1 more onion paper thin</span> for the raw topping on The Motor City Closer. Keep in a separate pile.</span></li>
+    </ol>
+    <div class="phase-section-label">Spicy Sauce</div>
+    <ol class="steps">
+      <li><span class="st">Mix <span class="ing">3 tbsp mayo</span> + <span class="ing">1.5 tbsp sriracha</span> + <span class="ing">1 tsp yellow mustard</span> + <span class="ing">splash of pickle juice</span>. Stir and set aside.</span></li>
+    </ol>
+    <div class="phase-section-label">Cheese</div>
+    <ol class="steps">
+      <li><span class="st">Slice or shred <span class="ing">Pepper Jack</span>, <span class="ing">Gruyère</span>, and <span class="ing">Sharp Cheddar</span> into three separate piles. Set near the flat top.</span></li>
+    </ol>
+  </div>
 </div>
 
-<!-- THEO: Honey taste test -->
-<div class="cook-block theo">
-  <div class="cook-head">
-    <div class="color-bar" style="background:#c8850a;"></div>
-    <div>
-      <span class="badge">Theo · Quality Control</span>
-      <h3>Honey Taste Test</h3>
+<!-- ══ PHASE 3 ══ -->
+<div class="sec">Right Before Cooking</div>
+
+<div class="phase">
+  <div class="phase-head">
+    <div class="phase-num">3</div>
+    <div class="phase-head-text">
+      <span class="phase-label">All Sliders · Final Prep</span>
+      <h3>Portion the Beef & Heat Up</h3>
     </div>
-    <div class="cook-emoji">🐾</div>
+    <div class="phase-time">5 min</div>
   </div>
-  <ol class="cook-steps">
-    <li><span class="st">Let Theo lick a tiny bit of <span class="ing">honey</span> off your finger. He has been present in the kitchen for 30 seconds and already considers himself the head chef. Besides, you were going to do it anyway.</span></li>
-  </ol>
+  <div class="phase-section">
+    <ol class="steps">
+      <li><span class="st">Loosely portion beef into <span class="ing">1.5 oz balls</span> — roughly 12 total. Do not compress. Set on a tray.</span></li>
+      <li><span class="st">Crank flat top to <span class="ing">high</span> and let it fully preheat. A drop of water should instantly vaporize.</span></li>
+      <li><span class="st">While flat top heats, butter the cut sides of the <span class="ing">Hawaiian rolls</span> and have them ready to toast.</span></li>
+    </ol>
+  </div>
 </div>
 
-<!-- JEFF: Prep Potatoes -->
-<div class="cook-block jeff">
-  <div class="cook-head">
-    <div class="color-bar" style="background:#4a7abf;"></div>
-    <div>
-      <span class="badge">Jeff · Potatoes First</span>
-      <h3>Prep the Potatoes</h3>
-    </div>
-    <div class="cook-emoji">🥔</div>
-  </div>
-  <ol class="cook-steps">
-    <li><span class="st">Wash the potatoes. Cut into roughly <span class="ing">1-inch chunks</span> — no need to peel them.</span></li>
-    <li><span class="st">In a large bowl toss with <span class="ing">2 tbsp Dijon</span>, <span class="ing">2 tbsp olive oil</span>, a generous pinch of <span class="ing">salt</span>, and <span class="ing">black pepper</span>.</span></li>
-    <li><span class="st">Spread in a single layer on a sheet pan. Don't crowd them or they'll steam instead of crisp.</span></li>
-  </ol>
-</div>
-
-<!-- JAYA: Vinaigrette -->
-<div class="cook-block jaya">
-  <div class="cook-head">
-    <div class="color-bar" style="background:#bf4a7a;"></div>
-    <div>
-      <span class="badge">Jaya · While Jeff Preps Chicken</span>
-      <h3>Make the Vinaigrette</h3>
-    </div>
-    <div class="cook-emoji">🥗</div>
-  </div>
-  <ol class="cook-steps">
-    <li><span class="st">In a small jar or bowl combine <span class="ing">1 tsp Dijon</span>, <span class="ing">3 tbsp olive oil</span>, <span class="ing">1 tbsp apple cider vinegar</span>, salt and pepper.</span></li>
-    <li><span class="st">Whisk or shake until emulsified. Taste and adjust — more vinegar for tang, more oil to mellow it out.</span></li>
-    <li><span class="st">Set aside. Don't dress the greens until right before serving or they'll wilt.</span></li>
-  </ol>
-</div>
-
-<!-- JEFF: Prep Chicken -->
-<div class="cook-block jeff">
-  <div class="cook-head">
-    <div class="color-bar" style="background:#4a7abf;"></div>
-    <div>
-      <span class="badge">Jeff · Chicken</span>
-      <h3>Prep the Chicken</h3>
-    </div>
-    <div class="cook-emoji">🍗</div>
-  </div>
-  <ol class="cook-steps">
-    <li><span class="st">Pat chicken thighs dry with paper towels — key for getting a good crust without skin.</span></li>
-    <li><span class="st">Season both sides generously with <span class="ing">salt and pepper</span>.</span></li>
-    <li><span class="st">Brush a <span class="ing">light layer of glaze</span> from the cooking bowl over the top of each thigh. Just a thin coat — the heavy glaze goes on halfway through. This gets flavor in early without burning.</span></li>
-    <li><span class="st">Place on a baking dish or sheet pan.</span></li>
-  </ol>
-</div>
-
-<!-- COOK -->
+<!-- ══ PHASE 4 ══ -->
 <div class="sec">Cook</div>
 
-<!-- JEFF: Roast -->
-<div class="cook-block jeff">
-  <div class="cook-head">
-    <div class="color-bar" style="background:#4a7abf;"></div>
-    <div>
-      <span class="badge">Jeff · Oven · 400°F</span>
-      <h3>Roast Everything</h3>
+<div class="phase">
+  <div class="phase-head">
+    <div class="phase-num">4</div>
+    <div class="phase-head-text">
+      <span class="phase-label">Flat Top · All Sliders</span>
+      <h3>Toast the Buns</h3>
     </div>
-    <div class="cook-emoji">🔥</div>
   </div>
-  <ol class="cook-steps">
-    <li><span class="st">Put the <span class="ing">potatoes</span> in the oven first. Set a timer for <span class="ing">10 minutes</span>.</span></li>
-    <li><span class="st">After 10 minutes, add the <span class="ing">chicken</span> to the oven on a separate rack.</span></li>
-    <li><span class="st">At the halfway point for the chicken (<span class="ing">~15 min in</span>), flip the potatoes and brush a <span class="ing">generous layer of glaze</span> from the cooking bowl over the chicken. This is when the caramelization happens — don't skip it.</span></li>
-    <li><span class="st">Chicken is done when internal temp hits <span class="ing">165°F</span> — boneless skinless thighs will be ready in roughly <span class="ing">20–25 min</span>. Check early and don't let them go over or they'll dry out.</span></li>
-    <li><span class="st">Potatoes are done when golden and crispy on the edges — roughly <span class="ing">40–45 min</span> total. Soft inside, crispy outside.</span></li>
-  </ol>
+  <div class="phase-section">
+    <ol class="steps">
+      <li><span class="st">Drop flat top to <span class="ing">medium-high</span>. Place rolls cut-side down. Toast <span class="ing">1–2 min</span> until golden. Work in batches. Pull and set aside.</span></li>
+    </ol>
+  </div>
 </div>
 
-<!-- THEO: Cooked chicken reward -->
-<div class="cook-block theo">
-  <div class="cook-head">
-    <div class="color-bar" style="background:#c8850a;"></div>
-    <div>
-      <span class="badge">Theo · Well Earned</span>
-      <h3>Final Taste Test</h3>
+<div class="phase-gap"></div>
+
+<div class="phase">
+  <div class="phase-head">
+    <div class="phase-num">5</div>
+    <div class="phase-head-text">
+      <span class="phase-label">Slider 01 · Flat Top</span>
+      <h3>The Bad Boy</h3>
     </div>
-    <div class="cook-emoji">🐾</div>
   </div>
-  <ol class="cook-steps">
-    <li><span class="st">While the chicken rests, pull off a small piece of <span class="ing">plain cooked chicken</span> — no glaze, no seasoning — and give it to Theo. He has supervised this entire cook and his feedback has been invaluable.</span></li>
-    <li><span class="st">Also give him a small plain <span class="ing">cooked potato chunk</span>. He has been staring at them for 40 minutes. It's the right thing to do.</span></li>
-  </ol>
+  <div class="phase-section">
+    <ol class="steps">
+      <li><span class="st">Crank flat top back to <span class="ing">high</span>. Place 4 meat balls down with space between them.</span></li>
+      <li><span class="st">Place a small pile of <span class="ing">shaved onion</span> on top of each ball immediately.</span></li>
+      <li><span class="st">Lay parchment over each ball. Smash hard within <span class="ing">10 seconds</span>. Press and hold <span class="ing">3–4 seconds</span>. Get them thin.</span></li>
+      <li><span class="st">Season with salt and pepper. Cook <span class="ing">90 sec – 2 min</span> without touching. Edges brown; top goes gray halfway up.</span></li>
+      <li><span class="st">Scrape hard and fast, getting fully under the crust. Flip.</span></li>
+      <li><span class="st">Lay <span class="ing">Pepper Jack</span> on each patty. Splash water nearby, dome <span class="ing">30–45 sec</span> to melt.</span></li>
+      <li><span class="st">Build: <span class="ing">spicy sauce</span> on both buns · patty · <span class="ing">pickled jalapeños</span> on top.</span></li>
+    </ol>
+  </div>
 </div>
 
-<!-- JAYA: Finish Salad -->
-<div class="cook-block jaya">
-  <div class="cook-head">
-    <div class="color-bar" style="background:#bf4a7a;"></div>
-    <div>
-      <span class="badge">Jaya · While Chicken Rests</span>
-      <h3>Finish the Salad</h3>
+<div class="phase-gap"></div>
+
+<div class="phase">
+  <div class="phase-head">
+    <div class="phase-num">6</div>
+    <div class="phase-head-text">
+      <span class="phase-label">Slider 02 · Flat Top</span>
+      <h3>The French Press</h3>
     </div>
-    <div class="cook-emoji">🥗</div>
   </div>
-  <ol class="cook-steps">
-    <li><span class="st">Once the chicken comes out of the oven, dress the <span class="ing">greens</span> with the vinaigrette. Toss well and season with salt and pepper.</span></li>
-    <li><span class="st">Serve immediately alongside the chicken and potatoes.</span></li>
-  </ol>
+  <div class="phase-section">
+    <ol class="steps">
+      <li><span class="st">Same smash process as The Bad Boy — no onion on top before smashing.</span></li>
+      <li><span class="st">Flip, add <span class="ing">Gruyère</span>, dome to melt <span class="ing">30–45 sec</span>.</span></li>
+      <li><span class="st">Build: thin smear of <span class="ing">Dijon</span> on bottom bun · thin smear of <span class="ing">horseradish</span> · patty · big pile of <span class="ing">caramelized onions</span> on top.</span></li>
+    </ol>
+  </div>
 </div>
 
-<!-- TIMING -->
+<div class="phase-gap"></div>
+
+<div class="phase">
+  <div class="phase-head">
+    <div class="phase-num">7</div>
+    <div class="phase-head-text">
+      <span class="phase-label">Slider 03 · Flat Top</span>
+      <h3>The Motor City Closer</h3>
+    </div>
+  </div>
+  <div class="phase-section">
+    <ol class="steps">
+      <li><span class="st">Same smash process — no onion on top before smashing.</span></li>
+      <li><span class="st">Flip, add <span class="ing">Sharp Cheddar</span>, dome to melt <span class="ing">30–45 sec</span>.</span></li>
+      <li><span class="st">Build: <span class="ing">yellow mustard</span> on bottom bun · patty · <span class="ing">raw shaved onion</span> · <span class="ing">dill pickle chips</span> on top.</span></li>
+    </ol>
+  </div>
+</div>
+
+<!-- TIMING BANNER -->
 <div class="timing" style="margin-top:20px;">
-  <div class="t-icon">⏱️</div>
+  <div class="t-icon">🔥</div>
   <div>
-    <h4>Total Time</h4>
-    <p>About 45 minutes start to finish at 400°F. Potatoes go in first, chicken 10 minutes later. Boneless skinless thighs cook fast — check temp at 20 minutes. Heavy glaze goes on the chicken at the halfway mark. Two glaze bowls — cooking and table. Never mix them.</p>
+    <h4>Run All Three Back to Back</h4>
+    <p>Each batch takes about 3 minutes. Run Bad Boy first, French Press second, Closer last. Keep the flat top ripping hot between batches and don't let it sit cold.</p>
   </div>
 </div>
 
