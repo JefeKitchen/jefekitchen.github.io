@@ -1,0 +1,252 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  align-items: flex-start;
+  background: #111713;
+  display: flex;
+  font-family: 'Cormorant Garamond', serif;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 40px 18px 58px;
+}
+
+.back-bar {
+  background: #171717;
+  border-bottom: 1px solid #2c2c2c;
+  left: 0;
+  padding: 4px 10px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 1000;
+}
+
+.back-bar a {
+  align-items: center;
+  color: #b8953a;
+  display: inline-flex;
+  font-family: -apple-system, sans-serif;
+  font-size: 30px;
+  height: 32px;
+  justify-content: center;
+  line-height: 1;
+  text-decoration: none;
+  width: 36px;
+}
+
+.page {
+  background: #fbf4e5;
+  border: 1px solid #d8c898;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.34);
+  color: #172015;
+  margin-top: 40px;
+  max-width: 600px;
+  padding: 48px 34px 52px;
+  position: relative;
+  width: 100%;
+}
+
+.page::before {
+  border: 1px solid rgba(99, 121, 76, 0.42);
+  content: '';
+  inset: 10px;
+  pointer-events: none;
+  position: absolute;
+}
+
+.header {
+  border-bottom: 1px solid rgba(99, 121, 76, 0.42);
+  margin-bottom: 30px;
+  padding-bottom: 26px;
+  position: relative;
+  text-align: center;
+}
+
+.eyebrow,
+.section-label {
+  color: #6f7f43;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 11px;
+  letter-spacing: 5px;
+  text-align: center;
+}
+
+.eyebrow { margin-bottom: 12px; }
+
+.title {
+  color: #172015;
+  font-family: 'Playfair Display', serif;
+  font-size: 42px;
+  font-weight: 600;
+  line-height: 1.04;
+}
+
+.title span {
+  color: #8b6f25;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.sub {
+  color: #6e6044;
+  font-size: 15px;
+  font-style: italic;
+  line-height: 1.5;
+  margin: 12px auto 0;
+  max-width: 340px;
+}
+
+.ornament {
+  color: #a69045;
+  font-size: 13px;
+  letter-spacing: 7px;
+  margin-top: 16px;
+}
+
+.section-label { margin: 26px 0 4px; }
+
+.menu-item {
+  border-bottom: 1px solid rgba(99, 121, 76, 0.18);
+  padding: 17px 0;
+  text-align: center;
+}
+
+.menu-item:last-child { border-bottom: 0; }
+
+.item-name {
+  color: #172015;
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 7px;
+}
+
+.item-sub {
+  color: #8b6f25;
+  font-size: 13px;
+  font-style: italic;
+  letter-spacing: 0.3px;
+  margin-bottom: 8px;
+}
+
+.item-desc {
+  color: #3a442f;
+  font-size: 15px;
+  font-style: italic;
+  line-height: 1.62;
+  margin: 0 auto;
+  max-width: 410px;
+}
+
+.item-desc strong {
+  color: #172015;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.footer {
+  border-top: 1px solid rgba(99, 121, 76, 0.42);
+  color: #6e6044;
+  font-size: 14px;
+  font-style: italic;
+  line-height: 1.7;
+  margin-top: 30px;
+  padding-top: 22px;
+  text-align: center;
+}
+
+.theme-meatloaf {
+  --paper: #f4ead6;
+  --ink: #241a13;
+  --accent: #8a4b2a;
+  --leaf: #6f5c33;
+}
+
+.theme-honey-mustard {
+  --paper: #fff4cf;
+  --ink: #211c12;
+  --accent: #a66f12;
+  --leaf: #6f6f35;
+}
+
+.theme-honey-garlic {
+  --paper: #f8f1df;
+  --ink: #181d24;
+  --accent: #9d6f24;
+  --leaf: #526b50;
+}
+
+.theme-oats {
+  --paper: #f5efe3;
+  --ink: #252019;
+  --accent: #8f6a7a;
+  --leaf: #6d7259;
+}
+
+.theme-buffalo {
+  --paper: #fff1df;
+  --ink: #211510;
+  --accent: #b64a22;
+  --leaf: #5f6f45;
+}
+
+.theme-teriyaki {
+  --paper: #fff0d7;
+  --ink: #192017;
+  --accent: #b06a23;
+  --leaf: #5e754c;
+}
+
+.theme-sliders {
+  --paper: #f3ead8;
+  --ink: #201a16;
+  --accent: #7f332a;
+  --leaf: #5f5a47;
+}
+
+.themed .page {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.themed .page::before,
+.themed .header,
+.themed .footer {
+  border-color: color-mix(in srgb, var(--leaf) 46%, transparent);
+}
+
+.themed .title,
+.themed .item-name,
+.themed .item-desc strong {
+  color: var(--ink);
+}
+
+.themed .title span,
+.themed .item-sub {
+  color: var(--accent);
+}
+
+.themed .eyebrow,
+.themed .section-label {
+  color: var(--leaf);
+}
+
+.themed .ornament,
+.themed .footer {
+  color: color-mix(in srgb, var(--accent) 75%, #6e6044);
+}
+
+.themed .item-desc {
+  color: color-mix(in srgb, var(--ink) 76%, var(--leaf));
+}
+
+.themed .menu-item {
+  border-color: color-mix(in srgb, var(--leaf) 18%, transparent);
+}
+
+@media (max-width: 520px) {
+  body { padding: 40px 14px 50px; }
+  .page { padding: 42px 26px 46px; }
+  .title { font-size: 38px; }
+}
