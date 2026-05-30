@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#111010"/>
+  <!-- Pan body -->
+  <ellipse cx="220" cy="300" rx="160" ry="100" fill="none" stroke="#c94a1a" stroke-width="20"/>
+  <rect x="60" y="200" width="320" height="100" fill="#1c1b19"/>
+  <line x1="60" y1="200" x2="380" y2="200" stroke="#c94a1a" stroke-width="20" stroke-linecap="round"/>
+  <line x1="60" y1="300" x2="380" y2="300" stroke="#c94a1a" stroke-width="20" stroke-linecap="round"/>
+  <!-- Handle -->
+  <rect x="370" y="235" width="100" height="40" rx="20" fill="none" stroke="#c94a1a" stroke-width="16"/>
+  <!-- Steam -->
+  <path d="M160 180 Q170 155 160 130" fill="none" stroke="#d4a940" stroke-width="12" stroke-linecap="round"/>
+  <path d="M220 170 Q230 145 220 120" fill="none" stroke="#d4a940" stroke-width="12" stroke-linecap="round"/>
+  <path d="M280 180 Q290 155 280 130" fill="none" stroke="#d4a940" stroke-width="12" stroke-linecap="round"/>
+</svg>

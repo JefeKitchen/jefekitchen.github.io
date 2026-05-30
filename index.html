@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Kitchen">
+<link rel="manifest" href="./manifest.json">
+<link rel="apple-touch-icon" href="./icon.svg">
+<title>Jeff's Kitchen</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #111010;
+    --char: #1c1b19;
+    --smoke: #2a2825;
+    --ember: #c94a1a;
+    --gold: #d4a940;
+    --cream: #f0ead8;
+    --muted: #7a7268;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 0 0 60px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* HEADER */
+  .app-header {
+    background: var(--char);
+    padding: 48px 20px 24px;
+    border-bottom: 3px solid var(--ember);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .app-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    line-height: 0.9;
+    letter-spacing: 2px;
+    color: var(--cream);
+  }
+  .app-title span { color: var(--ember); }
+  .app-sub {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+
+  /* SECTIONS */
+  .section {
+    margin: 20px 20px 0;
+  }
+  .section-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--smoke);
+  }
+
+  /* CARD */
+  .card {
+    background: var(--char);
+    border: 1px solid var(--smoke);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+  .card-header {
+    padding: 14px 16px;
+    background: var(--smoke);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .card-emoji { font-size: 22px; flex-shrink: 0; }
+  .card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    color: var(--cream);
+    flex: 1;
+  }
+  .card-subtitle {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: block;
+    margin-top: 1px;
+  }
+
+  /* LINKS */
+  .link-list { padding: 6px 0; }
+  .link-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--smoke);
+    text-decoration: none;
+    transition: background 0.1s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .link-item:last-child { border-bottom: none; }
+  .link-item:active { background: var(--smoke); }
+  .link-icon {
+    font-size: 14px;
+    flex-shrink: 0;
+    width: 20px;
+    text-align: center;
+  }
+  .link-text {
+    font-size: 14px;
+    color: var(--cream);
+    flex: 1;
+    line-height: 1.3;
+  }
+  .link-tag {
+    font-size: 10px;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+    flex-shrink: 0;
+  }
+  .link-arrow {
+    font-size: 12px;
+    color: var(--ember);
+    flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="app-header">
+  <div class="app-title">JEFF'S<br><span>KITCHEN</span></div>
+  <div class="app-sub">Recipes · Grocery Lists · Instructions</div>
+</div>
+
+<!-- SLIDER NIGHT -->
+<div class="section">
+  <div class="section-label">🏀 Game 7 · Slider Night</div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-emoji">🍔</div>
+      <div>
+        <div class="card-title">Smash Sliders</div>
+        <span class="card-subtitle">Bad Boy · French Press · Motor City Closer</span>
+      </div>
+    </div>
+    <div class="link-list">
+      <a class="link-item" href="./docs/slider-menu.html">
+        <span class="link-icon">🏀</span>
+        <span class="link-text">Game 7 Menu</span>
+        <span class="link-tag">Menu</span>
+        <span class="link-arrow">›</span>
+      </a>
+      <a class="link-item" href="./docs/grocery-list.html">
+        <span class="link-icon">🛒</span>
+        <span class="link-text">Grocery List</span>
+        <span class="link-tag">Interactive</span>
+        <span class="link-arrow">›</span>
+      </a>
+      <a class="link-item" href="./docs/slider-guide-lineup-a.html">
+        <span class="link-icon">📋</span>
+        <span class="link-text">Cooking Instructions</span>
+        <span class="link-tag">Mobile</span>
+        <span class="link-arrow">›</span>
+      </a>
+      <a class="link-item" href="./docs/slider-prep-order.html">
+        <span class="link-icon">⏱️</span>
+        <span class="link-text">Prep Order</span>
+        <span class="link-tag">Mobile</span>
+        <span class="link-arrow">›</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- HONEY MUSTARD CHICKEN -->
+<div class="section">
+  <div class="section-label">🍋 Honey Mustard Chicken</div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-emoji">🍗</div>
+      <div>
+        <div class="card-title">Honey Mustard Chicken</div>
+        <span class="card-subtitle">Potatoes · Green Salad</span>
+      </div>
+    </div>
+    <div class="link-list">
+      <a class="link-item" href="./docs/grocery-list-honey-mustard.html">
+        <span class="link-icon">🛒</span>
+        <span class="link-text">Grocery List</span>
+        <span class="link-tag">Interactive</span>
+        <span class="link-arrow">›</span>
+      </a>
+      <a class="link-item" href="./docs/honey-mustard-instructions.html">
+        <span class="link-icon">📋</span>
+        <span class="link-text">Cooking Instructions</span>
+        <span class="link-tag">Mobile</span>
+        <span class="link-arrow">›</span>
+      </a>
+      <a class="link-item" href="./docs/honey-mustard-instructions-laptop.html">
+        <span class="link-icon">💻</span>
+        <span class="link-text">Cooking Instructions</span>
+        <span class="link-tag">Laptop · Solo</span>
+        <span class="link-arrow">›</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- HONEY GARLIC CHICKEN -->
+<div class="section">
+  <div class="section-label">🧄 Honey Garlic Chicken</div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-emoji">🍯</div>
+      <div>
+        <div class="card-title">Honey Garlic Chicken</div>
+        <span class="card-subtitle">Green Beans · Rice · Cucumber Bites</span>
+      </div>
+    </div>
+    <div class="link-list">
+      <a class="link-item" href="./docs/grocery-list-honey-garlic.html">
+        <span class="link-icon">🛒</span>
+        <span class="link-text">Grocery List</span>
+        <span class="link-tag">Interactive</span>
+        <span class="link-arrow">›</span>
+      </a>
+      <a class="link-item" href="./docs/honey-garlic-chicken-instructions.html">
+        <span class="link-icon">📋</span>
+        <span class="link-text">Cooking Instructions</span>
+        <span class="link-tag">Mobile · Solo</span>
+        <span class="link-arrow">›</span>
+      </a>
+      <a class="link-item" href="./docs/honey-garlic-ipad.html">
+        <span class="link-icon">📱</span>
+        <span class="link-text">Cooking Instructions</span>
+        <span class="link-tag">iPad · 2 Cooks</span>
+        <span class="link-arrow">›</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- JALAPEÑO GRUYÈRE -->
+<div class="section">
+  <div class="section-label">🌶️ Jalapeño Gruyère Chicken</div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-emoji">🧀</div>
+      <div>
+        <div class="card-title">Jalapeño Gruyère Chicken</div>
+        <span class="card-subtitle">Bok Choy · Cream Sauce · Do Not Be Cyril</span>
+      </div>
+    </div>
+    <div class="link-list">
+      <a class="link-item" href="./docs/grocery-list-jalapeno-gruyere.html">
+        <span class="link-icon">🛒</span>
+        <span class="link-text">Grocery List</span>
+        <span class="link-tag">Interactive</span>
+        <span class="link-arrow">›</span>
+      </a>
+      <a class="link-item" href="./docs/jalapeno-gruyere-chicken.html">
+        <span class="link-icon">📋</span>
+        <span class="link-text">Cooking Instructions</span>
+        <span class="link-tag">Mobile</span>
+        <span class="link-arrow">›</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- MEATLOAF -->
+<div class="section">
+  <div class="section-label">🥩 Redemption Meatloaf</div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-emoji">🍖</div>
+      <div>
+        <div class="card-title">Redemption Meatloaf</div>
+        <span class="card-subtitle">Horseradish Mashed Potatoes · Measured Carefully</span>
+      </div>
+    </div>
+    <div class="link-list">
+      <a class="link-item" href="./docs/grocery-list-meatloaf.html">
+        <span class="link-icon">🛒</span>
+        <span class="link-text">Grocery List</span>
+        <span class="link-tag">Interactive</span>
+        <span class="link-arrow">›</span>
+      </a>
+      <a class="link-item" href="./docs/meatloaf-instructions.html">
+        <span class="link-icon">📋</span>
+        <span class="link-text">Cooking Instructions</span>
+        <span class="link-tag">Mobile</span>
+        <span class="link-arrow">›</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- TERIYAKI SPREAD -->
+<div class="section">
+  <div class="section-label">🍍 Pineapple Teriyaki Spread</div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-emoji">🍊</div>
+      <div>
+        <div class="card-title">Pineapple Orange Teriyaki</div>
+        <span class="card-subtitle">Cucumber Bites · Coconut Rice</span>
+      </div>
+    </div>
+    <div class="link-list">
+      <a class="link-item" href="./docs/teriyaki-menu.html">
+        <span class="link-icon">📄</span>
+        <span class="link-text">Dinner Menu</span>
+        <span class="link-tag">Menu</span>
+        <span class="link-arrow">›</span>
+      </a>
+      <a class="link-item" href="./docs/grocery-list-combined-2.html">
+        <span class="link-icon">🛒</span>
+        <span class="link-text">Grocery List</span>
+        <span class="link-tag">Interactive · Combined</span>
+        <span class="link-arrow">›</span>
+      </a>
+      <a class="link-item" href="./docs/teriyaki-spread-instructions.html">
+        <span class="link-icon">📋</span>
+        <span class="link-text">Cooking Instructions</span>
+        <span class="link-tag">Mobile</span>
+        <span class="link-arrow">›</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- SARAH'S CORNER -->
+<div class="section">
+  <div class="section-label">👩‍🍳 Sarah's Corner</div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-emoji">🧀</div>
+      <div>
+        <div class="card-title">An Evening with Sarah</div>
+        <span class="card-subtitle">Totally Not Just a Box of Annie's</span>
+      </div>
+    </div>
+    <div class="link-list">
+      <a class="link-item" href="./docs/sarah-menu.html">
+        <span class="link-icon">📄</span>
+        <span class="link-text">Tasting Menu</span>
+        <span class="link-tag">Menu</span>
+        <span class="link-arrow">›</span>
+      </a>
+      <a class="link-item" href="./docs/sarah-full-menu-instructions.html">
+        <span class="link-icon">📋</span>
+        <span class="link-text">Full Service Guide</span>
+        <span class="link-tag">All Courses</span>
+        <span class="link-arrow">›</span>
+      </a>
+      <a class="link-item" href="./docs/sarah-grilled-cheese.html">
+        <span class="link-icon">🥪</span>
+        <span class="link-text">Grilled Cheese Instructions</span>
+        <span class="link-tag">Mobile</span>
+        <span class="link-arrow">›</span>
+      </a>
+      <a class="link-item" href="./docs/sarah-mac-and-cheese.html">
+        <span class="link-icon">🍝</span>
+        <span class="link-text">Macaroni & Fromage</span>
+        <span class="link-tag">Mobile</span>
+        <span class="link-arrow">›</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- GRIDDLE -->
+<div class="section">
+  <div class="section-label">🔥 Griddle Guides</div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-emoji">🍳</div>
+      <div>
+        <div class="card-title">GE GGS600AVFS</div>
+        <span class="card-subtitle">Cast Iron Griddle Care</span>
+      </div>
+    </div>
+    <div class="link-list">
+      <a class="link-item" href="./docs/griddle-initial-seasoning.html">
+        <span class="link-icon">✨</span>
+        <span class="link-text">Initial Seasoning</span>
+        <span class="link-tag">First Use</span>
+        <span class="link-arrow">›</span>
+      </a>
+      <a class="link-item" href="./docs/griddle-reseasoning.html">
+        <span class="link-icon">🔄</span>
+        <span class="link-text">Re-Seasoning Guide</span>
+        <span class="link-tag">Maintenance</span>
+        <span class="link-arrow">›</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js');
+    });
+  }
+</script>
+
+</body>
+</html>
