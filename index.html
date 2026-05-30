@@ -365,7 +365,7 @@
     flex-shrink: 0;
   }
 
-  @media (min-width: 760px) {
+  @media (min-width: 640px) {
     body {
       max-width: 1120px;
       padding: 24px 28px 72px;
@@ -410,15 +410,8 @@
       padding: 0;
     }
 
-    .recipe-group[open] {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px 12px;
-    }
-
     .recipe-group > summary,
     .recipe-group.featured > summary {
-      grid-column: 1 / -1;
       margin: 12px 0 4px;
     }
 
@@ -427,9 +420,17 @@
       margin-bottom: 0;
     }
 
+    .recipe-group .group-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px 12px;
+      width: 100%;
+    }
+
     .recipe-group .section,
     .recipe-group.featured .section {
       margin: 0;
+      min-width: 0;
     }
 
     .recipe-card {
@@ -474,6 +475,7 @@
 
 <details class="recipe-group featured" data-section="this-week">
 <summary class="group-label">This Week</summary>
+<div class="group-grid">
 
 <!-- THIS WEEK: COMBINED SHOPPING -->
 <div class="section">
@@ -529,12 +531,14 @@
     </div>
   </div>
 </div>
+</div>
 </details>
 
 <div class="dot-divider" aria-hidden="true">...</div>
 
 <details class="recipe-group" data-section="beef">
 <summary class="group-label">Beef</summary>
+<div class="group-grid">
 
 <!-- SLIDER NIGHT -->
 <div class="section">
@@ -564,10 +568,12 @@
     </div>
   </div>
 </div>
+</div>
 </details>
 
 <details class="recipe-group" data-section="chicken">
 <summary class="group-label">Chicken</summary>
+<div class="group-grid">
 
 <!-- HONEY MUSTARD CHICKEN -->
 <div class="section">
@@ -628,10 +634,12 @@
     </div>
   </div>
 </div>
+</div>
 </details>
 
 <details class="recipe-group" data-section="breakfast">
 <summary class="group-label">Breakfast</summary>
+<div class="group-grid">
 
 <!-- OVERNIGHT OATS -->
 <div class="section">
@@ -647,10 +655,12 @@
     </div>
   </div>
 </div>
+</div>
 </details>
 
 <details class="recipe-group" data-section="snackies">
 <summary class="group-label">Snackies</summary>
+<div class="group-grid">
 
 <!-- BUFFALO CHICKPEA DIP -->
 <div class="section">
@@ -665,6 +675,7 @@
       <a class="icon-link instruction-choice-link" href="./docs/buffalo-chickpea-dip/buffalo-chickpea-dip-instructions.html" data-phone="./docs/buffalo-chickpea-dip/buffalo-chickpea-dip-instructions.html" data-wide="./docs/buffalo-chickpea-dip/buffalo-chickpea-dip-wide.html" aria-label="Buffalo Chickpea Dip instructions" title="Instructions">🥘</a>
     </div>
   </div>
+</div>
 </div>
 </details>
 
