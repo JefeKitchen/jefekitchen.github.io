@@ -224,12 +224,17 @@ li,
 }
 
 .item {
+  display: flex !important;
   align-items: flex-start !important;
+  cursor: pointer !important;
 }
 
 .item input[type="checkbox"] {
+  width: 16px !important;
+  height: 16px !important;
   flex-shrink: 0 !important;
-  margin-top: 2px !important;
+  margin-top: 3px !important;
+  cursor: pointer !important;
 }
 
 .item:last-child,
@@ -254,6 +259,11 @@ label,
   font-weight: 400 !important;
   letter-spacing: 0 !important;
   line-height: 1.45 !important;
+}
+
+.item label {
+  flex: 1 !important;
+  pointer-events: none !important;
 }
 
 .item-name,
