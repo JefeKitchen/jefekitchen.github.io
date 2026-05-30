@@ -306,3 +306,103 @@ ul,
 ol {
   list-style: none;
 }
+
+.sec {
+  background: transparent !important;
+  border: 0 !important;
+  padding: 26px 20px 10px !important;
+  margin: 0 !important;
+  font-family: 'Source Sans 3', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 2.8px !important;
+  text-transform: uppercase !important;
+  color: var(--gold) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+
+.sec::after {
+  content: '' !important;
+  flex: 1 !important;
+  height: 1px !important;
+  background: var(--border) !important;
+}
+
+.cook-block {
+  margin: 0 20px 14px !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  border: 1px solid var(--border) !important;
+  background: var(--surface) !important;
+}
+
+.cook-head {
+  padding: 11px 14px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  background: var(--raised) !important;
+  border-bottom: 1px solid var(--border) !important;
+}
+
+.cook-head .badge {
+  font-size: 10px !important;
+  letter-spacing: 1.5px !important;
+  text-transform: uppercase !important;
+  color: var(--muted) !important;
+  display: block !important;
+}
+
+.cook-head h3 {
+  font-family: 'Playfair Display', serif !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0 !important;
+  color: var(--text) !important;
+  line-height: 1.15 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+
+.cook-steps {
+  background: var(--surface) !important;
+  padding: 10px 14px !important;
+  list-style: none !important;
+  counter-reset: s !important;
+}
+
+.cook-steps li {
+  counter-increment: s !important;
+  display: flex !important;
+  gap: 12px !important;
+  padding: 9px 0 !important;
+  border-bottom: 1px solid var(--border) !important;
+  font-size: 13px !important;
+  line-height: 1.6 !important;
+  color: var(--text) !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+.cook-steps li:last-child {
+  border-bottom: none !important;
+}
+
+.cook-steps li::before {
+  content: counter(s) !important;
+  font-family: 'Source Sans 3', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: var(--gold) !important;
+  min-width: 18px !important;
+  line-height: 1.6 !important;
+  flex-shrink: 0 !important;
+}
+
+.cook-steps li .st {
+  flex: 1 !important;
+  min-width: 0 !important;
+}

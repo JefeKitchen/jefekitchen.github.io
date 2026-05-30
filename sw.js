@@ -1,10 +1,10 @@
-const CACHE_NAME = 'jeffs-kitchen-v16';
+const CACHE_NAME = 'jeffs-kitchen-v17';
 
 const PAGES = [
   './',
   './index.html',
   './manifest.json',
-  './icon.jpeg',
+  './icon.png',
   './docs/theme.css',
   './docs/dinner-poll.html',
   './docs/slider-guide-lineup-a.html',

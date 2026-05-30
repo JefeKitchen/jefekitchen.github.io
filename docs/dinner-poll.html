@@ -125,6 +125,12 @@
       <span class="option-note">Horseradish-Dijon glaze</span>
     </span>
   </a>
+  <a class="poll-option" href="sms:&body=I%20reject%20the%20ballot%20and%20nominate%3A%20" data-write-in="true">
+    <span>
+      <span class="option-title">Wildcard</span>
+      <span class="option-note">Write in your own dinner pick</span>
+    </span>
+  </a>
 </div>
 
 <script>
@@ -133,15 +139,17 @@
     choice => `I have consulted my heart and my stomach, and they both request ${choice}.`,
     choice => `I am pleased to announce that my dinner instincts have chosen ${choice}.`,
     choice => `After careful deliberation, I am emotionally prepared for ${choice}.`,
-    choice => `My official dinner platform is pro-${choice}.`,
     choice => `My stomach has entered the chat and requested ${choice}.`,
-    choice => `I support ${choice} and approve this dinner message.`,
     choice => `Tonight feels like a ${choice} night.`
   ];
 
   document.querySelectorAll('.poll-option').forEach(option => {
     option.addEventListener('click', event => {
       event.preventDefault();
+      if (option.dataset.writeIn) {
+        window.location.href = 'sms:&body=I%20reject%20the%20ballot%20and%20nominate%3A%20';
+        return;
+      }
       const choice = option.dataset.choice;
       const response = responses[Math.floor(Math.random() * responses.length)](choice);
       window.location.href = `sms:&body=${encodeURIComponent(response)}`;
