@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Buffalo Chickpea Dip Instructions</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../theme.css?v=4">
+</head>
+<body>
+<div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
+
+<div class="hero">
+  <div class="hero-title">Buffalo <span>Chickpea Dip</span></div>
+  <div class="hero-sub">Serves 4 · ~25 minutes</div>
+</div>
+
+<div class="sec">Pull Out</div>
+<div class="ingredient-pull">
+  <div class="ingredient-pull-title">Ingredients</div>
+  <div class="ingredient-pull-list">
+    <span class="ingredient-pill">Chickpeas</span>
+    <span class="ingredient-pill">Plain hummus</span>
+    <span class="ingredient-pill">Hot sauce</span>
+    <span class="ingredient-pill">Lemon</span>
+    <span class="ingredient-pill">Green onions</span>
+    <span class="ingredient-pill">Garlic powder</span>
+    <span class="ingredient-pill">Smoked paprika</span>
+    <span class="ingredient-pill">Olive oil</span>
+    <span class="ingredient-pill">Chips</span>
+  </div>
+</div>
+
+<div class="sec">Make Dip</div>
+<div class="cook-block">
+  <div class="cook-head">
+    <span>
+      <span class="badge">Mash and mix</span>
+      <h3>Build the base</h3>
+    </span>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Heat oven to <span class="ing">375 F</span>. Drain and rinse <span class="ing">1 can chickpeas</span>.</span></li>
+    <li><span class="st">Mash about two-thirds of the chickpeas in a bowl. Leave the rest mostly whole so the dip has some texture.</span></li>
+    <li><span class="st">Stir in <span class="ing">1/2 cup plain hummus</span>, <span class="ing">3 tbsp buffalo-style hot sauce</span>, <span class="ing">2 tsp olive oil</span>, a squeeze of lemon, <span class="ing">1/2 tsp garlic powder</span>, and <span class="ing">1/4 tsp smoked paprika</span>.</span></li>
+    <li><span class="st">Taste before baking. Add more hot sauce if you want it louder, or more hummus if you want it creamier.</span></li>
+  </ol>
+</div>
+
+<div class="sec">Bake</div>
+<div class="cook-block">
+  <div class="cook-head">
+    <span>
+      <span class="badge">Warm and scoopable</span>
+      <h3>Finish it</h3>
+    </span>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Spread into a small baking dish. Drizzle a little more hot sauce over the top.</span></li>
+    <li><span class="st">Bake <span class="ing">15-18 minutes</span>, until hot at the edges and thick enough to scoop.</span></li>
+    <li><span class="st">Top with sliced green onions and a squeeze of lemon.</span></li>
+    <li><span class="st">Pack with sturdy tortilla chips, pita chips, or celery sticks.</span></li>
+  </ol>
+</div>
+
+<script>
+  const pullStateKey = 'buffalo-chickpea-dip-pulled-ingredients';
+  let pulledIngredients = {};
+
+  try {
+    pulledIngredients = JSON.parse(localStorage.getItem(pullStateKey) || '{}');
+  } catch {
+    pulledIngredients = {};
+  }
+
+  document.querySelectorAll('.ingredient-pill').forEach((pill, index) => {
+    const name = pill.textContent.trim();
+    const stateKey = `${index}-${name}`;
+    pill.setAttribute('role', 'button');
+    pill.setAttribute('tabindex', '0');
+    pill.setAttribute('aria-pressed', pulledIngredients[stateKey] ? 'true' : 'false');
+    pill.classList.toggle('is-pulled', !!pulledIngredients[stateKey]);
+
+    const toggle = () => {
+      pulledIngredients[stateKey] = !pulledIngredients[stateKey];
+      pill.classList.toggle('is-pulled', pulledIngredients[stateKey]);
+      pill.setAttribute('aria-pressed', pulledIngredients[stateKey] ? 'true' : 'false');
+      localStorage.setItem(pullStateKey, JSON.stringify(pulledIngredients));
+    };
+
+    pill.addEventListener('click', toggle);
+    pill.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        toggle();
+      }
+    });
+  });
+</script>
+</body>
+</html>

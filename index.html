@@ -50,8 +50,16 @@
   }
   .app-title span { color: var(--gold); }
   /* SECTIONS */
+  .zone-label {
+    margin: 28px 20px 10px;
+    color: var(--gold);
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.1;
+  }
   .group-label {
-    margin: 24px 20px 8px;
+    margin: 18px 20px 8px;
     font-size: 10px;
     font-weight: 500;
     letter-spacing: 3px;
@@ -86,6 +94,33 @@
   }
   .recipe-group[open] > summary::before {
     transform: translateY(-1px) rotate(90deg);
+  }
+  .recipe-group.featured {
+    margin: 22px 20px 6px;
+    padding: 8px 0 2px;
+  }
+  .recipe-group.featured > summary {
+    margin: 0 0 10px;
+    color: var(--gold);
+  }
+  .recipe-group.featured .section {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .recipe-group.featured .recipe-card {
+    background: #1d1a13;
+    border-color: rgba(184, 149, 58, 0.34);
+  }
+  .dot-divider {
+    color: var(--muted);
+    font-size: 13px;
+    letter-spacing: 6px;
+    line-height: 1;
+    margin: 0 20px 2px;
+    text-align: center;
+  }
+  .dot-divider + .recipe-group > summary {
+    margin-top: 6px;
   }
   .section {
     margin: 0 20px 8px;
@@ -275,23 +310,41 @@
   </a>
 </div>
 
-<details class="recipe-group" data-section="breakfast">
-<summary class="group-label">Breakfast</summary>
+<details class="recipe-group featured" data-section="this-week">
+<summary class="group-label">This Week</summary>
 
-<!-- OVERNIGHT OATS -->
+<!-- THIS WEEK: CHICKEN SKEWERS -->
+<div class="section">
+  <div class="card recipe-card">
+    <div class="card-copy">
+      <div class="card-title">Chicken Skewers</div>
+      <span class="card-subtitle">Pita · Cucumber · Dessert</span>
+    </div>
+    <div class="card-actions" aria-label="This Week Chicken Skewers links">
+      <a class="icon-link" href="./docs/chicken-skewers/chicken-skewers-menu.html" aria-label="Chicken Skewers menu" title="Menu">📜</a>
+      <a class="icon-link" href="./docs/chicken-skewers/grocery-list-chicken-skewers.html" aria-label="Chicken Skewers grocery list" title="Grocery List">🛒</a>
+      <a class="icon-link" href="./docs/chicken-skewers/chicken-skewers-instructions.html" aria-label="Chicken Skewers cooking instructions" title="Cooking Instructions">🥘</a>
+      <a class="icon-link" href="./docs/chicken-skewers/chicken-skewers-ipad.html" aria-label="Chicken Skewers iPad cooking instructions" title="iPad Instructions">🖥️</a>
+    </div>
+  </div>
+</div>
+
+<!-- THIS WEEK: OVERNIGHT OATS -->
 <div class="section">
   <div class="card recipe-card">
     <div class="card-copy">
       <div class="card-title">Overnight Oats</div>
       <span class="card-subtitle">Greek Yogurt · Fruit · Oats</span>
     </div>
-    <div class="card-actions" aria-label="Overnight Oats links">
+    <div class="card-actions" aria-label="This Week Overnight Oats links">
       <a class="icon-link" href="./docs/overnight-oats/grocery-list-overnight-oats.html" aria-label="Overnight Oats grocery list" title="Grocery List">🛒</a>
       <a class="icon-link" href="./docs/overnight-oats/overnight-oats-instructions.html" aria-label="Overnight Oats instructions" title="Instructions">🥘</a>
     </div>
   </div>
 </div>
 </details>
+
+<div class="dot-divider" aria-hidden="true">...</div>
 
 <details class="recipe-group" data-section="beef">
 <summary class="group-label">Beef</summary>
@@ -383,6 +436,42 @@
       <a class="icon-link" href="./docs/chicken-skewers/grocery-list-chicken-skewers.html" aria-label="Chicken Skewers grocery list" title="Grocery List">🛒</a>
       <a class="icon-link" href="./docs/chicken-skewers/chicken-skewers-instructions.html" aria-label="Chicken Skewers cooking instructions" title="Cooking Instructions">🥘</a>
       <a class="icon-link" href="./docs/chicken-skewers/chicken-skewers-ipad.html" aria-label="Chicken Skewers iPad cooking instructions" title="iPad Instructions">🖥️</a>
+    </div>
+  </div>
+</div>
+</details>
+
+<details class="recipe-group" data-section="breakfast">
+<summary class="group-label">Breakfast</summary>
+
+<!-- OVERNIGHT OATS -->
+<div class="section">
+  <div class="card recipe-card">
+    <div class="card-copy">
+      <div class="card-title">Overnight Oats</div>
+      <span class="card-subtitle">Greek Yogurt · Fruit · Oats</span>
+    </div>
+    <div class="card-actions" aria-label="Overnight Oats links">
+      <a class="icon-link" href="./docs/overnight-oats/grocery-list-overnight-oats.html" aria-label="Overnight Oats grocery list" title="Grocery List">🛒</a>
+      <a class="icon-link" href="./docs/overnight-oats/overnight-oats-instructions.html" aria-label="Overnight Oats instructions" title="Instructions">🥘</a>
+    </div>
+  </div>
+</div>
+</details>
+
+<details class="recipe-group" data-section="snackies">
+<summary class="group-label">Snackies</summary>
+
+<!-- BUFFALO CHICKPEA DIP -->
+<div class="section">
+  <div class="card recipe-card">
+    <div class="card-copy">
+      <div class="card-title">Buffalo Chickpea Dip</div>
+      <span class="card-subtitle">Hot Sauce · Hummus · Chips</span>
+    </div>
+    <div class="card-actions" aria-label="Buffalo Chickpea Dip links">
+      <a class="icon-link" href="./docs/buffalo-chickpea-dip/grocery-list-buffalo-chickpea-dip.html" aria-label="Buffalo Chickpea Dip grocery list" title="Grocery List">🛒</a>
+      <a class="icon-link" href="./docs/buffalo-chickpea-dip/buffalo-chickpea-dip-instructions.html" aria-label="Buffalo Chickpea Dip instructions" title="Instructions">🥘</a>
     </div>
   </div>
 </div>

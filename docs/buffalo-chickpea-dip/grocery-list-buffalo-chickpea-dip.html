@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Grocery List - Buffalo Chickpea Dip</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../theme.css?v=4">
+</head>
+<body>
+<div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
+
+<div class="page-title">Grocery List</div>
+<div class="page-sub">Buffalo Chickpea Dip</div>
+
+<div class="section">
+  <div class="section-header need">Produce</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="bcd1"><label for="bcd1">Green onions</label></div>
+    <div class="item"><input type="checkbox" id="bcd2"><label for="bcd2">1 lemon</label></div>
+    <div class="item"><input type="checkbox" id="bcd3"><label for="bcd3">Celery sticks<span class="item-note">Optional, for scooping</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Refrigerated</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="bcd4"><label for="bcd4">Plain hummus<span class="item-note">About 1/2 cup</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Pantry</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="bcd5"><label for="bcd5">1 can chickpeas</label></div>
+    <div class="item"><input type="checkbox" id="bcd6"><label for="bcd6">Buffalo-style hot sauce<span class="item-note">Check label if sharing with strict eaters</span></label></div>
+    <div class="item"><input type="checkbox" id="bcd7"><label for="bcd7">Garlic powder</label></div>
+    <div class="item"><input type="checkbox" id="bcd8"><label for="bcd8">Smoked paprika</label></div>
+    <div class="item"><input type="checkbox" id="bcd9"><label for="bcd9">Olive oil</label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Snacks</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="bcd10"><label for="bcd10">Tortilla chips or pita chips<span class="item-note">Sturdy chips are best</span></label></div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    const key = `buffalo-chickpea-dip-${cb.id}`;
+    cb.checked = localStorage.getItem(key) === 'checked';
+    cb.addEventListener('change', () => localStorage.setItem(key, cb.checked ? 'checked' : ''));
+  });
+</script>
+</body>
+</html>
