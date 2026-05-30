@@ -1,10 +1,11 @@
-const CACHE_NAME = 'jeffs-kitchen-v15';
+const CACHE_NAME = 'jeffs-kitchen-v16';
 
 const PAGES = [
   './',
   './index.html',
   './manifest.json',
   './icon.jpeg',
+  './docs/theme.css',
   './docs/dinner-poll.html',
   './docs/slider-guide-lineup-a.html',
   './docs/slider-menu.html',
@@ -19,6 +20,11 @@ const PAGES = [
   './docs/teriyaki-spread-instructions.html',
   './docs/teriyaki-menu.html',
   './docs/grocery-list-combined-2.html',
+  './docs/griddle-initial-seasoning.html',
+  './docs/grocery-list-charcoal-chicken.html',
+  './docs/charcoal-chicken-instructions.html',
+  './docs/grocery-list-grilled-chicken-sandwiches.html',
+  './docs/grilled-chicken-sandwiches-instructions.html',
 ];
 
 const PAGE_URLS = new Set(PAGES.map(page => new URL(page, self.registration.scope).href));
@@ -46,6 +52,18 @@ self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
 
   const requestUrl = new URL(event.request.url);
+
+  if (requestUrl.pathname.endsWith('/docs/theme.css')) {
+    event.respondWith(
+      fetch(event.request).then(response => {
+        const copy = response.clone();
+        caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
+        return response;
+      }).catch(() => caches.match(event.request))
+    );
+    return;
+  }
+
   if (!PAGE_URLS.has(requestUrl.href)) return;
 
   event.respondWith(

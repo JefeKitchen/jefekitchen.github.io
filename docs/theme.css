@@ -1,0 +1,308 @@
+/* Shared document theme for Jefe's Kitchen recipe pages. */
+:root {
+  --bg: #0e0e0e;
+  --surface: #171717;
+  --raised: #202020;
+  --border: #2c2c2c;
+  --gold: #b8953a;
+  --text: #ddd8cf;
+  --muted: #77716a;
+}
+
+html { background: var(--bg); }
+
+body {
+  background: var(--bg) !important;
+  background-image: none !important;
+  color: var(--text) !important;
+  display: block !important;
+  font-family: 'Source Sans 3', sans-serif !important;
+  font-size: 15px !important;
+  letter-spacing: 0 !important;
+  line-height: 1.5 !important;
+  max-width: 480px !important;
+  min-height: 100vh !important;
+  margin: 0 auto !important;
+  padding: 0 0 60px !important;
+}
+
+.back-bar {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1000 !important;
+  background: var(--surface) !important;
+  border-bottom: 1px solid var(--border) !important;
+  padding: 4px 10px !important;
+}
+
+.back-bar a {
+  color: var(--gold) !important;
+  text-decoration: none !important;
+  font-family: -apple-system, sans-serif !important;
+  font-size: 30px !important;
+  line-height: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 36px !important;
+  height: 32px !important;
+}
+
+.page,
+.card,
+.section,
+.note-card,
+.cook-block,
+.timeline-block,
+.prep-card,
+.ingredient-card,
+.poll-option {
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 6px !important;
+  box-shadow: none !important;
+  color: var(--text) !important;
+}
+
+.page,
+.card {
+  width: auto !important;
+  max-width: none !important;
+  margin: 18px 20px 0 !important;
+  padding: 0 !important;
+}
+
+.card::before,
+.card::after,
+.step-item::before,
+.phase-card::before,
+.item-art,
+svg {
+  display: none !important;
+}
+
+.hero,
+.header {
+  background: var(--surface) !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--border) !important;
+  margin: 0 !important;
+  padding: 28px 20px 22px !important;
+  text-align: left !important;
+}
+
+.page-title,
+.recipe-title,
+.menu-title,
+.hero-title,
+h1 {
+  color: var(--text) !important;
+  font-family: 'Playfair Display', serif !important;
+  font-size: 36px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.05 !important;
+  margin: 0 20px 8px !important;
+  text-transform: none !important;
+}
+
+.hero .recipe-title,
+.hero .hero-title,
+.header .menu-title {
+  margin: 0 !important;
+}
+
+.menu-title span,
+.recipe-title span,
+.hero-title span {
+  color: var(--gold) !important;
+  display: inline !important;
+  font-size: inherit !important;
+  letter-spacing: 0 !important;
+}
+
+.page-sub,
+.recipe-label,
+.header-eyebrow,
+.recipe-meta,
+.footer-sub,
+.meta-label {
+  color: var(--muted) !important;
+  font-family: 'Source Sans 3', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  letter-spacing: 1.6px !important;
+  line-height: 1.35 !important;
+  margin: 0 20px 22px !important;
+  text-transform: uppercase !important;
+}
+
+.hero .recipe-label,
+.header .header-eyebrow,
+.hero .recipe-meta {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.section,
+.note-card,
+.warning-strip,
+.maintenance,
+.divider,
+.footer,
+.poll-list,
+.menu-items,
+.sides-grid,
+.steps-list {
+  margin: 14px 20px 0 !important;
+  padding: 0 !important;
+}
+
+.poll-list {
+  padding: 18px 20px 20px !important;
+  margin: 0 !important;
+}
+
+.section-header,
+.sec-header,
+.section-head,
+.time-label,
+.phase-label,
+.cook-head,
+.note-card h4,
+.maintenance h4,
+h2,
+h3,
+h4 {
+  background: var(--raised) !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--border) !important;
+  color: var(--gold) !important;
+  font-family: 'Source Sans 3', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 1.6px !important;
+  line-height: 1.35 !important;
+  margin: 0 !important;
+  padding: 10px 14px !important;
+  text-transform: uppercase !important;
+}
+
+.section-head::after { display: none !important; }
+.section-head h2 {
+  color: var(--gold) !important;
+  font: inherit !important;
+  letter-spacing: inherit !important;
+}
+
+.item-list,
+.content,
+.cook-content,
+.phase-content,
+.timeline-content,
+.prep-list,
+.ingredient-list,
+.menu-item,
+.side-item,
+.step-item,
+.note-card p,
+.maintenance ul {
+  padding: 0 !important;
+}
+
+.item,
+.menu-item,
+.side-item,
+.step-item,
+li,
+.poll-option {
+  border-bottom: 1px solid var(--border) !important;
+  color: var(--text) !important;
+  font-family: 'Source Sans 3', sans-serif !important;
+  gap: 12px !important;
+  padding: 12px 14px !important;
+}
+
+.item:last-child,
+.menu-item:last-child,
+.side-item:last-child,
+.step-item:last-child,
+li:last-child {
+  border-bottom: 0 !important;
+}
+
+.item label,
+.item-desc,
+.side-desc,
+.step-text,
+p,
+li,
+label,
+.option-note {
+  color: var(--text) !important;
+  font-family: 'Source Sans 3', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.45 !important;
+}
+
+.item-name,
+.side-name,
+.option-title,
+.cook-head h3,
+.timing h4,
+strong,
+.meta-value {
+  color: var(--text) !important;
+  font-family: 'Playfair Display', serif !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.2 !important;
+  text-transform: none !important;
+}
+
+strong {
+  font-family: 'Source Sans 3', sans-serif !important;
+  font-size: inherit !important;
+}
+
+.item-note,
+.option-note,
+.muted,
+em {
+  color: var(--muted) !important;
+}
+
+.ing,
+.warning-strip .icon,
+.maintenance ul li::before {
+  color: var(--gold) !important;
+}
+
+.step-num {
+  background: var(--raised) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--gold) !important;
+  font-family: 'Source Sans 3', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+}
+
+.divider,
+.bottom-stamp {
+  border-color: var(--border) !important;
+  color: var(--muted) !important;
+}
+
+input[type="checkbox"] {
+  accent-color: var(--gold) !important;
+}
+
+a { color: var(--gold); }
+
+ul,
+ol {
+  list-style: none;
+}

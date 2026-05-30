@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Grocery List - Grilled Chicken Sandwiches</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./theme.css?v=2">
+</head>
+<body>
+<div class="back-bar"><a href="../index.html" aria-label="Back to kitchen">&#8249;</a></div>
+
+<div class="hero">
+  <div class="recipe-label">Charcoal grill · Horseradish broth jus</div>
+  <h1 class="recipe-title">Grilled Chicken <span>Sandwiches</span></h1>
+</div>
+
+<div class="section">
+  <div class="section-header">Meat</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="gcs1"><label for="gcs1">2 large chicken breasts<span class="item-note">Or 4 thin cutlets</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">Bakery</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="gcs2"><label for="gcs2">4 brioche buns or potato rolls</label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">Toppings</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="gcs3"><label for="gcs3">Provolone or Swiss cheese</label></div>
+    <div class="item"><input type="checkbox" id="gcs4"><label for="gcs4">Romaine or shredded lettuce</label></div>
+    <div class="item"><input type="checkbox" id="gcs5"><label for="gcs5">Tomato</label></div>
+    <div class="item"><input type="checkbox" id="gcs6"><label for="gcs6">Pickles</label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">Sauce</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="gcs7"><label for="gcs7">Chicken broth<span class="item-note">About 3/4 cup</span></label></div>
+    <div class="item"><input type="checkbox" id="gcs8"><label for="gcs8">Prepared horseradish</label></div>
+    <div class="item"><input type="checkbox" id="gcs9"><label for="gcs9">Mayo</label></div>
+    <div class="item"><input type="checkbox" id="gcs10"><label for="gcs10">Dijon mustard</label></div>
+    <div class="item"><input type="checkbox" id="gcs11"><label for="gcs11">Lemon</label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">Pantry</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="gcs12"><label for="gcs12">Olive oil</label></div>
+    <div class="item"><input type="checkbox" id="gcs13"><label for="gcs13">Garlic powder</label></div>
+    <div class="item"><input type="checkbox" id="gcs14"><label for="gcs14">Kosher salt and black pepper</label></div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    const key = `grilled-chicken-sandwiches-${cb.id}`;
+    cb.checked = localStorage.getItem(key) === 'checked';
+    cb.addEventListener('change', () => localStorage.setItem(key, cb.checked ? 'checked' : ''));
+  });
+</script>
+</body>
+</html>

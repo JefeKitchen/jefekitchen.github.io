@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Pineapple Teriyaki Spread</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
     --black: #111010;
@@ -137,12 +137,293 @@
   .timing .t-icon { font-size: 24px; flex-shrink: 0; }
   .timing h4 { font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: 1.5px; margin-bottom: 4px; }
   .timing p { font-size: 12.5px; line-height: 1.6; }
+
+  /* CLASSIC INSTRUCTION RESTYLE */
+  :root {
+    --bg: #0e0e0e;
+    --surface: #171717;
+    --raised: #202020;
+    --border: #2c2c2c;
+    --gold: #b8953a;
+    --text: #ddd8cf;
+    --muted: #77716a;
+    --black: var(--bg);
+    --char: var(--surface);
+    --smoke: var(--border);
+    --ember: var(--gold);
+    --cream: var(--text);
+  }
+  body {
+    background: var(--bg) !important;
+    background-image: none !important;
+    color: var(--text) !important;
+    font-family: 'Source Sans 3', sans-serif !important;
+    font-size: 15px !important;
+    line-height: 1.55 !important;
+    max-width: 480px !important;
+    margin: 0 auto !important;
+    padding: 0 0 64px !important;
+    overflow-x: hidden !important;
+  }
+  body > .card {
+    background: transparent !important;
+    border: 0 !important;
+  }
+  body > .card::before,
+  body > .card::after,
+  .recipe-label,
+  .legend,
+  .cook-head .color-bar,
+  .cook-head .cook-emoji,
+  .theo-icon,
+  .timing .t-icon,
+  .timing-footer .icon,
+  .divider,
+  .bottom-stamp,
+  .phase-head .phase-num,
+  .step-num {
+    display: none !important;
+  }
+  .hero {
+    background: var(--surface) !important;
+    padding: 42px 20px 22px !important;
+    border: 0 !important;
+    border-bottom: 1px solid var(--border) !important;
+    display: block !important;
+    text-align: left !important;
+  }
+  .hero-title,
+  .recipe-title {
+    font-family: 'Playfair Display', serif !important;
+    font-size: 38px !important;
+    font-weight: 600 !important;
+    line-height: 1.05 !important;
+    letter-spacing: 0.4px !important;
+    color: var(--text) !important;
+  }
+  .hero-title span,
+  .recipe-title span {
+    color: var(--gold) !important;
+  }
+  .hero-sub,
+  .hero-meta,
+  .recipe-meta {
+    display: block !important;
+    color: var(--muted) !important;
+    font-size: 13px !important;
+    line-height: 1.45 !important;
+    margin-top: 10px !important;
+    padding-top: 0 !important;
+    border-top: 0 !important;
+    text-align: left !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+  }
+  .meta-item {
+    display: inline !important;
+    text-align: left !important;
+  }
+  .meta-item + .meta-item::before {
+    content: ' · ';
+    color: var(--muted);
+  }
+  .meta-label {
+    display: none !important;
+  }
+  .meta-value {
+    font-family: 'Source Sans 3', sans-serif !important;
+    font-size: 13px !important;
+    color: var(--muted) !important;
+    letter-spacing: 0 !important;
+  }
+  .sec,
+  .sec-header,
+  .phase-label {
+    background: transparent !important;
+    border: 0 !important;
+    padding: 26px 20px 10px !important;
+    margin: 0 !important;
+    font-family: 'Source Sans 3', sans-serif !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    letter-spacing: 2.8px !important;
+    text-transform: uppercase !important;
+    color: var(--gold) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+  }
+  .sec::after,
+  .sec-header::after,
+  .phase-label::after {
+    content: '' !important;
+    flex: 1 !important;
+    height: 1px !important;
+    background: var(--border) !important;
+  }
+  .cook-block,
+  .phase,
+  .ing-strip,
+  .theo-block,
+  .timing,
+  .timing-footer {
+    margin: 0 20px 14px !important;
+    border-radius: 6px !important;
+    overflow: hidden !important;
+    border: 1px solid var(--border) !important;
+    background: var(--surface) !important;
+    color: var(--text) !important;
+    display: block !important;
+  }
+  .measure-banner,
+  .ing-strip,
+  .theo-block,
+  .timing,
+  .timing-footer {
+    border-left: 3px solid var(--gold) !important;
+    padding: 14px 16px !important;
+  }
+  .cook-head,
+  .phase-head {
+    padding: 13px 14px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    background: var(--surface) !important;
+    border-bottom: 1px solid var(--border) !important;
+  }
+  .phase-head-text,
+  .step-body {
+    flex: 1 !important;
+    min-width: 0 !important;
+  }
+  .cook-head .badge,
+  .phase-head .phase-label,
+  .phase-section-label,
+  .ing-strip-title,
+  .theo-label {
+    font-family: 'Source Sans 3', sans-serif !important;
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    letter-spacing: 1.6px !important;
+    text-transform: uppercase !important;
+    color: var(--muted) !important;
+    display: block !important;
+    margin-bottom: 2px !important;
+    padding: 0 !important;
+  }
+  .phase-head .phase-label::after {
+    display: none !important;
+  }
+  .cook-head h3,
+  .phase-head h3,
+  .step-title,
+  .timing h4,
+  .timing-footer h4 {
+    font-family: 'Playfair Display', serif !important;
+    font-size: 19px !important;
+    font-weight: 600 !important;
+    line-height: 1.18 !important;
+    letter-spacing: 0 !important;
+    color: var(--text) !important;
+  }
+  .phase-head .phase-time {
+    margin-left: auto !important;
+    font-family: 'Source Sans 3', sans-serif !important;
+    font-size: 12px !important;
+    letter-spacing: 0 !important;
+    color: var(--gold) !important;
+  }
+  .phase-section {
+    background: transparent !important;
+    border-top: 0 !important;
+  }
+  .cook-steps,
+  .steps,
+  .plain-steps,
+  .steps-list {
+    background: transparent !important;
+    padding: 8px 14px !important;
+    list-style: none !important;
+    counter-reset: s !important;
+  }
+  .cook-steps li,
+  .steps li,
+  .plain-steps li,
+  .step-item {
+    counter-increment: s !important;
+    display: flex !important;
+    gap: 12px !important;
+    padding: 10px 0 !important;
+    margin: 0 !important;
+    border-bottom: 1px solid var(--border) !important;
+    font-size: 14px !important;
+    line-height: 1.55 !important;
+    color: var(--text) !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+  .cook-steps li:last-child,
+  .steps li:last-child,
+  .plain-steps li:last-child,
+  .step-item:last-child {
+    border-bottom: none !important;
+  }
+  .cook-steps li::before,
+  .steps li::before,
+  .plain-steps li::before,
+  .step-item::before {
+    content: counter(s) !important;
+    min-width: 20px !important;
+    color: var(--gold) !important;
+    font-family: 'Source Sans 3', sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.55 !important;
+    flex-shrink: 0 !important;
+  }
+  .cook-steps li .st,
+  .steps li .st,
+  .step-text,
+  .step-desc {
+    flex: 1 !important;
+    min-width: 0 !important;
+    color: var(--text) !important;
+    font-size: 14px !important;
+    line-height: 1.55 !important;
+    padding-top: 0 !important;
+  }
+  .ing {
+    color: var(--gold) !important;
+    font-weight: 600 !important;
+  }
+  .ing-grid {
+    display: block !important;
+  }
+  .ing-row {
+    border-bottom: 1px solid var(--border) !important;
+    color: var(--text) !important;
+  }
+  .ing-name,
+  .ing-qty,
+  .theo-text,
+  .timing p,
+  .timing-footer p {
+    color: var(--text) !important;
+    font-size: 14px !important;
+    line-height: 1.55 !important;
+    font-style: normal !important;
+  }
+  .phase-gap {
+    height: 6px !important;
+  }
+
 </style>
+<link rel="stylesheet" href="./theme.css?v=2">
 </head>
 <body>
-<style>.back-bar{position:fixed;top:0;left:0;right:0;z-index:1000;background:#171717;border-bottom:1px solid #2c2c2c;padding:4px 10px;}.back-bar a{color:#b8953a;text-decoration:none;font-family:-apple-system,sans-serif;font-size:30px;line-height:1;display:inline-flex;align-items:center;justify-content:center;width:36px;height:32px;}</style>
+<style>.back-bar{position:sticky;top:0;z-index:1000;background:#171717;border-bottom:1px solid #2c2c2c;padding:4px 10px;}.back-bar a{color:#b8953a;text-decoration:none;font-family:-apple-system,sans-serif;font-size:30px;line-height:1;display:inline-flex;align-items:center;justify-content:center;width:36px;height:32px;}</style>
 <div class="back-bar"><a href="../index.html" aria-label="Back to kitchen">&#8249;</a></div>
-<div style="height:40px;"></div>
 
 
 <!-- HERO -->

@@ -146,6 +146,43 @@
     transition: transform 150ms ease;
   }
   .card[open] .dropdown-icon { transform: rotate(90deg); }
+  .misc {
+    margin: 28px 20px 0;
+  }
+  .misc summary {
+    list-style: none;
+    height: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .misc summary::-webkit-details-marker { display: none; }
+  .misc summary::before {
+    content: '';
+    width: 28px;
+    height: 1px;
+    background: var(--border);
+    opacity: 0.7;
+  }
+  .misc[open] summary::before {
+    background: var(--gold);
+  }
+  .misc-link {
+    color: var(--muted);
+    display: block;
+    font-size: 13px;
+    margin-top: 4px;
+    padding: 4px 0;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .misc-link + .misc-link {
+    margin-top: 0;
+  }
+  .misc-link:active {
+    color: var(--gold);
+  }
 
   /* LINKS */
   .link-list { padding: 4px 0; }
@@ -183,9 +220,8 @@
 <div class="section poll-section">
   <a class="direct-card" href="./docs/dinner-poll.html">
     <div class="card-copy">
-      <div class="card-title">Jaya Pick Din</div>
+      <div class="card-title">Pick Din</div>
     </div>
-    <span class="link-arrow">›</span>
   </a>
 </div>
 
@@ -193,7 +229,7 @@
 
 <!-- SLIDER NIGHT -->
 <div class="section">
-  <details class="card">
+  <details class="card" data-section="smash-sliders">
     <summary class="card-header">
       <div class="card-copy">
         <div class="card-title">Smash Sliders</div>
@@ -219,7 +255,7 @@
 
 <!-- MEATLOAF -->
 <div class="section">
-  <details class="card">
+  <details class="card" data-section="meatloaf">
     <summary class="card-header">
       <div class="card-copy">
         <div class="card-title">Meatloaf</div>
@@ -244,7 +280,7 @@
 
 <!-- HONEY MUSTARD CHICKEN -->
 <div class="section">
-  <details class="card">
+  <details class="card" data-section="honey-mustard">
     <summary class="card-header">
       <div class="card-copy">
         <div class="card-title">Honey Mustard Chicken</div>
@@ -267,7 +303,7 @@
 
 <!-- HONEY GARLIC CHICKEN -->
 <div class="section">
-  <details class="card">
+  <details class="card" data-section="honey-garlic">
     <summary class="card-header">
       <div class="card-copy">
         <div class="card-title">Honey Garlic Chicken</div>
@@ -290,7 +326,7 @@
 
 <!-- TERIYAKI SPREAD -->
 <div class="section">
-  <details class="card">
+  <details class="card" data-section="teriyaki">
     <summary class="card-header">
       <div class="card-copy">
         <div class="card-title">Pineapple Orange Teriyaki</div>
@@ -315,8 +351,36 @@
   </details>
 </div>
 
+<details class="misc" data-section="misc">
+  <summary aria-label="Open miscellaneous"></summary>
+  <a class="misc-link" href="./docs/griddle-initial-seasoning.html">Seasoning</a>
+  <a class="misc-link" href="./docs/grocery-list-charcoal-chicken.html">Charcoal Chicken Grocery</a>
+  <a class="misc-link" href="./docs/charcoal-chicken-instructions.html">Charcoal Chicken Instructions</a>
+  <a class="misc-link" href="./docs/grocery-list-grilled-chicken-sandwiches.html">Grilled Chicken Sandwich Grocery</a>
+  <a class="misc-link" href="./docs/grilled-chicken-sandwiches-instructions.html">Grilled Chicken Sandwich Instructions</a>
+</details>
+
 
 <script>
+  const sectionStateKey = 'jefes-kitchen-open-sections';
+  let savedSections = {};
+
+  try {
+    savedSections = JSON.parse(localStorage.getItem(sectionStateKey) || '{}');
+  } catch {
+    savedSections = {};
+  }
+
+  document.querySelectorAll('details[data-section]').forEach(section => {
+    const sectionName = section.dataset.section;
+    if (savedSections[sectionName]) section.open = true;
+
+    section.addEventListener('toggle', () => {
+      savedSections[sectionName] = section.open;
+      localStorage.setItem(sectionStateKey, JSON.stringify(savedSections));
+    });
+  });
+
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('./sw.js');
