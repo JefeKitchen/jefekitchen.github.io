@@ -355,7 +355,7 @@ ol {
 }
 
 .cook-head {
-  padding: 9px 12px !important;
+  padding: 8px 12px !important;
   display: flex !important;
   align-items: center !important;
   gap: 12px !important;
@@ -385,7 +385,7 @@ ol {
 
 .cook-steps {
   background: var(--surface) !important;
-  padding: 6px 12px !important;
+  padding: 0 12px !important;
   list-style: none !important;
   counter-reset: s !important;
 }
