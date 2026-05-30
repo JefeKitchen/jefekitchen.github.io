@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v25';
+const CACHE_NAME = 'jeffs-kitchen-v26';
 
 const PAGES = [
   './',
@@ -29,6 +29,7 @@ const PAGES = [
   './docs/grilled-chicken-sandwiches/grocery-list-grilled-chicken-sandwiches.html',
   './docs/grilled-chicken-sandwiches/grilled-chicken-sandwiches-instructions.html',
   './docs/chicken-skewers/grocery-list-chicken-skewers.html',
+  './docs/chicken-skewers/chicken-skewers-menu.html',
   './docs/chicken-skewers/chicken-skewers-instructions.html',
 ];
 
