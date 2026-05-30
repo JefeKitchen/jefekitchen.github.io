@@ -369,6 +369,10 @@ ol {
   background: var(--surface) !important;
 }
 
+.sec + .ingredient-pull {
+  margin-top: 0 !important;
+}
+
 .ingredient-pull-title {
   background: var(--raised) !important;
   border-bottom: 1px solid var(--border) !important;
