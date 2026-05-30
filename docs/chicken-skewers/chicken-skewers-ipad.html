@@ -51,7 +51,7 @@
   }
 
   .shell {
-    max-width: 1180px;
+    max-width: 1040px;
     margin: 0 auto;
   }
 
@@ -101,9 +101,6 @@
   }
 
   .section-head {
-    display: flex;
-    align-items: baseline;
-    gap: 12px;
     padding: 11px 14px 9px;
     border-bottom: 1px solid var(--border);
     background: var(--raised);
@@ -111,9 +108,12 @@
 
   .section-label {
     color: var(--gold);
+    display: block;
     font-size: 10px;
     font-weight: 600;
     letter-spacing: 1.8px;
+    line-height: 1.2;
+    margin-bottom: 4px;
     text-transform: uppercase;
   }
 
@@ -160,14 +160,11 @@
 
   li {
     counter-increment: step;
-    display: grid;
-    grid-template-columns: 28px 1fr;
-    gap: 10px;
-    align-items: start;
+    position: relative;
     color: var(--text);
     font-size: 15px;
     line-height: 1.45;
-    padding: 8px 0;
+    padding: 8px 0 8px 38px;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
   }
 
@@ -176,6 +173,9 @@
 
   li::before {
     content: counter(step);
+    position: absolute;
+    top: 8px;
+    left: 0;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -202,17 +202,18 @@
     }
 
     .section-card.charcoal {
-      grid-row: span 2;
-    }
-  }
-
-  @media (min-width: 1080px) {
-    .board {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-column: 1 / -1;
+      grid-row: auto;
     }
 
-    .section-card.charcoal {
-      grid-row: span 1;
+    .section-card.charcoal ol {
+      column-count: 2;
+      column-gap: 24px;
+    }
+
+    .section-card.charcoal li {
+      break-inside: avoid;
+      page-break-inside: avoid;
     }
   }
 </style>
