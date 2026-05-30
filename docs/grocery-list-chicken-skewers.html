@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Grocery List - Chicken Skewers</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./theme.css?v=2">
+</head>
+<body>
+<div class="back-bar"><a href="../index.html" aria-label="Back to kitchen">&#8249;</a></div>
+
+<div class="hero">
+  <div class="recipe-label">Charcoal grill · Full meal</div>
+  <h1 class="recipe-title">Chicken <span>Skewers</span></h1>
+</div>
+
+<div class="section">
+  <div class="section-header">Main</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="cs1"><label for="cs1">2 lb boneless skinless chicken thighs</label></div>
+    <div class="item"><input type="checkbox" id="cs2"><label for="cs2">Wood or metal skewers<span class="item-note">Soak wood skewers 30 minutes</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">Produce</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="cs3"><label for="cs3">2 lemons</label></div>
+    <div class="item"><input type="checkbox" id="cs4"><label for="cs4">Fresh parsley</label></div>
+    <div class="item"><input type="checkbox" id="cs5"><label for="cs5">3 cloves garlic</label></div>
+    <div class="item"><input type="checkbox" id="cs6"><label for="cs6">1 1/2 lb baby potatoes</label></div>
+    <div class="item"><input type="checkbox" id="cs7"><label for="cs7">1 cucumber</label></div>
+    <div class="item"><input type="checkbox" id="cs8"><label for="cs8">1 pint cherry tomatoes</label></div>
+    <div class="item"><input type="checkbox" id="cs9"><label for="cs9">Small red onion<span class="item-note">Optional for salad</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">Sauce</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="cs10"><label for="cs10">Chicken broth<span class="item-note">About 1 cup</span></label></div>
+    <div class="item"><input type="checkbox" id="cs11"><label for="cs11">Prepared horseradish</label></div>
+    <div class="item"><input type="checkbox" id="cs12"><label for="cs12">Dijon mustard</label></div>
+    <div class="item"><input type="checkbox" id="cs13"><label for="cs13">Greek yogurt or sour cream</label></div>
+    <div class="item"><input type="checkbox" id="cs14"><label for="cs14">Honey</label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">Bread</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="cs15"><label for="cs15">Pita or naan</label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">Pantry</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="cs16"><label for="cs16">Olive oil</label></div>
+    <div class="item"><input type="checkbox" id="cs17"><label for="cs17">Smoked paprika</label></div>
+    <div class="item"><input type="checkbox" id="cs18"><label for="cs18">Dried oregano</label></div>
+    <div class="item"><input type="checkbox" id="cs19"><label for="cs19">Kosher salt and black pepper</label></div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    const key = `chicken-skewers-${cb.id}`;
+    cb.checked = localStorage.getItem(key) === 'checked';
+    cb.addEventListener('change', () => localStorage.setItem(key, cb.checked ? 'checked' : ''));
+  });
+</script>
+</body>
+</html>

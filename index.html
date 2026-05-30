@@ -68,7 +68,7 @@
     background: var(--border);
   }
   .section {
-    margin: 0 20px 14px;
+    margin: 0 20px 8px;
   }
   /* CARD */
   .card {
@@ -76,10 +76,10 @@
     border: 1px solid var(--border);
     border-radius: 6px;
     overflow: hidden;
-    margin-bottom: 14px;
+    margin-bottom: 8px;
   }
   .card-header {
-    padding: 14px 16px;
+    padding: 11px 14px;
     background: var(--raised);
     display: flex;
     align-items: center;
@@ -185,12 +185,12 @@
   }
 
   /* LINKS */
-  .link-list { padding: 4px 0; }
+  .link-list { padding: 2px 0; }
   .link-item {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 11px 16px;
+    padding: 9px 14px;
     border-bottom: 1px solid var(--border);
     text-decoration: none;
     -webkit-tap-highlight-color: transparent;
@@ -351,13 +351,32 @@
   </details>
 </div>
 
+<!-- CHICKEN SKEWERS -->
+<div class="section">
+  <details class="card" data-section="chicken-skewers">
+    <summary class="card-header">
+      <div class="card-copy">
+        <div class="card-title">Chicken Skewers</div>
+        <span class="card-subtitle">Pita · Potatoes · Cucumber</span>
+      </div>
+      <span class="dropdown-icon">›</span>
+    </summary>
+    <div class="link-list">
+      <a class="link-item" href="./docs/grocery-list-chicken-skewers.html">
+        <span class="link-text">Grocery List</span>
+        <span class="link-arrow">›</span>
+      </a>
+      <a class="link-item" href="./docs/chicken-skewers-instructions.html">
+        <span class="link-text">Cooking Instructions</span>
+        <span class="link-arrow">›</span>
+      </a>
+    </div>
+  </details>
+</div>
+
 <details class="misc" data-section="misc">
   <summary aria-label="Open miscellaneous"></summary>
   <a class="misc-link" href="./docs/griddle-initial-seasoning.html">Seasoning</a>
-  <a class="misc-link" href="./docs/grocery-list-charcoal-chicken.html">Charcoal Chicken Grocery</a>
-  <a class="misc-link" href="./docs/charcoal-chicken-instructions.html">Charcoal Chicken Instructions</a>
-  <a class="misc-link" href="./docs/grocery-list-grilled-chicken-sandwiches.html">Grilled Chicken Sandwich Grocery</a>
-  <a class="misc-link" href="./docs/grilled-chicken-sandwiches-instructions.html">Grilled Chicken Sandwich Instructions</a>
 </details>
 
 

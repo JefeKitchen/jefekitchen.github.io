@@ -223,6 +223,15 @@ li,
   padding: 12px 14px !important;
 }
 
+.item {
+  align-items: flex-start !important;
+}
+
+.item input[type="checkbox"] {
+  flex-shrink: 0 !important;
+  margin-top: 2px !important;
+}
+
 .item:last-child,
 .menu-item:last-child,
 .side-item:last-child,
@@ -275,6 +284,13 @@ em {
   color: var(--muted) !important;
 }
 
+.item-note {
+  display: block !important;
+  font-size: 12px !important;
+  line-height: 1.35 !important;
+  margin-top: 3px !important;
+}
+
 .ing,
 .warning-strip .icon,
 .maintenance ul li::before {
@@ -310,7 +326,7 @@ ol {
 .sec {
   background: transparent !important;
   border: 0 !important;
-  padding: 26px 20px 10px !important;
+  padding: 20px 20px 8px !important;
   margin: 0 !important;
   font-family: 'Source Sans 3', sans-serif !important;
   font-size: 11px !important;
@@ -331,7 +347,7 @@ ol {
 }
 
 .cook-block {
-  margin: 0 20px 14px !important;
+  margin: 0 20px 10px !important;
   border-radius: 8px !important;
   overflow: hidden !important;
   border: 1px solid var(--border) !important;
@@ -339,7 +355,7 @@ ol {
 }
 
 .cook-head {
-  padding: 11px 14px !important;
+  padding: 9px 12px !important;
   display: flex !important;
   align-items: center !important;
   gap: 12px !important;
@@ -369,7 +385,7 @@ ol {
 
 .cook-steps {
   background: var(--surface) !important;
-  padding: 10px 14px !important;
+  padding: 6px 12px !important;
   list-style: none !important;
   counter-reset: s !important;
 }
@@ -378,7 +394,7 @@ ol {
   counter-increment: s !important;
   display: flex !important;
   gap: 12px !important;
-  padding: 9px 0 !important;
+  padding: 7px 0 !important;
   border-bottom: 1px solid var(--border) !important;
   font-size: 13px !important;
   line-height: 1.6 !important;
