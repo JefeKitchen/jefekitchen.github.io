@@ -144,7 +144,7 @@
   ];
 
   function smsLink(message) {
-    const separator = /iPad|iPhone|iPod/i.test(navigator.userAgent) ? '&' : '?';
+    const separator = /iP(ad|hone|od)/i.test(navigator.userAgent) ? '&' : '?';
     return `sms:${separator}body=${encodeURIComponent(message)}`;
   }
 
