@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Griddle Re-Seasoning</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #e8dfc8;
+    background-image: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 28px,
+      rgba(180,160,120,0.2) 28px,
+      rgba(180,160,120,0.2) 29px
+    );
+    font-family: 'Courier Prime', monospace;
+    min-height: 100vh;
+    padding: 24px 16px 60px;
+    max-width: 390px;
+    margin: 0 auto;
+  }
+
+  .card {
+    background: #fef9ee;
+    border: 3px solid #1a1a2e;
+    position: relative;
+  }
+  .card::before {
+    content: '✦';
+    position: absolute;
+    top: 8px; left: 10px;
+    font-size: 10px;
+    color: #c8102e;
+  }
+  .card::after {
+    content: '✦';
+    position: absolute;
+    top: 8px; right: 10px;
+    font-size: 10px;
+    color: #c8102e;
+  }
+
+  /* HERO */
+  .hero {
+    border-bottom: 3px solid #1a1a2e;
+    padding: 28px 20px 20px;
+    text-align: center;
+  }
+  .recipe-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 10px;
+    letter-spacing: 6px;
+    color: #c8102e;
+    margin-bottom: 8px;
+  }
+  .recipe-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    line-height: 0.9;
+    color: #1a1a2e;
+    letter-spacing: 1px;
+  }
+  .recipe-title span { color: #c8102e; }
+  .recipe-meta {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px dashed #c8a860;
+  }
+  .meta-item { text-align: center; }
+  .meta-label {
+    font-size: 8px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #8a7a5a;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .meta-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    color: #1a1a2e;
+    letter-spacing: 1px;
+  }
+
+  /* WARNING STRIP */
+  .warning-strip {
+    background: #1a1a2e;
+    padding: 12px 20px;
+    border-bottom: 3px solid #1a1a2e;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .warning-strip .icon { font-size: 20px; flex-shrink: 0; }
+  .warning-strip p {
+    font-size: 12px;
+    color: #c8a860;
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  /* SECTION HEADER */
+  .sec-header {
+    background: #c8102e;
+    padding: 8px 20px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 4px;
+    color: #fef9ee;
+    border-top: 2px solid #1a1a2e;
+    border-bottom: 2px solid #1a1a2e;
+    margin-top: -1px;
+  }
+
+  /* STEPS */
+  .steps-list {
+    padding: 16px 20px;
+    list-style: none;
+  }
+  .step-item {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 16px;
+    align-items: flex-start;
+  }
+  .step-item:last-child { margin-bottom: 0; }
+  .step-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #1a1a2e;
+    color: #fef9ee;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .step-text {
+    font-size: 13px;
+    line-height: 1.65;
+    color: #2a2010;
+    flex: 1;
+    padding-top: 3px;
+    word-break: break-word;
+  }
+  .ing { color: #c8102e; font-weight: 700; }
+
+  /* NOTE CARD */
+  .note-card {
+    margin: 0 20px 14px;
+    background: #fff8e8;
+    border: 1px solid #c8a860;
+    border-left: 3px solid #c8a860;
+    padding: 12px 14px;
+  }
+  .note-card h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #8a7a5a;
+    margin-bottom: 5px;
+  }
+  .note-card p {
+    font-size: 12.5px;
+    color: #5a4a20;
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  /* DIVIDER */
+  .divider {
+    text-align: center;
+    padding: 10px 0;
+    border-top: 1px dashed #c8a860;
+    border-bottom: 1px dashed #c8a860;
+    margin: 0 20px;
+    font-size: 11px;
+    color: #c8a860;
+    letter-spacing: 4px;
+    font-family: 'Bebas Neue', sans-serif;
+  }
+
+  /* MAINTENANCE FOOTER */
+  .maintenance {
+    background: #1a1a2e;
+    padding: 14px 20px;
+    border-top: 3px solid #1a1a2e;
+  }
+  .maintenance h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: #c8a860;
+    margin-bottom: 10px;
+  }
+  .maintenance ul { list-style: none; }
+  .maintenance ul li {
+    font-size: 12px;
+    color: #c8c0a8;
+    line-height: 1.6;
+    padding: 4px 0;
+    border-bottom: 1px solid #2a2a3e;
+    display: flex;
+    gap: 8px;
+  }
+  .maintenance ul li:last-child { border-bottom: none; }
+  .maintenance ul li::before { content: '—'; color: #c8102e; flex-shrink: 0; }
+
+  .bottom-stamp {
+    text-align: center;
+    padding: 10px;
+    border-top: 1px dashed #c8a860;
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: #c8a860;
+    font-family: 'Bebas Neue', sans-serif;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="recipe-label">GE GGS600AVFS · Cast Iron Griddle</div>
+    <div class="recipe-title">GRIDDLE<br><span>RE-SEASON</span><br>GUIDE</div>
+    <div class="recipe-meta">
+      <div class="meta-item">
+        <span class="meta-label">Method</span>
+        <span class="meta-value">Oven</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Temp</span>
+        <span class="meta-value">350°F</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Per Round</span>
+        <span class="meta-value">1 Hour</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- WARNING -->
+  <div class="warning-strip">
+    <div class="icon">⚠️</div>
+    <p>Per GE's official instructions for the GGS600AVFS. Re-seasoning uses the oven, not the stovetop burner. This is different from the initial seasoning process.</p>
+  </div>
+
+  <!-- WHAT YOU NEED -->
+  <div class="sec-header">What You Need</div>
+  <ol class="steps-list">
+    <li class="step-item">
+      <div class="step-num">—</div>
+      <div class="step-text"><span class="ing">Avocado oil</span> — high smoke point, best choice for seasoning</div>
+    </li>
+    <li class="step-item">
+      <div class="step-num">—</div>
+      <div class="step-text"><span class="ing">Paper towels</span> — for applying and wiping oil</div>
+    </li>
+    <li class="step-item">
+      <div class="step-num">—</div>
+      <div class="step-text"><span class="ing">Hot water and a sponge</span> — for initial clean</div>
+    </li>
+    <li class="step-item">
+      <div class="step-num">—</div>
+      <div class="step-text"><span class="ing">Steel wool</span> — only if there is rust to remove first</div>
+    </li>
+  </ol>
+
+  <div class="divider">· · · ·</div>
+
+  <!-- STEP 1 CLEAN -->
+  <div class="sec-header">Step 1 — Clean the Surface</div>
+  <ol class="steps-list">
+    <li class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-text">If there is any rust, remove it now with <span class="ing">steel wool</span>. This is the only time steel wool is acceptable on the griddle.</div>
+    </li>
+    <li class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-text">Scrub the surface with <span class="ing">hot water and a sponge</span> to remove as much of the old seasoning as possible. You are starting fresh.</div>
+    </li>
+    <li class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-text"><span class="ing">Towel dry completely</span>. Do not let it air dry — pooled water causes rust. Make sure every part of the surface is dry before moving on.</div>
+    </li>
+  </ol>
+
+  <div class="divider">· · · ·</div>
+
+  <!-- STEP 2 OIL -->
+  <div class="sec-header">Step 2 — Apply the Oil</div>
+  <ol class="steps-list">
+    <li class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-text">Apply a <span class="ing">very thin layer of avocado oil</span> across the entire surface using a paper towel. Cover every part — top, sides, and edges.</div>
+    </li>
+    <li class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-text">Wipe off the excess with a fresh paper towel. <span class="ing">The surface should look almost dry.</span> Too much oil gets gummy instead of bonding to the metal. Thin is the whole game.</div>
+    </li>
+  </ol>
+
+  <div class="note-card" style="margin-top:14px;">
+    <h4>Why So Thin?</h4>
+    <p>A thick layer of oil won't polymerize — it just sits on the surface and goes sticky. The thinner the coat, the better it bonds. You want it to look like you barely applied anything.</p>
+  </div>
+
+  <div class="divider">· · · ·</div>
+
+  <!-- STEP 3 OVEN -->
+  <div class="sec-header">Step 3 — Oven Season</div>
+  <ol class="steps-list">
+    <li class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-text">Preheat your oven to <span class="ing">350°F</span>.</div>
+    </li>
+    <li class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-text">Place the griddle in the oven and bake for <span class="ing">1 hour</span>. It may smoke a little — this is normal. That's the oil polymerizing and bonding to the cast iron.</div>
+    </li>
+    <li class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-text">Turn the oven off and <span class="ing">let the griddle cool inside the oven</span>. Do not rush this. Let it come down to room temperature on its own.</div>
+    </li>
+    <li class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-text">Once cool, <span class="ing">repeat the oil and oven process</span> 2–3 more times. Each round builds another layer of seasoning. The more rounds, the better the surface.</div>
+    </li>
+  </ol>
+
+  <div class="note-card" style="margin-top:14px; margin-bottom:0;">
+    <h4>How Many Rounds?</h4>
+    <p>GE says repeat as necessary. For a full re-season from scratch, 3–4 rounds is ideal. The surface should darken and develop a slight sheen by the end.</p>
+  </div>
+
+  <!-- MAINTENANCE -->
+  <div class="maintenance" style="margin-top:0; border-top: 3px solid #1a1a2e;">
+    <h4>After Every Cook — Keep It Seasoned</h4>
+    <ul>
+      <li>While still warm, scrape off any food debris</li>
+      <li>Rinse with hot water and scrub with a sponge</li>
+      <li>Towel dry immediately — never air dry</li>
+      <li>Apply a very thin layer of oil before it cools</li>
+      <li>Never use soap, steel wool, or a dishwasher</li>
+      <li>Never let water pool or sit on the surface</li>
+    </ul>
+  </div>
+
+  <div class="bottom-stamp">GE GGS600AVFS · Cast Iron Griddle Care Guide</div>
+
+</div>
+</body>
+</html>

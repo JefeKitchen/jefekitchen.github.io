@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dinner Menu</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #1c2a1e;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px 60px;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .page {
+    background: #fdf8f0;
+    max-width: 600px;
+    width: 100%;
+    padding: 60px 56px 68px;
+    position: relative;
+  }
+
+  .page::before {
+    content: '';
+    position: absolute;
+    inset: 10px;
+    border: 1px solid #a8c090;
+    pointer-events: none;
+  }
+  .page::after {
+    content: '';
+    position: absolute;
+    inset: 15px;
+    border: 1px solid rgba(168, 192, 144, 0.3);
+    pointer-events: none;
+  }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    padding-bottom: 28px;
+    border-bottom: 1px solid #a8c090;
+    margin-bottom: 36px;
+  }
+  .header-eyebrow {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 6px;
+    color: #7a9a60;
+    margin-bottom: 12px;
+  }
+  .header-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 44px;
+    font-weight: 400;
+    color: #1e2a14;
+    line-height: 1.1;
+  }
+  .header-title em {
+    font-style: italic;
+    color: #4a7a30;
+  }
+  .header-sub {
+    font-size: 15px;
+    font-style: italic;
+    color: #6a7a54;
+    margin-top: 10px;
+    letter-spacing: 0.3px;
+  }
+  .ornament {
+    color: #a8c090;
+    font-size: 16px;
+    margin-top: 14px;
+    letter-spacing: 8px;
+  }
+
+  /* SECTION */
+  .section-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 6px;
+    color: #7a9a60;
+    text-align: center;
+    margin-bottom: 6px;
+  }
+  .section-rule {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .section-rule::before,
+  .section-rule::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #a8c090;
+    opacity: 0.45;
+  }
+  .section-rule span { font-size: 11px; color: #a8c090; opacity: 0.7; }
+
+  /* MENU ITEMS */
+  .menu-item {
+    text-align: center;
+    padding: 22px 0;
+    border-bottom: 1px solid rgba(168, 192, 144, 0.2);
+  }
+  .menu-item:last-child { border-bottom: none; }
+
+  .item-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e2a14;
+    margin-bottom: 6px;
+    letter-spacing: 0.3px;
+  }
+
+  .item-sub {
+    font-size: 13px;
+    font-style: italic;
+    color: #7a9a60;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+
+  .item-desc {
+    font-size: 15px;
+    font-style: italic;
+    color: #3a4a2a;
+    line-height: 1.7;
+    max-width: 380px;
+    margin: 0 auto;
+  }
+  .item-desc strong {
+    font-style: normal;
+    font-weight: 600;
+    color: #1e2a14;
+  }
+
+  /* SIDES inline */
+  .sides-row {
+    display: flex;
+    gap: 0;
+    margin-top: 8px;
+  }
+  .side-item {
+    flex: 1;
+    text-align: center;
+    padding: 20px 12px;
+    border-bottom: 1px solid rgba(168, 192, 144, 0.2);
+  }
+  .side-item:first-child {
+    border-right: 1px solid rgba(168, 192, 144, 0.2);
+  }
+  .side-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e2a14;
+    margin-bottom: 6px;
+  }
+  .side-desc {
+    font-size: 14px;
+    font-style: italic;
+    color: #5a6a44;
+    line-height: 1.6;
+  }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid #a8c090;
+  }
+  .footer-text {
+    font-size: 14px;
+    font-style: italic;
+    color: #6a7a54;
+    line-height: 1.8;
+  }
+  .footer-ornament {
+    color: #a8c090;
+    font-size: 13px;
+    letter-spacing: 6px;
+    margin-top: 12px;
+  }
+
+  @media (max-width: 500px) {
+    .page { padding: 44px 28px 52px; }
+    .sides-row { flex-direction: column; }
+    .side-item:first-child { border-right: none; border-bottom: 1px solid rgba(168, 192, 144, 0.2); }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-title">Pineapple <em>&</em> Orange</div>
+    <div class="ornament">— ✦ —</div>
+  </div>
+
+  <!-- STARTER -->
+  <div class="section-label">To Start</div>
+  <div class="section-rule"><span>✦</span></div>
+
+  <div class="menu-item">
+    <div class="item-name">Pineapple Cucumber Bites</div>
+    <div class="item-sub">Fresh · No Cook · Served Chilled</div>
+    <div class="item-desc">
+      Crisp cucumber rounds topped with <strong>fresh pineapple</strong>, a drizzle of <strong>honey</strong>, sea salt, and a sprig of mint. Light, refreshing, and the perfect way to start.
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="section-label" style="margin-top:32px;">The Main</div>
+  <div class="section-rule"><span>✦</span></div>
+
+  <div class="menu-item">
+    <div class="item-name">Pineapple Orange Teriyaki Chicken</div>
+    <div class="item-sub">Pan Seared · One Skillet · Homemade Sauce</div>
+    <div class="item-desc">
+      Pan-seared chicken thighs in a homemade teriyaki sauce of <strong>fresh pineapple juice</strong>, <strong>orange</strong>, honey, soy, garlic, and ginger. Finished with caramelized <strong>pineapple chunks</strong> and a glossy, sticky glaze.
+    </div>
+  </div>
+
+  <!-- SIDES -->
+  <div class="sides-row">
+    <div class="side-item">
+      <div class="side-name">Coconut Rice</div>
+      <div class="side-desc">Jasmine rice slow-cooked in coconut milk. Lightly sweet, fragrant, and the perfect base for the teriyaki sauce.</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

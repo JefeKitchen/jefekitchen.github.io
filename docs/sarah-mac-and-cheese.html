@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Sarah's Macaroni & Fromage</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #111010;
+    --char: #1c1b19;
+    --smoke: #2a2825;
+    --ember: #c94a1a;
+    --gold: #d4a940;
+    --cream: #f0ead8;
+    --muted: #7a7268;
+    --sarah: #7a2a6a;
+    --theo: #8a5c14;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 390px;
+    margin: 0 auto;
+    padding: 0 0 60px;
+    overflow-x: hidden;
+  }
+
+  .hero {
+    background: var(--char);
+    padding: 28px 20px 20px;
+    border-bottom: 3px solid var(--ember);
+  }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    line-height: 0.88;
+    letter-spacing: 2px;
+  }
+  .hero-title span { color: var(--ember); }
+  .hero-sub {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+
+  .warning-banner {
+    margin: 14px 20px;
+    background: var(--smoke);
+    border: 1px solid var(--ember);
+    border-radius: 8px;
+    padding: 14px 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .warning-banner .icon { font-size: 22px; flex-shrink: 0; }
+  .warning-banner p { font-size: 13px; line-height: 1.6; color: #d4cfc4; }
+  .warning-banner strong { color: var(--gold); font-weight: 700; display: block; font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: 1.5px; margin-bottom: 3px; }
+
+  .sec {
+    padding: 20px 20px 12px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sec::after { content: ''; flex: 1; height: 1px; background: var(--smoke); }
+
+  .cook-block {
+    margin: 0 20px 14px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--smoke);
+  }
+  .cook-head {
+    padding: 11px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .cook-head .color-bar { width: 4px; height: 28px; border-radius: 2px; flex-shrink: 0; }
+  .cook-head .badge { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); display: block; }
+  .cook-head h3 { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1.5px; color: var(--cream); line-height: 1.1; }
+  .cook-head .cook-emoji { margin-left: auto; font-size: 20px; flex-shrink: 0; }
+
+  .sarah .cook-head { background: #2a1228; }
+  .bella .cook-head { background: #2a1e0a; }
+
+  .cook-steps { background: var(--char); padding: 10px 14px; list-style: none; counter-reset: s; }
+  .cook-steps li {
+    counter-increment: s;
+    display: flex;
+    gap: 12px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--smoke);
+    font-size: 13px;
+    line-height: 1.6;
+    color: #d4cfc4;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+  .cook-steps li:last-child { border-bottom: none; }
+  .cook-steps li::before {
+    content: counter(s);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--ember);
+    min-width: 18px;
+    line-height: 1.1;
+    flex-shrink: 0;
+  }
+  .cook-steps li .st { flex: 1; min-width: 0; }
+  .ing { color: var(--gold); font-weight: 700; }
+
+  .timing {
+    margin: 10px 20px 0;
+    background: var(--ember);
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .timing .t-icon { font-size: 24px; flex-shrink: 0; }
+  .timing h4 { font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: 1.5px; margin-bottom: 4px; }
+  .timing p { font-size: 12.5px; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-title">MACARONI<br><span>&amp; FROMAGE</span></div>
+  <div class="hero-sub">Hand Crafted · Aged Cheese Sauce · Totally Not a Box of Annie's</div>
+</div>
+
+<!-- WARNING -->
+<div class="warning-banner">
+  <div class="icon">📦</div>
+  <p><strong>A Note on Sourcing</strong>The ingredients for this dish arrive pre-measured in a proprietary format. This is called efficiency. Do not read the box in front of anyone.</p>
+</div>
+
+<!-- PREP -->
+<div class="sec">Prep</div>
+
+<div class="cook-block sarah">
+  <div class="cook-head">
+    <div class="color-bar" style="background:#bf4abf;"></div>
+    <div>
+      <span class="badge">Sarah · Mise en Place</span>
+      <h3>Gather the Components</h3>
+    </div>
+    <div class="cook-emoji">🧀</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Locate <span class="ing">one box of pasta</span>. Open it. Inside you will find a bag of pasta and a packet of cheese powder. Both are needed. Do not discard the packet. The packet is the whole point.</span></li>
+    <li><span class="st">Set aside <span class="ing">2 tbsp butter</span> and <span class="ing">¼ cup milk</span>. These are the supporting cast. They matter more than they appear to.</span></li>
+    <li><span class="st">Locate a <span class="ing">pot large enough</span> for the pasta to move freely. Pasta needs space. Respect this.</span></li>
+  </ol>
+</div>
+
+<!-- COOK -->
+<div class="sec">Cook</div>
+
+<div class="cook-block sarah">
+  <div class="cook-head">
+    <div class="color-bar" style="background:#bf4abf;"></div>
+    <div>
+      <span class="badge">Sarah · The Long Game</span>
+      <h3>Boil the Water</h3>
+    </div>
+    <div class="cook-emoji">💧</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Fill the pot with <span class="ing">water</span> and place on the stove over <span class="ing">high heat</span>. Add a generous pinch of <span class="ing">salt</span>. Salted water is the foundation of all great pasta. This is what separates the serious cook from the casual one.</span></li>
+    <li><span class="st">Wait for a <span class="ing">full rolling boil</span>. Not a simmer. Not some bubbles. A full boil. This will take longer than expected. This is not your fault. Water is slow. It always has been.</span></li>
+  </ol>
+</div>
+
+<!-- BELLA -->
+<div class="cook-block bella">
+  <div class="cook-head">
+    <div class="color-bar" style="background:#c8850a;"></div>
+    <div>
+      <span class="badge">Bella · Investigating</span>
+      <h3>Water Quality Check</h3>
+    </div>
+    <div class="cook-emoji">🐾</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Bella is here. She is sniffing the pot. She approves of the water. Her input was not requested but has been noted. She may stay.</span></li>
+  </ol>
+</div>
+
+<div class="cook-block sarah">
+  <div class="cook-head">
+    <div class="color-bar" style="background:#bf4abf;"></div>
+    <div>
+      <span class="badge">Sarah · The Pasta</span>
+      <h3>Cook the Macaroni</h3>
+    </div>
+    <div class="cook-emoji">🍝</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Add the <span class="ing">pasta</span> to the boiling water. Stir immediately so it doesn't stick together. This is the most active this recipe gets. Enjoy it.</span></li>
+    <li><span class="st">Cook for <span class="ing">8–9 minutes</span>, stirring occasionally. The pasta is done when it is tender but still has a little bite. This is called al dente. Tell people that.</span></li>
+    <li><span class="st"><span class="ing">Reserve a splash of pasta water</span> before draining — about 2 tablespoons. Set it aside. It may be needed. It may not be. Having it is the professional move.</span></li>
+    <li><span class="st">Drain the pasta. Do not rinse it. Rinsing removes the starch. The starch is your friend. Keep your friends.</span></li>
+  </ol>
+</div>
+
+<!-- FINISH -->
+<div class="sec">Finish</div>
+
+<div class="cook-block sarah">
+  <div class="cook-head">
+    <div class="color-bar" style="background:#bf4abf;"></div>
+    <div>
+      <span class="badge">Sarah · The Sauce</span>
+      <h3>Build the Fromage</h3>
+    </div>
+    <div class="cook-emoji">✨</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Return the drained pasta to the pot over <span class="ing">low heat</span>.</span></li>
+    <li><span class="st">Add <span class="ing">2 tbsp butter</span> and stir until melted and coating the pasta. This is the moment everything comes together. Acknowledge it.</span></li>
+    <li><span class="st">Add <span class="ing">¼ cup milk</span>. Stir.</span></li>
+    <li><span class="st">Open the <span class="ing">cheese powder packet</span>. Pour it in. All of it. Do not second-guess the packet. The packet knows what it is doing. Stir until smooth and glossy.</span></li>
+    <li><span class="st">If the sauce seems too thick, add a small splash of the reserved pasta water. If it seems too thin, cook for another minute, stirring constantly. You are a chef now. Adjust accordingly.</span></li>
+  </ol>
+</div>
+
+<div class="cook-block sarah">
+  <div class="cook-head">
+    <div class="color-bar" style="background:#bf4abf;"></div>
+    <div>
+      <span class="badge">Sarah · Plating</span>
+      <h3>The Presentation</h3>
+    </div>
+    <div class="cook-emoji">🍽️</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Spoon into bowls. Do not serve from the pot. We are not animals.</span></li>
+    <li><span class="st">Accept all compliments. This dish took effort. The effort was real even if the cheese was powder. Do not let anyone tell you otherwise.</span></li>
+  </ol>
+</div>
+
+<!-- BELLA FINAL -->
+<div class="cook-block bella">
+  <div class="cook-head">
+    <div class="color-bar" style="background:#c8850a;"></div>
+    <div>
+      <span class="badge">Bella · Final Word</span>
+      <h3>Post-Cook Assessment</h3>
+    </div>
+    <div class="cook-emoji">🐾</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Bella has been present throughout and has strong feelings about the cheese powder. She cannot have any. She is choosing not to accept this. Do not negotiate. She will be fine. She is always fine.</span></li>
+  </ol>
+</div>
+
+<!-- TIMING -->
+<div class="timing" style="margin-top:20px;">
+  <div class="t-icon">⏱️</div>
+  <div>
+    <h4>Total Time</h4>
+    <p>About 15 minutes, mostly waiting for water to boil. This is the hardest part. It gets easier after that. Everything gets easier after that.</p>
+  </div>
+</div>
+
+</body>
+</html>

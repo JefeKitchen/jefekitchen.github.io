@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Grocery List — Redemption Meatloaf</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #f2f2f0;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: #111;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+  }
+  .page-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    letter-spacing: 2px;
+    color: #111;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .page-sub {
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 28px;
+  }
+  .section {
+    margin-bottom: 16px;
+    background: #fff;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+  }
+  .section-header {
+    padding: 9px 16px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 3px;
+  }
+  .section-header.need { background: #111; color: #fff; }
+  .section-header.have { background: #888; color: #fff; }
+  .divider-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: #888;
+    text-align: center;
+    margin: 28px 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .divider-label::before,
+  .divider-label::after { content: ''; flex: 1; height: 1px; background: #ccc; }
+  .item-list { padding: 6px 0; }
+  .item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 16px;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+  }
+  .item:last-child { border-bottom: none; }
+  .item input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    accent-color: #111;
+    cursor: pointer;
+  }
+  .item.have-item input[type="checkbox"] { accent-color: #888; }
+  .item label {
+    font-size: 14.5px;
+    color: #111;
+    cursor: pointer;
+    flex: 1;
+    line-height: 1.4;
+    pointer-events: none;
+  }
+  .item input[type="checkbox"]:checked ~ label {
+    color: #aaa;
+    text-decoration: line-through;
+  }
+  .item-note {
+    font-size: 11.5px;
+    color: #999;
+    display: block;
+    margin-top: 1px;
+  }
+  .item-note.warning {
+    color: #c94a1a;
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-title">Grocery List</div>
+<div class="page-sub">Redemption Meatloaf</div>
+
+<!-- NEED TO BUY -->
+<div class="section">
+  <div class="section-header need">Meat</div>
+  <div class="item-list">
+    <div class="item">
+      <input type="checkbox" id="i1">
+      <label for="i1">Ground beef — 80/20<span class="item-note">1.5 lbs. Use leftover slider beef if you have enough.</span></label>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Produce</div>
+  <div class="item-list">
+    <div class="item">
+      <input type="checkbox" id="i7">
+      <label for="i7">Potatoes<span class="item-note">1.5 lbs — Yukon Gold or red work best for mashing</span></label>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Dairy</div>
+  <div class="item-list">
+    <div class="item">
+      <input type="checkbox" id="i2">
+      <label for="i2">Milk<span class="item-note warning">You need ¼ cup. Just ¼ cup. Not the carton.</span></label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="i3">
+      <label for="i3">Eggs<span class="item-note">1 large egg</span></label>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Pantry</div>
+  <div class="item-list">
+    <div class="item">
+      <input type="checkbox" id="i4">
+      <label for="i4">Plain breadcrumbs<span class="item-note">½ cup needed</span></label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="i5">
+      <label for="i5">Worcestershire sauce<span class="item-note">Optional but recommended. 1 tsp.</span></label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="i6">
+      <label for="i6">Garlic powder<span class="item-note">If you don't already have it</span></label>
+    </div>
+  </div>
+</div>
+
+<!-- DIVIDER -->
+<div class="divider-label">Already Have — Check & Confirm</div>
+
+<div class="section">
+  <div class="section-header have">Produce</div>
+  <div class="item-list">
+    <div class="item have-item">
+      <input type="checkbox" id="h1">
+      <label for="h1">White onion<span class="item-note">½ onion, finely diced</span></label>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header have">Condiments</div>
+  <div class="item-list">
+    <div class="item have-item">
+      <input type="checkbox" id="h2">
+      <label for="h2">Yellow mustard</label>
+    </div>
+    <div class="item have-item">
+      <input type="checkbox" id="h3">
+      <label for="h3">Dijon mustard</label>
+    </div>
+    <div class="item have-item">
+      <input type="checkbox" id="h4">
+      <label for="h4">Honey</label>
+    </div>
+    <div class="item have-item">
+      <input type="checkbox" id="h7">
+      <label for="h7">Prepared horseradish</label>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header have">Dairy & Other</div>
+  <div class="item-list">
+    <div class="item have-item">
+      <input type="checkbox" id="h5">
+      <label for="h5">Butter</label>
+    </div>
+    <div class="item have-item">
+      <input type="checkbox" id="h6">
+      <label for="h6">Salt & pepper</label>
+    </div>
+  </div>
+</div>
+
+<script>
+  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  checkboxes.forEach(cb => {
+    if (localStorage.getItem('ml-' + cb.id) === 'checked') cb.checked = true;
+    cb.addEventListener('change', () => {
+      localStorage.setItem('ml-' + cb.id, cb.checked ? 'checked' : '');
+    });
+  });
+</script>
+
+</body>
+</html>

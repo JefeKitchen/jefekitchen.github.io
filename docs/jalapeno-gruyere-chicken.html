@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Jalapeño-Gruyère Chicken</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #111010;
+    --char: #1c1b19;
+    --smoke: #2a2825;
+    --ember: #c94a1a;
+    --gold: #d4a940;
+    --cream: #f0ead8;
+    --muted: #7a7268;
+    --theo: #8a5c14;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 390px;
+    margin: 0 auto;
+    padding: 0 0 60px;
+    overflow-x: hidden;
+  }
+
+  .hero {
+    background: var(--char);
+    padding: 28px 20px 20px;
+    border-bottom: 3px solid var(--ember);
+  }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    line-height: 0.88;
+    letter-spacing: 2px;
+  }
+  .hero-title span { color: var(--ember); }
+  .hero-sub {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+
+  /* INGREDIENTS CARD */
+  .ing-card {
+    margin: 14px 20px;
+    background: var(--char);
+    border: 1px solid var(--smoke);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .ing-card-head {
+    background: var(--smoke);
+    padding: 9px 14px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: var(--gold);
+  }
+  .ing-list { padding: 8px 14px; list-style: none; }
+  .ing-list li {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--smoke);
+    font-size: 13px;
+    color: var(--cream);
+  }
+  .ing-list li:last-child { border-bottom: none; }
+  .ing-list li span {
+    color: var(--muted);
+    font-size: 12.5px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .sec {
+    padding: 20px 20px 12px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sec::after { content: ''; flex: 1; height: 1px; background: var(--smoke); }
+
+  .cook-block {
+    margin: 0 20px 14px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--smoke);
+  }
+  .cook-head {
+    padding: 11px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #1e1a10;
+  }
+  .cook-head .color-bar { width: 4px; height: 28px; border-radius: 2px; flex-shrink: 0; background: var(--ember); }
+  .cook-head .badge { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); display: block; }
+  .cook-head h3 { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1.5px; color: var(--cream); line-height: 1.1; }
+  .cook-head .cook-emoji { margin-left: auto; font-size: 20px; flex-shrink: 0; }
+
+  .theo .cook-head { background: #2a1e0a; }
+  .theo .cook-head .color-bar { background: #c8850a; }
+
+  .cook-steps { background: var(--char); padding: 10px 14px; list-style: none; counter-reset: s; }
+  .cook-steps li {
+    counter-increment: s;
+    display: flex;
+    gap: 12px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--smoke);
+    font-size: 13px;
+    line-height: 1.6;
+    color: #d4cfc4;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+  .cook-steps li:last-child { border-bottom: none; }
+  .cook-steps li::before {
+    content: counter(s);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--ember);
+    min-width: 18px;
+    line-height: 1.1;
+    flex-shrink: 0;
+  }
+  .cook-steps li .st { flex: 1; min-width: 0; }
+  .ing { color: var(--gold); font-weight: 700; }
+
+  .note-card {
+    margin: 0 20px 14px;
+    background: var(--char);
+    border: 1px solid var(--smoke);
+    border-left: 3px solid var(--gold);
+    border-radius: 6px;
+    padding: 12px 14px;
+  }
+  .note-card h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    margin-bottom: 5px;
+  }
+  .note-card p { font-size: 12.5px; color: #c0b9ae; line-height: 1.6; }
+
+  .timing {
+    margin: 10px 20px 0;
+    background: var(--ember);
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .timing .t-icon { font-size: 24px; flex-shrink: 0; }
+  .timing h4 { font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: 1.5px; margin-bottom: 4px; }
+  .timing p { font-size: 12.5px; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-title">JALAPEÑO<br><span>GRUYÈRE</span><br>CHICKEN</div>
+  <div class="hero-sub">With Bok Choy · Serves 2–4 · Do Not Be Cyril</div>
+</div>
+
+<!-- INGREDIENTS -->
+<div class="ing-card">
+  <div class="ing-card-head">Ingredients · Scaled for 2–4</div>
+  <ul class="ing-list">
+    <li>Boneless skin-on chicken thighs <span>4</span></li>
+    <li>Jalapeño, thinly sliced <span>2</span></li>
+    <li>Gruyère, grated <span>90g</span></li>
+    <li>Bok choy, quartered lengthwise <span>1 regular</span></li>
+    <li>Garlic cloves, minced <span>4</span></li>
+    <li>Heavy cream <span>6 tbsp</span></li>
+    <li>Chicken broth <span>4 tbsp</span></li>
+    <li>Olive oil <span>2 tbsp</span></li>
+    <li>Butter <span>1 tbsp</span></li>
+    <li>Smoked paprika <span>½ tsp</span></li>
+    <li>Salt & pepper <span>aggressively</span></li>
+  </ul>
+</div>
+
+<!-- PREP -->
+<div class="sec">Prep</div>
+
+<div class="cook-block">
+  <div class="cook-head">
+    <div class="color-bar"></div>
+    <div>
+      <span class="badge">Step 1 · Critical Foundation</span>
+      <h3>Season the Chicken</h3>
+    </div>
+    <div class="cook-emoji">🧂</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Pat the chicken thighs completely dry with paper towels. Moisture is the enemy of a good sear, and the enemy of a good sear is the enemy of me.</span></li>
+    <li><span class="st">Season aggressively with <span class="ing">salt</span>, <span class="ing">pepper</span>, and <span class="ing">smoked paprika</span>. Yes, that much. More. There you go.</span></li>
+  </ol>
+</div>
+
+<!-- THEO -->
+<div class="cook-block theo">
+  <div class="cook-head">
+    <div class="color-bar"></div>
+    <div>
+      <span class="badge">Theo · Unsolicited</span>
+      <h3>Pre-Cook Inspection</h3>
+    </div>
+    <div class="cook-emoji">🐾</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Theo is here. He has assessed the chicken and has opinions. He cannot have raw chicken, jalapeño, garlic, or Gruyère. He will remain present anyway. This is his process.</span></li>
+  </ol>
+</div>
+
+<!-- COOK -->
+<div class="sec">Cook</div>
+
+<div class="cook-block">
+  <div class="cook-head">
+    <div class="color-bar"></div>
+    <div>
+      <span class="badge">Step 2 · Do Not Blow This</span>
+      <h3>Sear the Chicken</h3>
+    </div>
+    <div class="cook-emoji">🍳</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Heat <span class="ing">olive oil</span> in an oven-safe skillet over <span class="ing">medium-high</span> until it shimmers. Lay the chicken in <span class="ing">skin-side down</span>. Do not touch it. Do not poke it. Do not talk to it. Leave it alone for <span class="ing">7–8 minutes</span> until the skin is deeply golden.</span></li>
+    <li><span class="st">Flip. Cook <span class="ing">3 more minutes</span>. Remove to a plate. It is not fully cooked yet. This is intentional.</span></li>
+  </ol>
+</div>
+
+<div class="cook-block">
+  <div class="cook-head">
+    <div class="color-bar"></div>
+    <div>
+      <span class="badge">Step 3 · Krieger Supervises</span>
+      <h3>The Jalapeño Cream Sauce</h3>
+    </div>
+    <div class="cook-emoji">🌶️</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Drop heat to <span class="ing">medium</span>. Add <span class="ing">butter</span> to the skillet. Add <span class="ing">jalapeño</span> and <span class="ing">garlic</span>. Sauté <span class="ing">2 minutes</span>.</span></li>
+    <li><span class="st">Deglaze with <span class="ing">chicken broth</span> and scrape up all the browned bits from the bottom. That's flavor. Don't leave it behind.</span></li>
+    <li><span class="st">Pour in <span class="ing">heavy cream</span>. Simmer <span class="ing">2–3 minutes</span> until slightly thickened and coats a spoon. If Theo tries to get near the sauce, give him a look.</span></li>
+  </ol>
+</div>
+
+<div class="cook-block">
+  <div class="cook-head">
+    <div class="color-bar"></div>
+    <div>
+      <span class="badge">Step 4 · Chain of Command</span>
+      <h3>Deploy the Bok Choy</h3>
+    </div>
+    <div class="cook-emoji">🥬</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Nestle the <span class="ing">bok choy</span> cut-side down into the sauce around the edges. Little green operatives on a perimeter. Regular bok choy is quartered so it should fit — if pieces are large, cut down further so they cook through.</span></li>
+    <li><span class="st">Return the chicken <span class="ing">skin-side up</span> to the center of the pan. Spoon sauce over the top. The chicken is in command.</span></li>
+  </ol>
+</div>
+
+<!-- FINISH -->
+<div class="sec">Finish</div>
+
+<div class="cook-block">
+  <div class="cook-head">
+    <div class="color-bar"></div>
+    <div>
+      <span class="badge">Step 5 · Eyes On · Broiler Op</span>
+      <h3>Gruyère Deployment</h3>
+    </div>
+    <div class="cook-emoji">🧀</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Shower <span class="ing">Gruyère</span> over the chicken thighs.</span></li>
+    <li><span class="st">Move the skillet to the <span class="ing">top rack</span> under the broiler. Broil <span class="ing">3–4 minutes</span> until the cheese is molten and golden. <span class="ing">Watch it the entire time.</span> Gruyère burns under a broiler faster than you think. Do not be Cyril.</span></li>
+  </ol>
+</div>
+
+<div class="cook-block">
+  <div class="cook-head">
+    <div class="color-bar"></div>
+    <div>
+      <span class="badge">Step 6 · Mission Complete</span>
+      <h3>Rest & Plate</h3>
+    </div>
+    <div class="cook-emoji">🍽️</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Rest <span class="ing">2 minutes</span>. Plate directly from the skillet. Spoon the jalapeño cream sauce over everything with the confidence of someone who just completed a flawless extraction.</span></li>
+    <li><span class="st">Serve with rice or crusty bread. You've earned a drink. KA-KAAAW.</span></li>
+  </ol>
+</div>
+
+<!-- THEO FINAL -->
+<div class="cook-block theo">
+  <div class="cook-head">
+    <div class="color-bar"></div>
+    <div>
+      <span class="badge">Theo · Closing Statement</span>
+      <h3>Post-Cook Assessment</h3>
+    </div>
+    <div class="cook-emoji">🐾</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Theo has supervised this entire operation and has received nothing. The jalapeño, garlic, Gruyère, and cream are all off limits. He is aware. He would like to file a complaint. There is no complaints department. Goodnight, Theo.</span></li>
+  </ol>
+</div>
+
+<!-- NOTES -->
+<div class="note-card" style="margin-top:20px;">
+  <h4>On the Jalapeño</h4>
+  <p>Seeds in for real heat. Seeds out is something Cyril would do. Don't be Cyril.</p>
+</div>
+<div class="note-card">
+  <h4>On the Gruyère</h4>
+  <p>It will burn faster than you expect under the broiler. Eyes on the skillet at all times. This is non-negotiable.</p>
+</div>
+<div class="note-card">
+  <h4>On the Bok Choy</h4>
+  <p>Using regular full-size bok choy — quarter it lengthwise so it cooks through. Baby bok choy just needs halving but regular is too thick and won't cook through if only halved.</p>
+</div>
+
+<!-- TIMING -->
+<div class="timing" style="margin-top:14px;">
+  <div class="t-icon">⏱️</div>
+  <div>
+    <h4>Total Time</h4>
+    <p>About 25–30 minutes. One skillet, one cutting board. The broiler is the only part that requires your full attention. Give it your full attention.</p>
+  </div>
+</div>
+
+</body>
+</html>

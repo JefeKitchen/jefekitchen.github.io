@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Redemption Meatloaf</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #111010;
+    --char: #1c1b19;
+    --smoke: #2a2825;
+    --ember: #c94a1a;
+    --gold: #d4a940;
+    --cream: #f0ead8;
+    --muted: #7a7268;
+    --jeff: #2a4a7a;
+    --jaya: #6a2a4a;
+    --theo: #8a5c14;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 390px;
+    margin: 0 auto;
+    padding: 0 0 60px;
+    overflow-x: hidden;
+  }
+  .hero {
+    background: var(--char);
+    padding: 28px 20px 20px;
+    border-bottom: 3px solid var(--ember);
+  }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    line-height: 0.88;
+    letter-spacing: 2px;
+  }
+  .hero-title span { color: var(--ember); }
+  .hero-sub {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+  .legend {
+    display: flex;
+    gap: 12px;
+    padding: 14px 20px;
+    background: var(--smoke);
+    border-bottom: 1px solid var(--char);
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .sec {
+    padding: 20px 20px 12px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sec::after { content: ''; flex: 1; height: 1px; background: var(--smoke); }
+
+  /* MEASUREMENTS BANNER */
+  .measure-banner {
+    margin: 0 20px 14px;
+    background: var(--ember);
+    border-radius: 8px;
+    padding: 14px 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .measure-banner .icon { font-size: 22px; flex-shrink: 0; }
+  .measure-banner p { font-size: 13px; line-height: 1.6; }
+  .measure-banner strong { font-weight: 700; display: block; font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: 1.5px; margin-bottom: 3px; }
+
+  .cook-block {
+    margin: 0 20px 14px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--smoke);
+  }
+  .cook-head {
+    padding: 11px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .cook-head .color-bar { width: 4px; height: 28px; border-radius: 2px; flex-shrink: 0; }
+  .cook-head .badge { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); display: block; }
+  .cook-head h3 { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1.5px; color: var(--cream); line-height: 1.1; }
+  .cook-head .cook-emoji { margin-left: auto; font-size: 20px; flex-shrink: 0; }
+  .jeff .cook-head { background: #1a2a3a; }
+  .jaya .cook-head { background: #2a1a22; }
+  .theo .cook-head { background: #2a1e0a; }
+
+  .cook-steps { background: var(--char); padding: 10px 14px; list-style: none; counter-reset: s; }
+  .cook-steps li {
+    counter-increment: s;
+    display: flex;
+    gap: 12px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--smoke);
+    font-size: 13px;
+    line-height: 1.6;
+    color: #d4cfc4;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+  .cook-steps li:last-child { border-bottom: none; }
+  .cook-steps li::before {
+    content: counter(s);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--ember);
+    min-width: 18px;
+    line-height: 1.1;
+    flex-shrink: 0;
+  }
+  .cook-steps li .st { flex: 1; min-width: 0; }
+  .ing { color: var(--gold); font-weight: 700; }
+
+  .timing {
+    margin: 10px 20px 0;
+    background: var(--smoke);
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    border: 1px solid var(--ember);
+  }
+  .timing .t-icon { font-size: 24px; flex-shrink: 0; }
+  .timing h4 { font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: 1.5px; margin-bottom: 4px; color: var(--gold); }
+  .timing p { font-size: 12.5px; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-title">REDEMPTION<br><span>MEATLOAF</span></div>
+  <div class="hero-sub">Honey Mustard Glazed · Horseradish Mashed Potatoes · Measured Carefully</div>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="legend-item">
+    <div class="legend-dot" style="background:#4a7abf;"></div>
+    Jeff
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:#bf4a7a;"></div>
+    Jaya
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:#c8850a;"></div>
+    Theo
+  </div>
+</div>
+
+<!-- PREP -->
+<div class="sec">Prep</div>
+
+<!-- MEASUREMENTS REMINDER -->
+<div class="measure-banner">
+  <div class="icon">🥛</div>
+  <p><strong>A Note on Milk</strong>You need exactly <span style="font-weight:700;">¼ cup</span>. Measure it into a measuring cup first. Do not pour from the carton directly. We've been here before.</p>
+</div>
+
+<!-- JEFF: Preheat -->
+<div class="cook-block jeff">
+  <div class="cook-head">
+    <div class="color-bar" style="background:#4a7abf;"></div>
+    <div>
+      <span class="badge">Jeff · First Thing</span>
+      <h3>Preheat the Oven</h3>
+    </div>
+    <div class="cook-emoji">🌡️</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Turn oven to <span class="ing">350°F</span>. Lower and slower than the chicken — gives the meatloaf time to cook through evenly without drying out.</span></li>
+  </ol>
+</div>
+
+<!-- JAYA: Glaze -->
+<div class="cook-block jaya">
+  <div class="cook-head">
+    <div class="color-bar" style="background:#bf4a7a;"></div>
+    <div>
+      <span class="badge">Jaya · Glaze</span>
+      <h3>Make the Glaze</h3>
+    </div>
+    <div class="cook-emoji">🍯</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Whisk together <span class="ing">3 tbsp honey</span>, <span class="ing">2 tbsp Dijon</span>, <span class="ing">1 tbsp yellow mustard</span>, and <span class="ing">1 tbsp melted butter</span>.</span></li>
+    <li><span class="st">Set aside. You'll use half before the oven and half halfway through.</span></li>
+  </ol>
+</div>
+
+<!-- THEO: Honey -->
+<div class="cook-block theo">
+  <div class="cook-head">
+    <div class="color-bar" style="background:#c8850a;"></div>
+    <div>
+      <span class="badge">Theo · Again</span>
+      <h3>Honey Taste Test</h3>
+    </div>
+    <div class="cook-emoji">🐾</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Theo is already here and he has been waiting. Let him have a tiny lick. He hasn't learned anything but neither have you — you're making meatloaf again.</span></li>
+  </ol>
+</div>
+
+<!-- JEFF: Onion -->
+<div class="cook-block jeff">
+  <div class="cook-head">
+    <div class="color-bar" style="background:#4a7abf;"></div>
+    <div>
+      <span class="badge">Jeff · Knife Work</span>
+      <h3>Soften the Onion</h3>
+    </div>
+    <div class="cook-emoji">🔪</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Finely dice <span class="ing">½ white onion</span>.</span></li>
+    <li><span class="st">Melt <span class="ing">1 tbsp butter</span> in a small pan over medium-low. Add the onion and a pinch of salt. Cook <span class="ing">5–6 minutes</span> until soft and translucent. Don't brown them.</span></li>
+    <li><span class="st">Pull off heat and let cool for a few minutes before adding to the meat mixture.</span></li>
+  </ol>
+</div>
+
+<!-- JEFF: Mix -->
+<div class="cook-block jeff">
+  <div class="cook-head">
+    <div class="color-bar" style="background:#4a7abf;"></div>
+    <div>
+      <span class="badge">Jeff · The Main Event</span>
+      <h3>Mix the Meatloaf</h3>
+    </div>
+    <div class="cook-emoji">🥩</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">In a large bowl combine <span class="ing">1.5 lbs ground beef</span>, <span class="ing">1 large egg</span>, <span class="ing">½ cup breadcrumbs</span>, and <span class="ing">¼ cup milk</span> — measured, in a cup, not from the carton.</span></li>
+    <li><span class="st">Before adding anything else — pinch off a <span class="ing">2-inch chunk of plain beef</span>, mix in a tiny splash of milk, and roll it into a small ball. Set it aside on the corner of the sheet pan. This is Theo's Meatball. It goes in the oven with everything else, plain and safe.</span></li>
+    <li><span class="st">Add <span class="ing">2 tbsp yellow mustard</span>, <span class="ing">1 tbsp Dijon</span>, <span class="ing">1 tbsp prepared horseradish</span>, <span class="ing">1 tsp Worcestershire sauce</span>, <span class="ing">1 tsp salt</span>, <span class="ing">½ tsp black pepper</span>, <span class="ing">½ tsp garlic powder</span>, and the <span class="ing">cooled softened onion</span>.</span></li>
+    <li><span class="st">Mix until just combined. <span class="ing">Do not overmix</span> — work it too hard and it gets dense and tough. Stop as soon as everything is incorporated.</span></li>
+    <li><span class="st">Transfer to a parchment-lined sheet pan and shape into a loaf roughly <span class="ing">9 inches long</span> and <span class="ing">4 inches wide</span>. Place Theo's Meatball on the corner of the same pan.</span></li>
+    <li><span class="st">Brush the <span class="ing">top only</span> with a thin layer of glaze. Not the sides — the beef will release fat as it bakes and wash it off anyway. The heavy glaze on the sides comes at the 40-minute mark.</span></li>
+  </ol>
+</div>
+
+<!-- COOK -->
+<div class="sec">Cook</div>
+
+<!-- JEFF: Bake -->
+<div class="cook-block jeff">
+  <div class="cook-head">
+    <div class="color-bar" style="background:#4a7abf;"></div>
+    <div>
+      <span class="badge">Jeff · Oven · 350°F</span>
+      <h3>Bake the Meatloaf</h3>
+    </div>
+    <div class="cook-emoji">🔥</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Put the meatloaf in the oven. Set a timer for <span class="ing">40 minutes</span>.</span></li>
+    <li><span class="st">At 40 minutes, blot any large grease pools around the meatloaf with a paper towel. Then brush the remaining <span class="ing">glaze generously over the top and sides</span> — the loaf has finished releasing most of its fat so the glaze will stick and caramelize now.</span></li>
+    <li><span class="st">Pull <span class="ing">Theo's Meatball</span> off the pan at this point — it's done. Set it aside to cool before giving it to him.</span></li>
+    <li><span class="st">Continue baking another <span class="ing">15–20 minutes</span> until the internal temp hits <span class="ing">160°F</span>.</span></li>
+    <li><span class="st">Pull from the oven and rest <span class="ing">10 minutes</span> before slicing. Don't skip the rest — it holds together much better.</span></li>
+  </ol>
+</div>
+
+<!-- JAYA: Mashed Potatoes -->
+<div class="cook-block jaya">
+  <div class="cook-head">
+    <div class="color-bar" style="background:#bf4a7a;"></div>
+    <div>
+      <span class="badge">Jaya · Start When Meatloaf Goes In</span>
+      <h3>Horseradish Mashed Potatoes</h3>
+    </div>
+    <div class="cook-emoji">🥔</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Peel and cut <span class="ing">1.5 lbs potatoes</span> into rough chunks. Add to a pot and cover with cold salted water. No need to turn the burner on yet — just get them ready.</span></li>
+    <li><span class="st">When Jeff does the <span class="ing">40-minute glaze check</span>, turn the burner on high and bring to a boil. This gives Jaya a relaxed runway — no rushing.</span></li>
+    <li><span class="st">Boil <span class="ing">15–18 minutes</span> until a fork slides in easily. Drain well.</span></li>
+    <li><span class="st">Return to the pot. Add <span class="ing">3 tbsp butter</span>, <span class="ing">¼ cup warm milk</span>, <span class="ing">1–2 tbsp prepared horseradish</span>, salt and pepper. Mash until smooth.</span></li>
+    <li><span class="st">Taste and adjust — more horseradish for more bite, more butter for richness. Hold on lowest heat until the meatloaf is rested and ready to slice.</span></li>
+  </ol>
+</div>
+
+<!-- THEO: Cooked Meatball -->
+<div class="cook-block theo">
+  <div class="cook-head">
+    <div class="color-bar" style="background:#c8850a;"></div>
+    <div>
+      <span class="badge">Theo · His Moment</span>
+      <h3>The Theo Meatball</h3>
+    </div>
+    <div class="cook-emoji">🐾</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Once Theo's Meatball has cooled down, give it to him. No glaze, no onion, no garlic — just plain beef, made specifically for him. He has been staring at the oven for 40 minutes and he has absolutely no idea any of this was for him. That's fine. He'll figure it out.</span></li>
+  </ol>
+</div>
+
+<!-- TIMING -->
+<div class="timing" style="margin-top:20px;">
+  <div class="t-icon">⏱️</div>
+  <div>
+    <h4>Total Time</h4>
+    <p>About 1 hour 15 minutes. Jaya preps potatoes when the meatloaf goes in, turns the burner on high at the 40-minute mark. Jeff blots the grease and glazes top and sides at 40 minutes. Theo's Meatball comes off the pan at that same check. Everything lands together.</p>
+  </div>
+</div>
+
+</body>
+</html>

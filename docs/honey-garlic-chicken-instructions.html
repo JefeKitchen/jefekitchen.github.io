@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Honey Garlic Chicken</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #e8dfc8;
+    background-image: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 28px,
+      rgba(180,160,120,0.2) 28px,
+      rgba(180,160,120,0.2) 29px
+    );
+    font-family: 'Courier Prime', monospace;
+    min-height: 100vh;
+    padding: 24px 16px 60px;
+    max-width: 390px;
+    margin: 0 auto;
+  }
+
+  .card {
+    background: #fef9ee;
+    border: 3px solid #1a1a2e;
+    position: relative;
+  }
+  .card::before {
+    content: '✦';
+    position: absolute;
+    top: 8px; left: 10px;
+    font-size: 10px;
+    color: #c8102e;
+  }
+  .card::after {
+    content: '✦';
+    position: absolute;
+    top: 8px; right: 10px;
+    font-size: 10px;
+    color: #c8102e;
+  }
+
+  /* HERO */
+  .hero {
+    border-bottom: 3px solid #1a1a2e;
+    padding: 28px 20px 20px;
+    text-align: center;
+  }
+  .recipe-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 10px;
+    letter-spacing: 6px;
+    color: #c8102e;
+    margin-bottom: 8px;
+  }
+  .recipe-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    line-height: 0.9;
+    color: #1a1a2e;
+    letter-spacing: 1px;
+  }
+  .recipe-title span { color: #c8102e; }
+  .recipe-meta {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px dashed #c8a860;
+  }
+  .meta-item { text-align: center; }
+  .meta-label {
+    font-size: 8px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #8a7a5a;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .meta-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    color: #1a1a2e;
+    letter-spacing: 1px;
+  }
+
+  /* INGREDIENTS */
+  .ing-strip {
+    background: #1a1a2e;
+    padding: 14px 20px;
+    border-bottom: 3px solid #1a1a2e;
+  }
+  .ing-strip-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: #c8a860;
+    margin-bottom: 10px;
+  }
+  .ing-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 16px;
+  }
+  .ing-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 3px 0;
+    border-bottom: 1px solid #2a2a3e;
+    font-size: 12px;
+  }
+  .ing-row:last-child { border-bottom: none; }
+  .ing-name { color: #fef9ee; }
+  .ing-qty { color: #c8a860; font-weight: 700; font-size: 11px; }
+
+  /* SECTION HEADER */
+  .sec-header {
+    background: #c8102e;
+    padding: 8px 20px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 4px;
+    color: #fef9ee;
+    border-top: 2px solid #1a1a2e;
+    border-bottom: 2px solid #1a1a2e;
+    margin-top: -1px;
+  }
+
+  /* STEPS */
+  .steps-list {
+    padding: 16px 20px;
+    list-style: none;
+  }
+  .step-item {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 16px;
+    align-items: flex-start;
+  }
+  .step-item:last-child { margin-bottom: 0; }
+  .step-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #1a1a2e;
+    color: #fef9ee;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .step-text {
+    font-size: 13px;
+    line-height: 1.65;
+    color: #2a2010;
+    flex: 1;
+    padding-top: 3px;
+    word-break: break-word;
+  }
+  .ing { color: #c8102e; font-weight: 700; }
+
+  /* THEO */
+  .theo-block {
+    background: #fff8e8;
+    border-top: 2px dashed #c8a860;
+    border-bottom: 2px dashed #c8a860;
+    padding: 12px 20px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin: -1px 0;
+  }
+  .theo-icon { font-size: 24px; flex-shrink: 0; }
+  .theo-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #c8a860;
+    display: block;
+    margin-bottom: 3px;
+  }
+  .theo-text {
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: #5a4a20;
+    font-style: italic;
+  }
+
+  /* DIVIDER */
+  .divider {
+    text-align: center;
+    padding: 10px 0;
+    border-top: 1px dashed #c8a860;
+    border-bottom: 1px dashed #c8a860;
+    margin: 0 20px;
+    font-size: 11px;
+    color: #c8a860;
+    letter-spacing: 4px;
+    font-family: 'Bebas Neue', sans-serif;
+  }
+
+  /* TIMING */
+  .timing-footer {
+    background: #c8a860;
+    padding: 14px 20px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    border-top: 3px solid #1a1a2e;
+  }
+  .timing-footer .icon { font-size: 22px; flex-shrink: 0; }
+  .timing-footer h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+    letter-spacing: 2px;
+    color: #1a1a2e;
+    margin-bottom: 3px;
+  }
+  .timing-footer p { font-size: 12px; line-height: 1.6; color: #2a1a00; }
+
+  .bottom-stamp {
+    text-align: center;
+    padding: 10px;
+    border-top: 1px dashed #c8a860;
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: #c8a860;
+    font-family: 'Bebas Neue', sans-serif;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="recipe-label">Tonight's Recipe</div>
+    <div class="recipe-title">HONEY<br><span>GARLIC</span><br>CHICKEN</div>
+    <div class="recipe-meta">
+      <div class="meta-item">
+        <span class="meta-label">Serves</span>
+        <span class="meta-value">2–3</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Time</span>
+        <span class="meta-value">~25 Min</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Dishes</span>
+        <span class="meta-value">1 Skillet</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- INGREDIENTS -->
+  <div class="ing-strip">
+    <div class="ing-strip-title">Ingredients</div>
+    <div class="ing-grid">
+      <div class="ing-row"><span class="ing-name">Cucumber</span><span class="ing-qty">½</span></div>
+      <div class="ing-row"><span class="ing-name">Chicken thighs</span><span class="ing-qty">4–6</span></div>
+      <div class="ing-row"><span class="ing-name">Garlic cloves</span><span class="ing-qty">6</span></div>
+      <div class="ing-row"><span class="ing-name">Green beans</span><span class="ing-qty">2 handfuls</span></div>
+      <div class="ing-row"><span class="ing-name">Honey</span><span class="ing-qty">3 tbsp</span></div>
+      <div class="ing-row"><span class="ing-name">Soy sauce</span><span class="ing-qty">3 tbsp</span></div>
+      <div class="ing-row"><span class="ing-name">Chicken broth</span><span class="ing-qty">½ cup</span></div>
+      <div class="ing-row"><span class="ing-name">Cornstarch</span><span class="ing-qty">1 tbsp</span></div>
+      <div class="ing-row"><span class="ing-name">Butter</span><span class="ing-qty">1 tbsp</span></div>
+      <div class="ing-row"><span class="ing-name">Olive oil</span><span class="ing-qty">1 tbsp</span></div>
+    </div>
+  </div>
+
+  <!-- MAKE AHEAD -->
+  <div class="sec-header">Make Ahead — Cucumber Bites</div>
+  <ol class="steps-list">
+    <li class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-text">Slice <span class="ing">cucumber</span> into rounds about <span class="ing">¼ inch thick</span>. Arrange on a plate.</div>
+    </li>
+    <li class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-text">Drizzle with <span class="ing">honey</span> and a small splash of <span class="ing">soy sauce</span>. Sprinkle <span class="ing">sesame seeds</span> if you have them. Cover and refrigerate until ready.</div>
+    </li>
+  </ol>
+
+  <!-- THEO 1 -->
+  <div class="theo-block">
+    <div class="theo-icon">🐾</div>
+    <div>
+      <span class="theo-label">Theo — Act I · Hopeful</span>
+      <div class="theo-text">Theo has smelled the honey and is now present. Give him a plain <span style="color:#c8102e;font-weight:700;">cucumber round</span> — he's allowed. He will accept this graciously and immediately want another one.</div>
+    </div>
+  </div>
+
+  <!-- PREP -->
+  <div class="sec-header">Prep</div>
+  <ol class="steps-list">
+    <li class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-text">Mince <span class="ing">6 garlic cloves</span>. This is a lot of garlic. That's correct. That's the dish.</div>
+    </li>
+    <li class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-text">Trim ends off the <span class="ing">green beans</span>. Set aside.</div>
+    </li>
+    <li class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-text">Whisk together <span class="ing">3 tbsp honey</span>, <span class="ing">3 tbsp soy sauce</span>, and <span class="ing">½ cup chicken broth</span> in a small bowl. Set aside.</div>
+    </li>
+    <li class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-text">Mix <span class="ing">1 tbsp cornstarch</span> with <span class="ing">2 tbsp cold water</span> in a separate small bowl until smooth. Set aside.</div>
+    </li>
+    <li class="step-item">
+      <div class="step-num">5</div>
+      <div class="step-text">Pat chicken thighs dry. Season both sides with <span class="ing">salt and pepper</span>.</div>
+    </li>
+  </ol>
+
+  <div class="divider">· · · ·</div>
+
+  <!-- RICE -->
+  <div class="sec-header">Cook — Start the Rice First</div>
+  <ol class="steps-list">
+    <li class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-text">Rinse <span class="ing">rice</span> under cold water until mostly clear. Combine with water per package instructions in a pot. Bring to a boil, reduce to <span class="ing">low</span>, cover, and cook <span class="ing">18 minutes</span>. Do not lift the lid.</div>
+    </li>
+    <li class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-text">Once done, remove from heat and rest covered <span class="ing">5 minutes</span>. It'll hold just fine while you finish the chicken.</div>
+    </li>
+  </ol>
+
+  <div class="divider">· · · ·</div>
+
+  <!-- SEAR -->
+  <div class="sec-header">Cook — Sear the Chicken</div>
+  <ol class="steps-list">
+    <li class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-text">Heat <span class="ing">olive oil</span> in a skillet over <span class="ing">medium-high</span>. Sear chicken smooth-side down <span class="ing">5–6 minutes</span> without touching until golden. Flip and cook another <span class="ing">4 minutes</span>. Remove to a plate.</div>
+    </li>
+  </ol>
+
+  <!-- THEO 2 -->
+  <div class="theo-block">
+    <div class="theo-icon">😤</div>
+    <div>
+      <span class="theo-label">Theo — Act II · Impatient</span>
+      <div class="theo-text">The cucumber was not enough. He is aware something better is happening on the stove. He is pacing. He is not subtle about it.</div>
+    </div>
+  </div>
+
+  <!-- SAUCE -->
+  <div class="sec-header">Cook — Build the Sauce</div>
+  <ol class="steps-list">
+    <li class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-text">Drop heat to <span class="ing">medium</span>. Add <span class="ing">butter</span>. Add <span class="ing">minced garlic</span> and cook <span class="ing">1–2 minutes</span>, stirring constantly, until fragrant and just golden. Do not let it burn.</div>
+    </li>
+    <li class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-text">Pour in the <span class="ing">honey soy broth mixture</span>. Bring to a simmer, scraping up any browned bits from the bottom.</div>
+    </li>
+    <li class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-text">Stir in the <span class="ing">cornstarch slurry</span>. Sauce thickens quickly — keep stirring. Add a splash of water if it gets too thick.</div>
+    </li>
+    <li class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-text">Return <span class="ing">chicken</span> to the pan with the <span class="ing">green beans</span>. Spoon sauce over everything. Simmer on <span class="ing">low 5–6 minutes</span> until chicken is cooked through and beans are tender-crisp.</div>
+    </li>
+  </ol>
+
+  <div class="divider">· · · ·</div>
+
+  <!-- FINISH -->
+  <div class="sec-header">Plate & Serve</div>
+  <ol class="steps-list">
+    <li class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-text">Serve over <span class="ing">rice</span>. Spoon extra sauce generously over everything — it's the best part.</div>
+    </li>
+    <li class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-text">Garnish with <span class="ing">fresh parsley</span> if using.</div>
+    </li>
+  </ol>
+
+  <!-- THEO 3 -->
+  <div class="theo-block">
+    <div class="theo-icon">🐕</div>
+    <div>
+      <span class="theo-label">Theo — Act III · The Payoff</span>
+      <div class="theo-text">Give him a small piece of plain cooked chicken — no sauce. He has earned it. He will be very pleased with himself. All is forgiven.</div>
+    </div>
+  </div>
+
+  <!-- TIMING -->
+  <div class="timing-footer">
+    <div class="icon">⏱️</div>
+    <div>
+      <h4>Total Time · ~25 Min</h4>
+      <p>Start rice before you sear the chicken and everything lands together. The garlic step is the only one that needs your full attention — don't walk away from it.</p>
+    </div>
+  </div>
+
+  <div class="bottom-stamp">Recipe Card No. 7 · Honey Garlic Chicken</div>
+
+</div>
+</body>
+</html>

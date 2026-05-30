@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game 7 Menu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #111;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px 60px;
+    font-family: 'Oswald', sans-serif;
+  }
+
+  .page {
+    background: #fff;
+    max-width: 680px;
+    width: 100%;
+    padding: 52px 52px 60px;
+    border: 4px solid #111;
+  }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    padding-bottom: 24px;
+    border-bottom: 4px solid #111;
+    margin-bottom: 36px;
+  }
+  .header-eyebrow {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 6px;
+    color: #888;
+    margin-bottom: 6px;
+  }
+  .menu-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    line-height: 0.9;
+    color: #111;
+    letter-spacing: 2px;
+  }
+  .menu-title span {
+    display: block;
+    font-size: 38px;
+    letter-spacing: 8px;
+    color: #444;
+  }
+
+  /* SECTION LABELS */
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  .section-head h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+    letter-spacing: 6px;
+    color: #888;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .section-head::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background: #111;
+  }
+
+  /* MENU ITEMS */
+  .menu-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 0;
+  }
+
+  .menu-item {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 20px;
+    padding: 22px 0;
+    border-bottom: 1px solid #ddd;
+    align-items: start;
+  }
+  .menu-item:last-child { border-bottom: none; }
+
+  .item-art {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 3px;
+  }
+  .item-art svg { width: 52px; height: 52px; }
+
+  .item-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 1px;
+    color: #111;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .item-desc {
+    font-size: 14px;
+    font-weight: 400;
+    color: #444;
+    line-height: 1.65;
+  }
+  .item-desc strong {
+    font-weight: 600;
+    color: #111;
+  }
+
+  /* SIDES */
+  .sides-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .side-item {
+    padding: 22px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+  }
+  .side-item:first-child {
+    padding-right: 24px;
+    border-right: 1px solid #ddd;
+  }
+  .side-item:last-child {
+    padding-left: 24px;
+  }
+  .side-item svg { width: 50px; height: 50px; }
+  .side-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: #111;
+  }
+  .side-desc {
+    font-size: 13px;
+    font-weight: 400;
+    color: #555;
+    line-height: 1.6;
+  }
+  .side-desc strong { font-weight: 600; color: #111; }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding-top: 22px;
+    border-top: 4px solid #111;
+  }
+  .footer-main {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: #111;
+    margin-bottom: 6px;
+  }
+  .footer-sub {
+    font-size: 12px;
+    font-weight: 400;
+    color: #888;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    line-height: 1.7;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-eyebrow" style="font-size:11px; letter-spacing:4px;">Detroit Pistons v Cleveland Cavaliers</div>
+    <div class="menu-title">
+      GAME 7
+      <span>MENU</span>
+    </div>
+  </div>
+
+  <!-- SLIDERS -->
+  <div class="section-head"><h2>Sliders</h2></div>
+
+  <div class="menu-items">
+
+    <!-- THE BAD BOY -->
+    <div class="menu-item">
+      <div class="item-art">
+        <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 23 Q6 9 26 9 Q46 9 46 23" stroke="#111" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <ellipse cx="18" cy="14" rx="2.2" ry="1" stroke="#111" stroke-width="1.3" transform="rotate(-20 18 14)" fill="none"/>
+          <ellipse cx="26" cy="11.5" rx="2.2" ry="1" stroke="#111" stroke-width="1.3" fill="none"/>
+          <ellipse cx="34" cy="14" rx="2.2" ry="1" stroke="#111" stroke-width="1.3" transform="rotate(20 34 14)" fill="none"/>
+          <line x1="6" y1="23" x2="46" y2="23" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+          <path d="M8 25 L5 30 L47 30 L44 25" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <rect x="8" y="29" width="36" height="8" rx="2.5" stroke="#111" stroke-width="1.8" fill="none"/>
+          <path d="M12 33 Q15 31 18 33 Q21 35 24 33 Q27 31 30 33" stroke="#888" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+          <path d="M6 37 Q6 43 26 43 Q46 43 46 37" stroke="#111" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <line x1="6" y1="37" x2="46" y2="37" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+          <path d="M41 9 Q45 6 47 8 Q48 11 45 12 Q42 13 40 11 Q39 9 41 9 Z" stroke="#111" stroke-width="1.3" fill="none"/>
+          <path d="M41 9 Q40 7 41 5" stroke="#111" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+          <path d="M14 7 Q15 5 14 3" stroke="#888" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+          <path d="M18 6 Q19 4 18 2" stroke="#888" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="item-body">
+        <div class="item-name">The Bad Boy</div>
+        <div class="item-desc">
+          <strong>80/20 chuck</strong> smashed with onion pressed into the crust, <strong>Pepper Jack</strong>, pickled jalapeños, and sriracha mayo.
+        </div>
+      </div>
+    </div>
+
+    <!-- THE SLOW BURN -->
+    <div class="menu-item">
+      <div class="item-art">
+        <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 23 Q6 9 26 9 Q46 9 46 23" stroke="#111" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <ellipse cx="18" cy="14" rx="2.2" ry="1" stroke="#111" stroke-width="1.3" transform="rotate(-20 18 14)" fill="none"/>
+          <ellipse cx="26" cy="11.5" rx="2.2" ry="1" stroke="#111" stroke-width="1.3" fill="none"/>
+          <ellipse cx="34" cy="14" rx="2.2" ry="1" stroke="#111" stroke-width="1.3" transform="rotate(20 34 14)" fill="none"/>
+          <line x1="6" y1="23" x2="46" y2="23" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+          <path d="M7 25 L4 32 L48 32 L45 25" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <rect x="8" y="29" width="36" height="8" rx="2.5" stroke="#111" stroke-width="1.8" fill="none"/>
+          <path d="M10 29 Q14 26 18 29 Q22 26 26 29 Q30 26 34 29 Q38 26 42 29" stroke="#555" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+          <path d="M12 27 Q16 25 20 27 Q24 25 28 27 Q32 25 36 27 Q39 25 41 27" stroke="#999" stroke-width="1" stroke-linecap="round" fill="none" opacity="0.6"/>
+          <path d="M6 37 Q6 43 26 43 Q46 43 46 37" stroke="#111" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <line x1="6" y1="37" x2="46" y2="37" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+          <path d="M43 13 Q46 9 48 11 Q49 14 47 15 Q44 16 43 14" stroke="#111" stroke-width="1.3" fill="none"/>
+          <path d="M44 13 Q46 11 47 12 Q47.5 14 46 15" stroke="#888" stroke-width="1" fill="none" opacity="0.6"/>
+          <path d="M45 9 Q45 7 46 6" stroke="#111" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="item-body">
+        <div class="item-name">The French Press</div>
+        <div class="item-desc">
+          Smash patty buried under slow-caramelized <strong>onion</strong>, melted <strong>Gruyère</strong>, Dijon, and sharp horseradish.
+        </div>
+      </div>
+    </div>
+
+    <!-- THE MOTOR CITY CLOSER -->
+    <div class="menu-item">
+      <div class="item-art">
+        <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 23 Q6 9 26 9 Q46 9 46 23" stroke="#111" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <ellipse cx="18" cy="14" rx="2.2" ry="1" stroke="#111" stroke-width="1.3" transform="rotate(-20 18 14)" fill="none"/>
+          <ellipse cx="26" cy="11.5" rx="2.2" ry="1" stroke="#111" stroke-width="1.3" fill="none"/>
+          <ellipse cx="34" cy="14" rx="2.2" ry="1" stroke="#111" stroke-width="1.3" transform="rotate(20 34 14)" fill="none"/>
+          <line x1="6" y1="23" x2="46" y2="23" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+          <path d="M8 25 L46 25 L44 30 L10 30 Z" stroke="#555" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
+          <rect x="8" y="29" width="36" height="8" rx="2.5" stroke="#111" stroke-width="1.8" fill="none"/>
+          <line x1="12" y1="29" x2="12" y2="37" stroke="#333" stroke-width="1" opacity="0.3"/>
+          <line x1="20" y1="29" x2="20" y2="37" stroke="#333" stroke-width="1" opacity="0.3"/>
+          <line x1="28" y1="29" x2="28" y2="37" stroke="#333" stroke-width="1" opacity="0.3"/>
+          <line x1="36" y1="29" x2="36" y2="37" stroke="#333" stroke-width="1" opacity="0.3"/>
+          <path d="M6 37 Q6 43 26 43 Q46 43 46 37" stroke="#111" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <line x1="6" y1="37" x2="46" y2="37" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+          <ellipse cx="45" cy="10" rx="5" ry="3.5" stroke="#111" stroke-width="1.4" fill="none"/>
+          <ellipse cx="45" cy="10" rx="2.5" ry="1.5" stroke="#888" stroke-width="1" fill="none" opacity="0.6"/>
+          <circle cx="41.5" cy="8.5" r="0.8" fill="#111"/>
+          <circle cx="48" cy="11.5" r="0.8" fill="#111"/>
+        </svg>
+      </div>
+      <div class="item-body">
+        <div class="item-name">The Motor City Closer</div>
+        <div class="item-desc">
+          Hard-seared smash patty, <strong>sharp cheddar</strong>, raw shaved onion, yellow mustard, and <strong>dill pickle chips</strong>.
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-main">Detroit to the Eastern Conference Finals.</div>
+    <div class="footer-sub">Cleveland to Cancun.</div>
+  </div>
+
+</div>
+</body>
+</html>

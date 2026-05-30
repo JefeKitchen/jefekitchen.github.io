@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Honey Garlic Chicken — Tonight</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    background: #e8dfc8;
+    background-image: repeating-linear-gradient(
+      0deg, transparent, transparent 28px,
+      rgba(180,160,120,0.2) 28px, rgba(180,160,120,0.2) 29px
+    );
+    font-family: 'Courier Prime', monospace;
+  }
+
+  /* FULL VIEWPORT CARD */
+  .card {
+    height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #fef9ee;
+    border-left: 3px solid #1a1a2e;
+    border-right: 3px solid #1a1a2e;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .card::before { content: '✦'; position: absolute; top: 8px; left: 10px; font-size: 10px; color: #c8102e; z-index: 2; }
+  .card::after { content: '✦'; position: absolute; top: 8px; right: 10px; font-size: 10px; color: #c8102e; z-index: 2; }
+
+  /* TOP — fixed */
+  .top-fixed { flex-shrink: 0; border-bottom: 3px solid #1a1a2e; }
+
+  .hero {
+    padding: 18px 28px 14px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .recipe-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 10px;
+    letter-spacing: 6px;
+    color: #c8102e;
+    margin-bottom: 4px;
+  }
+  .recipe-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    line-height: 0.88;
+    color: #1a1a2e;
+    letter-spacing: 1px;
+  }
+  .recipe-title span { color: #c8102e; }
+  .hero-meta { display: flex; gap: 24px; align-items: flex-end; }
+  .meta-item { text-align: center; }
+  .meta-label {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #8a7a5a;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .meta-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    color: #1a1a2e;
+    letter-spacing: 1px;
+  }
+
+  /* INGREDIENTS */
+  .ing-strip {
+    background: #1a1a2e;
+    padding: 10px 28px;
+    border-top: 3px solid #1a1a2e;
+  }
+  .ing-strip-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: #c8a860;
+    margin-bottom: 8px;
+  }
+  .ing-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 3px 20px;
+  }
+  .ing-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 2px 0;
+    border-bottom: 1px solid #2a2a3e;
+    font-size: 11.5px;
+  }
+  .ing-row:last-child { border-bottom: none; }
+  .ing-name { color: #fef9ee; }
+  .ing-qty { color: #c8a860; font-weight: 700; font-size: 11px; flex-shrink: 0; }
+
+  /* SCROLL AREA — two columns */
+  .scroll-area {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    min-height: 0;
+    border-top: 2px solid #1a1a2e;
+  }
+
+  .scroll-col {
+    overflow-y: auto;
+    padding: 20px 24px 24px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .scroll-col:first-child {
+    border-right: 2px solid #1a1a2e;
+  }
+  /* custom scrollbar */
+  .scroll-col::-webkit-scrollbar { width: 4px; }
+  .scroll-col::-webkit-scrollbar-track { background: transparent; }
+  .scroll-col::-webkit-scrollbar-thumb { background: #c8a860; border-radius: 2px; }
+
+  /* COLUMN HEADER */
+  .col-header {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 4px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid;
+    margin-bottom: 18px;
+  }
+  .col-header.jeff { color: #2a4a8a; border-color: #2a4a8a; }
+  .col-header.jaya { color: #8a2a6a; border-color: #8a2a6a; }
+
+  /* PHASE LABEL inside column */
+  .phase-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: #c8a860;
+    margin: 18px 0 10px;
+    padding-top: 14px;
+    border-top: 1px dashed #c8a860;
+  }
+  .phase-label:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
+
+  /* STEPS */
+  .steps-list { list-style: none; }
+  .step-item {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 14px;
+    align-items: flex-start;
+  }
+  .step-item:last-child { margin-bottom: 0; }
+  .step-num {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    color: #fef9ee;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .step-num.jeff { background: #2a4a8a; }
+  .step-num.jaya { background: #8a2a6a; }
+  .step-text {
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: #2a2010;
+    flex: 1;
+    padding-top: 3px;
+    word-break: break-word;
+  }
+  .ing { color: #c8102e; font-weight: 700; }
+
+  /* BOTTOM — fixed */
+  .bottom-fixed { flex-shrink: 0; border-top: 3px solid #1a1a2e; }
+
+  .theo-block {
+    background: #fff8e8;
+    border-bottom: 2px dashed #c8a860;
+    padding: 12px 28px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .theo-icon { font-size: 22px; flex-shrink: 0; }
+  .theo-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #c8a860;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .theo-text { font-size: 12.5px; line-height: 1.6; color: #5a4a20; font-style: italic; }
+
+  .timing-footer {
+    background: #c8a860;
+    padding: 12px 28px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .timing-footer .icon { font-size: 20px; flex-shrink: 0; }
+  .timing-footer h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: #1a1a2e;
+    margin-bottom: 2px;
+  }
+  .timing-footer p { font-size: 12px; line-height: 1.5; color: #2a1a00; }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- TOP FIXED -->
+  <div class="top-fixed">
+    <div class="hero">
+      <div>
+        <div class="recipe-label">Tonight's Recipe</div>
+        <div class="recipe-title">HONEY <span>GARLIC</span> CHICKEN</div>
+      </div>
+      <div class="hero-meta">
+        <div class="meta-item"><span class="meta-label">Serves</span><span class="meta-value">2–3</span></div>
+        <div class="meta-item"><span class="meta-label">Time</span><span class="meta-value">~25 Min</span></div>
+        <div class="meta-item"><span class="meta-label">Dishes</span><span class="meta-value">1 Skillet</span></div>
+      </div>
+    </div>
+    <div class="ing-strip">
+      <div class="ing-strip-title">Ingredients</div>
+      <div class="ing-grid">
+        <div class="ing-row"><span class="ing-name">Cucumber</span><span class="ing-qty">½</span></div>
+        <div class="ing-row"><span class="ing-name">Chicken thighs</span><span class="ing-qty">4–6</span></div>
+        <div class="ing-row"><span class="ing-name">Garlic cloves</span><span class="ing-qty">6</span></div>
+        <div class="ing-row"><span class="ing-name">Green beans</span><span class="ing-qty">2 handfuls</span></div>
+        <div class="ing-row"><span class="ing-name">Honey</span><span class="ing-qty">3 tbsp</span></div>
+        <div class="ing-row"><span class="ing-name">Soy sauce</span><span class="ing-qty">3 tbsp</span></div>
+        <div class="ing-row"><span class="ing-name">Chicken broth</span><span class="ing-qty">½ cup</span></div>
+        <div class="ing-row"><span class="ing-name">Cornstarch</span><span class="ing-qty">1 tbsp</span></div>
+        <div class="ing-row"><span class="ing-name">Butter</span><span class="ing-qty">1 tbsp</span></div>
+        <div class="ing-row"><span class="ing-name">Olive oil</span><span class="ing-qty">1 tbsp</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCROLLABLE COLUMNS -->
+  <div class="scroll-area">
+
+    <!-- JEFF -->
+    <div class="scroll-col">
+      <div class="col-header jeff">Jeff</div>
+
+      <div class="phase-label">Prep</div>
+      <ol class="steps-list">
+        <li class="step-item">
+          <div class="step-num jeff">1</div>
+          <div class="step-text">Pat <span class="ing">chicken thighs</span> dry with paper towels. Season both sides with <span class="ing">salt and pepper</span>.</div>
+        </li>
+      </ol>
+
+      <div class="phase-label">Cook — Sear</div>
+      <ol class="steps-list">
+        <li class="step-item">
+          <div class="step-num jeff">1</div>
+          <div class="step-text">Heat <span class="ing">olive oil</span> in a skillet over <span class="ing">medium-high</span>. Sear chicken smooth-side down <span class="ing">5–6 minutes</span> without touching until golden. Flip and cook <span class="ing">4 minutes</span> more. Remove to a plate.</div>
+        </li>
+      </ol>
+
+      <div class="phase-label">Cook — Sauce</div>
+      <ol class="steps-list">
+        <li class="step-item">
+          <div class="step-num jeff">1</div>
+          <div class="step-text">Drop heat to <span class="ing">medium</span>. Add <span class="ing">butter</span>. Add <span class="ing">minced garlic</span> and cook <span class="ing">1–2 minutes</span>, stirring constantly, until fragrant and just golden. Do not let it burn.</div>
+        </li>
+        <li class="step-item">
+          <div class="step-num jeff">2</div>
+          <div class="step-text">Pour in the <span class="ing">honey soy broth mixture</span>. Bring to a simmer, scraping up any browned bits from the bottom.</div>
+        </li>
+        <li class="step-item">
+          <div class="step-num jeff">3</div>
+          <div class="step-text">Stir in the <span class="ing">cornstarch slurry</span>. Keep stirring — it thickens fast. Add a splash of water if it gets too thick.</div>
+        </li>
+        <li class="step-item">
+          <div class="step-num jeff">4</div>
+          <div class="step-text">Return <span class="ing">chicken</span> to the pan with the <span class="ing">green beans</span>. Spoon sauce over everything. Simmer on <span class="ing">low 5–6 minutes</span> until chicken is cooked through and beans are tender-crisp.</div>
+        </li>
+      </ol>
+    </div>
+
+    <!-- JAYA -->
+    <div class="scroll-col">
+      <div class="col-header jaya">Jaya</div>
+
+      <div class="phase-label">Make Ahead</div>
+      <ol class="steps-list">
+        <li class="step-item">
+          <div class="step-num jaya">1</div>
+          <div class="step-text">Slice <span class="ing">cucumber</span> into rounds about <span class="ing">¼ inch thick</span>. Arrange on a plate.</div>
+        </li>
+        <li class="step-item">
+          <div class="step-num jaya">2</div>
+          <div class="step-text">Drizzle with <span class="ing">honey</span> and a small splash of <span class="ing">soy sauce</span>. Sesame seeds on top if you have them. Cover and refrigerate.</div>
+        </li>
+      </ol>
+
+      <div class="phase-label">Prep</div>
+      <ol class="steps-list">
+        <li class="step-item">
+          <div class="step-num jaya">1</div>
+          <div class="step-text">Mince <span class="ing">6 garlic cloves</span>. This is a lot of garlic. That's correct. That's the dish.</div>
+        </li>
+        <li class="step-item">
+          <div class="step-num jaya">2</div>
+          <div class="step-text">Trim the ends off the <span class="ing">green beans</span>. Set aside.</div>
+        </li>
+        <li class="step-item">
+          <div class="step-num jaya">3</div>
+          <div class="step-text">Whisk together <span class="ing">3 tbsp honey</span>, <span class="ing">3 tbsp soy sauce</span>, and <span class="ing">½ cup chicken broth</span> in a small bowl. Set aside.</div>
+        </li>
+        <li class="step-item">
+          <div class="step-num jaya">4</div>
+          <div class="step-text">In a separate small bowl mix <span class="ing">1 tbsp cornstarch</span> with <span class="ing">2 tbsp cold water</span> until smooth. Set aside.</div>
+        </li>
+      </ol>
+
+      <div class="phase-label">Cook — Rice</div>
+      <ol class="steps-list">
+        <li class="step-item">
+          <div class="step-num jaya">1</div>
+          <div class="step-text">Rinse <span class="ing">rice</span> under cold water until mostly clear. Cook per package instructions — bring to boil, reduce to <span class="ing">low</span>, cover, <span class="ing">18 minutes</span>. Do not lift the lid.</div>
+        </li>
+      </ol>
+
+      <div class="phase-label">Plate & Serve</div>
+      <ol class="steps-list">
+        <li class="step-item">
+          <div class="step-num jaya">1</div>
+          <div class="step-text">Fluff the <span class="ing">rice</span> with a fork. Spoon into bowls or onto plates.</div>
+        </li>
+        <li class="step-item">
+          <div class="step-num jaya">2</div>
+          <div class="step-text">Lay the <span class="ing">chicken</span> on top. Spoon <span class="ing">sauce and green beans</span> generously over everything. Garnish with <span class="ing">fresh parsley</span> if using.</div>
+        </li>
+        <li class="step-item">
+          <div class="step-num jaya">3</div>
+          <div class="step-text">Put the <span class="ing">cucumber bites</span> out on the table. Dinner is ready.</div>
+        </li>
+      </ol>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM FIXED -->
+  <div class="bottom-fixed">
+    <div class="theo-block">
+      <div class="theo-icon">🐕</div>
+      <div>
+        <span class="theo-label">Theo · The Payoff</span>
+        <div class="theo-text">Give him a small piece of plain cooked chicken — no sauce. He has earned it. He will be very pleased with himself. All is forgiven.</div>
+      </div>
+    </div>
+    <div class="timing-footer">
+      <div class="icon">⏱️</div>
+      <div>
+        <h4>Total Time · ~25 Minutes</h4>
+        <p>Jaya starts the rice while Jeff sears the chicken — they finish at the same time. The garlic step is the only one that needs full attention. Don't walk away from it.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>An Evening with Sarah</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #1a1614;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 60px 20px 80px;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .page {
+    background: #fdfaf4;
+    max-width: 560px;
+    width: 100%;
+    padding: 72px 64px 80px;
+    position: relative;
+  }
+
+  /* BORDER FRAMES */
+  .page::before {
+    content: '';
+    position: absolute;
+    inset: 12px;
+    border: 1px solid #c8b89a;
+    pointer-events: none;
+  }
+  .page::after {
+    content: '';
+    position: absolute;
+    inset: 17px;
+    border: 1px solid rgba(200, 184, 154, 0.3);
+    pointer-events: none;
+  }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    margin-bottom: 44px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid #c8b89a;
+  }
+
+  .header-pre {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: #a89070;
+    margin-bottom: 16px;
+  }
+
+  .header-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 46px;
+    font-weight: 400;
+    color: #1a1614;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .header-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 46px;
+    font-weight: 700;
+    font-style: italic;
+    color: #1a1614;
+    line-height: 1;
+    margin-bottom: 18px;
+  }
+
+  .header-sub {
+    font-size: 14px;
+    font-style: italic;
+    letter-spacing: 1px;
+    color: #8a7860;
+  }
+
+  /* COURSE DIVIDER */
+  .course-divider {
+    text-align: center;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .course-divider::before,
+  .course-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #c8b89a;
+    opacity: 0.5;
+  }
+  .course-divider span {
+    font-size: 10px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #a89070;
+    white-space: nowrap;
+  }
+
+  /* COURSE */
+  .course {
+    text-align: center;
+    margin-bottom: 44px;
+  }
+
+  .course-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #1a1614;
+    margin-bottom: 8px;
+  }
+
+  .course-ingredients {
+    font-size: 14px;
+    font-style: italic;
+    color: #8a7860;
+    letter-spacing: 0.5px;
+    margin-bottom: 14px;
+  }
+
+  .course-desc {
+    font-size: 15px;
+    color: #3a2e24;
+    line-height: 1.75;
+    font-style: italic;
+    max-width: 340px;
+    margin: 0 auto;
+  }
+
+  /* NOTE FROM CHEF */
+  .chef-note {
+    text-align: center;
+    margin-top: 8px;
+    padding-top: 36px;
+    border-top: 1px solid #c8b89a;
+  }
+
+  .chef-note-label {
+    font-size: 10px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #a89070;
+    margin-bottom: 14px;
+  }
+
+  .chef-note-text {
+    font-size: 15px;
+    font-style: italic;
+    color: #3a2e24;
+    line-height: 1.8;
+  }
+
+  .ornament {
+    color: #c8b89a;
+    font-size: 14px;
+    letter-spacing: 6px;
+    margin-top: 28px;
+    display: block;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-pre">An Evening with</div>
+    <div class="header-title">Sarah</div>
+    <div class="header-name"><em>A Three-Course Tasting Menu</em></div>
+    <div class="header-sub">Chef's selections · Served with love · No substitutions</div>
+  </div>
+
+  <!-- DRINK -->
+  <div class="course-divider"><span>The Drink</span></div>
+  <div class="course">
+    <div class="course-name">NOT WINE</div>
+    <div class="course-ingredients">Sparkling water, seasonal fruit</div>
+    <div class="course-desc">She doesn't drink right now, but she wanted you to feel included in her suffering.</div>
+  </div>
+
+  <!-- COURSE ONE -->
+  <div class="course-divider"><span>Course One</span></div>
+  <div class="course">
+    <div class="course-name">THE OPENING ARGUMENT</div>
+    <div class="course-ingredients">Tortilla chips, store-bought salsa</div>
+    <div class="course-desc">A bold, confrontational opener. No apologies for the sourcing.</div>
+  </div>
+
+  <!-- COURSE TWO -->
+  <div class="course-divider"><span>Course Two</span></div>
+  <div class="course">
+    <div class="course-name">MACARONI & FROMAGE</div>
+    <div class="course-ingredients">Elbow pasta, powdered cheese, milk, butter</div>
+    <div class="course-desc">A hand-crafted pasta in a silken aged cheese sauce. Prepared to the letter. Considered a personal triumph. Totally not just a box of Annie's.</div>
+  </div>
+
+  <!-- COURSE THREE -->
+  <div class="course-divider"><span>Course Three</span></div>
+  <div class="course">
+    <div class="course-name">THE FINALE</div>
+    <div class="course-ingredients">Seasonal fruit, honey, lime</div>
+    <div class="course-desc">Cut with a knife. All of it. Please acknowledge this.</div>
+  </div>
+
+  <!-- CHEF NOTE -->
+  <div class="chef-note">
+    <div class="chef-note-label">A Note from the Chef</div>
+    <div class="chef-note-text">
+      Prepared under extraordinary conditions.<br>
+      She is tired. She did her best.<br>
+      Compliments only.
+    </div>
+    <span class="ornament">— ✦ —</span>
+  </div>
+
+</div>
+</body>
+</html>

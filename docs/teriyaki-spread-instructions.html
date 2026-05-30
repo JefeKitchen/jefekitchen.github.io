@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Pineapple Teriyaki Spread</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #111010;
+    --char: #1c1b19;
+    --smoke: #2a2825;
+    --ember: #c94a1a;
+    --gold: #d4a940;
+    --cream: #f0ead8;
+    --muted: #7a7268;
+    --theo: #8a5c14;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 390px;
+    margin: 0 auto;
+    padding: 0 0 60px;
+    overflow-x: hidden;
+  }
+
+  .hero {
+    background: var(--char);
+    padding: 28px 20px 20px;
+    border-bottom: 3px solid var(--ember);
+  }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    line-height: 0.88;
+    letter-spacing: 2px;
+  }
+  .hero-title span { color: var(--ember); }
+  .hero-sub {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+
+  .sec {
+    padding: 20px 20px 12px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sec::after { content: ''; flex: 1; height: 1px; background: var(--smoke); }
+
+  .cook-block {
+    margin: 0 20px 14px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--smoke);
+  }
+  .cook-head {
+    padding: 11px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #1e1a10;
+  }
+  .cook-head .color-bar { width: 4px; height: 28px; border-radius: 2px; flex-shrink: 0; background: var(--ember); }
+  .cook-head .badge { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); display: block; }
+  .cook-head h3 { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1.5px; color: var(--cream); line-height: 1.1; }
+  .cook-head .cook-emoji { margin-left: auto; font-size: 20px; flex-shrink: 0; }
+
+  .theo .cook-head { background: #2a1e0a; }
+  .theo .cook-head .color-bar { background: #c8850a; }
+
+  .cook-steps { background: var(--char); padding: 10px 14px; list-style: none; counter-reset: s; }
+  .cook-steps li {
+    counter-increment: s;
+    display: flex;
+    gap: 12px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--smoke);
+    font-size: 13px;
+    line-height: 1.6;
+    color: #d4cfc4;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+  .cook-steps li:last-child { border-bottom: none; }
+  .cook-steps li::before {
+    content: counter(s);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--ember);
+    min-width: 18px;
+    line-height: 1.1;
+    flex-shrink: 0;
+  }
+  .cook-steps li .st { flex: 1; min-width: 0; }
+  .ing { color: var(--gold); font-weight: 700; }
+
+  .note-card {
+    margin: 0 20px 10px;
+    background: var(--char);
+    border: 1px solid var(--smoke);
+    border-left: 3px solid var(--gold);
+    border-radius: 6px;
+    padding: 12px 14px;
+  }
+  .note-card h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    margin-bottom: 5px;
+  }
+  .note-card p { font-size: 12.5px; color: #c0b9ae; line-height: 1.6; }
+
+  .timing {
+    margin: 10px 20px 0;
+    background: var(--ember);
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .timing .t-icon { font-size: 24px; flex-shrink: 0; }
+  .timing h4 { font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: 1.5px; margin-bottom: 4px; }
+  .timing p { font-size: 12.5px; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-title">PINEAPPLE<br><span>TERIYAKI</span><br>SPREAD</div>
+  <div class="hero-sub">Serves 3 · Cucumber Bites · Chicken · Coconut Rice</div>
+</div>
+
+<!-- PREP -->
+<div class="sec">Prep First</div>
+
+<div class="cook-block">
+  <div class="cook-head">
+    <div class="color-bar"></div>
+    <div>
+      <span class="badge">Do First · All Dishes</span>
+      <h3>Break Down the Pineapple</h3>
+    </div>
+    <div class="cook-emoji">🍍</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Cut the top and bottom off the pineapple. Stand it upright and slice off the skin in strips from top to bottom. Remove any remaining eyes.</span></li>
+    <li><span class="st">Cut into quarters lengthwise and remove the core from each quarter.</span></li>
+    <li><span class="st">From one quarter, cut small bite-sized chunks for the <span class="ing">cucumber bites</span>. Set aside.</span></li>
+    <li><span class="st">From another quarter, cut slightly larger chunks for the <span class="ing">finished teriyaki dish</span>. Set aside.</span></li>
+    <li><span class="st">Squeeze or press the remaining pineapple over a bowl to collect <span class="ing">pineapple juice</span> for the sauce — you need about <span class="ing">3 tbsp</span>.</span></li>
+  </ol>
+</div>
+
+<div class="cook-block">
+  <div class="cook-head">
+    <div class="color-bar"></div>
+    <div>
+      <span class="badge">Make Ahead · Starter</span>
+      <h3>Cucumber Bites</h3>
+    </div>
+    <div class="cook-emoji">🥒</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Slice the <span class="ing">cucumber</span> into rounds about <span class="ing">¼ inch thick</span>.</span></li>
+    <li><span class="st">Top each round with a small piece of <span class="ing">fresh pineapple</span>.</span></li>
+    <li><span class="st">Drizzle lightly with <span class="ing">honey</span> and add a small pinch of <span class="ing">salt</span> over the whole tray.</span></li>
+    <li><span class="st">Add a small <span class="ing">mint leaf</span> on top of each if using. Cover and refrigerate until ready to serve. These can be made an hour ahead.</span></li>
+  </ol>
+</div>
+
+<!-- THEO -->
+<div class="cook-block theo">
+  <div class="cook-head">
+    <div class="color-bar"></div>
+    <div>
+      <span class="badge">Theo · Tropical Interest</span>
+      <h3>Pineapple Assessment</h3>
+    </div>
+    <div class="cook-emoji">🐾</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Theo has never seen a pineapple this close before and is deeply suspicious of it. He may have a very small piece of plain pineapple — it's safe for dogs in small amounts. This will not satisfy him. Nothing satisfies him. Proceed.</span></li>
+  </ol>
+</div>
+
+<!-- RICE -->
+<div class="sec">Coconut Rice</div>
+
+<div class="cook-block">
+  <div class="cook-head">
+    <div class="color-bar"></div>
+    <div>
+      <span class="badge">Start Before Chicken</span>
+      <h3>Coconut Rice</h3>
+    </div>
+    <div class="cook-emoji">🍚</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Rinse <span class="ing">1.5 cups jasmine rice</span> under cold water until the water runs mostly clear.</span></li>
+    <li><span class="st">Combine in a pot with <span class="ing">1 can coconut milk</span> plus enough water to bring the total liquid to <span class="ing">2.25 cups</span>. Add <span class="ing">½ tsp salt</span> and <span class="ing">1 tsp sugar</span>.</span></li>
+    <li><span class="st">Bring to a boil over medium-high, then reduce to <span class="ing">low</span>, cover, and cook <span class="ing">18 minutes</span>. Do not lift the lid.</span></li>
+    <li><span class="st">Remove from heat and rest covered <span class="ing">5 minutes</span>. Fluff with a fork. It will hold just fine while you finish the chicken.</span></li>
+  </ol>
+</div>
+
+<!-- CHICKEN -->
+<div class="sec">Teriyaki Chicken</div>
+
+<div class="cook-block">
+  <div class="cook-head">
+    <div class="color-bar"></div>
+    <div>
+      <span class="badge">Mix the Sauce</span>
+      <h3>Teriyaki Sauce</h3>
+    </div>
+    <div class="cook-emoji">🥢</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">In a small bowl whisk together <span class="ing">¼ cup soy sauce</span>, <span class="ing">3 tbsp honey</span>, <span class="ing">3 tbsp pineapple juice</span>, <span class="ing">juice of 1 orange</span>, <span class="ing">3 garlic cloves minced</span>, and <span class="ing">1 tsp fresh grated ginger</span>.</span></li>
+    <li><span class="st">In a separate small bowl mix <span class="ing">1 tbsp cornstarch</span> with <span class="ing">2 tbsp cold water</span> until smooth. Set aside — this thickens the sauce at the end.</span></li>
+  </ol>
+</div>
+
+<div class="cook-block">
+  <div class="cook-head">
+    <div class="color-bar"></div>
+    <div>
+      <span class="badge">One Skillet</span>
+      <h3>Sear & Sauce the Chicken</h3>
+    </div>
+    <div class="cook-emoji">🍳</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Pat chicken thighs dry. Season both sides with <span class="ing">salt and pepper</span>.</span></li>
+    <li><span class="st">Heat <span class="ing">1 tbsp oil</span> in a large skillet over <span class="ing">medium-high</span>. Sear chicken smooth-side down <span class="ing">5–6 minutes</span> without moving until golden. Flip and cook <span class="ing">4 minutes</span> more. Remove to a plate — not fully cooked yet, that's fine.</span></li>
+    <li><span class="st">Drop heat to <span class="ing">medium</span>. Pour the <span class="ing">teriyaki sauce</span> into the same pan and bring to a simmer, scraping up any browned bits.</span></li>
+    <li><span class="st">Stir in the <span class="ing">cornstarch slurry</span>. The sauce will thicken within a minute — stir constantly. If it gets too thick add a small splash of water.</span></li>
+    <li><span class="st">Return the chicken to the pan. Add the <span class="ing">pineapple chunks</span>. Spoon sauce over everything. Simmer on low <span class="ing">5–6 minutes</span> until chicken is cooked through and sauce is glossy.</span></li>
+    <li><span class="st">Garnish with <span class="ing">sesame seeds</span> and <span class="ing">sliced green onion</span> if using.</span></li>
+  </ol>
+</div>
+
+<!-- THEO FINAL -->
+<div class="cook-block theo">
+  <div class="cook-head">
+    <div class="color-bar"></div>
+    <div>
+      <span class="badge">Theo · Final Word</span>
+      <h3>Post-Cook Review</h3>
+    </div>
+    <div class="cook-emoji">🐾</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Theo can have a small piece of plain <span class="ing">cooked chicken</span> — no sauce, the soy and garlic make it off limits for him. He will look at the pineapple chunks and then back at you. Give him the chicken. Not the pineapple chunks. The chicken.</span></li>
+  </ol>
+</div>
+
+<!-- SERVE -->
+<div class="sec">Serve</div>
+
+<div class="cook-block">
+  <div class="cook-head">
+    <div class="color-bar"></div>
+    <div>
+      <span class="badge">Plating</span>
+      <h3>Putting It Together</h3>
+    </div>
+    <div class="cook-emoji">🍽️</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Put the <span class="ing">cucumber bites</span> out first while you plate the main — they're the starter and keep people busy.</span></li>
+    <li><span class="st">Spoon <span class="ing">coconut rice</span> into bowls or onto plates. Lay the <span class="ing">chicken</span> on top and spoon the <span class="ing">teriyaki sauce and pineapple chunks</span> generously over everything.</span></li>
+    <li><span class="st">Finish with <span class="ing">sesame seeds</span> and <span class="ing">green onion</span> if using. Serve immediately.</span></li>
+  </ol>
+</div>
+
+<!-- NOTE -->
+<div class="note-card" style="margin-top:20px;">
+  <h4>On the Sauce</h4>
+  <p>The cornstarch slurry thickens fast — have everything ready before you add it and keep stirring. If the sauce gets too thick before the chicken goes back in, add a small splash of water and stir.</p>
+</div>
+
+<!-- TIMING -->
+<div class="timing" style="margin-top:14px;">
+  <div class="t-icon">⏱️</div>
+  <div>
+    <h4>Total Time · ~45 Minutes</h4>
+    <p>Make cucumber bites first — they sit in the fridge. Start rice before the chicken. Rice takes 23 minutes total, chicken about 20. Everything lands at the same time.</p>
+  </div>
+</div>
+
+</body>
+</html>

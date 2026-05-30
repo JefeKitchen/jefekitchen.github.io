@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Smash Slider Guide — Lineup A</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #111010;
+    --char: #1c1b19;
+    --smoke: #2a2825;
+    --ember: #c94a1a;
+    --gold: #d4a940;
+    --cream: #f0ead8;
+    --muted: #7a7268;
+    --s1: #8a1f2e;
+    --s2: #7a5510;
+    --s3: #3a5a2a;
+    --slaw: #1e5a6a;
+    --tots: #7a3010;
+    --shared: #4a3a1a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 390px;
+    margin: 0 auto;
+    padding: 0 0 60px;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--char);
+    padding: 28px 20px 20px;
+    border-bottom: 3px solid var(--ember);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px;
+    line-height: 0.88;
+    letter-spacing: 2px;
+  }
+  .hero-title span { color: var(--ember); }
+  .hero-meta {
+    text-align: right;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  /* SECTION HEADER */
+  .sec {
+    padding: 22px 20px 12px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sec::after { content: ''; flex: 1; height: 1px; background: var(--smoke); }
+
+  /* LINEUP */
+  .lineup-row { display: flex; flex-direction: column; gap: 10px; padding: 0 20px 24px; }
+  .lineup-pill {
+    background: var(--char);
+    border: 1px solid var(--smoke);
+    border-radius: 8px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .lineup-pill .num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 30px;
+    line-height: 1;
+    color: var(--ember);
+    min-width: 28px;
+  }
+  .lineup-pill .pill-info h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 17px;
+    letter-spacing: 1.5px;
+    color: var(--cream);
+  }
+  .lineup-pill .pill-info p { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+  .lineup-pill .pill-emoji { margin-left: auto; font-size: 26px; flex-shrink: 0; }
+
+  /* INGREDIENT BLOCKS */
+  .ing-block { margin: 0 20px 14px; border-radius: 8px; overflow: hidden; border: 1px solid var(--smoke); }
+  .ing-head {
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--smoke);
+  }
+  .ing-head .color-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .ing-head .ing-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    letter-spacing: 1.5px;
+    color: var(--cream);
+    flex: 1;
+  }
+  .ing-head .ing-badge { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+  .ing-head .ing-emoji { font-size: 20px; }
+  .ing-list { background: var(--char); padding: 10px 14px; }
+  .ing-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--smoke);
+    font-size: 13px;
+    color: var(--cream);
+    word-break: break-word;
+  }
+  .ing-item:last-child { border-bottom: none; }
+  .ing-item::before { content: '☐'; font-size: 15px; color: var(--ember); flex-shrink: 0; line-height: 1.4; }
+
+  /* DIVIDER */
+  .divider { height: 1px; background: var(--smoke); margin: 24px 20px; }
+
+  /* COOK BLOCKS */
+  .cook-block { margin: 0 20px 14px; border-radius: 8px; overflow: hidden; border: 1px solid var(--smoke); }
+  .cook-head {
+    padding: 11px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--smoke);
+  }
+  .cook-head .color-bar { width: 4px; height: 28px; border-radius: 2px; flex-shrink: 0; }
+  .cook-head .badge {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+  }
+  .cook-head h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    color: var(--cream);
+    line-height: 1.1;
+  }
+  .cook-head .cook-emoji { margin-left: auto; font-size: 22px; flex-shrink: 0; }
+
+  /* COOK STEPS */
+  .cook-steps {
+    background: var(--char);
+    padding: 10px 14px;
+    list-style: none;
+    counter-reset: s;
+  }
+  .cook-steps li {
+    counter-increment: s;
+    display: flex;
+    gap: 12px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--smoke);
+    font-size: 13px;
+    line-height: 1.65;
+    color: #d4cfc4;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+  .cook-steps li:last-child { border-bottom: none; }
+  .cook-steps li::before {
+    content: counter(s);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--ember);
+    min-width: 18px;
+    line-height: 1.1;
+    flex-shrink: 0;
+  }
+  .cook-steps li .step-text {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* INLINE INGREDIENT HIGHLIGHT */
+  .ing {
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  /* PREP CARDS */
+  .prep-card {
+    margin: 0 20px 10px;
+    background: var(--char);
+    border: 1px solid var(--smoke);
+    border-left: 3px solid var(--gold);
+    border-radius: 6px;
+    padding: 12px 14px;
+  }
+  .prep-card h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    margin-bottom: 5px;
+  }
+  .prep-card p {
+    font-size: 12.5px;
+    color: #c0b9ae;
+    line-height: 1.6;
+    word-break: break-word;
+  }
+
+  /* TIMING */
+  .timing {
+    margin: 10px 20px 0;
+    background: var(--ember);
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .timing .t-icon { font-size: 26px; flex-shrink: 0; }
+  .timing h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    letter-spacing: 1.5px;
+    margin-bottom: 4px;
+  }
+  .timing p { font-size: 12.5px; line-height: 1.6; }
+
+  .footer-note {
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 28px 20px 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-title">SMASH<br><span>SLIDER</span><br>GUIDE</div>
+  <div class="hero-meta">Lineup A<br>3 Sliders<br>12 Total<br>Feeds 2–3</div>
+</div>
+
+<!-- ══════════════════════ LINEUP ══════════════════════ -->
+<div class="sec">The Lineup</div>
+
+<div class="lineup-row">
+  <div class="lineup-pill">
+    <div class="num">01</div>
+    <div class="pill-info">
+      <h3>Spicy Onion Smash</h3>
+      <p>Pepper Jack · Smash Onion · Pickled Jalapeños · Spicy Sauce</p>
+    </div>
+    <div class="pill-emoji">🌶️</div>
+  </div>
+  <div class="lineup-pill">
+    <div class="num">02</div>
+    <div class="pill-info">
+      <h3>French Onion</h3>
+      <p>Gruyère · Caramelized Onion · Dijon · Horseradish</p>
+    </div>
+    <div class="pill-emoji">🧅</div>
+  </div>
+  <div class="lineup-pill">
+    <div class="num">03</div>
+    <div class="pill-info">
+      <h3>Classic Sharp</h3>
+      <p>Sharp Cheddar · Raw Shaved Onion · Yellow Mustard · Dill Pickle</p>
+    </div>
+    <div class="pill-emoji">🥒</div>
+  </div>
+</div>
+
+<!-- ══════════════════════ GROCERY LIST ══════════════════════ -->
+<div class="sec">Grocery List</div>
+
+<div class="ing-block">
+  <div class="ing-head">
+    <div class="color-dot" style="background:var(--shared);"></div>
+    <div class="ing-title">Shared Base</div>
+    <div class="ing-badge">All Sliders</div>
+    <div class="ing-emoji">🥩</div>
+  </div>
+  <div class="ing-list">
+    <div class="ing-item">2 lbs 80/20 ground chuck</div>
+    <div class="ing-item">2 packs Kings Hawaiian slider rolls</div>
+    <div class="ing-item">Butter</div>
+    <div class="ing-item">Parchment paper</div>
+    <div class="ing-item">Salt &amp; pepper</div>
+  </div>
+</div>
+
+<div class="ing-block">
+  <div class="ing-head">
+    <div class="color-dot" style="background:var(--s1);"></div>
+    <div class="ing-title">Spicy Onion Smash</div>
+    <div class="ing-badge">Slider 01</div>
+    <div class="ing-emoji">🌶️</div>
+  </div>
+  <div class="ing-list">
+    <div class="ing-item">White onions — 2, for smashing</div>
+    <div class="ing-item">Pepper Jack (sliced or block)</div>
+    <div class="ing-item">Pickled jalapeños (jar)</div>
+    <div class="ing-item">Mayo — Duke's preferred</div>
+    <div class="ing-item">Sriracha</div>
+    <div class="ing-item">Yellow mustard</div>
+    <div class="ing-item">Dill pickle chips (for pickle juice)</div>
+  </div>
+</div>
+
+<div class="ing-block">
+  <div class="ing-head">
+    <div class="color-dot" style="background:var(--s2);"></div>
+    <div class="ing-title">French Onion</div>
+    <div class="ing-badge">Slider 02</div>
+    <div class="ing-emoji">🧅</div>
+  </div>
+  <div class="ing-list">
+    <div class="ing-item">White onions — 2, for caramelizing</div>
+    <div class="ing-item">Gruyère (block or sliced)</div>
+    <div class="ing-item">Dijon mustard</div>
+    <div class="ing-item">Horseradish (jar)</div>
+  </div>
+</div>
+
+<div class="ing-block">
+  <div class="ing-head">
+    <div class="color-dot" style="background:var(--s3);"></div>
+    <div class="ing-title">Classic Sharp</div>
+    <div class="ing-badge">Slider 03</div>
+    <div class="ing-emoji">🥒</div>
+  </div>
+  <div class="ing-list">
+    <div class="ing-item">White onion — 1, for raw topping</div>
+    <div class="ing-item">Sharp Cheddar (sliced or block)</div>
+    <div class="ing-item">Dill pickle chips (same jar as 01)</div>
+    <div class="ing-item">Yellow mustard (same as 01)</div>
+  </div>
+</div>
+
+<!-- ══════════════════════ INSTRUCTIONS ══════════════════════ -->
+<div class="divider"></div>
+<div class="sec">Instructions</div>
+
+<!-- SLIDER PREP -->
+<div class="sec" style="font-size:20px; padding-top:16px;">Slider Prep</div>
+
+<div class="prep-card">
+  <h4>Caramelized Onions (02) — Start First</h4>
+  <p>Melt butter in a pan on medium-low. Add <span class="ing">2 thinly sliced onions</span> and a pinch of salt. Stir occasionally for <span class="ing">25–30 min</span> until deep golden and jammy. Don't rush or crank the heat.</p>
+</div>
+<div class="prep-card">
+  <h4>Onion Prep (01 &amp; 03)</h4>
+  <p>Slice <span class="ing">one onion paper thin</span>. Keep a pile for smashing into 01 and a separate pile for the raw topping on 03.</p>
+</div>
+<div class="prep-card">
+  <h4>Spicy Sauce (01)</h4>
+  <p><span class="ing">3 tbsp mayo</span> + <span class="ing">1.5 tbsp sriracha</span> + <span class="ing">1 tsp yellow mustard</span> + <span class="ing">splash of pickle juice</span>. Stir and set aside.</p>
+</div>
+<div class="prep-card">
+  <h4>Beef Balls</h4>
+  <p>Loosely portion into <span class="ing">1.5 oz balls</span> — roughly 12 total. Do not compress. Set on a tray.</p>
+</div>
+<div class="prep-card" style="margin-bottom:14px;">
+  <h4>Cheese</h4>
+  <p>Slice or shred all three cheeses into separate piles next to the flat top.</p>
+</div>
+
+<!-- TOAST BUNS -->
+<div class="cook-block">
+  <div class="cook-head">
+    <div class="color-bar" style="background:var(--shared);"></div>
+    <div>
+      <span class="badge">Flat Top · All Sliders</span>
+      <h3>Toast the Buns</h3>
+    </div>
+    <div class="cook-emoji">🍞</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="step-text">Set flat top to <span class="ing">medium-high</span>. Butter the cut sides of the rolls generously.</span></li>
+    <li><span class="step-text">Place cut-side down. Toast until golden, <span class="ing">1–2 min</span>. Work in batches. Pull and set aside.</span></li>
+  </ol>
+</div>
+
+<!-- SLIDER 01 -->
+<div class="cook-block">
+  <div class="cook-head">
+    <div class="color-bar" style="background:var(--s1);"></div>
+    <div>
+      <span class="badge">Slider 01 · Flat Top</span>
+      <h3>Spicy Onion Smash</h3>
+    </div>
+    <div class="cook-emoji">🌶️</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="step-text">Crank flat top to <span class="ing">high</span>. Place 4 meat balls down with space between them.</span></li>
+    <li><span class="step-text">Place a small pile of <span class="ing">shaved onion</span> on top of each ball immediately.</span></li>
+    <li><span class="step-text">Lay parchment over each ball. Smash hard within <span class="ing">10 seconds</span>. Press and hold <span class="ing">3–4 seconds</span>. Get them thin.</span></li>
+    <li><span class="step-text">Season with salt and pepper. Cook <span class="ing">90 sec – 2 min</span> without touching. Edges brown; top goes gray halfway up.</span></li>
+    <li><span class="step-text">Scrape hard and fast, getting fully under the crust. Flip.</span></li>
+    <li><span class="step-text">Lay <span class="ing">Pepper Jack</span> on each patty. Splash water nearby, dome <span class="ing">30–45 seconds</span> to melt.</span></li>
+    <li><span class="step-text">Build: <span class="ing">spicy sauce</span> on both buns · patty · <span class="ing">pickled jalapeños</span> on top.</span></li>
+  </ol>
+</div>
+
+<!-- SLIDER 02 -->
+<div class="cook-block">
+  <div class="cook-head">
+    <div class="color-bar" style="background:var(--s2);"></div>
+    <div>
+      <span class="badge">Slider 02 · Flat Top</span>
+      <h3>French Onion</h3>
+    </div>
+    <div class="cook-emoji">🧅</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="step-text">Same smash process as 01 — no onion on top before smashing.</span></li>
+    <li><span class="step-text">Flip, add <span class="ing">Gruyère</span>, dome to melt <span class="ing">30–45 seconds</span>.</span></li>
+    <li><span class="step-text">Build: <span class="ing">dijon</span> on bottom bun · thin smear of <span class="ing">horseradish</span> · patty · big pile of <span class="ing">caramelized onions</span> on top.</span></li>
+  </ol>
+</div>
+
+<!-- SLIDER 03 -->
+<div class="cook-block">
+  <div class="cook-head">
+    <div class="color-bar" style="background:var(--s3);"></div>
+    <div>
+      <span class="badge">Slider 03 · Flat Top</span>
+      <h3>Classic Sharp</h3>
+    </div>
+    <div class="cook-emoji">🥒</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="step-text">Same smash process as 01 — no onion on top before smashing.</span></li>
+    <li><span class="step-text">Flip, add <span class="ing">Sharp Cheddar</span>, dome to melt <span class="ing">30–45 seconds</span>.</span></li>
+    <li><span class="step-text">Build: <span class="ing">yellow mustard</span> on bottom bun · patty · <span class="ing">raw shaved onion</span> · <span class="ing">dill pickle chips</span> on top.</span></li>
+  </ol>
+</div>
+
+<!-- TIMING -->
+<div class="timing">
+  <div class="t-icon">🔥</div>
+  <div>
+    <h4>Timing the Hit</h4>
+    <p>Start caramelized onions first — they need 25–30 min. Slaw goes in the fridge early. Tots in the oven next. Tots come out right as you finish the last slider batch. Load queso on tots at the last second and hit the table all at once.</p>
+  </div>
+</div>
+
+<div class="footer-note">Cook hot · eat fast · no leftovers</div>
+
+</body>
+</html>

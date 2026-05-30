@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dinner Menu</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #2a2420;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px 60px;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .page {
+    background: #faf6ee;
+    max-width: 640px;
+    width: 100%;
+    padding: 52px 52px 60px;
+    position: relative;
+  }
+
+  .page::before {
+    content: '';
+    position: absolute;
+    inset: 10px;
+    border: 1px solid #c8a96a;
+    pointer-events: none;
+  }
+  .page::after {
+    content: '';
+    position: absolute;
+    inset: 14px;
+    border: 1px solid rgba(200, 169, 106, 0.3);
+    pointer-events: none;
+  }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    padding-bottom: 26px;
+    border-bottom: 1px solid #c8a96a;
+    margin-bottom: 34px;
+  }
+  .header-eyebrow {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 5px;
+    color: #a08040;
+    margin-bottom: 10px;
+  }
+  .header-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: #1e1a14;
+    line-height: 1;
+  }
+  .header-title em {
+    font-style: italic;
+    font-weight: 400;
+    color: #8a5a20;
+  }
+  .header-sub {
+    font-size: 16px;
+    font-style: italic;
+    color: #6a5a3a;
+    margin-top: 10px;
+  }
+  .ornament {
+    color: #c8a96a;
+    font-size: 16px;
+    margin-top: 12px;
+    letter-spacing: 8px;
+  }
+
+  /* SECTION */
+  .section-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 12px;
+    letter-spacing: 5px;
+    color: #a08040;
+    text-align: center;
+    margin-bottom: 6px;
+  }
+  .section-rule {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 26px;
+  }
+  .section-rule::before,
+  .section-rule::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #c8a96a;
+    opacity: 0.4;
+  }
+  .section-rule span {
+    font-size: 11px;
+    color: #c8a96a;
+    opacity: 0.7;
+  }
+
+  /* MENU ITEMS */
+  .menu-item {
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(200, 169, 106, 0.2);
+  }
+  .menu-item:last-child { border-bottom: none; }
+
+  .item-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e1a14;
+    margin-bottom: 6px;
+  }
+  .item-desc {
+    font-size: 15px;
+    font-style: italic;
+    color: #3a3020;
+    line-height: 1.65;
+  }
+  .item-desc strong {
+    font-style: normal;
+    font-weight: 600;
+    color: #1e1a14;
+  }
+
+  /* SIDES */
+  .sides-list { margin-top: 4px; }
+  .side-item {
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(200, 169, 106, 0.2);
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+  }
+  .side-item:last-child { border-bottom: none; }
+  .side-item::before {
+    content: '✦';
+    font-size: 8px;
+    color: #c8a96a;
+    flex-shrink: 0;
+    position: relative;
+    top: -1px;
+  }
+  .side-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e1a14;
+    margin-right: 6px;
+  }
+  .side-desc {
+    font-size: 14px;
+    font-style: italic;
+    color: #5a4a2a;
+    line-height: 1.55;
+  }
+  .side-desc strong {
+    font-style: normal;
+    font-weight: 600;
+    color: #1e1a14;
+  }
+  .side-note {
+    font-size: 12px;
+    color: #a08040;
+    font-style: normal;
+    display: block;
+    margin-top: 2px;
+  }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    margin-top: 32px;
+    padding-top: 22px;
+    border-top: 1px solid #c8a96a;
+  }
+  .footer-text {
+    font-size: 13px;
+    font-style: italic;
+    color: #7a6a4a;
+    line-height: 1.7;
+  }
+  .footer-ornament {
+    color: #c8a96a;
+    font-size: 13px;
+    letter-spacing: 6px;
+    margin-top: 10px;
+  }
+
+  @media (max-width: 500px) {
+    .page { padding: 40px 28px 48px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- MAINS -->
+  <div class="section-label">The Mains</div>
+  <div class="section-rule"><span>✦</span></div>
+
+  <div class="menu-item">
+    <div class="item-name">Dijon Butter Chicken</div>
+    <div class="item-desc">
+      Chicken thighs seared in <strong>butter</strong> until golden, finished with a rich pan sauce of <strong>Dijon mustard</strong> and a splash of cream or broth. Simple, French-leaning, deeply savory.
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <div class="item-name">Honey Mustard Baked Chicken</div>
+    <div class="item-desc">
+      Chicken thighs or breasts glazed in a mix of <strong>honey</strong>, <strong>yellow mustard</strong>, <strong>Dijon</strong>, and a little butter, then baked until sticky and golden. Sweet, tangy, and effortless.
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <div class="item-name">French Onion Chicken</div>
+    <div class="item-desc">
+      Seared chicken thighs topped with slow-caramelized <strong>white onion</strong>, melted <strong>Gruyère</strong>, and a Dijon pan sauce. Rich, deeply savory, and a little bit special.
+    </div>
+  </div>
+
+  <!-- SIDES -->
+  <div style="margin-top:32px;">
+    <div class="section-label">Sides</div>
+    <div class="section-rule"><span>✦</span></div>
+
+    <div class="sides-list">
+
+      <div class="side-item">
+        <div>
+          <span class="side-name">Caramelized Onions</span>
+          <span class="side-desc">Slow-cooked <strong>white onion</strong> in butter until golden and jammy. Goes with all three dishes.
+          </span>
+        </div>
+      </div>
+
+      <div class="side-item">
+        <div>
+          <span class="side-name">Dijon Roasted Potatoes</span>
+          <span class="side-desc">Potatoes tossed in <strong>Dijon</strong>, butter, salt and pepper, roasted at 425°F until crispy.
+          </span>
+        </div>
+      </div>
+
+      <div class="side-item">
+        <div>
+          <span class="side-name">Simple Green Salad</span>
+          <span class="side-desc">Greens with a quick <strong>Dijon vinaigrette</strong> — Dijon, olive oil, a splash of vinegar, salt and pepper.
+          </span>
+        </div>
+      </div>
+
+      <div class="side-item">
+        <div>
+          <span class="side-name">Buttered Rice</span>
+          <span class="side-desc">Simple white rice finished with <strong>butter</strong> and salt. A good base for any of the three sauces.
+          </span>
+        </div>
+      </div>
+
+      <div class="side-item">
+        <div>
+          <span class="side-name">Crusty Bread</span>
+          <span class="side-desc">For mopping up the pan sauce. Essential with the Dijon Butter or French Onion.
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

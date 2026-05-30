@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Honey Mustard Night — Cook Together</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #111010;
+    --char: #1c1b19;
+    --smoke: #2a2825;
+    --ember: #c94a1a;
+    --gold: #d4a940;
+    --cream: #f0ead8;
+    --muted: #7a7268;
+    --jeff: #2a4a7a;
+    --jaya: #6a2a4a;
+    --theo: #8a5c14;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 390px;
+    margin: 0 auto;
+    padding: 0 0 60px;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--char);
+    padding: 28px 20px 20px;
+    border-bottom: 3px solid var(--ember);
+  }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    line-height: 0.88;
+    letter-spacing: 2px;
+  }
+  .hero-title span { color: var(--ember); }
+  .hero-sub {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+
+  /* LEGEND */
+  .legend {
+    display: flex;
+    gap: 12px;
+    padding: 14px 20px;
+    background: var(--smoke);
+    border-bottom: 1px solid var(--char);
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* SEC */
+  .sec {
+    padding: 20px 20px 12px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sec::after { content: ''; flex: 1; height: 1px; background: var(--smoke); }
+
+  /* COOK BLOCKS */
+  .cook-block {
+    margin: 0 20px 14px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--smoke);
+  }
+  .cook-head {
+    padding: 11px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .cook-head .color-bar {
+    width: 4px;
+    height: 28px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .cook-head .badge {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+  }
+  .cook-head h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    color: var(--cream);
+    line-height: 1.1;
+  }
+  .cook-head .cook-emoji {
+    margin-left: auto;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .jeff .cook-head { background: #1a2a3a; }
+  .jaya .cook-head { background: #2a1a22; }
+  .theo .cook-head { background: #2a1e0a; }
+
+  /* STEPS */
+  .cook-steps {
+    background: var(--char);
+    padding: 10px 14px;
+    list-style: none;
+    counter-reset: s;
+  }
+  .cook-steps li {
+    counter-increment: s;
+    display: flex;
+    gap: 12px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--smoke);
+    font-size: 13px;
+    line-height: 1.6;
+    color: #d4cfc4;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+  .cook-steps li:last-child { border-bottom: none; }
+  .cook-steps li::before {
+    content: counter(s);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--ember);
+    min-width: 18px;
+    line-height: 1.1;
+    flex-shrink: 0;
+  }
+  .cook-steps li .st { flex: 1; min-width: 0; }
+
+  .ing { color: var(--gold); font-weight: 700; }
+
+  /* TIMING */
+  .timing {
+    margin: 10px 20px 0;
+    background: var(--ember);
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .timing .t-icon { font-size: 24px; flex-shrink: 0; }
+  .timing h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+    letter-spacing: 1.5px;
+    margin-bottom: 4px;
+  }
+  .timing p { font-size: 12.5px; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-title">HONEY<br><span>MUSTARD</span><br>NIGHT</div>
+  <div class="hero-sub">Chicken · Potatoes · Salad</div>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="legend-item">
+    <div class="legend-dot" style="background:#4a7abf;"></div>
+    Jeff
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:#bf4a7a;"></div>
+    Jaya
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:#c8850a;"></div>
+    Theo
+  </div>
+</div>
+
+<!-- PREP -->
+<div class="sec">Prep</div>
+
+<!-- JEFF: Preheat -->
+<div class="cook-block jeff">
+  <div class="cook-head">
+    <div class="color-bar" style="background:#4a7abf;"></div>
+    <div>
+      <span class="badge">Jeff · First Thing</span>
+      <h3>Preheat the Oven</h3>
+    </div>
+    <div class="cook-emoji">🌡️</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Turn oven to <span class="ing">400°F</span>. Do this before anything else so it's fully up to temp by the time the potatoes are ready.</span></li>
+  </ol>
+</div>
+
+<!-- JAYA: Honey Mustard Glaze -->
+<div class="cook-block jaya">
+  <div class="cook-head">
+    <div class="color-bar" style="background:#bf4a7a;"></div>
+    <div>
+      <span class="badge">Jaya · While Jeff Preps Potatoes</span>
+      <h3>Make the Glaze</h3>
+    </div>
+    <div class="cook-emoji">🍯</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">In a small bowl whisk together <span class="ing">3 tbsp Dijon</span>, <span class="ing">3 tbsp yellow mustard</span>, <span class="ing">4 tbsp honey</span>, and <span class="ing">2 tbsp melted butter</span>. Season with salt and pepper.</span></li>
+    <li><span class="st">Taste it. Should be sweet, tangy, and a little sharp. Adjust honey or mustard to your liking.</span></li>
+    <li><span class="st">Split into <span class="ing">two separate bowls</span> — one for cooking, one for the table as a dipping sauce. Once a bowl touches raw chicken it never goes on the table. Keep them separate from here.</span></li>
+  </ol>
+</div>
+
+<!-- THEO: Honey taste test -->
+<div class="cook-block theo">
+  <div class="cook-head">
+    <div class="color-bar" style="background:#c8850a;"></div>
+    <div>
+      <span class="badge">Theo · Quality Control</span>
+      <h3>Honey Taste Test</h3>
+    </div>
+    <div class="cook-emoji">🐾</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Let Theo lick a tiny bit of <span class="ing">honey</span> off your finger. He has been present in the kitchen for 30 seconds and already considers himself the head chef. Besides, you were going to do it anyway.</span></li>
+  </ol>
+</div>
+
+<!-- JEFF: Prep Potatoes -->
+<div class="cook-block jeff">
+  <div class="cook-head">
+    <div class="color-bar" style="background:#4a7abf;"></div>
+    <div>
+      <span class="badge">Jeff · Potatoes First</span>
+      <h3>Prep the Potatoes</h3>
+    </div>
+    <div class="cook-emoji">🥔</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Wash the potatoes. Cut into roughly <span class="ing">1-inch chunks</span> — no need to peel them.</span></li>
+    <li><span class="st">In a large bowl toss with <span class="ing">2 tbsp Dijon</span>, <span class="ing">2 tbsp olive oil</span>, a generous pinch of <span class="ing">salt</span>, and <span class="ing">black pepper</span>.</span></li>
+    <li><span class="st">Spread in a single layer on a sheet pan. Don't crowd them or they'll steam instead of crisp.</span></li>
+  </ol>
+</div>
+
+<!-- JAYA: Vinaigrette -->
+<div class="cook-block jaya">
+  <div class="cook-head">
+    <div class="color-bar" style="background:#bf4a7a;"></div>
+    <div>
+      <span class="badge">Jaya · While Jeff Preps Chicken</span>
+      <h3>Make the Vinaigrette</h3>
+    </div>
+    <div class="cook-emoji">🥗</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">In a small jar or bowl combine <span class="ing">1 tsp Dijon</span>, <span class="ing">3 tbsp olive oil</span>, <span class="ing">1 tbsp apple cider vinegar</span>, salt and pepper.</span></li>
+    <li><span class="st">Whisk or shake until emulsified. Taste and adjust — more vinegar for tang, more oil to mellow it out.</span></li>
+    <li><span class="st">Set aside. Don't dress the greens until right before serving or they'll wilt.</span></li>
+  </ol>
+</div>
+
+<!-- JEFF: Prep Chicken -->
+<div class="cook-block jeff">
+  <div class="cook-head">
+    <div class="color-bar" style="background:#4a7abf;"></div>
+    <div>
+      <span class="badge">Jeff · Chicken</span>
+      <h3>Prep the Chicken</h3>
+    </div>
+    <div class="cook-emoji">🍗</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Pat chicken thighs dry with paper towels — key for getting a good crust without skin.</span></li>
+    <li><span class="st">Season both sides generously with <span class="ing">salt and pepper</span>.</span></li>
+    <li><span class="st">Brush a <span class="ing">light layer of glaze</span> from the cooking bowl over the top of each thigh. Just a thin coat — the heavy glaze goes on halfway through. This gets flavor in early without burning.</span></li>
+    <li><span class="st">Place on a baking dish or sheet pan.</span></li>
+  </ol>
+</div>
+
+<!-- COOK -->
+<div class="sec">Cook</div>
+
+<!-- JEFF: Roast -->
+<div class="cook-block jeff">
+  <div class="cook-head">
+    <div class="color-bar" style="background:#4a7abf;"></div>
+    <div>
+      <span class="badge">Jeff · Oven · 400°F</span>
+      <h3>Roast Everything</h3>
+    </div>
+    <div class="cook-emoji">🔥</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Put the <span class="ing">potatoes</span> in the oven first. Set a timer for <span class="ing">10 minutes</span>.</span></li>
+    <li><span class="st">After 10 minutes, add the <span class="ing">chicken</span> to the oven on a separate rack.</span></li>
+    <li><span class="st">At the halfway point for the chicken (<span class="ing">~15 min in</span>), flip the potatoes and brush a <span class="ing">generous layer of glaze</span> from the cooking bowl over the chicken. This is when the caramelization happens — don't skip it.</span></li>
+    <li><span class="st">Chicken is done when internal temp hits <span class="ing">165°F</span> — boneless skinless thighs will be ready in roughly <span class="ing">20–25 min</span>. Check early and don't let them go over or they'll dry out.</span></li>
+    <li><span class="st">Potatoes are done when golden and crispy on the edges — roughly <span class="ing">40–45 min</span> total. Soft inside, crispy outside.</span></li>
+  </ol>
+</div>
+
+<!-- THEO: Cooked chicken reward -->
+<div class="cook-block theo">
+  <div class="cook-head">
+    <div class="color-bar" style="background:#c8850a;"></div>
+    <div>
+      <span class="badge">Theo · Well Earned</span>
+      <h3>Final Taste Test</h3>
+    </div>
+    <div class="cook-emoji">🐾</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">While the chicken rests, pull off a small piece of <span class="ing">plain cooked chicken</span> — no glaze, no seasoning — and give it to Theo. He has supervised this entire cook and his feedback has been invaluable.</span></li>
+    <li><span class="st">Also give him a small plain <span class="ing">cooked potato chunk</span>. He has been staring at them for 40 minutes. It's the right thing to do.</span></li>
+  </ol>
+</div>
+
+<!-- JAYA: Finish Salad -->
+<div class="cook-block jaya">
+  <div class="cook-head">
+    <div class="color-bar" style="background:#bf4a7a;"></div>
+    <div>
+      <span class="badge">Jaya · While Chicken Rests</span>
+      <h3>Finish the Salad</h3>
+    </div>
+    <div class="cook-emoji">🥗</div>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Once the chicken comes out of the oven, dress the <span class="ing">greens</span> with the vinaigrette. Toss well and season with salt and pepper.</span></li>
+    <li><span class="st">Serve immediately alongside the chicken and potatoes.</span></li>
+  </ol>
+</div>
+
+<!-- TIMING -->
+<div class="timing" style="margin-top:20px;">
+  <div class="t-icon">⏱️</div>
+  <div>
+    <h4>Total Time</h4>
+    <p>About 45 minutes start to finish at 400°F. Potatoes go in first, chicken 10 minutes later. Boneless skinless thighs cook fast — check temp at 20 minutes. Heavy glaze goes on the chicken at the halfway mark. Two glaze bowls — cooking and table. Never mix them.</p>
+  </div>
+</div>
+
+</body>
+</html>

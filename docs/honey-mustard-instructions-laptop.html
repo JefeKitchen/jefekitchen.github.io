@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Honey Mustard Night — Laptop</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #111010;
+    --char: #1c1b19;
+    --smoke: #2a2825;
+    --ember: #c94a1a;
+    --gold: #d4a940;
+    --cream: #f0ead8;
+    --muted: #7a7268;
+    --theo: #c8850a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 48px 40px 80px;
+  }
+
+  /* HEADER */
+  .header {
+    max-width: 900px;
+    margin: 0 auto 48px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: 3px solid var(--ember);
+    padding-bottom: 20px;
+    gap: 24px;
+  }
+  .header-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    line-height: 0.88;
+    letter-spacing: 2px;
+  }
+  .header-title span { color: var(--ember); }
+  .header-meta {
+    text-align: right;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    line-height: 1.9;
+    flex-shrink: 0;
+  }
+
+  /* MAIN LAYOUT */
+  .main {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 40px;
+    align-items: start;
+  }
+
+  /* PHASE LABEL */
+  .phase-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 5px;
+    color: var(--gold);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .phase-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--smoke);
+  }
+
+  /* STEPS */
+  .steps { list-style: none; counter-reset: s; margin-bottom: 36px; }
+  .step {
+    counter-increment: s;
+    display: flex;
+    gap: 20px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--smoke);
+    align-items: flex-start;
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--ember);
+    line-height: 1;
+    min-width: 36px;
+    flex-shrink: 0;
+    text-align: right;
+  }
+  .step-body { flex: 1; }
+  .step-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: var(--cream);
+    margin-bottom: 4px;
+  }
+  .step-desc {
+    font-size: 15px;
+    color: #d4cfc4;
+    line-height: 1.65;
+  }
+  .ing { color: var(--gold); font-weight: 700; }
+
+  /* TIMER CALLOUT */
+  .timer-step .step-num { color: var(--gold); }
+  .timer-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--smoke);
+    border: 1px solid var(--gold);
+    border-radius: 4px;
+    padding: 3px 10px;
+    font-size: 12px;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 2px;
+    color: var(--gold);
+    margin-bottom: 6px;
+    display: block;
+    width: fit-content;
+  }
+
+  /* THEO STEP */
+  .theo-step .step-num { color: var(--theo); }
+  .theo-step .step-title { color: #e8a030; }
+
+  /* SIDEBAR */
+  .sidebar { position: sticky; top: 40px; }
+
+  .sidebar-card {
+    background: var(--char);
+    border: 1px solid var(--smoke);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .sidebar-card h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--smoke);
+  }
+
+  /* INGREDIENTS */
+  .ing-list { list-style: none; }
+  .ing-list li {
+    font-size: 13.5px;
+    color: #d4cfc4;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--smoke);
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    line-height: 1.4;
+  }
+  .ing-list li:last-child { border-bottom: none; }
+  .ing-list li span {
+    color: var(--muted);
+    font-size: 12.5px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* TIMELINE */
+  .timeline-list { list-style: none; }
+  .timeline-item {
+    display: flex;
+    gap: 12px;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--smoke);
+    font-size: 13px;
+    color: #d4cfc4;
+    align-items: baseline;
+  }
+  .timeline-item:last-child { border-bottom: none; }
+  .timeline-time {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+    color: var(--ember);
+    min-width: 48px;
+    flex-shrink: 0;
+  }
+
+  /* TEMP BANNER */
+  .temp-banner {
+    background: var(--ember);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+  }
+  .temp-banner .icon { font-size: 28px; flex-shrink: 0; }
+  .temp-banner h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    letter-spacing: 1.5px;
+    margin-bottom: 3px;
+  }
+  .temp-banner p { font-size: 13px; line-height: 1.55; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-title">HONEY<br><span>MUSTARD</span><br>NIGHT</div>
+  <div class="header-meta">
+    Solo Cook<br>
+    Chicken · Potatoes · Salad<br>
+    ~45 Minutes<br>
+    400°F
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- LEFT: STEPS -->
+  <div class="steps-col">
+
+    <!-- PREP -->
+    <div class="phase-label">Prep</div>
+    <ol class="steps">
+
+      <li class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Preheat the Oven</div>
+          <div class="step-desc">Turn oven to <span class="ing">400°F</span>. Do this before anything else.</div>
+        </div>
+      </li>
+
+      <li class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Make the Glaze</div>
+          <div class="step-desc">Whisk together <span class="ing">3 tbsp Dijon</span>, <span class="ing">3 tbsp yellow mustard</span>, <span class="ing">4 tbsp honey</span>, and <span class="ing">2 tbsp melted butter</span>. Season with salt and pepper. Split into <span class="ing">two separate bowls</span> — one for cooking, one for the table. Once the cooking bowl touches raw chicken it never goes on the table.</div>
+        </div>
+      </li>
+
+      <li class="step theo-step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Theo's Honey Tax</div>
+          <div class="step-desc">Let Theo lick a tiny bit of honey off your finger. He has been present in the kitchen for 30 seconds and already considers himself the head chef. Besides, you were going to do it anyway.</div>
+        </div>
+      </li>
+
+      <li class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">Prep the Potatoes</div>
+          <div class="step-desc">Cut potatoes into <span class="ing">1-inch chunks</span> — no need to peel. Toss in a bowl with <span class="ing">2 tbsp Dijon</span>, <span class="ing">2 tbsp avocado or olive oil</span>, a generous pinch of <span class="ing">salt</span>, and <span class="ing">black pepper</span>. Spread in a single layer on a sheet pan. Don't crowd them.</div>
+        </div>
+      </li>
+
+      <li class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <div class="step-title">Make the Vinaigrette</div>
+          <div class="step-desc">In a small jar or bowl combine <span class="ing">1 tsp Dijon</span>, <span class="ing">3 tbsp oil</span>, <span class="ing">1 tbsp apple cider vinegar</span>, salt and pepper. Whisk or shake until combined. Set aside — don't dress the greens until right before serving.</div>
+        </div>
+      </li>
+
+      <li class="step">
+        <div class="step-num">6</div>
+        <div class="step-body">
+          <div class="step-title">Prep the Chicken</div>
+          <div class="step-desc">Pat chicken thighs dry with paper towels. Season both sides with <span class="ing">salt and pepper</span>. Brush a <span class="ing">light coat of glaze</span> from the cooking bowl over the top. Just a thin layer — the heavy glaze goes on halfway through. Place on a separate baking dish or pan.</div>
+        </div>
+      </li>
+
+    </ol>
+
+    <!-- OVEN -->
+    <div class="phase-label">Oven</div>
+    <ol class="steps">
+
+      <li class="step timer-step">
+        <div class="step-num">7</div>
+        <div class="step-body">
+          <div class="timer-badge">⏱ Set Timer · 10 Min</div>
+          <div class="step-title">Potatoes In</div>
+          <div class="step-desc">Put the potatoes in the oven. Start your timer.</div>
+        </div>
+      </li>
+
+      <li class="step timer-step">
+        <div class="step-num">8</div>
+        <div class="step-body">
+          <div class="timer-badge">⏱ Timer Goes Off · Set Another · 10–12 Min</div>
+          <div class="step-title">Chicken In</div>
+          <div class="step-desc">Put the chicken in the oven on a separate rack. Reset your timer.</div>
+        </div>
+      </li>
+
+      <li class="step timer-step">
+        <div class="step-num">9</div>
+        <div class="step-body">
+          <div class="timer-badge">⏱ Timer Goes Off · Set Another · 10 Min</div>
+          <div class="step-title">Flip Potatoes · Heavy Glaze on Chicken</div>
+          <div class="step-desc">Flip the potatoes. Brush a <span class="ing">generous coat of glaze</span> from the cooking bowl over the chicken — top and sides. This is where the caramelization happens. Reset your timer.</div>
+        </div>
+      </li>
+
+      <li class="step timer-step">
+        <div class="step-num">10</div>
+        <div class="step-body">
+          <div class="timer-badge">⏱ Timer Goes Off</div>
+          <div class="step-title">Check the Chicken</div>
+          <div class="step-desc">Check the internal temp. Boneless skinless thighs move fast. Pull at <span class="ing">165°F</span> and rest on the counter. Don't let them go over. Potatoes still have more time — leave them in.</div>
+        </div>
+      </li>
+
+    </ol>
+
+    <!-- FINISH -->
+    <div class="phase-label">Finish</div>
+    <ol class="steps">
+
+      <li class="step">
+        <div class="step-num">11</div>
+        <div class="step-body">
+          <div class="step-title">Dress the Salad</div>
+          <div class="step-desc">While the chicken rests, toss the <span class="ing">salad greens</span> with the vinaigrette. Season with salt and pepper. Don't do this too early or the greens will wilt.</div>
+        </div>
+      </li>
+
+      <li class="step timer-step">
+        <div class="step-num">12</div>
+        <div class="step-body">
+          <div class="timer-badge">~40–45 Min Total In Oven</div>
+          <div class="step-title">Potatoes Out</div>
+          <div class="step-desc">Potatoes are done when golden and crispy on the edges — soft inside, crispy outside. Pull and serve alongside the chicken and salad.</div>
+        </div>
+      </li>
+
+      <li class="step">
+        <div class="step-num">13</div>
+        <div class="step-body">
+          <div class="step-title">Table Glaze</div>
+          <div class="step-desc">Put the <span class="ing">second bowl of glaze</span> on the table as a dipping sauce. This is the clean bowl that never touched raw chicken.</div>
+        </div>
+      </li>
+
+    </ol>
+
+  </div>
+
+  <!-- RIGHT: SIDEBAR -->
+  <div class="sidebar">
+
+    <div class="temp-banner">
+      <div class="icon">🌡️</div>
+      <div>
+        <h4>Oven · 400°F</h4>
+        <p>Chicken pulls at 165°F internal. Check early — boneless skinless goes fast.</p>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <h3>Glaze</h3>
+      <ul class="ing-list">
+        <li>Dijon mustard <span>3 tbsp</span></li>
+        <li>Yellow mustard <span>3 tbsp</span></li>
+        <li>Honey <span>4 tbsp</span></li>
+        <li>Butter, melted <span>2 tbsp</span></li>
+        <li>Salt & pepper <span>to taste</span></li>
+      </ul>
+    </div>
+
+    <div class="sidebar-card">
+      <h3>Potatoes</h3>
+      <ul class="ing-list">
+        <li>Dijon mustard <span>2 tbsp</span></li>
+        <li>Avocado or olive oil <span>2 tbsp</span></li>
+        <li>Salt & pepper <span>generous</span></li>
+      </ul>
+    </div>
+
+    <div class="sidebar-card">
+      <h3>Vinaigrette</h3>
+      <ul class="ing-list">
+        <li>Dijon mustard <span>1 tsp</span></li>
+        <li>Oil <span>3 tbsp</span></li>
+        <li>Apple cider vinegar <span>1 tbsp</span></li>
+        <li>Salt & pepper <span>to taste</span></li>
+      </ul>
+    </div>
+
+    <div class="sidebar-card">
+      <h3>Timeline</h3>
+      <ul class="timeline-list">
+        <li class="timeline-item"><span class="timeline-time">0:00</span>Potatoes in oven</li>
+        <li class="timeline-item"><span class="timeline-time">0:10</span>Chicken in oven</li>
+        <li class="timeline-item"><span class="timeline-time">0:20</span>Flip potatoes, glaze chicken</li>
+        <li class="timeline-item"><span class="timeline-time">0:30</span>Check chicken temp</li>
+        <li class="timeline-item"><span class="timeline-time">0:35</span>Dress salad</li>
+        <li class="timeline-item"><span class="timeline-time">0:45</span>Potatoes out, serve</li>
+      </ul>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
