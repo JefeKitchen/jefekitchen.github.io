@@ -114,6 +114,9 @@
     background: #1d1a13;
     border-color: rgba(184, 149, 58, 0.34);
   }
+  .week-plan-hidden {
+    display: none !important;
+  }
   .dot-divider {
     color: var(--muted);
     font-size: 13px;
@@ -195,6 +198,24 @@
     font-weight: 600;
     color: var(--text);
     flex: 1;
+  }
+  .title-line {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+  .plan-day {
+    border: 1px solid rgba(184, 149, 58, 0.44);
+    border-radius: 999px;
+    color: var(--gold);
+    display: inline-flex;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1.4px;
+    line-height: 1;
+    padding: 4px 7px;
+    text-transform: uppercase;
   }
   .card-subtitle {
     font-size: 11px;
@@ -512,30 +533,36 @@
   </div>
 </div>
 
-<!-- THIS WEEK: MEATLOAF -->
-<div class="section">
-  <div class="card recipe-card">
-    <div class="card-copy">
-      <div class="card-title">Meatloaf</div>
-      <span class="card-subtitle">Horseradish Glaze · Green Onion Mash</span>
-    </div>
-    <div class="card-actions" aria-label="This Week Meatloaf links">
-      <a class="icon-link" href="./docs/meatloaf/meatloaf-menu.html" aria-label="Meatloaf menu" title="Menu">📜</a>
-      <a class="icon-link instruction-choice-link" href="./docs/meatloaf/meatloaf-instructions.html" data-phone="./docs/meatloaf/meatloaf-instructions.html" data-wide="./docs/meatloaf/meatloaf-wide.html" aria-label="Meatloaf cooking instructions" title="Cooking Instructions">🥘</a>
-    </div>
-  </div>
-</div>
-
 <!-- THIS WEEK: CARNITAS ELOTE BOWLS -->
-<div class="section">
+<div class="section week-plan-card" data-plan-date="2026-06-01">
   <div class="card recipe-card">
     <div class="card-copy">
-      <div class="card-title">Carnitas Elote Bowls</div>
+      <div class="title-line">
+        <div class="card-title">Carnitas Elote Bowls</div>
+        <span class="plan-day">Mon</span>
+      </div>
       <span class="card-subtitle">Street Corn · Rice · Avocado</span>
     </div>
     <div class="card-actions" aria-label="This Week Carnitas Elote Bowls links">
       <a class="icon-link" href="./docs/carnitas-elote-bowls/carnitas-elote-bowls-menu.html" aria-label="Carnitas Elote Bowls menu" title="Menu">📜</a>
       <a class="icon-link instruction-choice-link" href="./docs/carnitas-elote-bowls/carnitas-elote-bowls-instructions.html" data-phone="./docs/carnitas-elote-bowls/carnitas-elote-bowls-instructions.html" data-wide="./docs/carnitas-elote-bowls/carnitas-elote-bowls-wide.html" aria-label="Carnitas Elote Bowls cooking instructions" title="Cooking Instructions">🥘</a>
+    </div>
+  </div>
+</div>
+
+<!-- THIS WEEK: MEATLOAF -->
+<div class="section week-plan-card" data-plan-date="2026-06-03">
+  <div class="card recipe-card">
+    <div class="card-copy">
+      <div class="title-line">
+        <div class="card-title">Meatloaf</div>
+        <span class="plan-day">Wed</span>
+      </div>
+      <span class="card-subtitle">Horseradish Glaze · Green Onion Mash</span>
+    </div>
+    <div class="card-actions" aria-label="This Week Meatloaf links">
+      <a class="icon-link" href="./docs/meatloaf/meatloaf-menu.html" aria-label="Meatloaf menu" title="Menu">📜</a>
+      <a class="icon-link instruction-choice-link" href="./docs/meatloaf/meatloaf-instructions.html" data-phone="./docs/meatloaf/meatloaf-instructions.html" data-wide="./docs/meatloaf/meatloaf-wide.html" aria-label="Meatloaf cooking instructions" title="Cooking Instructions">🥘</a>
     </div>
   </div>
 </div>
@@ -734,6 +761,22 @@
   const instructionPreferenceKey = 'jefes-kitchen-instruction-layout';
   let savedSections = {};
   let pendingInstructionLinks = null;
+
+  function localDateKey(date = new Date()) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  function hidePastWeekPlans() {
+    const today = localDateKey();
+    document.querySelectorAll('.week-plan-card[data-plan-date]').forEach(card => {
+      card.classList.toggle('week-plan-hidden', card.dataset.planDate < today);
+    });
+  }
+
+  hidePastWeekPlans();
 
   try {
     savedSections = JSON.parse(localStorage.getItem(sectionStateKey) || '{}');
