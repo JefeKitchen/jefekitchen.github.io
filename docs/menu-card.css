@@ -205,6 +205,13 @@ body {
   --leaf: #5f5a47;
 }
 
+.theme-carnitas {
+  --paper: #fff1dc;
+  --ink: #24190f;
+  --accent: #b45725;
+  --leaf: #64703d;
+}
+
 .themed .page {
   background: var(--paper);
   color: var(--ink);

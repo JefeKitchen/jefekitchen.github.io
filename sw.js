@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v77';
+const CACHE_NAME = 'jeffs-kitchen-v78';
 
 const PAGES = [
   './',
@@ -9,7 +9,7 @@ const PAGES = [
   './docs/menu-card.css',
   './docs/wide-layout.css',
   './docs/wide-pills.js',
-  './docs/instruction-content.js?v=2',
+  './docs/instruction-content.js?v=3',
   './docs/instruction-renderer.js?v=9',
   './docs/grocery-boom.js',
   './docs/poll/dinner-poll.html',
@@ -46,6 +46,10 @@ const PAGES = [
   './docs/buffalo-chickpea-dip/buffalo-chickpea-dip-wide.html',
   './docs/buffalo-chickpea-dip/buffalo-chickpea-dip-menu.html',
   './docs/combined-shopping/skewers-breakfast-list.html',
+  './docs/carnitas-elote-bowls/grocery-list-carnitas-elote-bowls.html',
+  './docs/carnitas-elote-bowls/carnitas-elote-bowls-menu.html',
+  './docs/carnitas-elote-bowls/carnitas-elote-bowls-instructions.html',
+  './docs/carnitas-elote-bowls/carnitas-elote-bowls-wide.html',
   './docs/charcoal-chicken/grocery-list-charcoal-chicken.html',
   './docs/charcoal-chicken/charcoal-chicken-instructions.html',
   './docs/grilled-chicken-sandwiches/grocery-list-grilled-chicken-sandwiches.html',

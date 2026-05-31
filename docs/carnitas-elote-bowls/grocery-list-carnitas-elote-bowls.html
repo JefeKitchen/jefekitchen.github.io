@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Grocery List - Carnitas Elote Bowls</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../theme.css?v=4">
+</head>
+<body>
+<div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
+
+<div class="page-title">Grocery List</div>
+<div class="page-sub">Carnitas Elote Bowls</div>
+
+<div class="section">
+  <div class="section-header need">Produce</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="ceb1"><label for="ceb1">Limes<span class="item-note">2-3, for rice, corn, and finishing</span></label></div>
+    <div class="item"><input type="checkbox" id="ceb2"><label for="ceb2">Cilantro<span class="item-note">1 bunch</span></label></div>
+    <div class="item"><input type="checkbox" id="ceb3"><label for="ceb3">Green onions<span class="item-note">1 bunch</span></label></div>
+    <div class="item"><input type="checkbox" id="ceb4"><label for="ceb4">Avocado<span class="item-note">1-2, depending how avocado-forward you want it</span></label></div>
+    <div class="item"><input type="checkbox" id="ceb5"><label for="ceb5">Shredded cabbage or slaw mix<span class="item-note">Small bag or half a small head</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Meat</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="ceb6"><label for="ceb6">Carnitas<span class="item-note">You already have this, but add it here if you need more</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Dairy</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="ceb7"><label for="ceb7">Cotija<span class="item-note">About 1/2 cup crumbled</span></label></div>
+    <div class="item"><input type="checkbox" id="ceb8"><label for="ceb8">Sour cream or crema<span class="item-note">About 1/4 cup for the corn</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Pantry</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="ceb9"><label for="ceb9">Rice<span class="item-note">1 cup dry white rice</span></label></div>
+    <div class="item"><input type="checkbox" id="ceb10"><label for="ceb10">Corn<span class="item-note">2 cups frozen corn or 1 large can, drained</span></label></div>
+    <div class="item"><input type="checkbox" id="ceb11"><label for="ceb11">Mayo<span class="item-note">About 2 tbsp</span></label></div>
+    <div class="item"><input type="checkbox" id="ceb12"><label for="ceb12">Chili powder<span class="item-note">For elote seasoning</span></label></div>
+    <div class="item"><input type="checkbox" id="ceb13"><label for="ceb13">Hot sauce<span class="item-note">For finishing</span></label></div>
+    <div class="item"><input type="checkbox" id="ceb14"><label for="ceb14">Tortilla chips<span class="item-note">Optional crunch</span></label></div>
+    <div class="item"><input type="checkbox" id="ceb15"><label for="ceb15">Kosher salt and black pepper</label></div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    const key = `carnitas-elote-bowls-${cb.id}`;
+    cb.checked = localStorage.getItem(key) === 'checked';
+    cb.addEventListener('change', () => {
+      localStorage.setItem(key, cb.checked ? 'checked' : '');
+    });
+  });
+</script>
+<script src="../grocery-boom.js?v=1"></script>
+</body>
+</html>
