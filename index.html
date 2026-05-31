@@ -200,21 +200,22 @@
     flex: 1;
   }
   .title-line {
-    align-items: center;
+    align-items: flex-start;
     display: flex;
-    flex-wrap: wrap;
-    gap: 7px;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .title-line .card-title {
+    flex: 0 1 auto;
   }
   .plan-day {
-    border: 1px solid rgba(184, 149, 58, 0.44);
-    border-radius: 999px;
     color: var(--gold);
-    display: inline-flex;
-    font-size: 9px;
+    display: block;
+    font-size: 10px;
     font-weight: 600;
-    letter-spacing: 1.4px;
-    line-height: 1;
-    padding: 4px 7px;
+    letter-spacing: 1.8px;
+    line-height: 1.1;
+    order: -1;
     text-transform: uppercase;
   }
   .card-subtitle {
@@ -539,7 +540,7 @@
     <div class="card-copy">
       <div class="title-line">
         <div class="card-title">Carnitas Elote Bowls</div>
-        <span class="plan-day">Mon</span>
+        <span class="plan-day">Monday</span>
       </div>
       <span class="card-subtitle">Street Corn · Rice · Avocado</span>
     </div>
@@ -556,7 +557,7 @@
     <div class="card-copy">
       <div class="title-line">
         <div class="card-title">Meatloaf</div>
-        <span class="plan-day">Wed</span>
+        <span class="plan-day">Wednesday</span>
       </div>
       <span class="card-subtitle">Horseradish Glaze · Green Onion Mash</span>
     </div>
