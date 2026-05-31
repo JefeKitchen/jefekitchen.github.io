@@ -3,20 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Smash Sliders Wide Instructions</title>
+<title>Smash Sliders Instructions</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../wide-layout.css">
+<script src="../instruction-content.js?v=1" defer></script>
+<script src="../instruction-renderer.js?v=4" defer></script>
 </head>
-<body>
+<body data-recipe="sliders" data-layout="wide">
 <div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
-<main class="shell">
-  <header class="hero"><div class="hero-title">Smash <span>Sliders</span></div><div class="hero-sub">Serves 2-3<br>Prep ~30 min<br>Cook ~15 min</div></header>
-  <div class="board">
-    <section class="section-card"><div class="section-head"><span class="section-label">Prep</span><h2>Build the station</h2></div><div class="pull"><span class="pill">Ground beef</span><span class="pill">Slider buns</span><span class="pill">Cheese</span><span class="pill">Sauces</span><span class="pill">Pickles</span><span class="pill">Onion</span></div><ol><li>Divide beef into loose balls. Do not pack them tight.</li><li>Slice buns and stage cheese, toppings, sauces, and plates before heat starts.</li><li>Heat the griddle or skillet until very hot.</li></ol></section>
-    <section class="section-card"><div class="section-head"><span class="section-label">Cook</span><h2>Smash and cheese</h2></div><div class="pull"><span class="pill">Beef balls</span><span class="pill">Salt</span><span class="pill">Cheese</span><span class="pill">Buns</span></div><ol><li>Place beef balls down and smash firmly into thin patties.</li><li>Season immediately. Cook until edges are browned and lacy.</li><li>Flip, add cheese, and cook just long enough to finish.</li></ol></section>
-    <section class="section-card wide full"><div class="section-head"><span class="section-label">Assemble</span><h2>Keep it moving</h2></div><ol><li>Toast buns on the griddle while patties finish.</li><li>Build sliders in the planned order so each one gets sauce, patty, cheese, and toppings.</li><li>Serve immediately. Smash sliders are best hot, messy, and not overthought.</li></ol></section>
-  </div>
-</main>
-<script src="../wide-pills.js"></script>
+<div id="instruction-root"></div>
 </body>
 </html>

@@ -3,22 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meatloaf Wide Instructions</title>
+<title>Meatloaf Instructions</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../wide-layout.css">
+<script src="../instruction-content.js?v=1" defer></script>
+<script src="../instruction-renderer.js?v=4" defer></script>
 </head>
-<body>
+<body data-recipe="meatloaf" data-layout="wide">
 <div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
-<main class="shell">
-  <header class="hero"><div class="hero-title">Meat<span>loaf</span></div><div class="hero-sub">Serves 4<br>Prep ~25 min<br>Cook ~60 min</div></header>
-  <div class="board">
-    <section class="section-card"><div class="section-head"><span class="section-label">Prep</span><h2>Set up the loaf</h2></div><div class="pull"><span class="pill">Ground beef</span><span class="pill">Onion</span><span class="pill">Breadcrumbs</span><span class="pill">Egg</span><span class="pill">Milk</span><span class="pill">Dijon</span><span class="pill">Worcestershire</span></div><ol><li>Heat oven to <span class="ing">350 F</span>. Measure the milk before mixing so the loaf stays tender but not loose.</li><li>Finely dice <span class="ing">1 small onion</span> and soften it in butter with a pinch of salt for <span class="ing">6-8 minutes</span>. Cool briefly.</li><li>Mix beef, breadcrumbs, egg, milk, softened onion, Dijon, Worcestershire, salt, and pepper gently. Stop as soon as it holds together.</li></ol></section>
-    <section class="section-card"><div class="section-head"><span class="section-label">Glaze</span><h2>Horseradish ketchup top</h2></div><div class="pull"><span class="pill">Ketchup</span><span class="pill">Dijon</span><span class="pill">Horseradish</span><span class="pill">Worcestershire</span></div><ol><li>Whisk <span class="ing">1/3 cup ketchup</span>, <span class="ing">1 tbsp Dijon</span>, <span class="ing">1 tbsp brown sugar or honey</span>, <span class="ing">1 tsp Worcestershire</span>, <span class="ing">1-2 tsp horseradish</span>, and black pepper.</li><li>Shape meatloaf on a lined pan. Brush with half the glaze.</li><li>Keep the rest of the glaze for the halfway brush.</li></ol></section>
-    <section class="section-card"><div class="section-head"><span class="section-label">Potatoes</span><h2>Green onion mash</h2></div><div class="pull"><span class="pill">Potatoes</span><span class="pill">Butter</span><span class="pill">Milk</span><span class="pill">Green onions</span></div><ol><li>Cut <span class="ing">1.5 lb potatoes</span>, cover with cold salted water, and boil when the meatloaf hits the 40-minute glaze check.</li><li>Boil <span class="ing">15-18 minutes</span>, drain, then mash with <span class="ing">3 tbsp butter</span> and <span class="ing">1/4 cup warm milk</span>.</li><li>Fold in <span class="ing">3 sliced green onions</span>. Season with salt and pepper.</li></ol></section>
-    <section class="section-card"><div class="section-head"><span class="section-label">Green Beans</span><h2>Garlic butter finish</h2></div><div class="pull"><span class="pill">Green beans</span><span class="pill">Butter</span><span class="pill">Garlic</span></div><ol><li>Trim <span class="ing">12 oz green beans</span>. Cook in <span class="ing">1 tbsp butter</span> over medium-high for <span class="ing">5-7 minutes</span>.</li><li>Add <span class="ing">1 minced garlic clove</span> and cook <span class="ing">30-60 seconds</span>.</li><li>Finish with black pepper and a tiny squeeze of lemon if you have it.</li></ol></section>
-    <section class="section-card wide full"><div class="section-head"><span class="section-label">Cook</span><h2>Bake and rest</h2></div><ol><li>Bake until the loaf is beginning to set, about <span class="ing">40 minutes</span>.</li><li>Blot grease, brush on the remaining glaze, then keep baking until the center reaches <span class="ing">160 F</span>.</li><li>Rest <span class="ing">10 minutes</span> before slicing so the juices stay put.</li><li>Serve with green onion mashed potatoes and garlic butter green beans.</li></ol></section>
-  </div>
-</main>
-<script src="../wide-pills.js"></script>
+<div id="instruction-root"></div>
 </body>
 </html>
