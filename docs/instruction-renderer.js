@@ -14,6 +14,81 @@
 
   const text = (node, selector) => node.querySelector(selector)?.textContent.trim() || '';
   const html = (node, selector) => node.querySelector(selector)?.innerHTML.trim() || '';
+  const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+  const cleanIngredientName = (value) => value
+    .replace(/^[\d./¼½¾–\-\s]+(?:oz|lb|lbs|tbsp|tsp|cups?|can|cans|clove|cloves|inch|inches|seconds?|sec|min(?:utes?)?)?\b\s*/i, '')
+    .replace(/\bpaper thin\b/i, '')
+    .replace(/\s+per\s+.+$/i, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  const isIngredientLike = (value) => {
+    const lower = value.toLowerCase();
+    return value &&
+      value.length <= 32 &&
+      !value.endsWith(':') &&
+      !/\d/.test(value) &&
+      !/^(high|low|medium|medium-low|medium-high|full|one side|do not.*|for a .* batch|two separate bowls)$/i.test(value) &&
+      !/\b(sec|second|seconds|min|minute|minutes|hour|hours|f|inch|inches|thick)\b/.test(lower);
+  };
+
+  const ingredientTerms = (scope) => {
+    const terms = Array.from(scope.querySelectorAll('.ingredient-pill, .ing-name, .ing'))
+      .map(item => cleanIngredientName(item.textContent.trim()))
+      .map(item => {
+        if (/^onions?$/i.test(item)) return 'onions';
+        if (/^more onion$/i.test(item)) return 'onions';
+        return item;
+      })
+      .filter(isIngredientLike);
+
+    return Array.from(new Map(terms.map(term => [term.toLowerCase(), term])).values())
+      .sort((a, b) => b.length - a.length);
+  };
+
+  const highlightIngredients = (scope) => {
+    const terms = ingredientTerms(scope);
+    if (!terms.length) return;
+
+    const patterns = terms.map(term => {
+      const escaped = escapeRegex(term);
+      return /^[a-z ]+$/i.test(term) && !/s$/i.test(term) ? `${escaped}s?` : escaped;
+    });
+    const matcher = new RegExp(`\\b(${patterns.join('|')})\\b`, 'gi');
+    const walker = document.createTreeWalker(scope, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        const parent = node.parentElement;
+        if (!parent || parent.closest('.ing, .ingredient-pill, .ing-name, .pill, script, style')) {
+          return NodeFilter.FILTER_REJECT;
+        }
+        if (!parent.closest('.st, .step-text')) {
+          return NodeFilter.FILTER_REJECT;
+        }
+        matcher.lastIndex = 0;
+        return matcher.test(node.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+      }
+    });
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+
+    nodes.forEach(node => {
+      matcher.lastIndex = 0;
+      const fragment = document.createDocumentFragment();
+      let cursor = 0;
+      node.nodeValue.replace(matcher, (match, _term, offset) => {
+        fragment.append(node.nodeValue.slice(cursor, offset));
+        const span = document.createElement('span');
+        span.className = 'ing';
+        span.textContent = match;
+        fragment.append(span);
+        cursor = offset + match.length;
+        return match;
+      });
+      fragment.append(node.nodeValue.slice(cursor));
+      node.replaceWith(fragment);
+    });
+  };
 
   const previousSectionName = (node) => {
     let cursor = node.previousElementSibling;
@@ -48,18 +123,8 @@
 
     return Array.from(node.querySelectorAll('.ing'))
       .map(item => item.textContent.trim())
-      .filter(item => {
-        const lower = item.toLowerCase();
-        return !/\b(sec|second|seconds|min|minute|minutes|hour|hours|f)\b/.test(lower) &&
-          !skip.has(lower) &&
-          !lower.startsWith('do not');
-      })
-      .map(item => item
-        .replace(/^[\d./–\-\s]+(?:oz|tbsp|tsp|cups?|seconds?|sec|min(?:utes?)?)?\s*/i, '')
-        .replace(/\bpaper thin\b/i, '')
-        .replace(/\s+/g, ' ')
-        .trim()
-      )
+      .filter(item => !skip.has(item.toLowerCase()))
+      .map(cleanIngredientName)
       .map(item => {
         if (/^onions?$/i.test(item)) return 'Onions';
         if (/^more onion$/i.test(item)) return 'Onions';
@@ -67,7 +132,7 @@
         if (/^meat balls?$/i.test(item)) return 'Meat balls';
         return item;
       })
-      .filter(item => item && item.length <= 28)
+      .filter(isIngredientLike)
       .filter((item, index, all) => all.findIndex(other => other.toLowerCase() === item.toLowerCase()) === index)
       .slice(0, 8);
   };
@@ -75,6 +140,7 @@
   const sectionsFromPhoneContent = () => {
     const holder = document.createElement('div');
     holder.innerHTML = recipe.body;
+    highlightIngredients(holder);
     const sections = [];
 
     holder.querySelectorAll('.cook-block, .steps-list, .phase').forEach((block) => {
@@ -92,6 +158,7 @@
         steps = Array.from(block.querySelectorAll('.step-text')).map(step => step.innerHTML.trim());
         label = previousSectionName(block);
         title = label.replace(/^[^-—]+[-—]\s*/, '');
+        pills = pillsFromSteps(block);
       } else {
         steps = Array.from(block.querySelectorAll('.steps > li')).map(step => step.innerHTML.trim());
         label = text(block, '.phase-label') || previousSectionName(block);
@@ -100,6 +167,7 @@
       }
 
       if (!steps.length) return;
+      if (!pills.length) pills = pillsFromSteps(block);
       sections.push({
         label,
         title,
@@ -113,7 +181,9 @@
   };
 
   const renderPhone = () => {
-    root.replaceChildren(makeTemplate(recipe.body));
+    const content = makeTemplate(recipe.body);
+    highlightIngredients(content);
+    root.replaceChildren(content);
   };
 
   const renderWide = () => {
