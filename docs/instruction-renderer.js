@@ -168,16 +168,47 @@
 
       if (!steps.length) return;
       if (!pills.length) pills = pillsFromSteps(block);
+      const forceHalf = block.classList.contains('wide-half');
+      const forceFull = block.classList.contains('wide-full');
+      const forceSplit = block.classList.contains('wide-split');
       sections.push({
         label,
         title,
         pills,
         steps,
-        wide: steps.length >= 4
+        forceHalf,
+        forceFull,
+        split: !forceHalf && (forceSplit || steps.length >= 4)
       });
     });
 
     return sections;
+  };
+
+  const layoutWideSections = (sections) => {
+    const laidOut = sections.map(section => ({
+      ...section,
+      full: section.forceFull || (!section.forceHalf && section.split)
+    }));
+
+    let index = 0;
+    while (index < laidOut.length) {
+      if (laidOut[index].split) {
+        index += 1;
+        continue;
+      }
+
+      const start = index;
+      while (index < laidOut.length && !laidOut[index].split) {
+        index += 1;
+      }
+
+      if ((index - start) % 2 === 1) {
+        laidOut[index - 1].full = true;
+      }
+    }
+
+    return laidOut;
   };
 
   const renderPhone = () => {
@@ -187,7 +218,7 @@
   };
 
   const renderWide = () => {
-    const sections = sectionsFromPhoneContent();
+    const sections = layoutWideSections(sectionsFromPhoneContent());
     const source = makeTemplate(recipe.body);
     const heroTitle = html(source, '.hero-title') || html(source, '.recipe-title') || recipe.heroTitle || recipe.title;
     const metaSub = Array.from(source.querySelectorAll('.recipe-meta .meta-item'))
@@ -204,7 +235,7 @@
         </header>
         <div class="board">
           ${sections.map(section => `
-            <section class="section-card ${section.wide ? 'wide full' : ''}">
+            <section class="section-card ${section.full ? 'full' : ''} ${section.split ? 'split' : ''}">
               <div class="section-head">
                 <span class="section-label">${section.label}</span>
                 <h2>${section.title}</h2>

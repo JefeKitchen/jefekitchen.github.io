@@ -91,7 +91,8 @@ body {
   overflow: hidden;
 }
 
-.section-card.wide { grid-column: 1 / -1; }
+.section-card.wide,
+.section-card.full { grid-column: 1 / -1; }
 
 .section-head {
   background: var(--raised);
@@ -197,12 +198,14 @@ li::before {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .section-card.wide ol {
+  .section-card.wide ol,
+  .section-card.split ol {
     column-count: 2;
     column-gap: 24px;
   }
 
-  .section-card.wide li {
+  .section-card.wide li,
+  .section-card.split li {
     break-inside: avoid;
     page-break-inside: avoid;
   }
