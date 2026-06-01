@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Chest &amp; Tri</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Roboto+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./workout-app.css?v=4">
+<link rel="stylesheet" href="./workout-app.css?v=5">
 </head>
 <body>
 <div class="back-bar"><a href="./index.html" aria-label="Back to Lift">&#8249;</a></div>
@@ -70,7 +70,10 @@
       <div class="focus-group" id="focusGroup">Current</div>
       <div class="focus-title" id="focusTitle">Ready</div>
       <div class="focus-set" id="focusSet">Set 1</div>
-      <button type="button" class="backup-toggle is-hidden" id="focusBackup"></button>
+      <div class="focus-options">
+        <button type="button" class="backup-toggle is-hidden" id="focusBackup"></button>
+        <button type="button" class="skip-toggle is-hidden" id="focusSkip">Skip Exercise</button>
+      </div>
     </div>
     <div class="focus-rest">
       <div class="focus-timer-panel">
@@ -168,17 +171,17 @@
     },
     {
       "group": "Core",
-      "name": "Dead bug",
+      "name": "Cable crunch",
       "sets": 2,
-      "reps": "10/side",
+      "reps": "12-15",
       "rest": 45,
-      "track": "none"
+      "track": "weight"
     },
     {
       "group": "Core",
-      "name": "Forearm plank",
+      "name": "Hanging knee raise",
       "sets": 2,
-      "reps": "30-45 sec",
+      "reps": "8-12",
       "rest": 45,
       "track": "none"
     },
@@ -186,13 +189,13 @@
       "group": "Cardio",
       "name": "Stair stepper",
       "sets": 1,
-      "reps": "8-10 min",
+      "reps": "6-8 min",
       "rest": 0,
       "track": "none"
     }
   ]
 };
 </script>
-<script src="./workout-app.js?v=4"></script>
+<script src="./workout-app.js?v=5"></script>
 </body>
 </html>

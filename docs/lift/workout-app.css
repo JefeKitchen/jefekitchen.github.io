@@ -395,7 +395,13 @@
     letter-spacing: .8px;
     text-transform: uppercase;
   }
-  .backup-toggle {
+  .focus-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .backup-toggle,
+  .skip-toggle {
     background: transparent;
     border-color: rgba(185, 179, 170, .28);
     color: var(--accent-2);
@@ -407,7 +413,12 @@
     padding: 7px 10px;
     text-transform: uppercase;
   }
-  .backup-toggle.is-hidden {
+  .skip-toggle {
+    border-color: rgba(150, 146, 139, .22);
+    color: var(--muted);
+  }
+  .backup-toggle.is-hidden,
+  .skip-toggle.is-hidden {
     display: none;
   }
   .focus-rest {

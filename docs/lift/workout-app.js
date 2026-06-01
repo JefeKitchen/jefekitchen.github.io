@@ -1,5 +1,5 @@
 const config = window.liftWorkoutConfig;
-  const workout = config.workout;
+  const baseWorkout = config.workout;
   const testRestSeconds = config.testRestSeconds || null;
   const stateKey = config.stateKey;
   const historyKey = config.historyKey;
@@ -18,9 +18,26 @@ const config = window.liftWorkoutConfig;
     'Incline dumbbell press': { name: 'Machine incline press', group: 'Chest', equipment: 'incline press machine' },
     'Cable fly': { name: 'Dumbbell fly', group: 'Chest', equipment: 'dumbbells + bench' },
     'Overhead cable extension': { name: 'Dumbbell overhead extension', group: 'Triceps', equipment: 'dumbbell' },
-    'Dead bug': { name: 'Bird dog', group: 'Core', equipment: 'floor' },
-    'Forearm plank': { name: 'Side plank', group: 'Core', equipment: 'floor' },
+    'Cable crunch': { name: 'Weighted sit-up', group: 'Core', equipment: 'plate or dumbbell' },
+    'Hanging knee raise': { name: 'Captain chair knee raise', group: 'Core', equipment: 'captain chair' },
     'Stair stepper': { name: 'Stationary bike', group: 'Cardio', equipment: 'bike' }
+  };
+  const finisherPools = {
+    Core: [
+      { group: 'Core', name: 'Cable crunch', sets: 2, reps: '12-15', rest: 45, track: 'weight' },
+      { group: 'Core', name: 'Hanging knee raise', sets: 2, reps: '8-12', rest: 45, track: 'none' },
+      { group: 'Core', name: 'Plank', sets: 2, reps: '30-45 sec', rest: 45, track: 'none' },
+      { group: 'Core', name: 'Weighted sit-up', sets: 2, reps: '10-12', rest: 45, track: 'weight' },
+      { group: 'Core', name: 'Captain chair knee raise', sets: 2, reps: '10-12', rest: 45, track: 'none' },
+      { group: 'Core', name: 'Ab wheel rollout', sets: 2, reps: '8-10', rest: 45, track: 'none' }
+    ],
+    Cardio: [
+      { group: 'Cardio', name: 'Stair stepper', sets: 1, reps: '6-8 min', rest: 0, track: 'none' },
+      { group: 'Cardio', name: 'Stationary bike', sets: 1, reps: '6-8 min', rest: 0, track: 'none' },
+      { group: 'Cardio', name: 'Incline treadmill walk', sets: 1, reps: '6-8 min', rest: 0, track: 'none' },
+      { group: 'Cardio', name: 'Rowing machine', sets: 1, reps: '6-8 min', rest: 0, track: 'none' },
+      { group: 'Cardio', name: 'Elliptical', sets: 1, reps: '6-8 min', rest: 0, track: 'none' }
+    ]
   };
   const timerTime = document.getElementById('timerTime');
   const workoutElapsed = document.getElementById('workoutElapsed');
@@ -42,6 +59,7 @@ const config = window.liftWorkoutConfig;
   const focusTitle = document.getElementById('focusTitle');
   const focusSet = document.getElementById('focusSet');
   const focusBackup = document.getElementById('focusBackup');
+  const focusSkip = document.getElementById('focusSkip');
   const focusTimerTime = document.getElementById('focusTimerTime');
   const focusLogSet = document.getElementById('focusLogSet');
   const focusInputs = document.getElementById('focusInputs');
@@ -49,6 +67,7 @@ const config = window.liftWorkoutConfig;
   const actualWeight = document.getElementById('actualWeight');
   const weightField = document.getElementById('weightField');
   let state = loadState();
+  const workout = hydrateWorkout(baseWorkout);
   let timerSeconds = restSeconds(workout[0]);
   let timerId = null;
   let timerDone = null;
@@ -61,6 +80,8 @@ const config = window.liftWorkoutConfig;
         completed: saved.completed || {},
         logs: saved.logs || {},
         swaps: saved.swaps || {},
+        skipped: saved.skipped || {},
+        dynamicFinishers: saved.dynamicFinishers || {},
         startedAt: saved.startedAt || null,
         completedAt: saved.completedAt || null,
         adjustedDurationSeconds: Number.isFinite(saved.adjustedDurationSeconds) ? saved.adjustedDurationSeconds : null,
@@ -68,7 +89,7 @@ const config = window.liftWorkoutConfig;
         currentSet: saved.currentSet === null ? null : (Number.isInteger(saved.currentSet) ? saved.currentSet : 0)
       };
     } catch {
-      return { completed: {}, logs: {}, swaps: {}, startedAt: null, completedAt: null, adjustedDurationSeconds: null, currentExercise: 0, currentSet: 0 };
+      return { completed: {}, logs: {}, swaps: {}, skipped: {}, dynamicFinishers: {}, startedAt: null, completedAt: null, adjustedDurationSeconds: null, currentExercise: 0, currentSet: 0 };
     }
   }
 
@@ -87,6 +108,32 @@ const config = window.liftWorkoutConfig;
 
   function saveHistory(history) {
     localStorage.setItem(historyKey, JSON.stringify(history));
+  }
+
+  function randomFrom(items) {
+    return items[Math.floor(Math.random() * items.length)];
+  }
+
+  function isDynamicFinisher(exercise, index, sourceWorkout) {
+    const nearEnd = index >= Math.max(0, sourceWorkout.length - 4);
+    return nearEnd && (exercise.group === 'Core' || exercise.group === 'Cardio') && exercise.dynamicFinisher !== false;
+  }
+
+  function hydrateWorkout(sourceWorkout) {
+    let changed = false;
+    const usedByGroup = { Core: new Set(), Cardio: new Set() };
+    const hydrated = sourceWorkout.map((exercise, index) => {
+      if (!isDynamicFinisher(exercise, index, sourceWorkout)) return exercise;
+      if (!state.dynamicFinishers[index]) {
+        const options = finisherPools[exercise.group].filter(option => !usedByGroup[exercise.group].has(option.name));
+        state.dynamicFinishers[index] = randomFrom(options.length ? options : finisherPools[exercise.group]);
+        changed = true;
+      }
+      usedByGroup[exercise.group].add(state.dynamicFinishers[index].name);
+      return { ...exercise, ...state.dynamicFinishers[index] };
+    });
+    if (changed) saveState();
+    return hydrated;
   }
 
   function keyFor(exerciseIndex, setIndex) {
@@ -224,6 +271,10 @@ const config = window.liftWorkoutConfig;
     }).filter(Boolean).length;
   }
 
+  function exerciseStarted(exerciseIndex) {
+    return completedExerciseSetCount(exerciseIndex) > 0 && !state.skipped[exerciseIndex];
+  }
+
   function totalSetCount() {
     return workout.reduce((sum, exercise) => sum + exercise.sets, 0);
   }
@@ -242,7 +293,8 @@ const config = window.liftWorkoutConfig;
           target: exercise.reps,
           reps: log.reps || '',
           weight: log.weight || '',
-          backupOf: exercise.backupOf || ''
+          backupOf: exercise.backupOf || '',
+          skipped: !!state.skipped[exerciseIndex]
         };
       }).filter(Boolean);
     });
@@ -365,6 +417,7 @@ const config = window.liftWorkoutConfig;
 
   function completeSet(exerciseIndex, setIndex) {
     const key = keyFor(exerciseIndex, setIndex);
+    delete state.skipped[exerciseIndex];
     state.completed[key] = true;
     state.currentExercise = exerciseIndex;
     state.currentSet = setIndex;
@@ -375,6 +428,7 @@ const config = window.liftWorkoutConfig;
 
   function undoSet(exerciseIndex, setIndex) {
     stopTimer();
+    delete state.skipped[exerciseIndex];
     delete state.completed[keyFor(exerciseIndex, setIndex)];
     state.currentExercise = exerciseIndex;
     state.currentSet = setIndex;
@@ -391,6 +445,34 @@ const config = window.liftWorkoutConfig;
     render();
   }
 
+  function skipExercise(exerciseIndex) {
+    const exercise = workout[exerciseIndex];
+    if (!exercise || exerciseStarted(exerciseIndex) || state.skipped[exerciseIndex]) return;
+    stopTimer();
+    state.skipped[exerciseIndex] = true;
+    Array.from({ length: exercise.sets }, (_, setIndex) => {
+      const key = keyFor(exerciseIndex, setIndex);
+      state.completed[key] = true;
+      delete state.logs[key];
+    });
+    advanceToNextOpen();
+  }
+
+  function unskipExercise(exerciseIndex) {
+    const exercise = workout[exerciseIndex];
+    if (!exercise || !state.skipped[exerciseIndex]) return;
+    stopTimer();
+    delete state.skipped[exerciseIndex];
+    Array.from({ length: exercise.sets }, (_, setIndex) => {
+      delete state.completed[keyFor(exerciseIndex, setIndex)];
+    });
+    state.currentExercise = exerciseIndex;
+    state.currentSet = 0;
+    saveState();
+    setTimer(restSeconds(workout[exerciseIndex]));
+    render();
+  }
+
   function render() {
     const open = findNextOpen();
     const currentExists = !!workout[state.currentExercise];
@@ -398,6 +480,7 @@ const config = window.liftWorkoutConfig;
     const activeSet = open || currentExists ? state.currentSet : null;
     const current = activeExercise === null ? null : effectiveExercise(workout[activeExercise], activeExercise);
     const currentComplete = activeExercise !== null && !!state.completed[keyFor(activeExercise, activeSet)];
+    const currentSkipped = activeExercise !== null && !!state.skipped[activeExercise];
 
     if (!current) {
       currentLabel.textContent = 'Complete';
@@ -411,6 +494,7 @@ const config = window.liftWorkoutConfig;
       focusLogSet.disabled = true;
       focusLogSet.textContent = 'Complete';
       focusBackup.classList.add('is-hidden');
+      focusSkip.classList.add('is-hidden');
       actualReps.value = '';
       actualWeight.value = '';
     } else {
@@ -423,12 +507,13 @@ const config = window.liftWorkoutConfig;
       focusTitle.textContent = current.name;
       focusSet.textContent = `Set ${activeSet + 1} of ${current.sets} · ${current.reps} reps`;
       focusLogSet.disabled = false;
-      focusLogSet.textContent = currentComplete ? 'Undo Set' : 'Log Set';
+      focusLogSet.textContent = currentSkipped ? 'Unskip Exercise' : (currentComplete ? 'Undo Set' : 'Log Set');
       const planned = workout[activeExercise];
       const backup = backupFor(planned);
-      const exerciseStarted = completedExerciseSetCount(activeExercise) > 0;
-      focusBackup.classList.toggle('is-hidden', !backup || currentComplete || exerciseStarted);
-      if (backup && !currentComplete && !exerciseStarted) {
+      const started = exerciseStarted(activeExercise);
+      focusBackup.classList.toggle('is-hidden', !backup || currentComplete || started || currentSkipped);
+      focusSkip.classList.toggle('is-hidden', currentComplete || started || currentSkipped);
+      if (backup && !currentComplete && !started && !currentSkipped) {
         focusBackup.textContent = state.swaps[activeExercise]
           ? `Use planned: ${planned.name}`
           : `Backup: ${backup.name}`;
@@ -446,11 +531,12 @@ const config = window.liftWorkoutConfig;
         const done = !!state.completed[keyFor(exerciseIndex, setIndex)];
         const log = logText(exercise, keyFor(exerciseIndex, setIndex));
         const active = isActive && setIndex === activeSet;
+        const skipped = !!state.skipped[exerciseIndex];
         return `
           <div class="set-row ${done ? 'is-done' : ''}" data-exercise="${exerciseIndex}" data-set="${setIndex}" role="button" tabindex="0" aria-label="${done ? `Open completed ${exercise.name} set ${setIndex + 1}` : `Start ${exercise.name} set ${setIndex + 1}`}">
             <div class="set-copy">
               Set ${setIndex + 1}${active ? ' · Current' : ''}
-              <span>${log || `${exercise.reps} reps · ${restSeconds(exercise)}s rest`}${exercise.backupOf ? ` · backup for ${exercise.backupOf}` : ''}</span>
+              <span>${skipped ? 'Skipped' : (log || `${exercise.reps} reps · ${restSeconds(exercise)}s rest`)}${exercise.backupOf ? ` · backup for ${exercise.backupOf}` : ''}</span>
             </div>
           </div>
         `;
@@ -505,6 +591,10 @@ const config = window.liftWorkoutConfig;
     const setIndex = state.currentSet;
     const exercise = effectiveExercise(workout[exerciseIndex], exerciseIndex);
     if (!exercise) return;
+    if (state.skipped[exerciseIndex]) {
+      unskipExercise(exerciseIndex);
+      return;
+    }
     if (state.completed[keyFor(exerciseIndex, setIndex)]) {
       undoSet(exerciseIndex, setIndex);
       return;
@@ -539,6 +629,10 @@ const config = window.liftWorkoutConfig;
 
   focusBackup.addEventListener('click', () => {
     if (state.currentExercise !== null) toggleBackup(state.currentExercise);
+  });
+
+  focusSkip.addEventListener('click', () => {
+    if (state.currentExercise !== null) skipExercise(state.currentExercise);
   });
 
   setTimer(restSeconds(workout[0]));
