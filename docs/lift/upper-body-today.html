@@ -5,405 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Upper Body Today</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Roboto+Mono:wght@500;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #0b0c0d;
-    --surface: #17191b;
-    --raised: #232629;
-    --line: #373b40;
-    --accent: #ff7a45;
-    --accent-2: #b9b3aa;
-    --text: #f4f2ee;
-    --muted: #96928b;
-    --done: #7bcf8f;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background:
-      radial-gradient(circle at top right, rgba(255, 122, 69, .14), transparent 32%),
-      radial-gradient(circle at 0% 24%, rgba(145, 138, 128, .12), transparent 28%),
-      var(--bg);
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
-    margin: 0 auto;
-    max-width: 540px;
-    min-height: 100vh;
-    padding: 0 0 90px;
-  }
-  .back-bar {
-    background: rgba(11, 12, 13, .9);
-    border-bottom: 1px solid var(--line);
-    backdrop-filter: blur(12px);
-    padding: 4px 10px;
-    position: sticky;
-    top: 0;
-    z-index: 5;
-  }
-  .back-bar a {
-    align-items: center;
-    color: var(--accent);
-    display: inline-flex;
-    font-family: -apple-system, sans-serif;
-    font-size: 30px;
-    height: 32px;
-    justify-content: center;
-    line-height: 1;
-    text-decoration: none;
-    width: 36px;
-  }
-  .hero {
-    background: var(--surface);
-    border-bottom: 1px solid var(--line);
-    padding: 28px 22px 22px;
-  }
-  .label,
-  .current-label,
-  .section-label,
-  .exercise-kicker {
-    color: var(--accent-2);
-    font-family: 'Roboto Mono', monospace;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 2.4px;
-    text-transform: uppercase;
-  }
-  h1 {
-    font-size: 42px;
-    font-weight: 800;
-    letter-spacing: -.8px;
-    line-height: 1;
-    margin-top: 8px;
-    text-transform: uppercase;
-  }
-  h1 span { color: var(--accent); }
-  .meta {
-    color: var(--muted);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px 12px;
-    font-size: 12px;
-    letter-spacing: .5px;
-    margin-top: 12px;
-    text-transform: uppercase;
-  }
-  .current {
-    background: linear-gradient(135deg, rgba(255, 122, 69, .15), rgba(255, 255, 255, .03)), var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    margin: 16px 18px 0;
-    overflow: hidden;
-  }
-  .current-main {
-    display: grid;
-    gap: 12px;
-    padding: 16px;
-  }
-  .current-title {
-    font-size: 26px;
-    font-weight: 800;
-    line-height: 1.05;
-    margin-top: 4px;
-    text-transform: uppercase;
-  }
-  .current-dose {
-    color: var(--accent);
-    font-family: 'Roboto Mono', monospace;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: .8px;
-    text-transform: uppercase;
-  }
-  .timer {
-    align-items: center;
-    background: var(--raised);
-    border-top: 1px solid var(--line);
-    padding: 14px 16px;
-  }
-  .timer-time {
-    color: var(--text);
-    font-family: 'Roboto Mono', monospace;
-    font-size: 34px;
-    font-weight: 700;
-    letter-spacing: 1px;
-  }
-  button {
-    appearance: none;
-    background: var(--raised);
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    color: var(--text);
-    cursor: pointer;
-    font: inherit;
-    font-weight: 800;
-    min-height: 42px;
-    padding: 10px 13px;
-    -webkit-tap-highlight-color: transparent;
-  }
-  button:active { filter: brightness(1.16); }
-  .primary {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #17120f;
-  }
-  .ghost {
-    color: var(--muted);
-  }
-  .section-label {
-    align-items: center;
-    display: flex;
-    gap: 10px;
-    margin: 22px 18px 10px;
-  }
-  .section-label::after {
-    background: var(--line);
-    content: '';
-    flex: 1;
-    height: 1px;
-  }
-  .exercise-list {
-    display: grid;
-    gap: 12px;
-    margin: 0 18px;
-  }
-  .complete-panel {
-    display: grid;
-    gap: 8px;
-    margin: 16px 18px 0;
-  }
-  .complete-actions {
-    display: grid;
-    gap: 10px;
-    grid-template-columns: 1fr 1fr;
-  }
-  .complete-panel .primary {
-    font-size: 18px;
-    min-height: 56px;
-  }
-  .save-note {
-    color: var(--muted);
-    font-size: 12px;
-    min-height: 18px;
-    text-align: center;
-  }
-  .exercise {
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    overflow: hidden;
-  }
-  .exercise.is-active {
-    border-color: rgba(255, 122, 69, .72);
-    box-shadow: 0 0 0 1px rgba(255, 122, 69, .2);
-  }
-  .exercise-head {
-    align-items: start;
-    background: var(--raised);
-    border-bottom: 1px solid var(--line);
-    display: grid;
-    gap: 8px;
-    grid-template-columns: 1fr auto;
-    padding: 13px 14px;
-  }
-  .exercise-name {
-    font-size: 18px;
-    font-weight: 800;
-    line-height: 1.1;
-    margin-top: 4px;
-    text-transform: uppercase;
-  }
-  .exercise-dose {
-    color: var(--accent);
-    font-family: 'Roboto Mono', monospace;
-    font-size: 12px;
-    font-weight: 700;
-    white-space: nowrap;
-  }
-  .set-row {
-    align-items: center;
-    border-bottom: 1px solid var(--line);
-    cursor: pointer;
-    display: block;
-    padding: 11px 14px;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .set-row:active { background: rgba(255, 255, 255, .04); }
-  .set-row:last-child { border-bottom: 0; }
-  .set-copy {
-    color: var(--text);
-    font-size: 15px;
-    font-weight: 700;
-  }
-  .set-copy span {
-    color: var(--muted);
-    display: block;
-    font-size: 12px;
-    font-weight: 600;
-    margin-top: 2px;
-  }
-  .set-row.is-done .set-copy {
-    color: var(--muted);
-    text-decoration: line-through;
-  }
-  .set-row.is-done { cursor: default; }
-  .finished {
-    color: var(--done);
-  }
-  .focus-screen {
-    background:
-      radial-gradient(circle at top right, rgba(255, 122, 69, .18), transparent 34%),
-      var(--bg);
-    color: var(--text);
-    display: none;
-    inset: 0;
-    min-height: 100vh;
-    overflow-y: auto;
-    padding: 0 18px 28px;
-    position: fixed;
-    z-index: 50;
-  }
-  body.focus-active {
-    overflow: hidden;
-  }
-  body.focus-active .focus-screen {
-    display: block;
-  }
-  .focus-top {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0 18px;
-  }
-  .focus-back {
-    align-items: center;
-    display: inline-flex;
-    font-size: 30px;
-    justify-content: center;
-    min-height: 42px;
-    padding: 0;
-    width: 46px;
-  }
-  .focus-progress {
-    color: var(--muted);
-    font-family: 'Roboto Mono', monospace;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-  }
-  .focus-card {
-    background: linear-gradient(135deg, rgba(255, 122, 69, .16), rgba(255, 255, 255, .03)), var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 22px;
-    display: grid;
-    grid-template-rows: auto 1fr;
-    min-height: calc(100vh - 58px);
-    overflow: hidden;
-  }
-  .focus-main {
-    align-content: start;
-    border-bottom: 1px solid var(--line);
-    display: grid;
-    gap: 8px;
-    padding: 18px 18px 16px;
-  }
-  .focus-group {
-    color: var(--accent-2);
-    font-family: 'Roboto Mono', monospace;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 2.4px;
-    text-transform: uppercase;
-  }
-  .focus-title {
-    font-size: 30px;
-    font-weight: 800;
-    letter-spacing: -.5px;
-    line-height: 1;
-    text-transform: uppercase;
-  }
-  .focus-set {
-    color: var(--accent);
-    font-family: 'Roboto Mono', monospace;
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: .8px;
-    text-transform: uppercase;
-  }
-  .focus-rest {
-    background: var(--raised);
-    display: grid;
-    gap: 16px;
-    grid-template-rows: 1fr auto auto;
-    padding: 18px;
-  }
-  .focus-timer-panel {
-    align-content: center;
-    display: grid;
-    gap: 8px;
-    justify-items: center;
-    min-height: 270px;
-    text-align: center;
-  }
-  .focus-time {
-    color: var(--text);
-    font-family: 'Roboto Mono', monospace;
-    font-size: clamp(84px, 27vw, 132px);
-    font-weight: 700;
-    letter-spacing: -3px;
-    line-height: .9;
-  }
-  .focus-buttons {
-    display: grid;
-    gap: 10px;
-  }
-  .focus-log {
-    font-size: 19px;
-    min-height: 58px;
-  }
-  .focus-inputs {
-    display: grid;
-    gap: 10px;
-    grid-template-columns: 1fr 1fr;
-  }
-  .focus-inputs.is-hidden {
-    display: none;
-  }
-  .focus-inputs.reps-only {
-    grid-template-columns: 1fr;
-  }
-  .focus-field {
-    display: grid;
-    gap: 6px;
-  }
-  .focus-field label {
-    color: var(--accent-2);
-    font-family: 'Roboto Mono', monospace;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.8px;
-    text-transform: uppercase;
-  }
-  .focus-field input {
-    appearance: none;
-    background: #101112;
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    color: var(--text);
-    font: inherit;
-    font-size: 22px;
-    font-weight: 800;
-    min-width: 0;
-    padding: 12px;
-    width: 100%;
-  }
-  .focus-field input:focus {
-    border-color: var(--accent);
-    outline: none;
-  }
-  .weight-field.is-hidden {
-    display: none;
-  }
-</style>
+<link rel="stylesheet" href="./workout-app.css">
 </head>
 <body>
 <div class="back-bar"><a href="./index.html" aria-label="Back to Lift">&#8249;</a></div>
@@ -446,7 +48,7 @@
 <section class="focus-screen" id="focusScreen" aria-hidden="true">
   <div class="focus-top">
     <button type="button" class="focus-back" id="exitFocus" aria-label="Back to workout plan">&#8249;</button>
-    <div class="focus-progress" id="focusProgress">0 / 28 sets</div>
+    <div class="focus-progress" id="focusProgress">0 / 0 sets</div>
   </div>
   <div class="focus-card">
     <div class="focus-main">
@@ -477,365 +79,96 @@
 </section>
 
 <script>
-  const workout = [
-    { group: 'Warm Up', name: 'Band pull-aparts', sets: 2, reps: '15', rest: 45, track: 'none' },
-    { group: 'Warm Up', name: 'Push-ups', sets: 2, reps: '10', rest: 45, track: 'none' },
-    { group: 'Push', name: 'Dumbbell bench press', sets: 4, reps: '8-10', rest: 90, track: 'weight' },
-    { group: 'Pull', name: 'Seated cable row', sets: 4, reps: '10-12', rest: 90, track: 'weight' },
-    { group: 'Shoulders', name: 'Dumbbell shoulder press', sets: 3, reps: '8-10', rest: 90, track: 'weight' },
-    { group: 'Back', name: 'Lat pulldown', sets: 3, reps: '10-12', rest: 75, track: 'weight' },
-    { group: 'Chest', name: 'Machine chest press', sets: 3, reps: '10-12', rest: 75, track: 'weight' },
-    { group: 'Rear Delts', name: 'Face pulls', sets: 3, reps: '12-15', rest: 60, track: 'weight' },
-    { group: 'Biceps', name: 'Incline dumbbell curl', sets: 2, reps: '12', rest: 60, track: 'weight' },
-    { group: 'Triceps', name: 'Rope pressdown', sets: 2, reps: '12', rest: 60, track: 'weight' }
-  ];
-
-  const testRestSeconds = null;
-  const stateKey = 'lift-upper-body-today-state';
-  const historyKey = 'lift-workout-history';
-  const timerTime = document.getElementById('timerTime');
-  const currentLabel = document.getElementById('currentLabel');
-  const currentTitle = document.getElementById('currentTitle');
-  const currentDose = document.getElementById('currentDose');
-  const exerciseList = document.getElementById('exerciseList');
-  const completeWorkout = document.getElementById('completeWorkout');
-  const exportWorkoutData = document.getElementById('exportWorkoutData');
-  const saveNote = document.getElementById('saveNote');
-  const focusScreen = document.getElementById('focusScreen');
-  const focusProgress = document.getElementById('focusProgress');
-  const focusGroup = document.getElementById('focusGroup');
-  const focusTitle = document.getElementById('focusTitle');
-  const focusSet = document.getElementById('focusSet');
-  const focusTimerTime = document.getElementById('focusTimerTime');
-  const focusLogSet = document.getElementById('focusLogSet');
-  const focusInputs = document.getElementById('focusInputs');
-  const actualReps = document.getElementById('actualReps');
-  const actualWeight = document.getElementById('actualWeight');
-  const weightField = document.getElementById('weightField');
-  let state = loadState();
-  let timerSeconds = restSeconds(workout[0]);
-  let timerId = null;
-
-  function loadState() {
-    try {
-      const saved = JSON.parse(localStorage.getItem(stateKey) || '{}');
-      return {
-        completed: saved.completed || {},
-        logs: saved.logs || {},
-        currentExercise: saved.currentExercise || 0,
-        currentSet: saved.currentSet || 0
-      };
-    } catch {
-      return { completed: {}, logs: {}, currentExercise: 0, currentSet: 0 };
+  window.liftWorkoutConfig = {
+  "title": "Upper Body Today",
+  "stateKey": "lift-upper-body-today-state",
+  "historyKey": "lift-workout-history",
+  "source": "Lift Log",
+  "exportPrefix": "lift-workouts",
+  "workout": [
+    {
+      "group": "Warm Up",
+      "name": "Band pull-aparts",
+      "sets": 2,
+      "reps": "15",
+      "rest": 45,
+      "track": "none"
+    },
+    {
+      "group": "Warm Up",
+      "name": "Push-ups",
+      "sets": 2,
+      "reps": "10",
+      "rest": 45,
+      "track": "none"
+    },
+    {
+      "group": "Push",
+      "name": "Dumbbell bench press",
+      "sets": 4,
+      "reps": "8-10",
+      "rest": 90,
+      "track": "weight"
+    },
+    {
+      "group": "Pull",
+      "name": "Seated cable row",
+      "sets": 4,
+      "reps": "10-12",
+      "rest": 90,
+      "track": "weight"
+    },
+    {
+      "group": "Shoulders",
+      "name": "Dumbbell shoulder press",
+      "sets": 3,
+      "reps": "8-10",
+      "rest": 90,
+      "track": "weight"
+    },
+    {
+      "group": "Back",
+      "name": "Lat pulldown",
+      "sets": 3,
+      "reps": "10-12",
+      "rest": 75,
+      "track": "weight"
+    },
+    {
+      "group": "Chest",
+      "name": "Machine chest press",
+      "sets": 3,
+      "reps": "10-12",
+      "rest": 75,
+      "track": "weight"
+    },
+    {
+      "group": "Rear Delts",
+      "name": "Face pulls",
+      "sets": 3,
+      "reps": "12-15",
+      "rest": 60,
+      "track": "weight"
+    },
+    {
+      "group": "Biceps",
+      "name": "Incline dumbbell curl",
+      "sets": 2,
+      "reps": "12",
+      "rest": 60,
+      "track": "weight"
+    },
+    {
+      "group": "Triceps",
+      "name": "Rope pressdown",
+      "sets": 2,
+      "reps": "12",
+      "rest": 60,
+      "track": "weight"
     }
-  }
-
-  function saveState() {
-    localStorage.setItem(stateKey, JSON.stringify(state));
-  }
-
-  function loadHistory() {
-    try {
-      const saved = JSON.parse(localStorage.getItem(historyKey) || '[]');
-      return Array.isArray(saved) ? saved : [];
-    } catch {
-      return [];
-    }
-  }
-
-  function saveHistory(history) {
-    localStorage.setItem(historyKey, JSON.stringify(history));
-  }
-
-  function keyFor(exerciseIndex, setIndex) {
-    return `${exerciseIndex}-${setIndex}`;
-  }
-
-  function formatTime(total) {
-    const minutes = String(Math.floor(total / 60)).padStart(2, '0');
-    const seconds = String(total % 60).padStart(2, '0');
-    return `${minutes}:${seconds}`;
-  }
-
-  function restSeconds(exercise) {
-    return testRestSeconds || exercise.rest;
-  }
-
-  function setTimer(seconds) {
-    timerSeconds = seconds;
-    timerTime.textContent = formatTime(timerSeconds);
-    focusTimerTime.textContent = formatTime(Math.max(timerSeconds, 0));
-  }
-
-  function currentRestSeconds() {
-    return restSeconds(workout[state.currentExercise] || workout[0]);
-  }
-
-  function stopTimer() {
-    clearInterval(timerId);
-    timerId = null;
-  }
-
-  function startTimer(seconds) {
-    stopTimer();
-    setTimer(seconds);
-    timerId = setInterval(() => {
-      timerSeconds -= 1;
-      timerTime.textContent = formatTime(Math.max(timerSeconds, 0));
-      focusTimerTime.textContent = formatTime(Math.max(timerSeconds, 0));
-      if (timerSeconds <= 0) {
-        stopTimer();
-        timerTime.textContent = '00:00';
-        focusTimerTime.textContent = '00:00';
-      }
-    }, 1000);
-  }
-
-  function findNextOpen() {
-    for (let exerciseIndex = 0; exerciseIndex < workout.length; exerciseIndex += 1) {
-      for (let setIndex = 0; setIndex < workout[exerciseIndex].sets; setIndex += 1) {
-        if (!state.completed[keyFor(exerciseIndex, setIndex)]) {
-          return { exerciseIndex, setIndex };
-        }
-      }
-    }
-    return null;
-  }
-
-  function completedSetCount() {
-    return Object.values(state.completed).filter(Boolean).length;
-  }
-
-  function totalSetCount() {
-    return workout.reduce((sum, exercise) => sum + exercise.sets, 0);
-  }
-
-  function completedEntries() {
-    return workout.flatMap((exercise, exerciseIndex) => {
-      return Array.from({ length: exercise.sets }, (_, setIndex) => {
-        const key = keyFor(exerciseIndex, setIndex);
-        if (!state.completed[key]) return null;
-        const log = state.logs[key] || {};
-        return {
-          group: exercise.group,
-          name: exercise.name,
-          set: setIndex + 1,
-          target: exercise.reps,
-          reps: log.reps || '',
-          weight: log.weight || ''
-        };
-      }).filter(Boolean);
-    });
-  }
-
-  function logText(exercise, key) {
-    const entry = state.logs[key];
-    if (!entry) return '';
-    if (exercise.track === 'none') return '';
-    const repsText = entry.reps ? `${entry.reps} reps` : '';
-    const weightText = exercise.track === 'weight' && entry.weight ? ` @ ${entry.weight} lb` : '';
-    return `${repsText}${weightText}`.trim();
-  }
-
-  function syncFocusInputs(current, activeExercise, activeSet) {
-    const key = keyFor(activeExercise, activeSet);
-    const entry = state.logs[key] || {};
-    const needsInput = current && current.track !== 'none';
-    const needsWeight = current && current.track === 'weight';
-    focusInputs.classList.toggle('is-hidden', !needsInput);
-    focusInputs.classList.toggle('reps-only', !needsWeight);
-    weightField.classList.toggle('is-hidden', !needsWeight);
-    actualReps.value = entry.reps || '';
-    actualWeight.value = entry.weight || '';
-    actualWeight.disabled = !needsWeight;
-  }
-
-  function saveWorkoutSession() {
-    const entries = completedEntries();
-    const history = loadHistory();
-    const session = {
-      id: `${Date.now()}`,
-      title: 'Upper Body',
-      date: new Date().toISOString(),
-      completed: entries.length,
-      total: totalSetCount(),
-      entries
-    };
-    history.unshift(session);
-    saveHistory(history.slice(0, 20));
-    saveNote.textContent = `Saved ${session.completed}/${session.total} sets`;
-  }
-
-  function exportHistory() {
-    const history = loadHistory();
-    if (!history.length) {
-      saveNote.textContent = 'No saved workouts yet';
-      return;
-    }
-
-    const payload = {
-      exportedAt: new Date().toISOString(),
-      source: 'Lift Log',
-      workouts: history
-    };
-    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    const date = new Date().toISOString().slice(0, 10);
-    link.href = url;
-    link.download = `lift-workouts-${date}.json`;
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    URL.revokeObjectURL(url);
-    saveNote.textContent = `Exported ${history.length} workout${history.length === 1 ? '' : 's'}`;
-  }
-
-  function setCurrent(exerciseIndex, setIndex) {
-    state.currentExercise = exerciseIndex;
-    state.currentSet = setIndex;
-    saveState();
-    if (!timerId) setTimer(restSeconds(workout[exerciseIndex]));
-    render();
-  }
-
-  function completeSet(exerciseIndex, setIndex) {
-    const key = keyFor(exerciseIndex, setIndex);
-    state.completed[key] = !state.completed[key];
-    if (state.completed[key]) {
-      const next = findNextOpen();
-      if (next) {
-        state.currentExercise = next.exerciseIndex;
-        state.currentSet = next.setIndex;
-      }
-      startTimer(restSeconds(workout[exerciseIndex]));
-    }
-    saveState();
-    render();
-  }
-
-  function render() {
-    const open = findNextOpen();
-    const activeExercise = open ? state.currentExercise : null;
-    const activeSet = open ? state.currentSet : null;
-    const current = activeExercise === null ? null : workout[activeExercise];
-
-    if (!current) {
-      currentLabel.textContent = 'Complete';
-      currentTitle.textContent = 'Workout Complete';
-      currentTitle.classList.add('finished');
-      currentDose.textContent = 'Nicely done';
-      focusGroup.textContent = 'Complete';
-      focusTitle.textContent = 'Workout Complete';
-      focusTitle.classList.add('finished');
-      focusSet.textContent = 'Nicely done';
-      focusLogSet.disabled = true;
-      focusLogSet.textContent = 'Complete';
-      actualReps.value = '';
-      actualWeight.value = '';
-    } else {
-      currentTitle.classList.remove('finished');
-      focusTitle.classList.remove('finished');
-      currentLabel.textContent = current.group;
-      currentTitle.textContent = current.name;
-      currentDose.textContent = `Set ${activeSet + 1} of ${current.sets} · ${current.reps} reps`;
-      focusGroup.textContent = current.group;
-      focusTitle.textContent = current.name;
-      focusSet.textContent = `Set ${activeSet + 1} of ${current.sets} · ${current.reps} reps`;
-      focusLogSet.disabled = false;
-      focusLogSet.textContent = 'Log Set';
-      syncFocusInputs(current, activeExercise, activeSet);
-    }
-
-    focusProgress.textContent = `${completedSetCount()} / ${totalSetCount()} sets`;
-
-    exerciseList.innerHTML = workout.map((exercise, exerciseIndex) => {
-      const isActive = exerciseIndex === activeExercise;
-      const rows = Array.from({ length: exercise.sets }, (_, setIndex) => {
-        const done = !!state.completed[keyFor(exerciseIndex, setIndex)];
-        const log = logText(exercise, keyFor(exerciseIndex, setIndex));
-        const active = isActive && setIndex === activeSet;
-        return `
-          <div class="set-row ${done ? 'is-done' : ''}" data-exercise="${exerciseIndex}" data-set="${setIndex}" role="button" tabindex="${done ? '-1' : '0'}" aria-label="${done ? `Completed ${exercise.name} set ${setIndex + 1}` : `Start ${exercise.name} set ${setIndex + 1}`}">
-            <div class="set-copy">
-              Set ${setIndex + 1}${active ? ' · Current' : ''}
-              <span>${log || `${exercise.reps} reps · ${restSeconds(exercise)}s rest`}</span>
-            </div>
-          </div>
-        `;
-      }).join('');
-
-      return `
-        <section class="exercise ${isActive ? 'is-active' : ''}">
-          <div class="exercise-head">
-            <div>
-              <div class="exercise-kicker">${exercise.group}</div>
-              <div class="exercise-name">${exercise.name}</div>
-            </div>
-            <div class="exercise-dose">${exercise.sets} x ${exercise.reps}</div>
-          </div>
-          ${rows}
-        </section>
-      `;
-    }).join('');
-
-    document.querySelectorAll('.set-row').forEach(row => {
-      const openSet = !row.classList.contains('is-done');
-      if (!openSet) return;
-      const openFocus = () => {
-        setCurrent(Number(row.dataset.exercise), Number(row.dataset.set));
-        enterFocusMode();
-      };
-      row.addEventListener('click', openFocus);
-      row.addEventListener('keydown', event => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          openFocus();
-        }
-      });
-    });
-  }
-
-  function enterFocusMode() {
-    document.body.classList.add('focus-active');
-    focusScreen.setAttribute('aria-hidden', 'false');
-    render();
-  }
-
-  function exitFocusMode() {
-    document.body.classList.remove('focus-active');
-    focusScreen.setAttribute('aria-hidden', 'true');
-  }
-
-  document.getElementById('exitFocus').addEventListener('click', () => {
-    exitFocusMode();
-  });
-
-  focusLogSet.addEventListener('click', () => {
-    const exerciseIndex = state.currentExercise;
-    const setIndex = state.currentSet;
-    const exercise = workout[exerciseIndex];
-    if (!exercise || state.completed[keyFor(exerciseIndex, setIndex)]) return;
-    if (exercise.track !== 'none') {
-      state.logs[keyFor(exerciseIndex, setIndex)] = {
-        reps: actualReps.value.trim(),
-        weight: exercise.track === 'weight' ? actualWeight.value.trim() : ''
-      };
-    }
-    completeSet(exerciseIndex, setIndex);
-    enterFocusMode();
-  });
-
-  completeWorkout.addEventListener('click', () => {
-    saveWorkoutSession();
-  });
-
-  exportWorkoutData.addEventListener('click', () => {
-    exportHistory();
-  });
-
-  setTimer(restSeconds(workout[0]));
-  render();
+  ]
+};
 </script>
+<script src="./workout-app.js"></script>
 </body>
 </html>

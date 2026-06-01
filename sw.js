@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v92';
+const CACHE_NAME = 'jeffs-kitchen-v93';
 
 const PAGES = [
   './',
@@ -38,6 +38,8 @@ const PAGES = [
   './docs/lift/index.html',
   './docs/lift/chest-tri.html',
   './docs/lift/upper-body-today.html',
+  './docs/lift/workout-app.css',
+  './docs/lift/workout-app.js',
   './docs/charcoal-basics/charcoal-shopping-list.html',
   './docs/charcoal-basics/charcoal-lighting-instructions.html',
   './docs/overnight-oats/grocery-list-overnight-oats.html',
