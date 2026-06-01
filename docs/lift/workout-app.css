@@ -109,6 +109,9 @@
     align-items: center;
     background: var(--raised);
     border-top: 1px solid var(--line);
+    display: grid;
+    gap: 12px;
+    grid-template-columns: 1fr auto;
     padding: 14px 16px;
   }
   .timer-time {
@@ -117,6 +120,27 @@
     font-size: 34px;
     font-weight: 700;
     letter-spacing: 1px;
+  }
+  .workout-clock {
+    background: rgba(35, 38, 41, .94);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    bottom: 14px;
+    box-shadow: 0 14px 32px rgba(0, 0, 0, .28);
+    min-width: 96px;
+    padding: 9px 11px;
+    position: fixed;
+    right: 14px;
+    text-align: right;
+    z-index: 12;
+  }
+  .workout-time {
+    color: var(--muted);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: .8px;
+    margin-top: 4px;
   }
   button {
     appearance: none;
@@ -170,6 +194,42 @@
   .complete-panel .primary {
     font-size: 18px;
     min-height: 56px;
+  }
+  .complete-editor {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    display: grid;
+    gap: 8px;
+    padding: 12px;
+  }
+  .complete-editor.is-hidden {
+    display: none;
+  }
+  .complete-editor label {
+    color: var(--accent-2);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+  }
+  .complete-edit-row {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+  }
+  .complete-edit-row input {
+    appearance: none;
+    background: #101112;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    color: var(--text);
+    font: inherit;
+    font-size: 18px;
+    font-weight: 800;
+    min-width: 0;
+    padding: 10px 12px;
   }
   .save-note {
     color: var(--muted);
@@ -236,7 +296,6 @@
     color: var(--muted);
     text-decoration: line-through;
   }
-  .set-row.is-done { cursor: default; }
   .finished {
     color: var(--done);
   }
@@ -255,6 +314,9 @@
   }
   body.focus-active {
     overflow: hidden;
+  }
+  body.focus-active .workout-clock {
+    display: none;
   }
   body.focus-active .focus-screen {
     display: block;
@@ -281,6 +343,18 @@
     font-weight: 700;
     letter-spacing: 1.5px;
     text-transform: uppercase;
+  }
+  .focus-status {
+    display: grid;
+    gap: 3px;
+    justify-items: end;
+  }
+  .focus-elapsed {
+    color: var(--accent-2);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
   }
   .focus-card {
     background: linear-gradient(135deg, rgba(255, 122, 69, .16), rgba(255, 255, 255, .03)), var(--surface);
@@ -320,6 +394,21 @@
     font-weight: 700;
     letter-spacing: .8px;
     text-transform: uppercase;
+  }
+  .backup-toggle {
+    background: transparent;
+    border-color: rgba(185, 179, 170, .28);
+    color: var(--accent-2);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    justify-self: start;
+    letter-spacing: .9px;
+    min-height: 34px;
+    padding: 7px 10px;
+    text-transform: uppercase;
+  }
+  .backup-toggle.is-hidden {
+    display: none;
   }
   .focus-rest {
     background: var(--raised);

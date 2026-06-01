@@ -3,19 +3,45 @@ const config = window.liftWorkoutConfig;
   const testRestSeconds = config.testRestSeconds || null;
   const stateKey = config.stateKey;
   const historyKey = config.historyKey;
+  const defaultBackups = {
+    'Band pull-aparts': { name: 'Prone Y-T raises', group: 'Warm Up', equipment: 'floor' },
+    'Push-ups': { name: 'Light cable chest press', group: 'Warm Up', equipment: 'cable stack' },
+    'Dumbbell bench press': { name: 'Machine chest press', group: 'Push', equipment: 'chest press machine' },
+    'Seated cable row': { name: 'Chest-supported dumbbell row', group: 'Pull', equipment: 'dumbbells + incline bench' },
+    'Dumbbell shoulder press': { name: 'Machine shoulder press', group: 'Shoulders', equipment: 'shoulder press machine' },
+    'Lat pulldown': { name: 'Inverted row', group: 'Back', equipment: 'smith bar or rack' },
+    'Machine chest press': { name: 'Push-ups', group: 'Chest', equipment: 'bodyweight' },
+    'Face pulls': { name: 'Bent-over rear delt raise', group: 'Rear Delts', equipment: 'dumbbells' },
+    'Incline dumbbell curl': { name: 'Cable curl', group: 'Biceps', equipment: 'cable stack' },
+    'Rope pressdown': { name: 'Close-grip push-ups', group: 'Triceps', equipment: 'bodyweight' },
+    'Barbell bench press': { name: 'Dumbbell floor press', group: 'Chest', equipment: 'dumbbells + floor' },
+    'Incline dumbbell press': { name: 'Machine incline press', group: 'Chest', equipment: 'incline press machine' },
+    'Cable fly': { name: 'Dumbbell fly', group: 'Chest', equipment: 'dumbbells + bench' },
+    'Overhead cable extension': { name: 'Dumbbell overhead extension', group: 'Triceps', equipment: 'dumbbell' },
+    'Dead bug': { name: 'Bird dog', group: 'Core', equipment: 'floor' },
+    'Forearm plank': { name: 'Side plank', group: 'Core', equipment: 'floor' },
+    'Stair stepper': { name: 'Stationary bike', group: 'Cardio', equipment: 'bike' }
+  };
   const timerTime = document.getElementById('timerTime');
+  const workoutElapsed = document.getElementById('workoutElapsed');
   const currentLabel = document.getElementById('currentLabel');
   const currentTitle = document.getElementById('currentTitle');
   const currentDose = document.getElementById('currentDose');
   const exerciseList = document.getElementById('exerciseList');
   const completeWorkout = document.getElementById('completeWorkout');
   const exportWorkoutData = document.getElementById('exportWorkoutData');
+  const completeEditor = document.getElementById('completeEditor');
+  const durationMinutes = document.getElementById('durationMinutes');
+  const saveCompleteWorkout = document.getElementById('saveCompleteWorkout');
+  const cancelCompleteEdit = document.getElementById('cancelCompleteEdit');
   const saveNote = document.getElementById('saveNote');
   const focusScreen = document.getElementById('focusScreen');
   const focusProgress = document.getElementById('focusProgress');
+  const focusElapsed = document.getElementById('focusElapsed');
   const focusGroup = document.getElementById('focusGroup');
   const focusTitle = document.getElementById('focusTitle');
   const focusSet = document.getElementById('focusSet');
+  const focusBackup = document.getElementById('focusBackup');
   const focusTimerTime = document.getElementById('focusTimerTime');
   const focusLogSet = document.getElementById('focusLogSet');
   const focusInputs = document.getElementById('focusInputs');
@@ -25,6 +51,8 @@ const config = window.liftWorkoutConfig;
   let state = loadState();
   let timerSeconds = restSeconds(workout[0]);
   let timerId = null;
+  let timerDone = null;
+  let workoutClockId = null;
 
   function loadState() {
     try {
@@ -32,11 +60,15 @@ const config = window.liftWorkoutConfig;
       return {
         completed: saved.completed || {},
         logs: saved.logs || {},
-        currentExercise: saved.currentExercise || 0,
-        currentSet: saved.currentSet || 0
+        swaps: saved.swaps || {},
+        startedAt: saved.startedAt || null,
+        completedAt: saved.completedAt || null,
+        adjustedDurationSeconds: Number.isFinite(saved.adjustedDurationSeconds) ? saved.adjustedDurationSeconds : null,
+        currentExercise: saved.currentExercise === null ? null : (Number.isInteger(saved.currentExercise) ? saved.currentExercise : 0),
+        currentSet: saved.currentSet === null ? null : (Number.isInteger(saved.currentSet) ? saved.currentSet : 0)
       };
     } catch {
-      return { completed: {}, logs: {}, currentExercise: 0, currentSet: 0 };
+      return { completed: {}, logs: {}, swaps: {}, startedAt: null, completedAt: null, adjustedDurationSeconds: null, currentExercise: 0, currentSet: 0 };
     }
   }
 
@@ -67,6 +99,70 @@ const config = window.liftWorkoutConfig;
     return `${minutes}:${seconds}`;
   }
 
+  function backupFor(exercise) {
+    return exercise.backup || defaultBackups[exercise.name] || null;
+  }
+
+  function effectiveExercise(exercise, exerciseIndex) {
+    const backup = backupFor(exercise);
+    if (!backup || !state.swaps[exerciseIndex]) return exercise;
+    return {
+      ...exercise,
+      ...backup,
+      sets: exercise.sets,
+      backupOf: exercise.name
+    };
+  }
+
+  function formatElapsed(totalSeconds) {
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    if (hours) {
+      return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
+    return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+  }
+
+  function elapsedSeconds() {
+    if (!state.startedAt) return 0;
+    if (state.completedAt && Number.isFinite(state.adjustedDurationSeconds)) {
+      return state.adjustedDurationSeconds;
+    }
+    const end = state.completedAt ? new Date(state.completedAt).getTime() : Date.now();
+    return Math.max(0, Math.floor((end - new Date(state.startedAt).getTime()) / 1000));
+  }
+
+  function updateWorkoutClock() {
+    const elapsed = formatElapsed(elapsedSeconds());
+    workoutElapsed.textContent = elapsed;
+    focusElapsed.textContent = elapsed;
+  }
+
+  function startWorkoutClock() {
+    if (!state.startedAt) {
+      state.startedAt = new Date().toISOString();
+      state.completedAt = null;
+      saveState();
+    }
+    if (!workoutClockId && !state.completedAt) {
+      workoutClockId = setInterval(updateWorkoutClock, 1000);
+    }
+    updateWorkoutClock();
+  }
+
+  function stopWorkoutClock() {
+    if (workoutClockId) {
+      clearInterval(workoutClockId);
+      workoutClockId = null;
+    }
+    updateWorkoutClock();
+  }
+
+  function elapsedMinutesForEditor() {
+    return Math.max(1, Math.round(elapsedSeconds() / 60));
+  }
+
   function restSeconds(exercise) {
     return testRestSeconds || exercise.rest;
   }
@@ -84,19 +180,23 @@ const config = window.liftWorkoutConfig;
   function stopTimer() {
     clearInterval(timerId);
     timerId = null;
+    timerDone = null;
   }
 
-  function startTimer(seconds) {
+  function startTimer(seconds, onDone) {
     stopTimer();
     setTimer(seconds);
+    timerDone = onDone || null;
     timerId = setInterval(() => {
       timerSeconds -= 1;
       timerTime.textContent = formatTime(Math.max(timerSeconds, 0));
       focusTimerTime.textContent = formatTime(Math.max(timerSeconds, 0));
       if (timerSeconds <= 0) {
+        const done = timerDone;
         stopTimer();
         timerTime.textContent = '00:00';
         focusTimerTime.textContent = '00:00';
+        if (done) done();
       }
     }, 1000);
   }
@@ -116,12 +216,21 @@ const config = window.liftWorkoutConfig;
     return Object.values(state.completed).filter(Boolean).length;
   }
 
+  function completedExerciseSetCount(exerciseIndex) {
+    const exercise = workout[exerciseIndex];
+    if (!exercise) return 0;
+    return Array.from({ length: exercise.sets }, (_, setIndex) => {
+      return !!state.completed[keyFor(exerciseIndex, setIndex)];
+    }).filter(Boolean).length;
+  }
+
   function totalSetCount() {
     return workout.reduce((sum, exercise) => sum + exercise.sets, 0);
   }
 
   function completedEntries() {
-    return workout.flatMap((exercise, exerciseIndex) => {
+    return workout.flatMap((baseExercise, exerciseIndex) => {
+      const exercise = effectiveExercise(baseExercise, exerciseIndex);
       return Array.from({ length: exercise.sets }, (_, setIndex) => {
         const key = keyFor(exerciseIndex, setIndex);
         if (!state.completed[key]) return null;
@@ -132,7 +241,8 @@ const config = window.liftWorkoutConfig;
           set: setIndex + 1,
           target: exercise.reps,
           reps: log.reps || '',
-          weight: log.weight || ''
+          weight: log.weight || '',
+          backupOf: exercise.backupOf || ''
         };
       }).filter(Boolean);
     });
@@ -160,20 +270,50 @@ const config = window.liftWorkoutConfig;
     actualWeight.disabled = !needsWeight;
   }
 
-  function saveWorkoutSession() {
+  function openCompleteEditor() {
+    if (!state.startedAt) {
+      state.startedAt = new Date().toISOString();
+      saveState();
+      updateWorkoutClock();
+    }
+    durationMinutes.value = `${elapsedMinutesForEditor()}`;
+    completeEditor.classList.remove('is-hidden');
+    saveNote.textContent = 'Adjust if needed, then save';
+    durationMinutes.focus();
+    durationMinutes.select();
+  }
+
+  function closeCompleteEditor() {
+    completeEditor.classList.add('is-hidden');
+  }
+
+  function saveWorkoutSession(durationOverrideSeconds = null) {
+    if (!state.completedAt) {
+      state.completedAt = new Date().toISOString();
+      saveState();
+    }
     const entries = completedEntries();
     const history = loadHistory();
+    const durationSeconds = durationOverrideSeconds || elapsedSeconds();
+    state.adjustedDurationSeconds = durationOverrideSeconds ? durationSeconds : null;
+    saveState();
+    stopWorkoutClock();
     const session = {
       id: `${Date.now()}`,
       title: config.title,
       date: new Date().toISOString(),
+      startedAt: state.startedAt,
+      completedAt: state.completedAt,
+      durationSeconds,
+      durationAdjusted: !!durationOverrideSeconds,
       completed: entries.length,
       total: totalSetCount(),
       entries
     };
     history.unshift(session);
     saveHistory(history.slice(0, 20));
-    saveNote.textContent = `Saved ${session.completed}/${session.total} sets`;
+    closeCompleteEditor();
+    saveNote.textContent = `Saved ${session.completed}/${session.total} sets · ${formatElapsed(durationSeconds)}`;
   }
 
   function exportHistory() {
@@ -202,6 +342,7 @@ const config = window.liftWorkoutConfig;
   }
 
   function setCurrent(exerciseIndex, setIndex) {
+    startWorkoutClock();
     state.currentExercise = exerciseIndex;
     state.currentSet = setIndex;
     saveState();
@@ -209,26 +350,54 @@ const config = window.liftWorkoutConfig;
     render();
   }
 
+  function advanceToNextOpen() {
+    const next = findNextOpen();
+    if (next) {
+      state.currentExercise = next.exerciseIndex;
+      state.currentSet = next.setIndex;
+    } else {
+      state.currentExercise = null;
+      state.currentSet = null;
+    }
+    saveState();
+    render();
+  }
+
   function completeSet(exerciseIndex, setIndex) {
     const key = keyFor(exerciseIndex, setIndex);
-    state.completed[key] = !state.completed[key];
-    if (state.completed[key]) {
-      const next = findNextOpen();
-      if (next) {
-        state.currentExercise = next.exerciseIndex;
-        state.currentSet = next.setIndex;
-      }
-      startTimer(restSeconds(workout[exerciseIndex]));
-    }
+    state.completed[key] = true;
+    state.currentExercise = exerciseIndex;
+    state.currentSet = setIndex;
+    startTimer(restSeconds(workout[exerciseIndex]), advanceToNextOpen);
+    saveState();
+    render();
+  }
+
+  function undoSet(exerciseIndex, setIndex) {
+    stopTimer();
+    delete state.completed[keyFor(exerciseIndex, setIndex)];
+    state.currentExercise = exerciseIndex;
+    state.currentSet = setIndex;
+    saveState();
+    setTimer(restSeconds(workout[exerciseIndex]));
+    render();
+  }
+
+  function toggleBackup(exerciseIndex) {
+    const exercise = workout[exerciseIndex];
+    if (!backupFor(exercise)) return;
+    state.swaps[exerciseIndex] = !state.swaps[exerciseIndex];
     saveState();
     render();
   }
 
   function render() {
     const open = findNextOpen();
-    const activeExercise = open ? state.currentExercise : null;
-    const activeSet = open ? state.currentSet : null;
-    const current = activeExercise === null ? null : workout[activeExercise];
+    const currentExists = !!workout[state.currentExercise];
+    const activeExercise = open || currentExists ? state.currentExercise : null;
+    const activeSet = open || currentExists ? state.currentSet : null;
+    const current = activeExercise === null ? null : effectiveExercise(workout[activeExercise], activeExercise);
+    const currentComplete = activeExercise !== null && !!state.completed[keyFor(activeExercise, activeSet)];
 
     if (!current) {
       currentLabel.textContent = 'Complete';
@@ -241,6 +410,7 @@ const config = window.liftWorkoutConfig;
       focusSet.textContent = 'Nicely done';
       focusLogSet.disabled = true;
       focusLogSet.textContent = 'Complete';
+      focusBackup.classList.add('is-hidden');
       actualReps.value = '';
       actualWeight.value = '';
     } else {
@@ -253,23 +423,34 @@ const config = window.liftWorkoutConfig;
       focusTitle.textContent = current.name;
       focusSet.textContent = `Set ${activeSet + 1} of ${current.sets} · ${current.reps} reps`;
       focusLogSet.disabled = false;
-      focusLogSet.textContent = 'Log Set';
+      focusLogSet.textContent = currentComplete ? 'Undo Set' : 'Log Set';
+      const planned = workout[activeExercise];
+      const backup = backupFor(planned);
+      const exerciseStarted = completedExerciseSetCount(activeExercise) > 0;
+      focusBackup.classList.toggle('is-hidden', !backup || currentComplete || exerciseStarted);
+      if (backup && !currentComplete && !exerciseStarted) {
+        focusBackup.textContent = state.swaps[activeExercise]
+          ? `Use planned: ${planned.name}`
+          : `Backup: ${backup.name}`;
+      }
       syncFocusInputs(current, activeExercise, activeSet);
     }
 
     focusProgress.textContent = `${completedSetCount()} / ${totalSetCount()} sets`;
+    updateWorkoutClock();
 
-    exerciseList.innerHTML = workout.map((exercise, exerciseIndex) => {
+    exerciseList.innerHTML = workout.map((baseExercise, exerciseIndex) => {
+      const exercise = effectiveExercise(baseExercise, exerciseIndex);
       const isActive = exerciseIndex === activeExercise;
       const rows = Array.from({ length: exercise.sets }, (_, setIndex) => {
         const done = !!state.completed[keyFor(exerciseIndex, setIndex)];
         const log = logText(exercise, keyFor(exerciseIndex, setIndex));
         const active = isActive && setIndex === activeSet;
         return `
-          <div class="set-row ${done ? 'is-done' : ''}" data-exercise="${exerciseIndex}" data-set="${setIndex}" role="button" tabindex="${done ? '-1' : '0'}" aria-label="${done ? `Completed ${exercise.name} set ${setIndex + 1}` : `Start ${exercise.name} set ${setIndex + 1}`}">
+          <div class="set-row ${done ? 'is-done' : ''}" data-exercise="${exerciseIndex}" data-set="${setIndex}" role="button" tabindex="0" aria-label="${done ? `Open completed ${exercise.name} set ${setIndex + 1}` : `Start ${exercise.name} set ${setIndex + 1}`}">
             <div class="set-copy">
               Set ${setIndex + 1}${active ? ' · Current' : ''}
-              <span>${log || `${exercise.reps} reps · ${restSeconds(exercise)}s rest`}</span>
+              <span>${log || `${exercise.reps} reps · ${restSeconds(exercise)}s rest`}${exercise.backupOf ? ` · backup for ${exercise.backupOf}` : ''}</span>
             </div>
           </div>
         `;
@@ -290,8 +471,6 @@ const config = window.liftWorkoutConfig;
     }).join('');
 
     document.querySelectorAll('.set-row').forEach(row => {
-      const openSet = !row.classList.contains('is-done');
-      if (!openSet) return;
       const openFocus = () => {
         setCurrent(Number(row.dataset.exercise), Number(row.dataset.set));
         enterFocusMode();
@@ -324,8 +503,12 @@ const config = window.liftWorkoutConfig;
   focusLogSet.addEventListener('click', () => {
     const exerciseIndex = state.currentExercise;
     const setIndex = state.currentSet;
-    const exercise = workout[exerciseIndex];
-    if (!exercise || state.completed[keyFor(exerciseIndex, setIndex)]) return;
+    const exercise = effectiveExercise(workout[exerciseIndex], exerciseIndex);
+    if (!exercise) return;
+    if (state.completed[keyFor(exerciseIndex, setIndex)]) {
+      undoSet(exerciseIndex, setIndex);
+      return;
+    }
     if (exercise.track !== 'none') {
       state.logs[keyFor(exerciseIndex, setIndex)] = {
         reps: actualReps.value.trim(),
@@ -337,12 +520,28 @@ const config = window.liftWorkoutConfig;
   });
 
   completeWorkout.addEventListener('click', () => {
-    saveWorkoutSession();
+    openCompleteEditor();
+  });
+
+  saveCompleteWorkout.addEventListener('click', () => {
+    const minutes = Math.max(1, Number(durationMinutes.value || elapsedMinutesForEditor()));
+    saveWorkoutSession(Math.round(minutes * 60));
+  });
+
+  cancelCompleteEdit.addEventListener('click', () => {
+    closeCompleteEditor();
+    saveNote.textContent = '';
   });
 
   exportWorkoutData.addEventListener('click', () => {
     exportHistory();
   });
 
+  focusBackup.addEventListener('click', () => {
+    if (state.currentExercise !== null) toggleBackup(state.currentExercise);
+  });
+
   setTimer(restSeconds(workout[0]));
+  if (state.startedAt && !state.completedAt) startWorkoutClock();
+  updateWorkoutClock();
   render();
