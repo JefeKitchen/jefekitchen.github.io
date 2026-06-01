@@ -54,3 +54,120 @@ window.INSTRUCTION_CONTENT = {
     "body": "<div class=\"hero\">\n  <div class=\"hero-title\">Carnitas <span>Elote Bowls</span></div>\n  <div class=\"hero-sub\">Serves 2-3 · Prep ~15 min · Cook ~25 min</div>\n</div>\n\n<div class=\"sec\">Drink</div>\n<div class=\"ingredient-pull\">\n  <div class=\"ingredient-pull-title\">Pull Out</div>\n  <div class=\"ingredient-pull-list\">\n    <span class=\"ingredient-pill\">Tequila</span>\n    <span class=\"ingredient-pill\">Lime</span>\n    <span class=\"ingredient-pill\">Soda water</span>\n    <span class=\"ingredient-pill\">Salt</span>\n    <span class=\"ingredient-pill\">Ice</span>\n  </div>\n</div>\n<div class=\"cook-block\">\n  <div class=\"cook-head\">\n    <span>\n      <span class=\"badge\">Bright and easy</span>\n      <h3>Charred lime ranch water</h3>\n    </span>\n  </div>\n  <ol class=\"cook-steps\">\n    <li><span class=\"st\">If you want the charred lime thing, put <span class=\"ing\">1 lime half</span> cut-side down in a dry hot skillet for <span class=\"ing\">2-3 minutes</span>, until deeply browned. Regular fresh lime is also totally fine.</span></li>\n    <li><span class=\"st\">Fill a glass with <span class=\"ing\">ice</span>. Add <span class=\"ing\">2 oz tequila</span>, <span class=\"ing\">1 oz lime juice</span>, and a tiny pinch of <span class=\"ing\">salt</span>.</span></li>\n    <li><span class=\"st\">Top with cold <span class=\"ing\">soda water</span> or sparkling mineral water. Stir once and taste. Add more lime if it needs to snap.</span></li>\n  </ol>\n</div>\n\n<div class=\"sec\">Start Rice</div>\n<div class=\"ingredient-pull\">\n  <div class=\"ingredient-pull-title\">Pull Out</div>\n  <div class=\"ingredient-pull-list\">\n    <span class=\"ingredient-pill\">Rice</span>\n    <span class=\"ingredient-pill\">Lime</span>\n    <span class=\"ingredient-pill\">Cilantro</span>\n    <span class=\"ingredient-pill\">Butter or oil</span>\n    <span class=\"ingredient-pill\">Salt</span>\n  </div>\n</div>\n<div class=\"cook-block\">\n  <div class=\"cook-head\">\n    <span>\n      <span class=\"badge\">Base layer</span>\n      <h3>Cilantro lime rice</h3>\n    </span>\n  </div>\n  <ol class=\"cook-steps\">\n    <li><span class=\"st\">Cook <span class=\"ing\">1 cup dry white rice</span> according to the package with a pinch of <span class=\"ing\">salt</span>.</span></li>\n    <li><span class=\"st\">When rice is done, fluff with <span class=\"ing\">1 tbsp butter or oil</span>, <span class=\"ing\">1 tbsp lime juice</span>, and <span class=\"ing\">2 tbsp chopped cilantro</span>.</span></li>\n    <li><span class=\"st\">Keep covered off heat while you make the toppings.</span></li>\n  </ol>\n</div>\n\n<div class=\"sec\">Elote</div>\n<div class=\"ingredient-pull\">\n  <div class=\"ingredient-pull-title\">Pull Out</div>\n  <div class=\"ingredient-pull-list\">\n    <span class=\"ingredient-pill\">Corn</span>\n    <span class=\"ingredient-pill\">Mayo</span>\n    <span class=\"ingredient-pill\">Sour cream</span>\n    <span class=\"ingredient-pill\">Cotija</span>\n    <span class=\"ingredient-pill\">Green onions</span>\n    <span class=\"ingredient-pill\">Lime</span>\n    <span class=\"ingredient-pill\">Chili powder</span>\n  </div>\n</div>\n<div class=\"cook-block\">\n  <div class=\"cook-head\">\n    <span>\n      <span class=\"badge\">Creamy corn topping</span>\n      <h3>Make the elote corn</h3>\n    </span>\n  </div>\n  <ol class=\"cook-steps\">\n    <li><span class=\"st\">Heat <span class=\"ing\">2 cups corn</span> in a dry skillet over medium-high for <span class=\"ing\">5-7 minutes</span>, stirring occasionally, until hot and a little browned in spots.</span></li>\n    <li><span class=\"st\">Move corn to a bowl. Stir in <span class=\"ing\">2 tbsp mayo</span>, <span class=\"ing\">2 tbsp sour cream or crema</span>, <span class=\"ing\">1/2 cup cotija</span>, <span class=\"ing\">2 sliced green onions</span>, <span class=\"ing\">1 tbsp lime juice</span>, and <span class=\"ing\">1/2 tsp chili powder</span>.</span></li>\n    <li><span class=\"st\">Taste and add a pinch of salt or more lime if it tastes flat.</span></li>\n  </ol>\n</div>\n\n<div class=\"sec\">Carnitas</div>\n<div class=\"ingredient-pull\">\n  <div class=\"ingredient-pull-title\">Pull Out</div>\n  <div class=\"ingredient-pull-list\">\n    <span class=\"ingredient-pill\">Carnitas</span>\n    <span class=\"ingredient-pill\">Oil</span>\n    <span class=\"ingredient-pill\">Lime</span>\n  </div>\n</div>\n<div class=\"cook-block\">\n  <div class=\"cook-head\">\n    <span>\n      <span class=\"badge\">Heat and crisp</span>\n      <h3>Crisp the carnitas</h3>\n    </span>\n  </div>\n  <ol class=\"cook-steps\">\n    <li><span class=\"st\">Heat a skillet over medium-high with a thin layer of <span class=\"ing\">oil</span>, about <span class=\"ing\">1 tsp</span>.</span></li>\n    <li><span class=\"st\">Add <span class=\"ing\">2-3 cups carnitas</span> in a loose layer. Let it sit untouched for <span class=\"ing\">2-3 minutes</span> so the edges crisp.</span></li>\n    <li><span class=\"st\">Flip and crisp another <span class=\"ing\">2-3 minutes</span>. Finish with a squeeze of <span class=\"ing\">lime</span>.</span></li>\n  </ol>\n</div>\n\n<div class=\"sec\">Bowls</div>\n<div class=\"ingredient-pull\">\n  <div class=\"ingredient-pull-title\">Pull Out</div>\n  <div class=\"ingredient-pull-list\">\n    <span class=\"ingredient-pill\">Avocado</span>\n    <span class=\"ingredient-pill\">Cabbage</span>\n    <span class=\"ingredient-pill\">Cilantro</span>\n    <span class=\"ingredient-pill\">Hot sauce</span>\n    <span class=\"ingredient-pill\">Tortilla chips</span>\n  </div>\n</div>\n<div class=\"cook-block\">\n  <div class=\"cook-head\">\n    <span>\n      <span class=\"badge\">Build with contrast</span>\n      <h3>Assemble and finish</h3>\n    </span>\n  </div>\n  <ol class=\"cook-steps\">\n    <li><span class=\"st\">Add rice to bowls, then pile on crispy carnitas and a big spoonful of elote corn.</span></li>\n    <li><span class=\"st\">Top with sliced <span class=\"ing\">avocado</span>, a handful of <span class=\"ing\">shredded cabbage</span>, extra <span class=\"ing\">cilantro</span>, and <span class=\"ing\">hot sauce</span>.</span></li>\n    <li><span class=\"st\">Crush a few <span class=\"ing\">tortilla chips</span> over the top if you want crunch. Serve with extra lime wedges.</span></li>\n  </ol>\n</div>"
   }
 };
+
+window.INSTRUCTION_CONTENT["garlic-shrimp-rice-bowls"] = {
+  "title": "Garlic Shrimp Rice Bowls Instructions",
+  "heroTitle": "Garlic Shrimp <span>Rice Bowls</span>",
+  "heroSub": "Serves 2-3 · Prep ~15 min · Cook ~20 min",
+  "body": `<div class="hero">
+  <div class="hero-title">Garlic Shrimp <span>Rice Bowls</span></div>
+  <div class="hero-sub">Serves 2-3 · Prep ~15 min · Cook ~20 min</div>
+</div>
+
+<div class="sec">Start Rice</div>
+<div class="ingredient-pull">
+  <div class="ingredient-pull-title">Pull Out</div>
+  <div class="ingredient-pull-list">
+    <span class="ingredient-pill">Rice</span>
+    <span class="ingredient-pill">Lime</span>
+    <span class="ingredient-pill">Green onions</span>
+    <span class="ingredient-pill">Butter or oil</span>
+    <span class="ingredient-pill">Salt</span>
+  </div>
+</div>
+<div class="cook-block">
+  <div class="cook-head">
+    <span>
+      <span class="badge">Base layer</span>
+      <h3>Make lime rice</h3>
+    </span>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Cook <span class="ing">1 cup dry white rice</span> according to the package with a pinch of <span class="ing">salt</span>.</span></li>
+    <li><span class="st">When done, fluff with <span class="ing">1 tbsp butter or oil</span>, <span class="ing">1 tbsp lime juice</span>, and <span class="ing">2 sliced green onions</span>.</span></li>
+    <li><span class="st">Keep covered off heat while you prep the shrimp and crunchy topping.</span></li>
+  </ol>
+</div>
+
+<div class="sec">Crunch</div>
+<div class="ingredient-pull">
+  <div class="ingredient-pull-title">Pull Out</div>
+  <div class="ingredient-pull-list">
+    <span class="ingredient-pill">Cucumber</span>
+    <span class="ingredient-pill">Red onion</span>
+    <span class="ingredient-pill">Lime</span>
+    <span class="ingredient-pill">Cilantro or parsley</span>
+    <span class="ingredient-pill">Salt</span>
+  </div>
+</div>
+<div class="cook-block">
+  <div class="cook-head">
+    <span>
+      <span class="badge">Cold topping</span>
+      <h3>Cucumber onion crunch</h3>
+    </span>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Dice or thinly slice <span class="ing">1/2 English cucumber</span> and thinly slice <span class="ing">1/4 red onion</span>.</span></li>
+    <li><span class="st">Toss with <span class="ing">1 tbsp lime juice</span>, a pinch of <span class="ing">salt</span>, and <span class="ing">1-2 tbsp chopped cilantro or parsley</span>.</span></li>
+    <li><span class="st">Let it sit while the shrimp cooks so the onion mellows a little.</span></li>
+  </ol>
+</div>
+
+<div class="sec">Shrimp</div>
+<div class="ingredient-pull">
+  <div class="ingredient-pull-title">Pull Out</div>
+  <div class="ingredient-pull-list">
+    <span class="ingredient-pill">Shrimp</span>
+    <span class="ingredient-pill">Garlic</span>
+    <span class="ingredient-pill">Soy sauce</span>
+    <span class="ingredient-pill">Honey</span>
+    <span class="ingredient-pill">Lime</span>
+    <span class="ingredient-pill">Oil</span>
+    <span class="ingredient-pill">Butter</span>
+    <span class="ingredient-pill">Pepper</span>
+  </div>
+</div>
+<div class="cook-block">
+  <div class="cook-head">
+    <span>
+      <span class="badge">Hot pan · Fast cook</span>
+      <h3>Garlic shrimp</h3>
+    </span>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Pat <span class="ing">1 lb shrimp</span> very dry. Season with a pinch of <span class="ing">salt</span> and <span class="ing">black pepper</span>.</span></li>
+    <li><span class="st">Stir together <span class="ing">2 tbsp soy sauce</span>, <span class="ing">1 tbsp lime juice</span>, <span class="ing">1 tsp honey</span>, and <span class="ing">1 tbsp water</span> in a small bowl.</span></li>
+    <li><span class="st">Heat a large skillet over medium-high with <span class="ing">1 tbsp oil</span>. Add shrimp in a single layer and cook <span class="ing">60-90 seconds</span> on the first side.</span></li>
+    <li><span class="st">Flip shrimp, add <span class="ing">1 tbsp butter</span> and <span class="ing">4 minced garlic cloves</span>, and cook another <span class="ing">60-90 seconds</span> until the shrimp are just opaque.</span></li>
+    <li><span class="st">Pour in the soy-lime mixture. Toss for <span class="ing">30-60 seconds</span>, just until glossy. Pull the pan off heat before the shrimp tighten up.</span></li>
+  </ol>
+</div>
+
+<div class="sec">Bowls</div>
+<div class="ingredient-pull">
+  <div class="ingredient-pull-title">Pull Out</div>
+  <div class="ingredient-pull-list">
+    <span class="ingredient-pill">Lime rice</span>
+    <span class="ingredient-pill">Garlic shrimp</span>
+    <span class="ingredient-pill">Cucumber crunch</span>
+    <span class="ingredient-pill">Avocado</span>
+    <span class="ingredient-pill">Chili crisp</span>
+    <span class="ingredient-pill">Sesame seeds</span>
+  </div>
+</div>
+<div class="cook-block">
+  <div class="cook-head">
+    <span>
+      <span class="badge">Assemble</span>
+      <h3>Build and finish</h3>
+    </span>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Spoon <span class="ing">lime rice</span> into bowls and top with <span class="ing">garlic shrimp</span> plus any pan sauce.</span></li>
+    <li><span class="st">Add a big spoonful of <span class="ing">cucumber onion crunch</span> and sliced <span class="ing">avocado</span> if using.</span></li>
+    <li><span class="st">Finish with extra <span class="ing">green onions</span>, <span class="ing">sesame seeds or crispy onions</span>, and a little <span class="ing">chili crisp or sriracha</span> if you want heat.</span></li>
+    <li><span class="st">Serve with extra <span class="ing">lime wedges</span> for squeezing at the table.</span></li>
+  </ol>
+</div>`
+};

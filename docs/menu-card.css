@@ -212,6 +212,13 @@ body {
   --leaf: #64703d;
 }
 
+.theme-shrimp {
+  --paper: #f5efe2;
+  --ink: #18201f;
+  --accent: #b45736;
+  --leaf: #4f746b;
+}
+
 .themed .page {
   background: var(--paper);
   color: var(--ink);

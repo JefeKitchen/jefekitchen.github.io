@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Grocery List - Garlic Shrimp Rice Bowls</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../theme.css?v=4">
+</head>
+<body>
+<div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
+
+<div class="page-title">Grocery List</div>
+<div class="page-sub">Garlic Shrimp Rice Bowls</div>
+
+<div class="section">
+  <div class="section-header need">Produce</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="gsrb1"><label for="gsrb1">Limes<span class="item-note">2-3, for rice, shrimp, and bowls</span></label></div>
+    <div class="item"><input type="checkbox" id="gsrb2"><label for="gsrb2">Garlic<span class="item-note">1 head</span></label></div>
+    <div class="item"><input type="checkbox" id="gsrb3"><label for="gsrb3">English cucumber<span class="item-note">1</span></label></div>
+    <div class="item"><input type="checkbox" id="gsrb4"><label for="gsrb4">Red onion<span class="item-note">1 small</span></label></div>
+    <div class="item"><input type="checkbox" id="gsrb5"><label for="gsrb5">Green onions<span class="item-note">1 bunch</span></label></div>
+    <div class="item"><input type="checkbox" id="gsrb6"><label for="gsrb6">Cilantro or parsley<span class="item-note">Small bunch, whichever sounds better</span></label></div>
+    <div class="item"><input type="checkbox" id="gsrb7"><label for="gsrb7">Avocado<span class="item-note">1-2, optional but good</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Seafood</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="gsrb8"><label for="gsrb8">Raw shrimp<span class="item-note">1 lb, peeled and deveined</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Pantry</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="gsrb9"><label for="gsrb9">White rice<span class="item-note">1 cup dry</span></label></div>
+    <div class="item"><input type="checkbox" id="gsrb10"><label for="gsrb10">Soy sauce<span class="item-note">About 2 tbsp</span></label></div>
+    <div class="item"><input type="checkbox" id="gsrb11"><label for="gsrb11">Honey<span class="item-note">About 1 tsp</span></label></div>
+    <div class="item"><input type="checkbox" id="gsrb12"><label for="gsrb12">Chili crisp or sriracha<span class="item-note">Optional heat</span></label></div>
+    <div class="item"><input type="checkbox" id="gsrb13"><label for="gsrb13">Sesame seeds or crispy onions<span class="item-note">Optional crunch</span></label></div>
+    <div class="item"><input type="checkbox" id="gsrb14"><label for="gsrb14">Olive oil or neutral oil</label></div>
+    <div class="item"><input type="checkbox" id="gsrb15"><label for="gsrb15">Kosher salt and black pepper</label></div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    const key = `garlic-shrimp-rice-bowls-${cb.id}`;
+    cb.checked = localStorage.getItem(key) === 'checked';
+    cb.addEventListener('change', () => {
+      localStorage.setItem(key, cb.checked ? 'checked' : '');
+    });
+  });
+</script>
+<script src="../grocery-boom.js?v=1"></script>
+</body>
+</html>
