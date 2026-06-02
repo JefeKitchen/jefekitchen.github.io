@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v100';
+const CACHE_NAME = 'jeffs-kitchen-v101';
 
 const PAGES = [
   './',
@@ -50,7 +50,7 @@ const PAGES = [
   './docs/buffalo-chickpea-dip/buffalo-chickpea-dip-instructions.html',
   './docs/buffalo-chickpea-dip/buffalo-chickpea-dip-wide.html',
   './docs/buffalo-chickpea-dip/buffalo-chickpea-dip-menu.html',
-  './docs/combined-shopping/skewers-breakfast-list.html',
+  './docs/combined-shopping/this-week-shopping-list.html',
   './docs/carnitas-elote-bowls/grocery-list-carnitas-elote-bowls.html',
   './docs/carnitas-elote-bowls/carnitas-elote-bowls-menu.html',
   './docs/carnitas-elote-bowls/carnitas-elote-bowls-instructions.html',
