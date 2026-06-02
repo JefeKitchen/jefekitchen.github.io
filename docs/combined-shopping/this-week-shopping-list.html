@@ -50,6 +50,37 @@
     right: 20px;
     text-align: center;
   }
+  .section-header {
+    align-items: center !important;
+    display: flex !important;
+    justify-content: space-between !important;
+  }
+  .add-item-btn,
+  .remove-item-btn {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    color: var(--muted);
+    cursor: pointer;
+    font-family: 'Source Sans 3', sans-serif;
+  }
+  .add-item-btn {
+    font-size: 18px;
+    line-height: 1;
+    margin: -4px -4px -4px 8px;
+    padding: 4px 8px;
+  }
+  .add-item-btn:active,
+  .remove-item-btn:active {
+    color: var(--gold);
+  }
+  .remove-item-btn {
+    flex-shrink: 0;
+    font-size: 16px;
+    line-height: 1;
+    margin: -2px -4px -2px 4px;
+    padding: 2px 4px;
+  }
   @keyframes boom-pop {
     0% { opacity: 0; transform: translate(-50%, -50%) scale(.35) rotate(-14deg); }
     18% { opacity: 1; transform: translate(-50%, -50%) scale(1.18) rotate(8deg); }
@@ -128,11 +159,34 @@
   </div>
 </div>
 
+<div class="section">
+  <div class="section-header need">Misc</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="tw46"><label for="tw46">White rice</label></div>
+  </div>
+</div>
+
 <script>
-  const checkboxes = Array.from(document.querySelectorAll('input[type="checkbox"]'));
+  const addedItemsKey = 'this-week-added-items-v1';
   let wasComplete = false;
 
-  const isComplete = () => checkboxes.length > 0 && checkboxes.every(cb => cb.checked);
+  const getCheckboxes = () => Array.from(document.querySelectorAll('input[type="checkbox"]'));
+  const isComplete = () => {
+    const checkboxes = getCheckboxes();
+    return checkboxes.length > 0 && checkboxes.every(cb => cb.checked);
+  };
+
+  const slugify = value => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+  const loadAddedItems = () => {
+    try {
+      return JSON.parse(localStorage.getItem(addedItemsKey)) || {};
+    } catch {
+      return {};
+    }
+  };
+
+  const saveAddedItems = items => localStorage.setItem(addedItemsKey, JSON.stringify(items));
 
   const showCartBoom = () => {
     document.querySelector('.cart-boom')?.remove();
@@ -162,7 +216,9 @@
     window.setTimeout(() => boom.remove(), 2200);
   };
 
-  checkboxes.forEach(cb => {
+  const registerCheckbox = cb => {
+    if (cb.dataset.registered) return;
+    cb.dataset.registered = 'true';
     const key = `this-week-${cb.id}`;
     cb.checked = localStorage.getItem(key) === 'checked';
     cb.addEventListener('change', () => {
@@ -171,7 +227,79 @@
       if (complete && !wasComplete) showCartBoom();
       wasComplete = complete;
     });
-  });
+  };
+
+  const createCustomItem = (sectionName, item) => {
+    const row = document.createElement('div');
+    row.className = 'item custom-item';
+    row.dataset.customId = item.id;
+
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.id = item.id;
+
+    const label = document.createElement('label');
+    label.htmlFor = item.id;
+    label.textContent = item.text;
+
+    const remove = document.createElement('button');
+    remove.type = 'button';
+    remove.className = 'remove-item-btn';
+    remove.setAttribute('aria-label', `Remove ${item.text}`);
+    remove.textContent = 'x';
+    remove.addEventListener('click', event => {
+      event.stopPropagation();
+      const addedItems = loadAddedItems();
+      addedItems[sectionName] = (addedItems[sectionName] || []).filter(saved => saved.id !== item.id);
+      saveAddedItems(addedItems);
+      localStorage.removeItem(`this-week-${item.id}`);
+      row.remove();
+      wasComplete = isComplete();
+    });
+
+    row.append(checkbox, label, remove);
+    registerCheckbox(checkbox);
+    return row;
+  };
+
+  const hydrateAddedItems = () => {
+    const addedItems = loadAddedItems();
+    document.querySelectorAll('.section').forEach(section => {
+      const header = section.querySelector('.section-header');
+      const list = section.querySelector('.item-list');
+      if (!header || !list) return;
+
+      const sectionName = header.textContent.trim();
+      const addButton = document.createElement('button');
+      addButton.type = 'button';
+      addButton.className = 'add-item-btn';
+      addButton.setAttribute('aria-label', `Add item to ${sectionName}`);
+      addButton.textContent = '+';
+      addButton.addEventListener('click', () => {
+        const text = window.prompt(`Add to ${sectionName}`);
+        const cleanText = text?.trim();
+        if (!cleanText) return;
+
+        const added = loadAddedItems();
+        const item = {
+          id: `tw-custom-${slugify(sectionName)}-${Date.now()}`,
+          text: cleanText
+        };
+        added[sectionName] = [...(added[sectionName] || []), item];
+        saveAddedItems(added);
+        list.appendChild(createCustomItem(sectionName, item));
+        wasComplete = isComplete();
+      });
+      header.appendChild(addButton);
+
+      (addedItems[sectionName] || []).forEach(item => {
+        list.appendChild(createCustomItem(sectionName, item));
+      });
+    });
+  };
+
+  getCheckboxes().forEach(registerCheckbox);
+  hydrateAddedItems();
 
   wasComplete = isComplete();
 </script>
