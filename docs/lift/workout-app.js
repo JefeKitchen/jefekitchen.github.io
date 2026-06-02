@@ -23,16 +23,16 @@ const config = window.liftWorkoutConfig;
     'Stair stepper': { name: 'Stationary bike', group: 'Cardio', equipment: 'bike' }
   };
   const finisherPool = [
-    { group: 'Core', name: 'Cable crunch', sets: 1, reps: '10 min', rest: 0, track: 'none' },
-    { group: 'Core', name: 'Hanging knee raise', sets: 1, reps: '10 min', rest: 0, track: 'none' },
-    { group: 'Core', name: 'Plank circuit', sets: 1, reps: '10 min', rest: 0, track: 'none' },
-    { group: 'Core', name: 'Weighted sit-up', sets: 1, reps: '10 min', rest: 0, track: 'none' },
-    { group: 'Core', name: 'Ab wheel rollout', sets: 1, reps: '10 min', rest: 0, track: 'none' },
-    { group: 'Core', name: 'Decline sit-up', sets: 1, reps: '10 min', rest: 0, track: 'none' },
-    { group: 'Core', name: 'Leg raise', sets: 1, reps: '10 min', rest: 0, track: 'none' },
-    { group: 'Cardio', name: 'Stair stepper', sets: 1, reps: '10 min', rest: 0, track: 'none' },
-    { group: 'Cardio', name: 'Stationary bike', sets: 1, reps: '10 min', rest: 0, track: 'none' },
-    { group: 'Cardio', name: 'Incline treadmill walk', sets: 1, reps: '10 min', rest: 0, track: 'none' }
+    { group: 'Core', name: 'Cable crunch', sets: 2, reps: '12-15', rest: 45, track: 'weight' },
+    { group: 'Core', name: 'Hanging knee raise', sets: 2, reps: '8-12', rest: 45, track: 'none' },
+    { group: 'Core', name: 'Plank circuit', sets: 2, reps: '30-45 sec', rest: 45, track: 'none' },
+    { group: 'Core', name: 'Weighted sit-up', sets: 2, reps: '10-12', rest: 45, track: 'weight' },
+    { group: 'Core', name: 'Ab wheel rollout', sets: 2, reps: '8-10', rest: 45, track: 'none' },
+    { group: 'Core', name: 'Decline sit-up', sets: 2, reps: '10-12', rest: 45, track: 'none' },
+    { group: 'Core', name: 'Leg raise', sets: 2, reps: '10-12', rest: 45, track: 'none' },
+    { group: 'Cardio', name: 'Stair stepper', sets: 1, reps: '10 min', rest: 0, track: 'none', duration: 600 },
+    { group: 'Cardio', name: 'Stationary bike', sets: 1, reps: '10 min', rest: 0, track: 'none', duration: 600 },
+    { group: 'Cardio', name: 'Incline treadmill walk', sets: 1, reps: '10 min', rest: 0, track: 'none', duration: 600 }
   ];
   const timerTime = document.getElementById('timerTime');
   const workoutElapsed = document.getElementById('workoutElapsed');
@@ -43,6 +43,7 @@ const config = window.liftWorkoutConfig;
   const completeWorkout = document.getElementById('completeWorkout');
   const exportWorkoutData = document.getElementById('exportWorkoutData');
   const completeEditor = document.getElementById('completeEditor');
+  const durationHours = document.getElementById('durationHours');
   const durationMinutes = document.getElementById('durationMinutes');
   const saveCompleteWorkout = document.getElementById('saveCompleteWorkout');
   const cancelCompleteEdit = document.getElementById('cancelCompleteEdit');
@@ -55,6 +56,8 @@ const config = window.liftWorkoutConfig;
   const focusSet = document.getElementById('focusSet');
   const focusBackup = document.getElementById('focusBackup');
   const focusSkip = document.getElementById('focusSkip');
+  const focusAddSet = document.getElementById('focusAddSet');
+  const focusSwitchEnder = document.getElementById('focusSwitchEnder');
   const focusTimerTime = document.getElementById('focusTimerTime');
   const focusNext = document.getElementById('focusNext');
   const focusLogSet = document.getElementById('focusLogSet');
@@ -68,6 +71,7 @@ const config = window.liftWorkoutConfig;
   let timerId = null;
   let timerDone = null;
   let workoutClockId = null;
+  pruneState();
 
   function loadState() {
     try {
@@ -77,6 +81,7 @@ const config = window.liftWorkoutConfig;
         logs: saved.logs || {},
         swaps: saved.swaps || {},
         skipped: saved.skipped || {},
+        extraSets: saved.extraSets || {},
         dynamicEnder: saved.dynamicEnder || null,
         startedAt: saved.startedAt || null,
         completedAt: saved.completedAt || null,
@@ -85,12 +90,49 @@ const config = window.liftWorkoutConfig;
         currentSet: saved.currentSet === null ? null : (Number.isInteger(saved.currentSet) ? saved.currentSet : 0)
       };
     } catch {
-      return { completed: {}, logs: {}, swaps: {}, skipped: {}, dynamicEnder: null, startedAt: null, completedAt: null, adjustedDurationSeconds: null, currentExercise: 0, currentSet: 0 };
+      return { completed: {}, logs: {}, swaps: {}, skipped: {}, extraSets: {}, dynamicEnder: null, startedAt: null, completedAt: null, adjustedDurationSeconds: null, currentExercise: 0, currentSet: 0 };
     }
   }
 
   function saveState() {
     localStorage.setItem(stateKey, JSON.stringify(state));
+  }
+
+  function pruneState() {
+    let changed = false;
+    const keyValid = key => {
+      const [exerciseIndex, setIndex] = key.split('-').map(Number);
+      return Number.isInteger(exerciseIndex)
+        && Number.isInteger(setIndex)
+        && exerciseIndex >= 0
+        && exerciseIndex < workout.length
+        && setIndex >= 0
+        && setIndex < exerciseSetCount(exerciseIndex);
+    };
+    ['completed', 'logs'].forEach(bucket => {
+      Object.keys(state[bucket]).forEach(key => {
+        if (!keyValid(key)) {
+          delete state[bucket][key];
+          changed = true;
+        }
+      });
+    });
+    ['swaps', 'skipped', 'extraSets'].forEach(bucket => {
+      Object.keys(state[bucket]).forEach(key => {
+        const exerciseIndex = Number(key);
+        if (!Number.isInteger(exerciseIndex) || exerciseIndex < 0 || exerciseIndex >= workout.length) {
+          delete state[bucket][key];
+          changed = true;
+        }
+      });
+    });
+    if (state.currentExercise !== null && (!Number.isInteger(state.currentExercise) || state.currentExercise < 0 || state.currentExercise >= workout.length)) {
+      const next = findNextOpen();
+      state.currentExercise = next ? next.exerciseIndex : null;
+      state.currentSet = next ? next.setIndex : null;
+      changed = true;
+    }
+    if (changed) saveState();
   }
 
   function loadHistory() {
@@ -114,12 +156,24 @@ const config = window.liftWorkoutConfig;
     return index === sourceWorkout.length - 1 && exercise.dynamicFinisher === true;
   }
 
+  function isEnderIndex(exerciseIndex) {
+    return exerciseIndex === workout.length - 1 && !!workout[exerciseIndex]?.dynamicFinisher;
+  }
+
+  function finisherOptions(group) {
+    return finisherPool.filter(option => option.group === group);
+  }
+
   function hydrateWorkout(sourceWorkout) {
     let changed = false;
     const hydrated = sourceWorkout.map((exercise, index) => {
       if (!isDynamicFinisher(exercise, index, sourceWorkout)) return exercise;
-      if (!state.dynamicEnder || !finisherPool.some(option => option.name === state.dynamicEnder.name)) {
+      const savedEnder = state.dynamicEnder && finisherPool.find(option => option.name === state.dynamicEnder.name);
+      if (!savedEnder) {
         state.dynamicEnder = randomFrom(finisherPool);
+        changed = true;
+      } else if (JSON.stringify(savedEnder) !== JSON.stringify(state.dynamicEnder)) {
+        state.dynamicEnder = savedEnder;
         changed = true;
       }
       return { ...exercise, ...state.dynamicEnder };
@@ -142,13 +196,21 @@ const config = window.liftWorkoutConfig;
     return exercise.backup || defaultBackups[exercise.name] || null;
   }
 
+  function exerciseSetCount(exerciseIndex) {
+    const exercise = workout[exerciseIndex];
+    if (!exercise) return 0;
+    return exercise.sets + (Number(state.extraSets[exerciseIndex]) || 0);
+  }
+
   function effectiveExercise(exercise, exerciseIndex) {
     const backup = backupFor(exercise);
-    if (!backup || !state.swaps[exerciseIndex]) return exercise;
+    if (!backup || !state.swaps[exerciseIndex]) {
+      return { ...exercise, sets: exerciseSetCount(exerciseIndex) };
+    }
     return {
       ...exercise,
       ...backup,
-      sets: exercise.sets,
+      sets: exerciseSetCount(exerciseIndex),
       backupOf: exercise.name
     };
   }
@@ -202,8 +264,28 @@ const config = window.liftWorkoutConfig;
     return Math.max(1, Math.round(elapsedSeconds() / 60));
   }
 
+  function setDurationEditor(totalMinutes) {
+    const safeMinutes = Math.max(1, Number(totalMinutes) || 1);
+    durationHours.value = `${Math.floor(safeMinutes / 60)}`;
+    durationMinutes.value = `${safeMinutes % 60}`;
+  }
+
+  function durationEditorMinutes() {
+    const hours = Math.max(0, Number(durationHours.value || 0));
+    const minutes = Math.min(59, Math.max(0, Number(durationMinutes.value || 0)));
+    return Math.max(1, Math.round((hours * 60) + minutes));
+  }
+
   function restSeconds(exercise) {
     return testRestSeconds || exercise.rest;
+  }
+
+  function targetText(exercise) {
+    return exercise.duration ? exercise.reps : `${exercise.reps} reps`;
+  }
+
+  function displayTimerSeconds(exercise) {
+    return exercise.duration || restSeconds(exercise);
   }
 
   function setTimer(seconds) {
@@ -240,6 +322,25 @@ const config = window.liftWorkoutConfig;
     }, 1000);
   }
 
+  function completeSetWithoutRest(exerciseIndex, setIndex) {
+    const key = keyFor(exerciseIndex, setIndex);
+    delete state.skipped[exerciseIndex];
+    state.completed[key] = true;
+    state.currentExercise = exerciseIndex;
+    state.currentSet = setIndex;
+    saveState();
+    advanceToNextOpen();
+  }
+
+  function startTimedSet(exerciseIndex, setIndex, exercise) {
+    startTimer(exercise.duration, () => {
+      completeSetWithoutRest(exerciseIndex, setIndex);
+      enterFocusMode();
+    });
+    focusLogSet.disabled = true;
+    focusLogSet.textContent = 'Timer Running';
+  }
+
   function skipRest() {
     if (!timerId) return;
     stopTimer();
@@ -251,7 +352,7 @@ const config = window.liftWorkoutConfig;
 
   function findNextOpen() {
     for (let exerciseIndex = 0; exerciseIndex < workout.length; exerciseIndex += 1) {
-      for (let setIndex = 0; setIndex < workout[exerciseIndex].sets; setIndex += 1) {
+      for (let setIndex = 0; setIndex < exerciseSetCount(exerciseIndex); setIndex += 1) {
         if (!state.completed[keyFor(exerciseIndex, setIndex)]) {
           return { exerciseIndex, setIndex };
         }
@@ -267,7 +368,7 @@ const config = window.liftWorkoutConfig;
   function completedExerciseSetCount(exerciseIndex) {
     const exercise = workout[exerciseIndex];
     if (!exercise) return 0;
-    return Array.from({ length: exercise.sets }, (_, setIndex) => {
+    return Array.from({ length: exerciseSetCount(exerciseIndex) }, (_, setIndex) => {
       return !!state.completed[keyFor(exerciseIndex, setIndex)];
     }).filter(Boolean).length;
   }
@@ -277,13 +378,13 @@ const config = window.liftWorkoutConfig;
   }
 
   function totalSetCount() {
-    return workout.reduce((sum, exercise) => sum + exercise.sets, 0);
+    return workout.reduce((sum, exercise, exerciseIndex) => sum + exerciseSetCount(exerciseIndex), 0);
   }
 
   function completedEntries() {
     return workout.flatMap((baseExercise, exerciseIndex) => {
       const exercise = effectiveExercise(baseExercise, exerciseIndex);
-      return Array.from({ length: exercise.sets }, (_, setIndex) => {
+      return Array.from({ length: exerciseSetCount(exerciseIndex) }, (_, setIndex) => {
         const key = keyFor(exerciseIndex, setIndex);
         if (!state.completed[key]) return null;
         const log = state.logs[key] || {};
@@ -329,11 +430,11 @@ const config = window.liftWorkoutConfig;
       saveState();
       updateWorkoutClock();
     }
-    durationMinutes.value = `${elapsedMinutesForEditor()}`;
+    setDurationEditor(elapsedMinutesForEditor());
     completeEditor.classList.remove('is-hidden');
     saveNote.textContent = 'Adjust if needed, then save';
-    durationMinutes.focus();
-    durationMinutes.select();
+    durationHours.focus();
+    durationHours.select();
   }
 
   function closeCompleteEditor() {
@@ -399,7 +500,7 @@ const config = window.liftWorkoutConfig;
     state.currentExercise = exerciseIndex;
     state.currentSet = setIndex;
     saveState();
-    if (!timerId) setTimer(restSeconds(workout[exerciseIndex]));
+    if (!timerId) setTimer(displayTimerSeconds(workout[exerciseIndex]));
     render();
   }
 
@@ -434,7 +535,7 @@ const config = window.liftWorkoutConfig;
     state.currentExercise = exerciseIndex;
     state.currentSet = setIndex;
     saveState();
-    setTimer(restSeconds(workout[exerciseIndex]));
+    setTimer(displayTimerSeconds(workout[exerciseIndex]));
     render();
   }
 
@@ -451,7 +552,7 @@ const config = window.liftWorkoutConfig;
     if (!exercise || exerciseStarted(exerciseIndex) || state.skipped[exerciseIndex]) return;
     stopTimer();
     state.skipped[exerciseIndex] = true;
-    Array.from({ length: exercise.sets }, (_, setIndex) => {
+    Array.from({ length: exerciseSetCount(exerciseIndex) }, (_, setIndex) => {
       const key = keyFor(exerciseIndex, setIndex);
       state.completed[key] = true;
       delete state.logs[key];
@@ -464,13 +565,49 @@ const config = window.liftWorkoutConfig;
     if (!exercise || !state.skipped[exerciseIndex]) return;
     stopTimer();
     delete state.skipped[exerciseIndex];
-    Array.from({ length: exercise.sets }, (_, setIndex) => {
+    Array.from({ length: exerciseSetCount(exerciseIndex) }, (_, setIndex) => {
       delete state.completed[keyFor(exerciseIndex, setIndex)];
     });
     state.currentExercise = exerciseIndex;
     state.currentSet = 0;
     saveState();
+    setTimer(displayTimerSeconds(workout[exerciseIndex]));
+    render();
+  }
+
+  function addSet(exerciseIndex) {
+    const nextSet = exerciseSetCount(exerciseIndex);
+    state.extraSets[exerciseIndex] = (Number(state.extraSets[exerciseIndex]) || 0) + 1;
+    delete state.skipped[exerciseIndex];
+    state.currentExercise = exerciseIndex;
+    state.currentSet = nextSet;
+    stopTimer();
+    saveState();
     setTimer(restSeconds(workout[exerciseIndex]));
+    render();
+  }
+
+  function switchEnder(exerciseIndex) {
+    if (!isEnderIndex(exerciseIndex) || exerciseStarted(exerciseIndex)) return;
+    const current = workout[exerciseIndex];
+    const nextGroup = current.group === 'Cardio' ? 'Core' : 'Cardio';
+    const nextEnder = randomFrom(finisherOptions(nextGroup));
+    const oldSetCount = exerciseSetCount(exerciseIndex);
+    state.dynamicEnder = nextEnder;
+    workout[exerciseIndex] = { ...baseWorkout[exerciseIndex], ...nextEnder };
+    delete state.skipped[exerciseIndex];
+    delete state.extraSets[exerciseIndex];
+    const cleanupSetCount = Math.max(oldSetCount, exerciseSetCount(exerciseIndex));
+    Array.from({ length: cleanupSetCount }, (_, setIndex) => {
+      const key = keyFor(exerciseIndex, setIndex);
+      delete state.completed[key];
+      delete state.logs[key];
+    });
+    state.currentExercise = exerciseIndex;
+    state.currentSet = 0;
+    stopTimer();
+    saveState();
+    setTimer(displayTimerSeconds(workout[exerciseIndex]));
     render();
   }
 
@@ -492,11 +629,13 @@ const config = window.liftWorkoutConfig;
       focusTitle.textContent = 'Workout Complete';
       focusTitle.classList.add('finished');
       focusSet.textContent = 'Nicely done';
-      focusLogSet.disabled = true;
-      focusLogSet.textContent = 'Complete';
+      focusLogSet.disabled = false;
+      focusLogSet.textContent = 'Complete Workout';
       focusNext.classList.add('is-hidden');
       focusBackup.classList.add('is-hidden');
       focusSkip.classList.add('is-hidden');
+      focusAddSet.classList.add('is-hidden');
+      focusSwitchEnder.classList.add('is-hidden');
       actualReps.value = '';
       actualWeight.value = '';
     } else {
@@ -504,18 +643,25 @@ const config = window.liftWorkoutConfig;
       focusTitle.classList.remove('finished');
       currentLabel.textContent = current.group;
       currentTitle.textContent = current.name;
-      currentDose.textContent = `Set ${activeSet + 1} of ${current.sets} · ${current.reps} reps`;
+      currentDose.textContent = `Set ${activeSet + 1} of ${current.sets} · ${targetText(current)}`;
       focusGroup.textContent = current.group;
       focusTitle.textContent = current.name;
-      focusSet.textContent = `Set ${activeSet + 1} of ${current.sets} · ${current.reps} reps`;
-      focusLogSet.disabled = false;
-      focusLogSet.textContent = currentSkipped ? 'Unskip Exercise' : (currentComplete ? 'Undo Set' : 'Log Set');
+      focusSet.textContent = `Set ${activeSet + 1} of ${current.sets} · ${targetText(current)}`;
+      focusLogSet.disabled = !!timerId && !!current.duration && !currentComplete;
+      focusLogSet.textContent = currentSkipped ? 'Unskip Exercise' : (currentComplete ? 'Undo Set' : (current.duration ? 'Start Timer' : 'Log Set'));
       focusNext.classList.toggle('is-hidden', !timerId || !currentComplete || currentSkipped);
       const planned = workout[activeExercise];
       const backup = backupFor(planned);
       const started = exerciseStarted(activeExercise);
+      const lastSet = activeSet === current.sets - 1;
+      const ender = isEnderIndex(activeExercise);
       focusBackup.classList.toggle('is-hidden', !backup || currentComplete || started || currentSkipped);
       focusSkip.classList.toggle('is-hidden', currentComplete || started || currentSkipped);
+      focusAddSet.classList.toggle('is-hidden', !lastSet || !currentComplete || currentSkipped || !!current.duration);
+      focusSwitchEnder.classList.toggle('is-hidden', !ender || currentComplete || started || currentSkipped);
+      if (ender && !currentComplete && !started && !currentSkipped) {
+        focusSwitchEnder.textContent = current.group === 'Cardio' ? 'Switch to Abs' : 'Switch to Cardio';
+      }
       if (backup && !currentComplete && !started && !currentSkipped) {
         focusBackup.textContent = state.swaps[activeExercise]
           ? `Use planned: ${planned.name}`
@@ -530,6 +676,7 @@ const config = window.liftWorkoutConfig;
     exerciseList.innerHTML = workout.map((baseExercise, exerciseIndex) => {
       const exercise = effectiveExercise(baseExercise, exerciseIndex);
       const isActive = exerciseIndex === activeExercise;
+      const addedSets = Number(state.extraSets[exerciseIndex]) || 0;
       const rows = Array.from({ length: exercise.sets }, (_, setIndex) => {
         const done = !!state.completed[keyFor(exerciseIndex, setIndex)];
         const log = logText(exercise, keyFor(exerciseIndex, setIndex));
@@ -538,8 +685,8 @@ const config = window.liftWorkoutConfig;
         return `
           <div class="set-row ${done ? 'is-done' : ''}" data-exercise="${exerciseIndex}" data-set="${setIndex}" role="button" tabindex="0" aria-label="${done ? `Open completed ${exercise.name} set ${setIndex + 1}` : `Start ${exercise.name} set ${setIndex + 1}`}">
             <div class="set-copy">
-              Set ${setIndex + 1}${active ? ' · Current' : ''}
-              <span>${skipped ? 'Skipped' : (log || `${exercise.reps} reps · ${restSeconds(exercise)}s rest`)}${exercise.backupOf ? ` · backup for ${exercise.backupOf}` : ''}</span>
+              Set ${setIndex + 1}${setIndex >= baseExercise.sets ? ' · Added' : ''}${active ? ' · Current' : ''}
+              <span>${skipped ? 'Skipped' : (log || `${targetText(exercise)}${exercise.duration ? '' : ` · ${restSeconds(exercise)}s rest`}`)}${exercise.backupOf ? ` · backup for ${exercise.backupOf}` : ''}</span>
             </div>
           </div>
         `;
@@ -552,7 +699,7 @@ const config = window.liftWorkoutConfig;
               <div class="exercise-kicker">${exercise.group}</div>
               <div class="exercise-name">${exercise.name}</div>
             </div>
-            <div class="exercise-dose">${exercise.sets} x ${exercise.reps}</div>
+            <div class="exercise-dose">${baseExercise.sets}${addedSets ? ` + ${addedSets}` : ''} x ${exercise.reps}</div>
           </div>
           ${rows}
         </section>
@@ -592,6 +739,10 @@ const config = window.liftWorkoutConfig;
   focusLogSet.addEventListener('click', () => {
     const exerciseIndex = state.currentExercise;
     const setIndex = state.currentSet;
+    if (exerciseIndex === null) {
+      exitFocusMode();
+      return;
+    }
     const exercise = effectiveExercise(workout[exerciseIndex], exerciseIndex);
     if (!exercise) return;
     if (state.skipped[exerciseIndex]) {
@@ -600,6 +751,10 @@ const config = window.liftWorkoutConfig;
     }
     if (state.completed[keyFor(exerciseIndex, setIndex)]) {
       undoSet(exerciseIndex, setIndex);
+      return;
+    }
+    if (exercise.duration) {
+      startTimedSet(exerciseIndex, setIndex, exercise);
       return;
     }
     if (exercise.track !== 'none') {
@@ -621,8 +776,7 @@ const config = window.liftWorkoutConfig;
   });
 
   saveCompleteWorkout.addEventListener('click', () => {
-    const minutes = Math.max(1, Number(durationMinutes.value || elapsedMinutesForEditor()));
-    saveWorkoutSession(Math.round(minutes * 60));
+    saveWorkoutSession(Math.round(durationEditorMinutes() * 60));
   });
 
   cancelCompleteEdit.addEventListener('click', () => {
@@ -642,7 +796,15 @@ const config = window.liftWorkoutConfig;
     if (state.currentExercise !== null) skipExercise(state.currentExercise);
   });
 
-  setTimer(restSeconds(workout[0]));
+  focusAddSet.addEventListener('click', () => {
+    if (state.currentExercise !== null) addSet(state.currentExercise);
+  });
+
+  focusSwitchEnder.addEventListener('click', () => {
+    if (state.currentExercise !== null) switchEnder(state.currentExercise);
+  });
+
+  setTimer(displayTimerSeconds(workout[state.currentExercise] || workout[0]));
   if (state.startedAt && !state.completedAt) startWorkoutClock();
   updateWorkoutClock();
   render();

@@ -218,7 +218,15 @@
   .complete-edit-row {
     display: grid;
     gap: 8px;
-    grid-template-columns: minmax(0, 1fr) auto auto;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .complete-edit-row .primary,
+  .complete-edit-row .ghost {
+    min-height: 44px;
+  }
+  .complete-time-field {
+    display: grid;
+    gap: 6px;
   }
   .complete-edit-row input {
     appearance: none;
@@ -399,7 +407,9 @@
     gap: 8px;
   }
   .backup-toggle,
-  .skip-toggle {
+  .skip-toggle,
+  .add-set-toggle,
+  .switch-ender-toggle {
     background: transparent;
     border-color: rgba(185, 179, 170, .28);
     color: var(--accent-2);
@@ -415,8 +425,18 @@
     border-color: rgba(150, 146, 139, .22);
     color: var(--muted);
   }
+  .add-set-toggle {
+    border-color: rgba(255, 122, 69, .25);
+    color: var(--accent);
+  }
+  .switch-ender-toggle {
+    border-color: rgba(185, 179, 170, .28);
+    color: var(--accent-2);
+  }
   .backup-toggle.is-hidden,
-  .skip-toggle.is-hidden {
+  .skip-toggle.is-hidden,
+  .add-set-toggle.is-hidden,
+  .switch-ender-toggle.is-hidden {
     display: none;
   }
   .focus-rest {

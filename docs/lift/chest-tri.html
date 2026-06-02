@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Chest &amp; Tri</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Roboto+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./workout-app.css?v=7">
+<link rel="stylesheet" href="./workout-app.css?v=9">
 </head>
 <body>
 <div class="back-bar"><a href="./index.html" aria-label="Back to Lift">&#8249;</a></div>
@@ -47,9 +47,14 @@
     <button type="button" class="ghost" id="exportWorkoutData">Export Data</button>
   </div>
   <div class="complete-editor is-hidden" id="completeEditor">
-    <label for="durationMinutes">Workout Minutes</label>
+    <label>Workout Time</label>
     <div class="complete-edit-row">
-      <input id="durationMinutes" type="number" inputmode="numeric" min="1" step="1">
+      <label class="complete-time-field" for="durationHours">Hours
+        <input id="durationHours" type="number" inputmode="numeric" min="0" step="1">
+      </label>
+      <label class="complete-time-field" for="durationMinutes">Minutes
+        <input id="durationMinutes" type="number" inputmode="numeric" min="0" max="59" step="1">
+      </label>
       <button type="button" class="primary" id="saveCompleteWorkout">Save</button>
       <button type="button" class="ghost" id="cancelCompleteEdit">Cancel</button>
     </div>
@@ -73,6 +78,8 @@
       <div class="focus-options">
         <button type="button" class="backup-toggle is-hidden" id="focusBackup"></button>
         <button type="button" class="skip-toggle is-hidden" id="focusSkip">Skip Exercise</button>
+        <button type="button" class="add-set-toggle is-hidden" id="focusAddSet">Add Set</button>
+        <button type="button" class="switch-ender-toggle is-hidden" id="focusSwitchEnder"></button>
       </div>
     </div>
     <div class="focus-rest">
@@ -182,6 +189,6 @@
   ]
 };
 </script>
-<script src="./workout-app.js?v=7"></script>
+<script src="./workout-app.js?v=9"></script>
 </body>
 </html>
