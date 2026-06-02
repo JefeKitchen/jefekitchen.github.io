@@ -22,23 +22,26 @@ const config = window.liftWorkoutConfig;
     'Hanging knee raise': { name: 'Captain chair knee raise', group: 'Core', equipment: 'captain chair' },
     'Stair stepper': { name: 'Stationary bike', group: 'Cardio', equipment: 'bike' }
   };
-  const finisherPools = {
-    Core: [
-      { group: 'Core', name: 'Cable crunch', sets: 2, reps: '12-15', rest: 45, track: 'weight' },
-      { group: 'Core', name: 'Hanging knee raise', sets: 2, reps: '8-12', rest: 45, track: 'none' },
-      { group: 'Core', name: 'Plank', sets: 2, reps: '30-45 sec', rest: 45, track: 'none' },
-      { group: 'Core', name: 'Weighted sit-up', sets: 2, reps: '10-12', rest: 45, track: 'weight' },
-      { group: 'Core', name: 'Captain chair knee raise', sets: 2, reps: '10-12', rest: 45, track: 'none' },
-      { group: 'Core', name: 'Ab wheel rollout', sets: 2, reps: '8-10', rest: 45, track: 'none' }
-    ],
-    Cardio: [
-      { group: 'Cardio', name: 'Stair stepper', sets: 1, reps: '10 min', rest: 0, track: 'none' },
-      { group: 'Cardio', name: 'Stationary bike', sets: 1, reps: '10 min', rest: 0, track: 'none' },
-      { group: 'Cardio', name: 'Incline treadmill walk', sets: 1, reps: '10 min', rest: 0, track: 'none' },
-      { group: 'Cardio', name: 'Rowing machine', sets: 1, reps: '10 min', rest: 0, track: 'none' },
-      { group: 'Cardio', name: 'Elliptical', sets: 1, reps: '10 min', rest: 0, track: 'none' }
-    ]
-  };
+  const finisherPool = [
+    { group: 'Core', name: 'Cable crunch', sets: 1, reps: '10 min', rest: 0, track: 'none' },
+    { group: 'Core', name: 'Hanging knee raise', sets: 1, reps: '10 min', rest: 0, track: 'none' },
+    { group: 'Core', name: 'Plank circuit', sets: 1, reps: '10 min', rest: 0, track: 'none' },
+    { group: 'Core', name: 'Weighted sit-up', sets: 1, reps: '10 min', rest: 0, track: 'none' },
+    { group: 'Core', name: 'Captain chair knee raise', sets: 1, reps: '10 min', rest: 0, track: 'none' },
+    { group: 'Core', name: 'Ab wheel rollout', sets: 1, reps: '10 min', rest: 0, track: 'none' },
+    { group: 'Core', name: 'Decline sit-up', sets: 1, reps: '10 min', rest: 0, track: 'none' },
+    { group: 'Core', name: 'Russian twist', sets: 1, reps: '10 min', rest: 0, track: 'none' },
+    { group: 'Core', name: 'Leg raise', sets: 1, reps: '10 min', rest: 0, track: 'none' },
+    { group: 'Core', name: 'Pallof press', sets: 1, reps: '10 min', rest: 0, track: 'none' },
+    { group: 'Cardio', name: 'Stair stepper', sets: 1, reps: '10 min', rest: 0, track: 'none' },
+    { group: 'Cardio', name: 'Stationary bike', sets: 1, reps: '10 min', rest: 0, track: 'none' },
+    { group: 'Cardio', name: 'Incline treadmill walk', sets: 1, reps: '10 min', rest: 0, track: 'none' },
+    { group: 'Cardio', name: 'Rowing machine', sets: 1, reps: '10 min', rest: 0, track: 'none' },
+    { group: 'Cardio', name: 'Elliptical', sets: 1, reps: '10 min', rest: 0, track: 'none' },
+    { group: 'Cardio', name: 'Assault bike', sets: 1, reps: '10 min', rest: 0, track: 'none' },
+    { group: 'Cardio', name: 'Ski erg', sets: 1, reps: '10 min', rest: 0, track: 'none' },
+    { group: 'Cardio', name: 'Battle ropes', sets: 1, reps: '10 min', rest: 0, track: 'none' }
+  ];
   const timerTime = document.getElementById('timerTime');
   const workoutElapsed = document.getElementById('workoutElapsed');
   const currentLabel = document.getElementById('currentLabel');
@@ -82,7 +85,7 @@ const config = window.liftWorkoutConfig;
         logs: saved.logs || {},
         swaps: saved.swaps || {},
         skipped: saved.skipped || {},
-        dynamicFinishers: saved.dynamicFinishers || {},
+        dynamicEnder: saved.dynamicEnder || null,
         startedAt: saved.startedAt || null,
         completedAt: saved.completedAt || null,
         adjustedDurationSeconds: Number.isFinite(saved.adjustedDurationSeconds) ? saved.adjustedDurationSeconds : null,
@@ -90,7 +93,7 @@ const config = window.liftWorkoutConfig;
         currentSet: saved.currentSet === null ? null : (Number.isInteger(saved.currentSet) ? saved.currentSet : 0)
       };
     } catch {
-      return { completed: {}, logs: {}, swaps: {}, skipped: {}, dynamicFinishers: {}, startedAt: null, completedAt: null, adjustedDurationSeconds: null, currentExercise: 0, currentSet: 0 };
+      return { completed: {}, logs: {}, swaps: {}, skipped: {}, dynamicEnder: null, startedAt: null, completedAt: null, adjustedDurationSeconds: null, currentExercise: 0, currentSet: 0 };
     }
   }
 
@@ -116,22 +119,18 @@ const config = window.liftWorkoutConfig;
   }
 
   function isDynamicFinisher(exercise, index, sourceWorkout) {
-    const nearEnd = index >= Math.max(0, sourceWorkout.length - 4);
-    return nearEnd && (exercise.group === 'Core' || exercise.group === 'Cardio') && exercise.dynamicFinisher !== false;
+    return index === sourceWorkout.length - 1 && exercise.dynamicFinisher === true;
   }
 
   function hydrateWorkout(sourceWorkout) {
     let changed = false;
-    const usedByGroup = { Core: new Set(), Cardio: new Set() };
     const hydrated = sourceWorkout.map((exercise, index) => {
       if (!isDynamicFinisher(exercise, index, sourceWorkout)) return exercise;
-      if (!state.dynamicFinishers[index]) {
-        const options = finisherPools[exercise.group].filter(option => !usedByGroup[exercise.group].has(option.name));
-        state.dynamicFinishers[index] = randomFrom(options.length ? options : finisherPools[exercise.group]);
+      if (!state.dynamicEnder || !finisherPool.some(option => option.name === state.dynamicEnder.name)) {
+        state.dynamicEnder = randomFrom(finisherPool);
         changed = true;
       }
-      usedByGroup[exercise.group].add(state.dynamicFinishers[index].name);
-      return { ...exercise, ...state.dynamicFinishers[index] };
+      return { ...exercise, ...state.dynamicEnder };
     });
     if (changed) saveState();
     return hydrated;

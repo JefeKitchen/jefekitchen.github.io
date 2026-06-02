@@ -5,10 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Chest &amp; Tri</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Roboto+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./workout-app.css?v=6">
+<link rel="stylesheet" href="./workout-app.css?v=7">
 </head>
 <body>
 <div class="back-bar"><a href="./index.html" aria-label="Back to Lift">&#8249;</a></div>
+<div class="workout-clock" aria-live="polite">
+  <span>Workout</span>
+  <strong id="workoutElapsed">00:00</strong>
+</div>
 
 <header class="hero">
   <h1>Chest <span>&amp; Tri</span></h1>
@@ -30,10 +34,6 @@
     <div>
       <div class="current-label">Rest Timer</div>
       <div class="timer-time" id="timerTime">01:30</div>
-    </div>
-    <div class="workout-clock">
-      <div class="current-label">Workout Timer</div>
-      <div class="workout-time" id="workoutElapsed">00:00</div>
     </div>
   </div>
 </section>
@@ -171,32 +171,17 @@
       "track": "weight"
     },
     {
-      "group": "Core",
-      "name": "Cable crunch",
-      "sets": 2,
-      "reps": "12-15",
-      "rest": 45,
-      "track": "weight"
-    },
-    {
-      "group": "Core",
-      "name": "Hanging knee raise",
-      "sets": 2,
-      "reps": "8-12",
-      "rest": 45,
-      "track": "none"
-    },
-    {
-      "group": "Cardio",
-      "name": "Stair stepper",
+      "group": "Finisher",
+      "name": "Dynamic Ender",
       "sets": 1,
       "reps": "10 min",
       "rest": 0,
-      "track": "none"
+      "track": "none",
+      "dynamicFinisher": true
     }
   ]
 };
 </script>
-<script src="./workout-app.js?v=6"></script>
+<script src="./workout-app.js?v=7"></script>
 </body>
 </html>

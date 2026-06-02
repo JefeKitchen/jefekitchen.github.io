@@ -105,13 +105,35 @@
     letter-spacing: .8px;
     text-transform: uppercase;
   }
+  .workout-clock {
+    align-items: center;
+    background: rgba(23, 25, 27, .92);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(12px);
+    color: var(--muted);
+    display: flex;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    gap: 9px;
+    justify-content: center;
+    letter-spacing: 1.7px;
+    min-height: 30px;
+    position: sticky;
+    text-transform: uppercase;
+    top: 41px;
+    z-index: 6;
+  }
+  .workout-clock strong {
+    color: var(--text);
+    font-size: 13px;
+    letter-spacing: .8px;
+  }
   .timer {
     align-items: center;
     background: var(--raised);
     border-top: 1px solid var(--line);
-    display: grid;
-    gap: 12px;
-    grid-template-columns: 1fr auto;
+    display: block;
     padding: 14px 16px;
   }
   .timer-time {
@@ -120,27 +142,6 @@
     font-size: 34px;
     font-weight: 700;
     letter-spacing: 1px;
-  }
-  .workout-clock {
-    background: rgba(35, 38, 41, .94);
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    bottom: 14px;
-    box-shadow: 0 14px 32px rgba(0, 0, 0, .28);
-    min-width: 96px;
-    padding: 9px 11px;
-    position: fixed;
-    right: 14px;
-    text-align: right;
-    z-index: 12;
-  }
-  .workout-time {
-    color: var(--muted);
-    font-family: 'Roboto Mono', monospace;
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: .8px;
-    margin-top: 4px;
   }
   button {
     appearance: none;
@@ -314,9 +315,6 @@
   }
   body.focus-active {
     overflow: hidden;
-  }
-  body.focus-active .workout-clock {
-    display: none;
   }
   body.focus-active .focus-screen {
     display: block;
