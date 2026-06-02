@@ -32,11 +32,11 @@ const config = window.liftWorkoutConfig;
       { group: 'Core', name: 'Ab wheel rollout', sets: 2, reps: '8-10', rest: 45, track: 'none' }
     ],
     Cardio: [
-      { group: 'Cardio', name: 'Stair stepper', sets: 1, reps: '6-8 min', rest: 0, track: 'none' },
-      { group: 'Cardio', name: 'Stationary bike', sets: 1, reps: '6-8 min', rest: 0, track: 'none' },
-      { group: 'Cardio', name: 'Incline treadmill walk', sets: 1, reps: '6-8 min', rest: 0, track: 'none' },
-      { group: 'Cardio', name: 'Rowing machine', sets: 1, reps: '6-8 min', rest: 0, track: 'none' },
-      { group: 'Cardio', name: 'Elliptical', sets: 1, reps: '6-8 min', rest: 0, track: 'none' }
+      { group: 'Cardio', name: 'Stair stepper', sets: 1, reps: '10 min', rest: 0, track: 'none' },
+      { group: 'Cardio', name: 'Stationary bike', sets: 1, reps: '10 min', rest: 0, track: 'none' },
+      { group: 'Cardio', name: 'Incline treadmill walk', sets: 1, reps: '10 min', rest: 0, track: 'none' },
+      { group: 'Cardio', name: 'Rowing machine', sets: 1, reps: '10 min', rest: 0, track: 'none' },
+      { group: 'Cardio', name: 'Elliptical', sets: 1, reps: '10 min', rest: 0, track: 'none' }
     ]
   };
   const timerTime = document.getElementById('timerTime');
