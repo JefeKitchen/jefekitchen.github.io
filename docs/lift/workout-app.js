@@ -61,6 +61,7 @@ const config = window.liftWorkoutConfig;
   const focusBackup = document.getElementById('focusBackup');
   const focusSkip = document.getElementById('focusSkip');
   const focusTimerTime = document.getElementById('focusTimerTime');
+  const focusNext = document.getElementById('focusNext');
   const focusLogSet = document.getElementById('focusLogSet');
   const focusInputs = document.getElementById('focusInputs');
   const actualReps = document.getElementById('actualReps');
@@ -246,6 +247,15 @@ const config = window.liftWorkoutConfig;
         if (done) done();
       }
     }, 1000);
+  }
+
+  function skipRest() {
+    if (!timerId) return;
+    stopTimer();
+    timerTime.textContent = '00:00';
+    focusTimerTime.textContent = '00:00';
+    advanceToNextOpen();
+    enterFocusMode();
   }
 
   function findNextOpen() {
@@ -493,6 +503,7 @@ const config = window.liftWorkoutConfig;
       focusSet.textContent = 'Nicely done';
       focusLogSet.disabled = true;
       focusLogSet.textContent = 'Complete';
+      focusNext.classList.add('is-hidden');
       focusBackup.classList.add('is-hidden');
       focusSkip.classList.add('is-hidden');
       actualReps.value = '';
@@ -508,6 +519,7 @@ const config = window.liftWorkoutConfig;
       focusSet.textContent = `Set ${activeSet + 1} of ${current.sets} · ${current.reps} reps`;
       focusLogSet.disabled = false;
       focusLogSet.textContent = currentSkipped ? 'Unskip Exercise' : (currentComplete ? 'Undo Set' : 'Log Set');
+      focusNext.classList.toggle('is-hidden', !timerId || !currentComplete || currentSkipped);
       const planned = workout[activeExercise];
       const backup = backupFor(planned);
       const started = exerciseStarted(activeExercise);
@@ -607,6 +619,10 @@ const config = window.liftWorkoutConfig;
     }
     completeSet(exerciseIndex, setIndex);
     enterFocusMode();
+  });
+
+  focusNext.addEventListener('click', () => {
+    skipRest();
   });
 
   completeWorkout.addEventListener('click', () => {

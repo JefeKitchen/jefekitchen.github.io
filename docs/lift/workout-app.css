@@ -448,6 +448,15 @@
     display: grid;
     gap: 10px;
   }
+  .focus-next {
+    color: var(--accent-2);
+    font-size: 16px;
+    min-height: 48px;
+    text-transform: uppercase;
+  }
+  .focus-next.is-hidden {
+    display: none;
+  }
   .focus-log {
     font-size: 19px;
     min-height: 58px;
