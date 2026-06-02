@@ -27,20 +27,12 @@ const config = window.liftWorkoutConfig;
     { group: 'Core', name: 'Hanging knee raise', sets: 1, reps: '10 min', rest: 0, track: 'none' },
     { group: 'Core', name: 'Plank circuit', sets: 1, reps: '10 min', rest: 0, track: 'none' },
     { group: 'Core', name: 'Weighted sit-up', sets: 1, reps: '10 min', rest: 0, track: 'none' },
-    { group: 'Core', name: 'Captain chair knee raise', sets: 1, reps: '10 min', rest: 0, track: 'none' },
     { group: 'Core', name: 'Ab wheel rollout', sets: 1, reps: '10 min', rest: 0, track: 'none' },
     { group: 'Core', name: 'Decline sit-up', sets: 1, reps: '10 min', rest: 0, track: 'none' },
-    { group: 'Core', name: 'Russian twist', sets: 1, reps: '10 min', rest: 0, track: 'none' },
     { group: 'Core', name: 'Leg raise', sets: 1, reps: '10 min', rest: 0, track: 'none' },
-    { group: 'Core', name: 'Pallof press', sets: 1, reps: '10 min', rest: 0, track: 'none' },
     { group: 'Cardio', name: 'Stair stepper', sets: 1, reps: '10 min', rest: 0, track: 'none' },
     { group: 'Cardio', name: 'Stationary bike', sets: 1, reps: '10 min', rest: 0, track: 'none' },
-    { group: 'Cardio', name: 'Incline treadmill walk', sets: 1, reps: '10 min', rest: 0, track: 'none' },
-    { group: 'Cardio', name: 'Rowing machine', sets: 1, reps: '10 min', rest: 0, track: 'none' },
-    { group: 'Cardio', name: 'Elliptical', sets: 1, reps: '10 min', rest: 0, track: 'none' },
-    { group: 'Cardio', name: 'Assault bike', sets: 1, reps: '10 min', rest: 0, track: 'none' },
-    { group: 'Cardio', name: 'Ski erg', sets: 1, reps: '10 min', rest: 0, track: 'none' },
-    { group: 'Cardio', name: 'Battle ropes', sets: 1, reps: '10 min', rest: 0, track: 'none' }
+    { group: 'Cardio', name: 'Incline treadmill walk', sets: 1, reps: '10 min', rest: 0, track: 'none' }
   ];
   const timerTime = document.getElementById('timerTime');
   const workoutElapsed = document.getElementById('workoutElapsed');
