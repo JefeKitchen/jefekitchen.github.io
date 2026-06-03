@@ -925,6 +925,15 @@
       .filter(entry => entry && thisWeekCatalog[entry.id]);
   }
 
+  function sortRecipeEntries(entries) {
+    return [...entries].sort((a, b) => {
+      if (a.date && b.date) return a.date.localeCompare(b.date);
+      if (a.date) return -1;
+      if (b.date) return 1;
+      return 0;
+    });
+  }
+
   function loadThisWeekRecipes() {
     const raw = localStorage.getItem(thisWeekRecipesKey);
     if (raw === null) {
@@ -966,11 +975,11 @@
   }
 
   function saveThisWeekRecipes(entries) {
-    localStorage.setItem(thisWeekRecipesKey, JSON.stringify(entries));
+    localStorage.setItem(thisWeekRecipesKey, JSON.stringify(sortRecipeEntries(entries)));
   }
 
   function saveShoppingRecipes(entries) {
-    localStorage.setItem(thisWeekShoppingRecipesKey, JSON.stringify(entries));
+    localStorage.setItem(thisWeekShoppingRecipesKey, JSON.stringify(sortRecipeEntries(entries)));
   }
 
   function clearPurchasedRecipe(recipeId) {
@@ -1001,7 +1010,7 @@
 
     grid.querySelectorAll('.week-plan-card').forEach(card => card.remove());
 
-    loadThisWeekRecipes().forEach(entry => {
+    sortRecipeEntries(loadThisWeekRecipes()).forEach(entry => {
       const recipe = thisWeekCatalog[entry.id];
       const section = document.createElement('div');
       section.className = 'section week-plan-card';
