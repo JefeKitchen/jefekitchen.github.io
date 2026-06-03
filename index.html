@@ -74,6 +74,28 @@
     flex: 1;
     height: 1px;
     background: var(--border);
+    order: 2;
+  }
+  .group-label-text {
+    flex-shrink: 0;
+    order: 1;
+  }
+  .group-add-btn {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    color: var(--muted);
+    cursor: pointer;
+    font: inherit;
+    font-size: 16px;
+    line-height: 1;
+    margin-left: -4px;
+    order: 3;
+    padding: 4px 6px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .group-add-btn:active {
+    color: var(--gold);
   }
   .recipe-group {
     margin: 0;
@@ -314,6 +336,22 @@
     color: var(--muted);
     text-align: center;
   }
+  .week-form {
+    display: grid;
+    gap: 8px;
+  }
+  .week-form select {
+    appearance: none;
+    background: #101010;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    box-sizing: border-box;
+    color: var(--text);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 16px;
+    padding: 11px 12px;
+    width: 100%;
+  }
   .misc {
     margin: 16px 20px 0;
   }
@@ -504,7 +542,7 @@
 </div>
 
 <details class="recipe-group featured" data-section="this-week">
-<summary class="group-label">This Week</summary>
+<summary class="group-label"><span class="group-label-text">This Week</span><button class="group-add-btn" type="button" id="addThisWeekRecipe" aria-label="Add recipe to This Week">+</button></summary>
 <div class="group-grid" id="thisWeekGrid">
 
 <!-- THIS WEEK: GROCERY LIST -->
@@ -744,12 +782,35 @@
   </div>
 </div>
 
+<div class="choice-sheet" id="weekChoice" aria-hidden="true">
+  <div class="choice-panel" role="dialog" aria-modal="true" aria-labelledby="weekChoiceTitle">
+    <div class="choice-title" id="weekChoiceTitle">Add Recipe</div>
+    <form class="week-form" id="weekRecipeForm">
+      <select id="weekRecipeChoice" aria-label="Recipe"></select>
+      <select id="weekRecipeDay" aria-label="Day"></select>
+      <select id="weekRecipeScope" aria-label="Add to">
+        <option value="both">This Week + Grocery List</option>
+        <option value="plan">This Week only</option>
+        <option value="shopping">Grocery List only</option>
+      </select>
+      <div class="choice-actions">
+        <button class="choice-button" type="submit">Add</button>
+        <button class="choice-button choice-cancel" type="button" id="cancelWeekRecipe">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 
 <script>
   const sectionStateKey = 'jefes-kitchen-open-sections';
   const instructionPreferenceKey = 'jefes-kitchen-instruction-layout';
-  const thisWeekRecipesKey = 'this-week-selected-recipes-v1';
+  const thisWeekRecipesKey = 'this-week-planned-recipes-v1';
+  const thisWeekShoppingRecipesKey = 'this-week-shopping-recipes-v1';
+  const purchasedItemsKey = 'this-week-purchased-items-v1';
+  const legacyThisWeekRecipesKey = 'this-week-selected-recipes-v1';
   const defaultThisWeekRecipes = [];
+  const weekDayOptions = ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   const thisWeekCatalog = {
     'buffalo-chickpea-dip': {
       title: 'Buffalo Chickpea Dip',
@@ -846,21 +907,99 @@
     });
   }
 
+  function dateForDay(day) {
+    if (!day) return '';
+    const target = weekDayOptions.indexOf(day);
+    if (target < 1) return '';
+    const today = new Date();
+    const todayIndex = today.getDay() === 0 ? 7 : today.getDay();
+    const delta = (target - todayIndex + 7) % 7;
+    const date = new Date(today);
+    date.setDate(today.getDate() + delta);
+    return localDateKey(date);
+  }
+
+  function normalizeRecipeEntries(raw) {
+    return raw
+      .map(entry => typeof entry === 'string' ? { id: entry } : entry)
+      .filter(entry => entry && thisWeekCatalog[entry.id]);
+  }
+
   function loadThisWeekRecipes() {
     const raw = localStorage.getItem(thisWeekRecipesKey);
-    if (raw === null) return [...defaultThisWeekRecipes];
+    if (raw === null) {
+      const legacy = localStorage.getItem(legacyThisWeekRecipesKey);
+      if (legacy !== null) {
+        try {
+          return normalizeRecipeEntries(JSON.parse(legacy));
+        } catch {
+          return [...defaultThisWeekRecipes];
+        }
+      }
+      return [...defaultThisWeekRecipes];
+    }
     try {
-      return JSON.parse(raw)
-        .map(entry => typeof entry === 'string' ? { id: entry } : entry)
-        .filter(entry => thisWeekCatalog[entry.id]);
+      return normalizeRecipeEntries(JSON.parse(raw));
     } catch {
       return [...defaultThisWeekRecipes];
     }
   }
 
+  function loadShoppingRecipes() {
+    const raw = localStorage.getItem(thisWeekShoppingRecipesKey);
+    if (raw === null) {
+      const legacy = localStorage.getItem(legacyThisWeekRecipesKey);
+      if (legacy !== null) {
+        try {
+          return normalizeRecipeEntries(JSON.parse(legacy));
+        } catch {
+          return [];
+        }
+      }
+      return [];
+    }
+    try {
+      return normalizeRecipeEntries(JSON.parse(raw));
+    } catch {
+      return [];
+    }
+  }
+
+  function saveThisWeekRecipes(entries) {
+    localStorage.setItem(thisWeekRecipesKey, JSON.stringify(entries));
+  }
+
+  function saveShoppingRecipes(entries) {
+    localStorage.setItem(thisWeekShoppingRecipesKey, JSON.stringify(entries));
+  }
+
+  function clearPurchasedRecipe(recipeId) {
+    try {
+      const purchased = new Set(JSON.parse(localStorage.getItem(purchasedItemsKey)) || []);
+      Array.from(purchased).forEach(itemId => {
+        if (itemId.startsWith(`tw-${recipeId}-`)) purchased.delete(itemId);
+      });
+      localStorage.setItem(purchasedItemsKey, JSON.stringify([...purchased]));
+    } catch {
+      localStorage.removeItem(purchasedItemsKey);
+    }
+  }
+
+  function addRecipeEntry(key, recipeId, day) {
+    const loader = key === thisWeekRecipesKey ? loadThisWeekRecipes : loadShoppingRecipes;
+    const saver = key === thisWeekRecipesKey ? saveThisWeekRecipes : saveShoppingRecipes;
+    const entries = loader();
+    if (entries.some(entry => entry.id === recipeId)) return;
+    entries.push({ id: recipeId, day, date: dateForDay(day) });
+    saver(entries);
+    if (key === thisWeekShoppingRecipesKey) clearPurchasedRecipe(recipeId);
+  }
+
   function renderThisWeekPlans() {
     const grid = document.getElementById('thisWeekGrid');
     if (!grid) return;
+
+    grid.querySelectorAll('.week-plan-card').forEach(card => card.remove());
 
     loadThisWeekRecipes().forEach(entry => {
       const recipe = thisWeekCatalog[entry.id];
@@ -884,6 +1023,7 @@
       `;
       grid.appendChild(section);
     });
+    wireInstructionLinks();
   }
 
   renderThisWeekPlans();
@@ -907,6 +1047,53 @@
 
   const instructionChoice = document.getElementById('instructionChoice');
   const resetInstructionChoice = document.getElementById('resetInstructionChoice');
+  const addThisWeekRecipe = document.getElementById('addThisWeekRecipe');
+  const weekChoice = document.getElementById('weekChoice');
+  const weekRecipeForm = document.getElementById('weekRecipeForm');
+  const weekRecipeChoice = document.getElementById('weekRecipeChoice');
+  const weekRecipeDay = document.getElementById('weekRecipeDay');
+  const weekRecipeScope = document.getElementById('weekRecipeScope');
+  const cancelWeekRecipe = document.getElementById('cancelWeekRecipe');
+
+  function populateWeekRecipeForm() {
+    const planned = loadThisWeekRecipes().map(entry => entry.id);
+    const shopping = loadShoppingRecipes().map(entry => entry.id);
+    weekRecipeChoice.innerHTML = '';
+    Object.entries(thisWeekCatalog)
+      .sort(([, a], [, b]) => a.title.localeCompare(b.title))
+      .forEach(([recipeId, recipe]) => {
+        const option = document.createElement('option');
+        option.value = recipeId;
+        const statuses = [];
+        if (planned.includes(recipeId)) statuses.push('week');
+        if (shopping.includes(recipeId)) statuses.push('list');
+        option.textContent = statuses.length ? `${recipe.title} (${statuses.join(' + ')})` : recipe.title;
+        weekRecipeChoice.appendChild(option);
+      });
+
+    if (!weekRecipeDay.options.length) {
+      weekDayOptions.forEach(day => {
+        const option = document.createElement('option');
+        option.value = day;
+        option.textContent = day || 'No day';
+        weekRecipeDay.appendChild(option);
+      });
+    }
+  }
+
+  function openWeekChoice() {
+    populateWeekRecipeForm();
+    weekRecipeDay.value = '';
+    weekRecipeScope.value = 'both';
+    weekChoice.classList.add('is-open');
+    weekChoice.setAttribute('aria-hidden', 'false');
+    weekRecipeChoice.focus();
+  }
+
+  function closeWeekChoice() {
+    weekChoice.classList.remove('is-open');
+    weekChoice.setAttribute('aria-hidden', 'true');
+  }
 
   function detectedInstructionLayout() {
     const ua = navigator.userAgent || '';
@@ -932,8 +1119,11 @@
     instructionChoice.setAttribute('aria-hidden', 'false');
   }
 
-  document.querySelectorAll('.instruction-choice-link').forEach(link => {
-    link.addEventListener('click', event => {
+  function wireInstructionLinks() {
+    document.querySelectorAll('.instruction-choice-link').forEach(link => {
+      if (link.dataset.choiceWired) return;
+      link.dataset.choiceWired = 'true';
+      link.addEventListener('click', event => {
       event.preventDefault();
       const links = {
         phone: link.dataset.phone,
@@ -954,7 +1144,10 @@
 
       openInstructionChoice(links);
     });
-  });
+    });
+  }
+
+  wireInstructionLinks();
 
   instructionChoice.addEventListener('click', event => {
     if (event.target === instructionChoice) {
@@ -974,6 +1167,36 @@
     }
   });
 
+  addThisWeekRecipe.addEventListener('click', event => {
+    event.preventDefault();
+    event.stopPropagation();
+    openWeekChoice();
+  });
+
+  weekChoice.addEventListener('click', event => {
+    if (event.target === weekChoice) closeWeekChoice();
+  });
+
+  cancelWeekRecipe.addEventListener('click', closeWeekChoice);
+
+  weekRecipeForm.addEventListener('submit', event => {
+    event.preventDefault();
+    const recipeId = weekRecipeChoice.value;
+    const day = weekRecipeDay.value;
+    const scope = weekRecipeScope.value;
+
+    if (scope === 'plan' || scope === 'both') {
+      addRecipeEntry(thisWeekRecipesKey, recipeId, day);
+    }
+    if (scope === 'shopping' || scope === 'both') {
+      addRecipeEntry(thisWeekShoppingRecipesKey, recipeId, day);
+    }
+
+    closeWeekChoice();
+    renderThisWeekPlans();
+    hidePastWeekPlans();
+  });
+
   resetInstructionChoice.addEventListener('click', () => {
     localStorage.setItem(instructionPreferenceKey, 'ask');
     resetInstructionChoice.textContent = 'Instruction layout reset';
@@ -985,6 +1208,9 @@
   document.addEventListener('keydown', event => {
     if (event.key === 'Escape' && instructionChoice.classList.contains('is-open')) {
       closeInstructionChoice();
+    }
+    if (event.key === 'Escape' && weekChoice.classList.contains('is-open')) {
+      closeWeekChoice();
     }
   });
 

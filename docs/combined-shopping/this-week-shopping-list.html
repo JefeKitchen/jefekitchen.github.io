@@ -61,7 +61,7 @@
   .list-toolbar {
     display: grid;
     gap: 8px;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     margin: 14px 20px 0;
   }
   .top-add-btn {
@@ -203,7 +203,6 @@
 
 <div class="list-toolbar">
   <button class="top-add-btn" type="button" id="addIngredient">+ Add Ingredient</button>
-  <button class="top-add-btn" type="button" id="addRecipe">+ Add Recipe</button>
 </div>
 
 <form class="add-item-form" id="addIngredientForm">
@@ -215,15 +214,6 @@
   </div>
 </form>
 
-<form class="add-item-form" id="addRecipeForm">
-  <select id="newRecipeChoice" aria-label="Recipe"></select>
-  <select id="newRecipeDay" aria-label="Day"></select>
-  <div class="form-actions">
-    <button class="save-item-btn" type="submit">Add</button>
-    <button class="cancel-item-btn" type="button" id="cancelAddRecipe">Cancel</button>
-  </div>
-</form>
-
 <div class="trip-toolbar">
   <button class="complete-trip-btn" type="button" id="completeShoppingTrip">Complete Shopping Trip</button>
 </div>
@@ -232,10 +222,9 @@
 
 <script>
   const addedItemsKey = 'this-week-added-items-v2';
-  const selectedRecipesKey = 'this-week-selected-recipes-v1';
+  const selectedRecipesKey = 'this-week-shopping-recipes-v1';
   const purchasedItemsKey = 'this-week-purchased-items-v1';
   const defaultRecipeIds = [];
-  const dayOptions = ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   const sectionOptions = ['Produce', 'Meat/Seafood', 'Dairy', 'Refrigerated', 'Pantry', 'Snacks', 'Alcohol/Drinks', 'Misc'];
   const recipeCatalog = {
     'crispy-shrimp-tacos': {
@@ -506,15 +495,10 @@
   };
   const sectionsRoot = document.getElementById('shoppingSections');
   const addIngredient = document.getElementById('addIngredient');
-  const addRecipe = document.getElementById('addRecipe');
   const addIngredientForm = document.getElementById('addIngredientForm');
-  const addRecipeForm = document.getElementById('addRecipeForm');
   const newItemText = document.getElementById('newItemText');
   const newItemSection = document.getElementById('newItemSection');
-  const newRecipeChoice = document.getElementById('newRecipeChoice');
-  const newRecipeDay = document.getElementById('newRecipeDay');
   const cancelAddItem = document.getElementById('cancelAddItem');
-  const cancelAddRecipe = document.getElementById('cancelAddRecipe');
   const completeShoppingTrip = document.getElementById('completeShoppingTrip');
   let wasComplete = false;
 
@@ -525,21 +509,6 @@
   };
 
   const slugify = value => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-
-  const dateForDay = day => {
-    if (!day) return '';
-    const target = dayOptions.indexOf(day);
-    if (target < 1) return '';
-    const today = new Date();
-    const todayIndex = today.getDay() === 0 ? 7 : today.getDay();
-    const delta = (target - todayIndex + 7) % 7;
-    const date = new Date(today);
-    date.setDate(today.getDate() + delta);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const dateNum = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${dateNum}`;
-  };
 
   const loadAddedItems = () => {
     try {
@@ -580,7 +549,6 @@
 
   const closeForms = () => {
     addIngredientForm.classList.remove('is-open');
-    addRecipeForm.classList.remove('is-open');
   };
 
   sectionOptions.forEach(sectionName => {
@@ -589,28 +557,6 @@
     option.textContent = sectionName;
     newItemSection.appendChild(option);
   });
-
-  dayOptions.forEach(day => {
-    const option = document.createElement('option');
-    option.value = day;
-    option.textContent = day || 'No day';
-    newRecipeDay.appendChild(option);
-  });
-
-  const refreshRecipeOptions = () => {
-    const selectedRecipes = loadSelectedRecipes();
-    const selectedIds = selectedRecipes.map(entry => entry.id);
-    newRecipeChoice.innerHTML = '';
-    Object.entries(recipeCatalog)
-      .sort(([, a], [, b]) => a.name.localeCompare(b.name))
-      .forEach(([recipeId, recipe]) => {
-        const option = document.createElement('option');
-        option.value = recipeId;
-        option.textContent = selectedIds.includes(recipeId) ? `${recipe.name} (added)` : recipe.name;
-        option.disabled = selectedIds.includes(recipeId);
-        newRecipeChoice.appendChild(option);
-      });
-  };
 
   const showCartBoom = () => {
     document.querySelector('.cart-boom')?.remove();
@@ -782,14 +728,6 @@
     newItemText.focus();
   };
 
-  const openRecipeForm = () => {
-    closeForms();
-    refreshRecipeOptions();
-    newRecipeDay.value = '';
-    addRecipeForm.classList.add('is-open');
-    newRecipeChoice.focus();
-  };
-
   const createRecipeGroup = (items) => {
     const fragment = document.createDocumentFragment();
     const itemsByRecipe = items.reduce((groups, item) => {
@@ -859,12 +797,10 @@
   };
 
   addIngredient.addEventListener('click', () => openIngredientForm());
-  addRecipe.addEventListener('click', openRecipeForm);
   cancelAddItem.addEventListener('click', () => {
     addIngredientForm.classList.remove('is-open');
     newItemText.value = '';
   });
-  cancelAddRecipe.addEventListener('click', () => addRecipeForm.classList.remove('is-open'));
   addIngredientForm.addEventListener('submit', event => {
     event.preventDefault();
     const cleanText = newItemText.value.trim();
@@ -872,22 +808,6 @@
     addCustomItem(normalizeSection(newItemSection.value), cleanText);
     newItemText.value = '';
     addIngredientForm.classList.remove('is-open');
-  });
-  addRecipeForm.addEventListener('submit', event => {
-    event.preventDefault();
-    const recipeId = newRecipeChoice.value;
-    const selectedRecipes = loadSelectedRecipes();
-    if (recipeId && !selectedRecipes.some(entry => entry.id === recipeId)) {
-      const day = newRecipeDay.value;
-      const purchasedItems = loadPurchasedItems();
-      Object.values(recipeCatalog[recipeId]?.items || {}).flat().forEach(([id]) => {
-        purchasedItems.delete(`tw-${recipeId}-${id}`);
-      });
-      savePurchasedItems(purchasedItems);
-      saveSelectedRecipes([...selectedRecipes, { id: recipeId, day, date: dateForDay(day) }]);
-    }
-    addRecipeForm.classList.remove('is-open');
-    renderSections();
   });
   completeShoppingTrip.addEventListener('click', completeTrip);
   renderSections();
