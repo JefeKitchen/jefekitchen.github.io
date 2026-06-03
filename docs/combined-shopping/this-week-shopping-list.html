@@ -136,10 +136,10 @@
   }
   .complete-trip-btn {
     appearance: none;
-    background: transparent;
-    border: 1px solid var(--border);
+    background: var(--gold);
+    border: 1px solid var(--gold);
     border-radius: 6px;
-    color: var(--muted);
+    color: #111;
     cursor: pointer;
     font-family: 'Source Sans 3', sans-serif;
     font-size: 13px;
@@ -149,8 +149,7 @@
     width: 100%;
   }
   .complete-trip-btn:active {
-    border-color: var(--gold);
-    color: var(--gold);
+    filter: brightness(1.08);
   }
   .add-item-btn,
   .remove-item-btn,
@@ -235,11 +234,7 @@
   const addedItemsKey = 'this-week-added-items-v2';
   const selectedRecipesKey = 'this-week-selected-recipes-v1';
   const purchasedItemsKey = 'this-week-purchased-items-v1';
-  const defaultRecipeIds = [
-    { id: 'overnight-oats' },
-    { id: 'buffalo-chickpea-dip', day: 'Thursday', date: '2026-06-04' },
-    { id: 'crispy-shrimp-tacos', day: 'Friday', date: '2026-06-05' }
-  ];
+  const defaultRecipeIds = [];
   const dayOptions = ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   const sectionOptions = ['Produce', 'Meat/Seafood', 'Dairy', 'Refrigerated', 'Pantry', 'Snacks', 'Alcohol/Drinks', 'Misc'];
   const recipeCatalog = {
