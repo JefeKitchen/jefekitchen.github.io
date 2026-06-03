@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v114';
+const CACHE_NAME = 'jeffs-kitchen-v118';
 
 const PAGES = [
   './',
@@ -26,6 +26,11 @@ const PAGES = [
   './docs/honey-garlic/honey-garlic-chicken-wide.html',
   './docs/honey-garlic/honey-garlic-menu.html',
   './docs/honey-garlic/grocery-list-honey-garlic.html',
+  './docs/one-pan-lemon-chicken/one-pan-lemon-chicken-menu.html',
+  './docs/garlic-butter-shrimp-skillet/garlic-butter-shrimp-skillet-menu.html',
+  './docs/beef-onion-smash-skillet/beef-onion-smash-skillet-menu.html',
+  './docs/sausage-pepper-skillet/sausage-pepper-skillet-menu.html',
+  './docs/sheet-pan-salmon/sheet-pan-salmon-menu.html',
   './docs/meatloaf/meatloaf-instructions.html',
   './docs/meatloaf/meatloaf-wide.html',
   './docs/meatloaf/meatloaf-menu.html',

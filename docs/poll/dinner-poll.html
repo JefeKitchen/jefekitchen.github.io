@@ -61,10 +61,16 @@
   .poll-list {
     padding: 18px 20px 20px;
   }
+  .poll-row {
+    align-items: stretch;
+    display: grid;
+    gap: 8px;
+    grid-template-columns: 1fr 48px;
+    margin-bottom: 13px;
+  }
   .poll-option {
     display: block;
     padding: 15px 14px;
-    margin-bottom: 13px;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 8px;
@@ -73,6 +79,21 @@
     -webkit-tap-highlight-color: transparent;
   }
   .poll-option:active {
+    background: var(--raised);
+  }
+  .poll-menu-link {
+    align-items: center;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    display: flex;
+    font-size: 20px;
+    justify-content: center;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .poll-menu-link:active {
     background: var(--raised);
   }
   .option-title {
@@ -101,42 +122,59 @@
 </div>
 
 <div class="poll-list">
-  <a class="poll-option" href="sms:?body=Survey%20says%3A%20garlic%20shrimp%20rice%20bowls." data-choice="garlic shrimp rice bowls">
-    <span>
-      <span class="option-title">Garlic Shrimp Rice Bowls</span>
-      <span class="option-note">Quick shrimp, rice, onions, bright finish</span>
-    </span>
-  </a>
-  <a class="poll-option" href="sms:?body=Survey%20says%3A%20beef%20onion%20smash%20bowls." data-choice="beef onion smash bowls">
-    <span>
-      <span class="option-title">Beef Onion Smash Bowls</span>
-      <span class="option-note">Ground beef, plenty of onion, rice or potatoes</span>
-    </span>
-  </a>
-  <a class="poll-option" href="sms:?body=Survey%20says%3A%20sheet%20pan%20salmon." data-choice="sheet pan salmon">
-    <span>
-      <span class="option-title">Sheet Pan Salmon</span>
-      <span class="option-note">Salmon, red onion, green beans, lemon</span>
-    </span>
-  </a>
-  <a class="poll-option" href="sms:?body=Survey%20says%3A%20garlic%20butter%20shrimp." data-choice="garlic butter shrimp">
-    <span>
-      <span class="option-title">Garlic Butter Shrimp</span>
-      <span class="option-note">Fast skillet dinner, minimal dishes</span>
-    </span>
-  </a>
-  <a class="poll-option" href="sms:?body=Survey%20says%3A%20one%20pan%20lemon%20chicken." data-choice="one pan lemon chicken">
-    <span>
-      <span class="option-title">One Pan Lemon Chicken</span>
-      <span class="option-note">Chicken, red onion, garlic, lemon</span>
-    </span>
-  </a>
-  <a class="poll-option" href="sms:?body=I%20reject%20the%20ballot%20and%20nominate%3A%20" data-write-in="true">
-    <span>
-      <span class="option-title">Wildcard</span>
-      <span class="option-note">Write in your own dinner pick</span>
-    </span>
-  </a>
+  <div class="poll-row">
+    <a class="poll-option" href="sms:?body=Survey%20says%3A%20one-pan%20lemon%20chicken." data-choice="one-pan lemon chicken">
+      <span>
+        <span class="option-title">One-Pan Lemon Chicken</span>
+        <span class="option-note">Chicken, onion, garlic, lemon, easy cleanup</span>
+      </span>
+    </a>
+    <a class="poll-menu-link" href="../one-pan-lemon-chicken/one-pan-lemon-chicken-menu.html" aria-label="One-Pan Lemon Chicken menu">📜</a>
+  </div>
+  <div class="poll-row">
+    <a class="poll-option" href="sms:?body=Survey%20says%3A%20garlic%20butter%20shrimp%20skillet." data-choice="garlic butter shrimp skillet">
+      <span>
+        <span class="option-title">Garlic Butter Shrimp Skillet</span>
+        <span class="option-note">Fast shrimp, garlicky sauce, rice or bread</span>
+      </span>
+    </a>
+    <a class="poll-menu-link" href="../garlic-butter-shrimp-skillet/garlic-butter-shrimp-skillet-menu.html" aria-label="Garlic Butter Shrimp Skillet menu">📜</a>
+  </div>
+  <div class="poll-row">
+    <a class="poll-option" href="sms:?body=Survey%20says%3A%20beef%20onion%20smash%20skillet." data-choice="beef onion smash skillet">
+      <span>
+        <span class="option-title">Beef Onion Smash Skillet</span>
+        <span class="option-note">Beef, onions, crispy edges, bowl-friendly</span>
+      </span>
+    </a>
+    <a class="poll-menu-link" href="../beef-onion-smash-skillet/beef-onion-smash-skillet-menu.html" aria-label="Beef Onion Smash Skillet menu">📜</a>
+  </div>
+  <div class="poll-row">
+    <a class="poll-option" href="sms:?body=Survey%20says%3A%20sausage%20pepper%20skillet." data-choice="sausage pepper skillet">
+      <span>
+        <span class="option-title">Sausage Pepper Skillet</span>
+        <span class="option-note">Sausage, peppers, onions, crispy potatoes</span>
+      </span>
+    </a>
+    <a class="poll-menu-link" href="../sausage-pepper-skillet/sausage-pepper-skillet-menu.html" aria-label="Sausage Pepper Skillet menu">📜</a>
+  </div>
+  <div class="poll-row">
+    <a class="poll-option" href="sms:?body=Survey%20says%3A%20sheet%20pan%20salmon." data-choice="sheet pan salmon">
+      <span>
+        <span class="option-title">Sheet Pan Salmon</span>
+        <span class="option-note">Salmon, veg, lemon, one tray</span>
+      </span>
+    </a>
+    <a class="poll-menu-link" href="../sheet-pan-salmon/sheet-pan-salmon-menu.html" aria-label="Sheet Pan Salmon menu">📜</a>
+  </div>
+  <div class="poll-row">
+    <a class="poll-option" href="sms:?body=I%20reject%20the%20ballot%20and%20nominate%3A%20" data-write-in="true">
+      <span>
+        <span class="option-title">Wildcard</span>
+        <span class="option-note">Write in your own dinner pick</span>
+      </span>
+    </a>
+  </div>
 </div>
 
 <script>

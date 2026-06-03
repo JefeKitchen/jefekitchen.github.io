@@ -226,6 +226,54 @@ body {
   --leaf: #607949;
 }
 
+.theme-lemon-chicken {
+  --paper: #fff6d9;
+  --ink: #1f2117;
+  --accent: #b39126;
+  --leaf: #697a52;
+}
+
+.theme-garlic-shrimp {
+  --paper: #f7efe3;
+  --ink: #191c1c;
+  --accent: #a65a35;
+  --leaf: #5d756a;
+}
+
+.theme-smash-skillet {
+  --paper: #f2eadc;
+  --ink: #211914;
+  --accent: #8a4930;
+  --leaf: #665f4c;
+}
+
+.theme-salmon {
+  --paper: #fff0e8;
+  --ink: #201817;
+  --accent: #c2604b;
+  --leaf: #5d746a;
+}
+
+.theme-sausage-pepper {
+  --paper: #fff0dc;
+  --ink: #221713;
+  --accent: #aa4e2c;
+  --leaf: #66713e;
+}
+
+.mini-menu .header {
+  margin-bottom: 22px;
+  padding-bottom: 22px;
+}
+
+.mini-menu .section-label {
+  margin-top: 20px;
+}
+
+.mini-menu .menu-item {
+  padding: 13px 0;
+}
+
 .themed .page {
   background: var(--paper);
   color: var(--ink);
