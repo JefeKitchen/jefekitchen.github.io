@@ -1,10 +1,13 @@
-const CACHE_NAME = 'jeffs-kitchen-v119';
+const CACHE_NAME = 'jeffs-kitchen-v120';
 
 const PAGES = [
   './',
   './index.html',
   './manifest.json',
-  './icon.png',
+  './assets/icons/icon-192.png',
+  './assets/icons/icon-512.png',
+  './assets/icons/apple-touch-icon.png',
+  './assets/icons/favicon.png',
   './docs/theme.css',
   './docs/menu-card.css',
   './docs/wide-layout.css',
