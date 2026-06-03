@@ -505,7 +505,7 @@
 
 <details class="recipe-group featured" data-section="this-week">
 <summary class="group-label">This Week</summary>
-<div class="group-grid">
+<div class="group-grid" id="thisWeekGrid">
 
 <!-- THIS WEEK: GROCERY LIST -->
 <div class="section">
@@ -516,54 +516,6 @@
     </div>
     <div class="card-actions" aria-label="This Week grocery list link">
       <a class="icon-link" href="./docs/combined-shopping/this-week-shopping-list.html" aria-label="This Week grocery list" title="Grocery List">🛒</a>
-    </div>
-  </div>
-</div>
-
-<!-- THIS WEEK: OVERNIGHT OATS -->
-<div class="section">
-  <div class="card recipe-card">
-    <div class="card-copy">
-      <div class="card-title">Overnight Oats</div>
-      <span class="card-subtitle">Greek Yogurt · Fruit · Oats</span>
-    </div>
-    <div class="card-actions" aria-label="This Week Overnight Oats links">
-      <a class="icon-link" href="./docs/overnight-oats/overnight-oats-menu.html" aria-label="Overnight Oats menu" title="Menu">📜</a>
-      <a class="icon-link instruction-choice-link" href="./docs/overnight-oats/overnight-oats-instructions.html" data-phone="./docs/overnight-oats/overnight-oats-instructions.html" data-wide="./docs/overnight-oats/overnight-oats-wide.html" aria-label="Overnight Oats instructions" title="Instructions">🥘</a>
-    </div>
-  </div>
-</div>
-
-<!-- THIS WEEK: CARNITAS ELOTE BOWLS -->
-<div class="section week-plan-card" data-plan-date="2026-06-02">
-  <div class="card recipe-card">
-    <div class="card-copy">
-      <div class="title-line">
-        <div class="card-title">Carnitas Elote Bowls</div>
-        <span class="plan-day">Tuesday</span>
-      </div>
-      <span class="card-subtitle">Street Corn · Rice · Avocado</span>
-    </div>
-    <div class="card-actions" aria-label="This Week Carnitas Elote Bowls links">
-      <a class="icon-link" href="./docs/carnitas-elote-bowls/carnitas-elote-bowls-menu.html" aria-label="Carnitas Elote Bowls menu" title="Menu">📜</a>
-      <a class="icon-link instruction-choice-link" href="./docs/carnitas-elote-bowls/carnitas-elote-bowls-instructions.html" data-phone="./docs/carnitas-elote-bowls/carnitas-elote-bowls-instructions.html" data-wide="./docs/carnitas-elote-bowls/carnitas-elote-bowls-wide.html" aria-label="Carnitas Elote Bowls cooking instructions" title="Cooking Instructions">🥘</a>
-    </div>
-  </div>
-</div>
-
-<!-- THIS WEEK: BUFFALO CHICKPEA DIP -->
-<div class="section week-plan-card" data-plan-date="2026-06-04">
-  <div class="card recipe-card">
-    <div class="card-copy">
-      <div class="title-line">
-        <div class="card-title">Buffalo Chickpea Dip</div>
-        <span class="plan-day">Thursday</span>
-      </div>
-      <span class="card-subtitle">Hot Sauce · Hummus · Chips</span>
-    </div>
-    <div class="card-actions" aria-label="This Week Buffalo Chickpea Dip links">
-      <a class="icon-link" href="./docs/buffalo-chickpea-dip/buffalo-chickpea-dip-menu.html" aria-label="Buffalo Chickpea Dip menu" title="Menu">📜</a>
-      <a class="icon-link instruction-choice-link" href="./docs/buffalo-chickpea-dip/buffalo-chickpea-dip-instructions.html" data-phone="./docs/buffalo-chickpea-dip/buffalo-chickpea-dip-instructions.html" data-wide="./docs/buffalo-chickpea-dip/buffalo-chickpea-dip-wide.html" aria-label="Buffalo Chickpea Dip instructions" title="Instructions">🥘</a>
     </div>
   </div>
 </div>
@@ -714,6 +666,21 @@
     </div>
   </div>
 </div>
+
+<!-- CRISPY SHRIMP TACOS -->
+<div class="section">
+  <div class="card recipe-card">
+    <div class="card-copy">
+      <div class="card-title">Crispy Shrimp Tacos</div>
+      <span class="card-subtitle">Lime Slaw · Horseradish Crema</span>
+    </div>
+    <div class="card-actions" aria-label="Crispy Shrimp Tacos links">
+      <a class="icon-link" href="./docs/crispy-shrimp-tacos/crispy-shrimp-tacos-menu.html" aria-label="Crispy Shrimp Tacos menu" title="Menu">📜</a>
+      <a class="icon-link" href="./docs/crispy-shrimp-tacos/grocery-list-crispy-shrimp-tacos.html" aria-label="Crispy Shrimp Tacos grocery list" title="Grocery List">🛒</a>
+      <a class="icon-link instruction-choice-link" href="./docs/crispy-shrimp-tacos/crispy-shrimp-tacos-instructions.html" data-phone="./docs/crispy-shrimp-tacos/crispy-shrimp-tacos-instructions.html" data-wide="./docs/crispy-shrimp-tacos/crispy-shrimp-tacos-wide.html" aria-label="Crispy Shrimp Tacos cooking instructions" title="Cooking Instructions">🥘</a>
+    </div>
+  </div>
+</div>
 </div>
 </details>
 
@@ -781,6 +748,91 @@
 <script>
   const sectionStateKey = 'jefes-kitchen-open-sections';
   const instructionPreferenceKey = 'jefes-kitchen-instruction-layout';
+  const thisWeekRecipesKey = 'this-week-selected-recipes-v1';
+  const defaultThisWeekRecipes = [
+    { id: 'overnight-oats' },
+    { id: 'buffalo-chickpea-dip', day: 'Thursday', date: '2026-06-04' },
+    { id: 'crispy-shrimp-tacos', day: 'Friday', date: '2026-06-05' }
+  ];
+  const thisWeekCatalog = {
+    'buffalo-chickpea-dip': {
+      title: 'Buffalo Chickpea Dip',
+      subtitle: 'Hot Sauce · Hummus · Chips',
+      menu: './docs/buffalo-chickpea-dip/buffalo-chickpea-dip-menu.html',
+      phone: './docs/buffalo-chickpea-dip/buffalo-chickpea-dip-instructions.html',
+      wide: './docs/buffalo-chickpea-dip/buffalo-chickpea-dip-wide.html'
+    },
+    'carnitas-elote-bowls': {
+      title: 'Carnitas Elote Bowls',
+      subtitle: 'Street Corn · Rice · Avocado',
+      menu: './docs/carnitas-elote-bowls/carnitas-elote-bowls-menu.html',
+      phone: './docs/carnitas-elote-bowls/carnitas-elote-bowls-instructions.html',
+      wide: './docs/carnitas-elote-bowls/carnitas-elote-bowls-wide.html'
+    },
+    'chicken-skewers': {
+      title: 'Chicken Skewers',
+      subtitle: 'Pita · Cucumber · Dessert',
+      menu: './docs/chicken-skewers/chicken-skewers-menu.html',
+      phone: './docs/chicken-skewers/chicken-skewers-instructions.html',
+      wide: './docs/chicken-skewers/chicken-skewers-wide.html'
+    },
+    'crispy-shrimp-tacos': {
+      title: 'Crispy Shrimp Tacos',
+      subtitle: 'Lime Slaw · Horseradish Crema',
+      menu: './docs/crispy-shrimp-tacos/crispy-shrimp-tacos-menu.html',
+      phone: './docs/crispy-shrimp-tacos/crispy-shrimp-tacos-instructions.html',
+      wide: './docs/crispy-shrimp-tacos/crispy-shrimp-tacos-wide.html'
+    },
+    'garlic-shrimp-rice-bowls': {
+      title: 'Garlic Shrimp Rice Bowls',
+      subtitle: 'Lime Rice · Cucumber · Green Onion',
+      menu: './docs/garlic-shrimp-rice-bowls/garlic-shrimp-rice-bowls-menu.html',
+      phone: './docs/garlic-shrimp-rice-bowls/garlic-shrimp-rice-bowls-instructions.html',
+      wide: './docs/garlic-shrimp-rice-bowls/garlic-shrimp-rice-bowls-wide.html'
+    },
+    'honey-garlic': {
+      title: 'Honey Garlic Chicken',
+      subtitle: 'Green Beans · Rice · Cucumber',
+      menu: './docs/honey-garlic/honey-garlic-menu.html',
+      phone: './docs/honey-garlic/honey-garlic-chicken-instructions.html',
+      wide: './docs/honey-garlic/honey-garlic-chicken-wide.html'
+    },
+    'honey-mustard': {
+      title: 'Honey Mustard Chicken',
+      subtitle: 'Potatoes',
+      menu: './docs/honey-mustard/honey-mustard-menu.html',
+      phone: './docs/honey-mustard/honey-mustard-instructions.html',
+      wide: './docs/honey-mustard/honey-mustard-wide.html'
+    },
+    'meatloaf': {
+      title: 'Meatloaf',
+      subtitle: 'Horseradish · Green Onion Mash',
+      menu: './docs/meatloaf/meatloaf-menu.html',
+      phone: './docs/meatloaf/meatloaf-instructions.html',
+      wide: './docs/meatloaf/meatloaf-wide.html'
+    },
+    'overnight-oats': {
+      title: 'Overnight Oats',
+      subtitle: 'Greek Yogurt · Fruit · Oats',
+      menu: './docs/overnight-oats/overnight-oats-menu.html',
+      phone: './docs/overnight-oats/overnight-oats-instructions.html',
+      wide: './docs/overnight-oats/overnight-oats-wide.html'
+    },
+    'pineapple-orange-teriyaki': {
+      title: 'Pineapple Orange Teriyaki',
+      subtitle: 'Cucumber · Coconut · Rice',
+      menu: './docs/teriyaki/teriyaki-menu.html',
+      phone: './docs/teriyaki/teriyaki-spread-instructions.html',
+      wide: './docs/teriyaki/teriyaki-wide.html'
+    },
+    'smash-sliders': {
+      title: 'Smash Sliders',
+      subtitle: 'Cheese · Pickles · Onion',
+      menu: './docs/smash-sliders/slider-menu.html',
+      phone: './docs/smash-sliders/slider-prep-order.html',
+      wide: './docs/smash-sliders/slider-wide.html'
+    }
+  };
   let savedSections = {};
   let pendingInstructionLinks = null;
 
@@ -798,6 +850,47 @@
     });
   }
 
+  function loadThisWeekRecipes() {
+    const raw = localStorage.getItem(thisWeekRecipesKey);
+    if (raw === null) return [...defaultThisWeekRecipes];
+    try {
+      return JSON.parse(raw)
+        .map(entry => typeof entry === 'string' ? { id: entry } : entry)
+        .filter(entry => thisWeekCatalog[entry.id]);
+    } catch {
+      return [...defaultThisWeekRecipes];
+    }
+  }
+
+  function renderThisWeekPlans() {
+    const grid = document.getElementById('thisWeekGrid');
+    if (!grid) return;
+
+    loadThisWeekRecipes().forEach(entry => {
+      const recipe = thisWeekCatalog[entry.id];
+      const section = document.createElement('div');
+      section.className = 'section week-plan-card';
+      if (entry.date) section.dataset.planDate = entry.date;
+      section.innerHTML = `
+        <div class="card recipe-card">
+          <div class="card-copy">
+            <div class="title-line">
+              <div class="card-title">${recipe.title}</div>
+              ${entry.day ? `<span class="plan-day">${entry.day}</span>` : ''}
+            </div>
+            <span class="card-subtitle">${recipe.subtitle}</span>
+          </div>
+          <div class="card-actions" aria-label="This Week ${recipe.title} links">
+            <a class="icon-link" href="${recipe.menu}" aria-label="${recipe.title} menu" title="Menu">📜</a>
+            <a class="icon-link instruction-choice-link" href="${recipe.phone}" data-phone="${recipe.phone}" data-wide="${recipe.wide}" aria-label="${recipe.title} cooking instructions" title="Cooking Instructions">🥘</a>
+          </div>
+        </div>
+      `;
+      grid.appendChild(section);
+    });
+  }
+
+  renderThisWeekPlans();
   hidePastWeekPlans();
 
   try {

@@ -171,3 +171,117 @@ window.INSTRUCTION_CONTENT["garlic-shrimp-rice-bowls"] = {
   </ol>
 </div>`
 };
+
+window.INSTRUCTION_CONTENT["crispy-shrimp-tacos"] = {
+  "title": "Crispy Shrimp Tacos Instructions",
+  "heroTitle": "Crispy Shrimp <span>Tacos</span>",
+  "heroSub": "Serves 2-3 · Prep ~15 min · Cook ~10 min",
+  "body": `<div class="hero">
+  <div class="hero-title">Crispy Shrimp <span>Tacos</span></div>
+  <div class="hero-sub">Serves 2-3 · Prep ~15 min · Cook ~10 min</div>
+</div>
+
+<div class="sec">Crema</div>
+<div class="ingredient-pull">
+  <div class="ingredient-pull-title">Pull Out</div>
+  <div class="ingredient-pull-list">
+    <span class="ingredient-pill">Greek yogurt or sour cream</span>
+    <span class="ingredient-pill">Lime</span>
+    <span class="ingredient-pill">Horseradish</span>
+    <span class="ingredient-pill">Hot sauce</span>
+    <span class="ingredient-pill">Honey</span>
+    <span class="ingredient-pill">Salt</span>
+  </div>
+</div>
+<div class="cook-block wide-half">
+  <div class="cook-head">
+    <span>
+      <span class="badge">Make first</span>
+      <h3>Lime-horseradish crema</h3>
+    </span>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Stir together <span class="ing">1/3 cup Greek yogurt or sour cream</span>, <span class="ing">1 tbsp lime juice</span>, <span class="ing">1 tsp horseradish</span>, <span class="ing">1 tsp hot sauce</span>, and a pinch of <span class="ing">salt</span>.</span></li>
+    <li><span class="st">Taste it. If it is too sharp, add a tiny drizzle of <span class="ing">honey</span>. If it tastes flat, add another squeeze of <span class="ing">lime</span>.</span></li>
+    <li><span class="st">Keep it cold while you make the slaw and shrimp.</span></li>
+  </ol>
+</div>
+
+<div class="sec">Slaw</div>
+<div class="ingredient-pull">
+  <div class="ingredient-pull-title">Pull Out</div>
+  <div class="ingredient-pull-list">
+    <span class="ingredient-pill">Cabbage</span>
+    <span class="ingredient-pill">White onion</span>
+    <span class="ingredient-pill">Green onions</span>
+    <span class="ingredient-pill">Cilantro</span>
+    <span class="ingredient-pill">Lime</span>
+    <span class="ingredient-pill">Salt</span>
+  </div>
+</div>
+<div class="cook-block wide-half">
+  <div class="cook-head">
+    <span>
+      <span class="badge">Crunchy topping</span>
+      <h3>Lime onion slaw</h3>
+    </span>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Toss <span class="ing">3 cups shredded cabbage</span> with <span class="ing">1/4 cup thinly sliced white onion</span>, <span class="ing">2 sliced green onions</span>, and <span class="ing">2 tbsp chopped cilantro</span>.</span></li>
+    <li><span class="st">Add <span class="ing">1 tbsp lime juice</span> and a pinch of <span class="ing">salt</span>. Toss well and let it sit while the shrimp cooks.</span></li>
+  </ol>
+</div>
+
+<div class="sec">Shrimp</div>
+<div class="ingredient-pull">
+  <div class="ingredient-pull-title">Pull Out</div>
+  <div class="ingredient-pull-list">
+    <span class="ingredient-pill">Shrimp</span>
+    <span class="ingredient-pill">Cornstarch</span>
+    <span class="ingredient-pill">Chili powder</span>
+    <span class="ingredient-pill">Smoked paprika</span>
+    <span class="ingredient-pill">Garlic powder</span>
+    <span class="ingredient-pill">Oil</span>
+    <span class="ingredient-pill">Salt & pepper</span>
+  </div>
+</div>
+<div class="cook-block wide-full">
+  <div class="cook-head">
+    <span>
+      <span class="badge">Hot skillet</span>
+      <h3>Crisp the shrimp</h3>
+    </span>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Pat <span class="ing">1 lb shrimp</span> very dry. Damp shrimp steam instead of crisp.</span></li>
+    <li><span class="st">Toss shrimp with <span class="ing">2 tbsp cornstarch</span>, <span class="ing">1 tsp chili powder</span>, <span class="ing">1/2 tsp smoked paprika</span>, <span class="ing">1/2 tsp garlic powder</span>, a pinch of <span class="ing">salt</span>, and <span class="ing">black pepper</span>.</span></li>
+    <li><span class="st">Heat a large skillet over medium-high with a thin layer of <span class="ing">oil</span>, about <span class="ing">1 tbsp</span>. Add shrimp in one layer.</span></li>
+    <li><span class="st">Cook <span class="ing">1-2 minutes per side</span>, until the edges look crisp and the shrimp are just opaque. Work in batches if the pan is crowded.</span></li>
+  </ol>
+</div>
+
+<div class="sec">Tacos</div>
+<div class="ingredient-pull">
+  <div class="ingredient-pull-title">Pull Out</div>
+  <div class="ingredient-pull-list">
+    <span class="ingredient-pill">Tortillas</span>
+    <span class="ingredient-pill">Shrimp</span>
+    <span class="ingredient-pill">Slaw</span>
+    <span class="ingredient-pill">Crema</span>
+    <span class="ingredient-pill">Lime</span>
+  </div>
+</div>
+<div class="cook-block">
+  <div class="cook-head">
+    <span>
+      <span class="badge">Assemble</span>
+      <h3>Build and eat</h3>
+    </span>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Warm <span class="ing">8-10 small tortillas</span> in a dry skillet for about <span class="ing">20-30 seconds per side</span>.</span></li>
+    <li><span class="st">Fill each tortilla with <span class="ing">slaw</span>, <span class="ing">crispy shrimp</span>, and a spoonful of <span class="ing">crema</span>.</span></li>
+    <li><span class="st">Finish with extra <span class="ing">cilantro</span>, <span class="ing">green onions</span>, and <span class="ing">lime wedges</span>.</span></li>
+  </ol>
+</div>`
+};

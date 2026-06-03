@@ -8,11 +8,14 @@
 <link rel="stylesheet" href="../theme.css?v=4">
 <style>
   .recipe-subhead {
+    align-items: center;
     background: #141414;
     border-bottom: 1px solid var(--border);
     color: var(--muted);
+    display: flex;
     font-size: 10px;
     font-weight: 600;
+    justify-content: space-between;
     letter-spacing: 1.4px;
     padding: 8px 14px 6px;
     text-transform: uppercase;
@@ -55,8 +58,103 @@
     display: flex !important;
     justify-content: space-between !important;
   }
+  .list-toolbar {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: 1fr 1fr;
+    margin: 14px 20px 0;
+  }
+  .top-add-btn {
+    appearance: none;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    cursor: pointer;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 12px 14px;
+    text-align: left;
+    width: 100%;
+  }
+  .top-add-btn:active {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+  .add-item-form {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    display: none;
+    gap: 8px;
+    margin: 8px 20px 0;
+    padding: 10px;
+  }
+  .add-item-form.is-open {
+    display: grid;
+  }
+  .add-item-form input,
+  .add-item-form select {
+    appearance: none;
+    background: #101010;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    box-sizing: border-box;
+    color: var(--text);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 16px;
+    padding: 10px;
+    width: 100%;
+  }
+  .form-actions {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: 1fr 1fr;
+  }
+  .form-actions button {
+    appearance: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px;
+  }
+  .save-item-btn {
+    background: var(--gold);
+    border: 1px solid var(--gold);
+    color: #111;
+  }
+  .cancel-item-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+  .trip-toolbar {
+    margin: 8px 20px 0;
+  }
+  .complete-trip-btn {
+    appearance: none;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--muted);
+    cursor: pointer;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 12px;
+    text-align: left;
+    width: 100%;
+  }
+  .complete-trip-btn:active {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
   .add-item-btn,
-  .remove-item-btn {
+  .remove-item-btn,
+  .remove-recipe-btn {
     appearance: none;
     background: transparent;
     border: 0;
@@ -81,6 +179,12 @@
     margin: -2px -4px -2px 4px;
     padding: 2px 4px;
   }
+  .remove-recipe-btn {
+    font-size: 13px;
+    line-height: 1;
+    margin: -4px -6px -4px 8px;
+    padding: 4px 6px;
+  }
   @keyframes boom-pop {
     0% { opacity: 0; transform: translate(-50%, -50%) scale(.35) rotate(-14deg); }
     18% { opacity: 1; transform: translate(-50%, -50%) scale(1.18) rotate(8deg); }
@@ -97,45 +201,326 @@
 <div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
 
 <div class="page-title">Grocery List</div>
-<div class="page-sub">Add items as needed</div>
 
-<div class="section">
-  <div class="section-header need">Produce</div>
-  <div class="item-list"></div>
+<div class="list-toolbar">
+  <button class="top-add-btn" type="button" id="addIngredient">+ Add Ingredient</button>
+  <button class="top-add-btn" type="button" id="addRecipe">+ Add Recipe</button>
 </div>
 
-<div class="section">
-  <div class="section-header need">Dairy</div>
-  <div class="item-list"></div>
+<form class="add-item-form" id="addIngredientForm">
+  <input id="newItemText" type="text" autocomplete="off" placeholder="Item">
+  <select id="newItemSection" aria-label="Section"></select>
+  <div class="form-actions">
+    <button class="save-item-btn" type="submit">Add</button>
+    <button class="cancel-item-btn" type="button" id="cancelAddItem">Cancel</button>
+  </div>
+</form>
+
+<form class="add-item-form" id="addRecipeForm">
+  <select id="newRecipeChoice" aria-label="Recipe"></select>
+  <select id="newRecipeDay" aria-label="Day"></select>
+  <div class="form-actions">
+    <button class="save-item-btn" type="submit">Add</button>
+    <button class="cancel-item-btn" type="button" id="cancelAddRecipe">Cancel</button>
+  </div>
+</form>
+
+<div class="trip-toolbar">
+  <button class="complete-trip-btn" type="button" id="completeShoppingTrip">Complete Shopping Trip</button>
 </div>
 
-<div class="section">
-  <div class="section-header need">Refrigerated</div>
-  <div class="item-list"></div>
-</div>
-
-<div class="section">
-  <div class="section-header need">Pantry</div>
-  <div class="item-list"></div>
-</div>
-
-<div class="section">
-  <div class="section-header need">Snacks</div>
-  <div class="item-list"></div>
-</div>
-
-<div class="section">
-  <div class="section-header need">Alcohol/Drinks</div>
-  <div class="item-list"></div>
-</div>
-
-<div class="section">
-  <div class="section-header need">Misc</div>
-  <div class="item-list"></div>
-</div>
+<div id="shoppingSections"></div>
 
 <script>
   const addedItemsKey = 'this-week-added-items-v2';
+  const selectedRecipesKey = 'this-week-selected-recipes-v1';
+  const purchasedItemsKey = 'this-week-purchased-items-v1';
+  const defaultRecipeIds = [
+    { id: 'overnight-oats' },
+    { id: 'buffalo-chickpea-dip', day: 'Thursday', date: '2026-06-04' },
+    { id: 'crispy-shrimp-tacos', day: 'Friday', date: '2026-06-05' }
+  ];
+  const dayOptions = ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  const sectionOptions = ['Produce', 'Meat/Seafood', 'Dairy', 'Refrigerated', 'Pantry', 'Snacks', 'Alcohol/Drinks', 'Misc'];
+  const recipeCatalog = {
+    'crispy-shrimp-tacos': {
+      name: 'Crispy Shrimp Tacos',
+      items: {
+        Produce: [
+          ['limes', 'Limes', '3, for slaw, crema, and serving'],
+          ['cabbage', 'Cabbage or slaw mix', 'About 3 cups shredded'],
+          ['white-onion', 'White onion', '1 small'],
+          ['green-onions', 'Green onions', '1 bunch'],
+          ['cilantro', 'Cilantro', 'Small bunch'],
+          ['garlic', 'Garlic', '1 head, optional for crema']
+        ],
+        'Meat/Seafood': [
+          ['shrimp', 'Raw shrimp', '1 lb, peeled and deveined']
+        ],
+        Dairy: [
+          ['yogurt', 'Greek yogurt or sour cream', 'At least 1/3 cup']
+        ],
+        Pantry: [
+          ['tortillas', 'Small tortillas', 'Corn or flour, 8-10'],
+          ['cornstarch', 'Cornstarch', 'About 2 tbsp for crisping'],
+          ['horseradish', 'Horseradish', 'About 1 tsp for the crema'],
+          ['hot-sauce', 'Hot sauce', 'A few dashes'],
+          ['honey', 'Honey', 'Optional tiny drizzle for the crema']
+        ]
+      }
+    },
+    'buffalo-chickpea-dip': {
+      name: 'Buffalo Chickpea Dip',
+      items: {
+        Produce: [
+          ['green-onions', 'Green onions', '1 bunch'],
+          ['lemon', 'Lemon', '1'],
+          ['fresh-garlic', 'Fresh garlic', '1 clove']
+        ],
+        Refrigerated: [
+          ['hummus', 'Plain hummus', '8 oz'],
+          ['cheese', 'Shredded cheese', 'Optional topping']
+        ],
+        Pantry: [
+          ['chickpeas', 'Chickpeas', '1 can'],
+          ['hot-sauce', 'Buffalo hot sauce', 'About 1/3 cup'],
+          ['pita-chips', 'Pita chips or pita', 'For dipping']
+        ]
+      }
+    },
+    'carnitas-elote-bowls': {
+      name: 'Carnitas Elote Bowls',
+      items: {
+        Produce: [
+          ['limes', 'Limes', '3'],
+          ['cilantro', 'Cilantro', 'Small bunch'],
+          ['green-onions', 'Green onions', '1 bunch'],
+          ['white-onion', 'White onion', '1 small'],
+          ['avocado', 'Avocado', '1-2'],
+          ['cabbage', 'Shredded cabbage', 'Small bag']
+        ],
+        Dairy: [
+          ['cotija', 'Cotija', 'About 1/2 cup'],
+          ['sour-cream', 'Sour cream or crema', 'Small container']
+        ],
+        Pantry: [
+          ['rice', 'White rice', '1 cup dry'],
+          ['corn', 'Corn', 'About 2 cups'],
+          ['tortilla-chips', 'Tortilla chips', 'Optional crunch']
+        ],
+        'Alcohol/Drinks': [
+          ['tequila', 'Tequila', 'For ranch water, if needed']
+        ]
+      }
+    },
+    'overnight-oats': {
+      name: 'Overnight Oats',
+      items: {
+        Produce: [
+          ['bananas', 'Bananas', '4'],
+          ['apples', 'Apples', '3-4'],
+          ['berries', 'Berries', 'Optional']
+        ],
+        Dairy: [
+          ['greek-yogurt', 'Greek yogurt', 'Large tub'],
+          ['milk', 'Milk or almond milk', 'Enough for oats']
+        ],
+        Pantry: [
+          ['oats', 'Old fashioned oats', '1 container'],
+          ['granola', 'Granola', 'For topping'],
+          ['honey', 'Honey', 'If needed']
+        ]
+      }
+    },
+    'meatloaf': {
+      name: 'Meatloaf',
+      items: {
+        Produce: [
+          ['green-onions', 'Green onions', '1 bunch'],
+          ['potatoes', 'Potatoes', 'For mash'],
+          ['garlic', 'Garlic', '1 head']
+        ],
+        'Meat/Seafood': [
+          ['ground-beef', 'Ground beef', 'About 1 1/2 lb']
+        ],
+        Dairy: [
+          ['butter', 'Butter', 'For mash'],
+          ['milk', 'Milk', 'For mash']
+        ],
+        Pantry: [
+          ['breadcrumbs', 'Breadcrumbs', 'About 1/2 cup'],
+          ['horseradish', 'Horseradish', 'For glaze'],
+          ['ketchup', 'Ketchup', 'For glaze'],
+          ['worcestershire', 'Worcestershire', 'For glaze']
+        ]
+      }
+    },
+    'garlic-shrimp-rice-bowls': {
+      name: 'Garlic Shrimp Rice Bowls',
+      items: {
+        Produce: [
+          ['limes', 'Limes', '2-3'],
+          ['garlic', 'Garlic', '1 head'],
+          ['cucumber', 'English cucumber', '1'],
+          ['red-onion', 'Red onion', '1 small'],
+          ['green-onions', 'Green onions', '1 bunch'],
+          ['cilantro', 'Cilantro or parsley', 'Small bunch'],
+          ['avocado', 'Avocado', 'Optional']
+        ],
+        'Meat/Seafood': [
+          ['shrimp', 'Raw shrimp', '1 lb']
+        ],
+        Pantry: [
+          ['rice', 'White rice', '1 cup dry'],
+          ['soy-sauce', 'Soy sauce', 'About 2 tbsp'],
+          ['honey', 'Honey', 'About 1 tsp'],
+          ['chili-crisp', 'Chili crisp or sriracha', 'Optional heat']
+        ]
+      }
+    },
+    'chicken-skewers': {
+      name: 'Chicken Skewers',
+      items: {
+        Produce: [
+          ['lemons', 'Lemons', '3-4'],
+          ['garlic', 'Garlic', '1 head'],
+          ['cucumber', 'English cucumber', '1'],
+          ['tomatoes', 'Cherry tomatoes', '1 pint'],
+          ['parsley', 'Parsley', 'Small bunch']
+        ],
+        'Meat/Seafood': [
+          ['chicken-thighs', 'Chicken thighs', '1.5-2 lb']
+        ],
+        Dairy: [
+          ['greek-yogurt', 'Greek yogurt', 'For sauce and dessert']
+        ],
+        Pantry: [
+          ['pita', 'Pita', 'For grilling'],
+          ['skewers', 'Skewers', 'If needed'],
+          ['honey', 'Honey', 'For sauce/drink/dessert']
+        ],
+        'Alcohol/Drinks': [
+          ['soda-water', 'Soda water', 'For highball, if needed']
+        ]
+      }
+    },
+    'honey-garlic': {
+      name: 'Honey Garlic Chicken',
+      items: {
+        Produce: [
+          ['garlic', 'Garlic', '1 head'],
+          ['green-beans', 'Green beans', '2 handfuls'],
+          ['cucumber', 'Cucumber', '1']
+        ],
+        'Meat/Seafood': [
+          ['chicken-thighs', 'Chicken thighs', '4-6']
+        ],
+        Dairy: [
+          ['butter', 'Butter', 'For sauce']
+        ],
+        Pantry: [
+          ['rice', 'White rice', '1 cup dry'],
+          ['honey', 'Honey', 'About 3 tbsp'],
+          ['soy-sauce', 'Soy sauce', 'About 3 tbsp'],
+          ['chicken-broth', 'Chicken broth', 'About 1/2 cup'],
+          ['cornstarch', 'Cornstarch', 'About 1 tbsp']
+        ]
+      }
+    },
+    'honey-mustard': {
+      name: 'Honey Mustard Chicken',
+      items: {
+        Produce: [
+          ['potatoes', 'Potatoes', 'For roasting'],
+          ['greens', 'Salad greens', 'For side']
+        ],
+        'Meat/Seafood': [
+          ['chicken-thighs', 'Chicken thighs', '4-6']
+        ],
+        Dairy: [
+          ['butter', 'Butter', 'For glaze']
+        ],
+        Pantry: [
+          ['dijon', 'Dijon mustard', 'For glaze and potatoes'],
+          ['yellow-mustard', 'Yellow mustard', 'For glaze'],
+          ['honey', 'Honey', 'For glaze'],
+          ['apple-cider-vinegar', 'Apple cider vinegar', 'For salad']
+        ]
+      }
+    },
+    'pineapple-orange-teriyaki': {
+      name: 'Pineapple Orange Teriyaki',
+      items: {
+        Produce: [
+          ['pineapple', 'Pineapple', 'Fresh or canned'],
+          ['orange', 'Orange', 'For sauce'],
+          ['cucumber', 'Cucumber', 'For side'],
+          ['green-onions', 'Green onions', '1 bunch']
+        ],
+        'Meat/Seafood': [
+          ['chicken-thighs', 'Chicken thighs', '4-6']
+        ],
+        Pantry: [
+          ['rice', 'White rice', '1 cup dry'],
+          ['soy-sauce', 'Soy sauce', 'For teriyaki'],
+          ['honey', 'Honey', 'For sauce'],
+          ['coconut', 'Coconut', 'For rice or topping']
+        ]
+      }
+    },
+    'smash-sliders': {
+      name: 'Smash Sliders',
+      items: {
+        Produce: [
+          ['onions', 'Onions', 'Several, for topping and caramelizing']
+        ],
+        'Meat/Seafood': [
+          ['ground-beef', 'Ground beef', 'For sliders']
+        ],
+        Dairy: [
+          ['cheese', 'Cheese', 'Pepper Jack, Gruyere, and/or cheddar'],
+          ['butter', 'Butter', 'For buns and onions']
+        ],
+        Pantry: [
+          ['hawaiian-rolls', 'Hawaiian rolls', 'For sliders'],
+          ['pickles', 'Pickles', 'For topping'],
+          ['mayo', 'Mayo', 'For sauce'],
+          ['mustard', 'Mustard', 'For sauce and topping'],
+          ['horseradish', 'Horseradish', 'For French Press sliders']
+        ]
+      }
+    }
+  };
+  const sectionAliases = {
+    produce: 'Produce',
+    dairy: 'Dairy',
+    refrigerated: 'Refrigerated',
+    fridge: 'Refrigerated',
+    seafood: 'Meat/Seafood',
+    meat: 'Meat/Seafood',
+    'meat/seafood': 'Meat/Seafood',
+    pantry: 'Pantry',
+    snacks: 'Snacks',
+    snack: 'Snacks',
+    alcohol: 'Alcohol/Drinks',
+    drinks: 'Alcohol/Drinks',
+    drink: 'Alcohol/Drinks',
+    'alcohol/drinks': 'Alcohol/Drinks',
+    misc: 'Misc',
+    other: 'Misc'
+  };
+  const sectionsRoot = document.getElementById('shoppingSections');
+  const addIngredient = document.getElementById('addIngredient');
+  const addRecipe = document.getElementById('addRecipe');
+  const addIngredientForm = document.getElementById('addIngredientForm');
+  const addRecipeForm = document.getElementById('addRecipeForm');
+  const newItemText = document.getElementById('newItemText');
+  const newItemSection = document.getElementById('newItemSection');
+  const newRecipeChoice = document.getElementById('newRecipeChoice');
+  const newRecipeDay = document.getElementById('newRecipeDay');
+  const cancelAddItem = document.getElementById('cancelAddItem');
+  const cancelAddRecipe = document.getElementById('cancelAddRecipe');
+  const completeShoppingTrip = document.getElementById('completeShoppingTrip');
   let wasComplete = false;
 
   const getCheckboxes = () => Array.from(document.querySelectorAll('input[type="checkbox"]'));
@@ -146,6 +531,21 @@
 
   const slugify = value => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
+  const dateForDay = day => {
+    if (!day) return '';
+    const target = dayOptions.indexOf(day);
+    if (target < 1) return '';
+    const today = new Date();
+    const todayIndex = today.getDay() === 0 ? 7 : today.getDay();
+    const delta = (target - todayIndex + 7) % 7;
+    const date = new Date(today);
+    date.setDate(today.getDate() + delta);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const dateNum = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${dateNum}`;
+  };
+
   const loadAddedItems = () => {
     try {
       return JSON.parse(localStorage.getItem(addedItemsKey)) || {};
@@ -154,7 +554,68 @@
     }
   };
 
+  const loadSelectedRecipes = () => {
+    const raw = localStorage.getItem(selectedRecipesKey);
+    if (raw === null) return [...defaultRecipeIds];
+    try {
+      return JSON.parse(raw)
+        .map(entry => typeof entry === 'string' ? { id: entry } : entry)
+        .filter(entry => recipeCatalog[entry.id]);
+    } catch {
+      return [...defaultRecipeIds];
+    }
+  };
+
+  const loadPurchasedItems = () => {
+    try {
+      return new Set(JSON.parse(localStorage.getItem(purchasedItemsKey)) || []);
+    } catch {
+      return new Set();
+    }
+  };
+
   const saveAddedItems = items => localStorage.setItem(addedItemsKey, JSON.stringify(items));
+  const saveSelectedRecipes = recipeIds => localStorage.setItem(selectedRecipesKey, JSON.stringify(recipeIds));
+  const savePurchasedItems = items => localStorage.setItem(purchasedItemsKey, JSON.stringify([...items]));
+
+  const normalizeSection = value => {
+    const clean = (value || '').trim().toLowerCase();
+    return sectionAliases[clean] || sectionOptions.find(option => option.toLowerCase() === clean) || 'Misc';
+  };
+
+  const closeForms = () => {
+    addIngredientForm.classList.remove('is-open');
+    addRecipeForm.classList.remove('is-open');
+  };
+
+  sectionOptions.forEach(sectionName => {
+    const option = document.createElement('option');
+    option.value = sectionName;
+    option.textContent = sectionName;
+    newItemSection.appendChild(option);
+  });
+
+  dayOptions.forEach(day => {
+    const option = document.createElement('option');
+    option.value = day;
+    option.textContent = day || 'No day';
+    newRecipeDay.appendChild(option);
+  });
+
+  const refreshRecipeOptions = () => {
+    const selectedRecipes = loadSelectedRecipes();
+    const selectedIds = selectedRecipes.map(entry => entry.id);
+    newRecipeChoice.innerHTML = '';
+    Object.entries(recipeCatalog)
+      .sort(([, a], [, b]) => a.name.localeCompare(b.name))
+      .forEach(([recipeId, recipe]) => {
+        const option = document.createElement('option');
+        option.value = recipeId;
+        option.textContent = selectedIds.includes(recipeId) ? `${recipe.name} (added)` : recipe.name;
+        option.disabled = selectedIds.includes(recipeId);
+        newRecipeChoice.appendChild(option);
+      });
+  };
 
   const showCartBoom = () => {
     document.querySelector('.cart-boom')?.remove();
@@ -197,10 +658,80 @@
     });
   };
 
-  const createCustomItem = (sectionName, item) => {
+  const recipeItemsBySection = () => {
+    const selectedRecipes = loadSelectedRecipes();
+    const purchasedItems = loadPurchasedItems();
+    return selectedRecipes.reduce((sections, entry) => {
+      const recipe = recipeCatalog[entry.id];
+      Object.entries(recipe.items).forEach(([sectionName, items]) => {
+        const normalizedSection = normalizeSection(sectionName);
+        const visibleItems = items
+          .map(([id, text, note]) => ({
+            id: `tw-${entry.id}-${id}`,
+            recipe: recipe.name,
+            recipeId: entry.id,
+            text,
+            note
+          }))
+          .filter(item => !purchasedItems.has(item.id));
+        sections[normalizedSection] = [
+          ...(sections[normalizedSection] || []),
+          ...visibleItems
+        ];
+      });
+      return sections;
+    }, {});
+  };
+
+  const removeRecipe = recipeId => {
+    const selectedRecipes = loadSelectedRecipes().filter(entry => entry.id !== recipeId);
+    const purchasedItems = loadPurchasedItems();
+    saveSelectedRecipes(selectedRecipes);
+    Object.values(recipeCatalog[recipeId]?.items || {}).flat().forEach(([id]) => {
+      purchasedItems.delete(`tw-${recipeId}-${id}`);
+      localStorage.removeItem(`this-week-tw-${recipeId}-${id}`);
+    });
+    savePurchasedItems(purchasedItems);
+    renderSections();
+  };
+
+  const completeTrip = () => {
+    const checked = getCheckboxes().filter(cb => cb.checked);
+    if (!checked.length) return;
+
+    const purchasedItems = loadPurchasedItems();
+    const addedItems = loadAddedItems();
+
+    checked.forEach(cb => {
+      localStorage.removeItem(`this-week-${cb.id}`);
+      if (cb.id.startsWith('tw-custom-')) {
+        Object.keys(addedItems).forEach(sectionName => {
+          addedItems[sectionName] = (addedItems[sectionName] || []).filter(item => item.id !== cb.id);
+          if (!addedItems[sectionName].length) delete addedItems[sectionName];
+        });
+      } else {
+        purchasedItems.add(cb.id);
+      }
+    });
+
+    saveAddedItems(addedItems);
+    savePurchasedItems(purchasedItems);
+    renderSections();
+  };
+
+  const removeCustomItem = (sectionName, item) => {
+    const addedItems = loadAddedItems();
+    addedItems[sectionName] = (addedItems[sectionName] || []).filter(saved => saved.id !== item.id);
+    if (!addedItems[sectionName].length) delete addedItems[sectionName];
+    saveAddedItems(addedItems);
+    localStorage.removeItem(`this-week-${item.id}`);
+    renderSections();
+  };
+
+  const createItemRow = item => {
     const row = document.createElement('div');
-    row.className = 'item custom-item';
-    row.dataset.customId = item.id;
+    row.className = item.custom ? 'item custom-item' : 'item';
+    if (item.custom) row.dataset.customId = item.id;
 
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
@@ -209,6 +740,20 @@
     const label = document.createElement('label');
     label.htmlFor = item.id;
     label.textContent = item.text;
+    if (item.note) {
+      const note = document.createElement('span');
+      note.className = 'item-note';
+      note.textContent = item.note;
+      label.appendChild(note);
+    }
+
+    row.append(checkbox, label);
+    registerCheckbox(checkbox);
+    return row;
+  };
+
+  const createCustomItem = (sectionName, item) => {
+    const row = createItemRow({ ...item, custom: true });
 
     const remove = document.createElement('button');
     remove.type = 'button';
@@ -217,59 +762,140 @@
     remove.textContent = 'x';
     remove.addEventListener('click', event => {
       event.stopPropagation();
-      const addedItems = loadAddedItems();
-      addedItems[sectionName] = (addedItems[sectionName] || []).filter(saved => saved.id !== item.id);
-      saveAddedItems(addedItems);
-      localStorage.removeItem(`this-week-${item.id}`);
-      row.remove();
-      wasComplete = isComplete();
+      removeCustomItem(sectionName, item);
     });
 
-    row.append(checkbox, label, remove);
-    registerCheckbox(checkbox);
+    row.appendChild(remove);
     return row;
   };
 
-  const hydrateAddedItems = () => {
+  const addCustomItem = (sectionName, text) => {
     const addedItems = loadAddedItems();
-    document.querySelectorAll('.section').forEach(section => {
-      const header = section.querySelector('.section-header');
-      const list = section.querySelector('.item-list');
-      if (!header || !list) return;
-
-      const sectionName = header.textContent.trim();
-      const addButton = document.createElement('button');
-      addButton.type = 'button';
-      addButton.className = 'add-item-btn';
-      addButton.setAttribute('aria-label', `Add item to ${sectionName}`);
-      addButton.textContent = '+';
-      addButton.addEventListener('click', () => {
-        const text = window.prompt(`Add to ${sectionName}`);
-        const cleanText = text?.trim();
-        if (!cleanText) return;
-
-        const added = loadAddedItems();
-        const item = {
-          id: `tw-custom-${slugify(sectionName)}-${Date.now()}`,
-          text: cleanText
-        };
-        added[sectionName] = [...(added[sectionName] || []), item];
-        saveAddedItems(added);
-        list.appendChild(createCustomItem(sectionName, item));
-        wasComplete = isComplete();
-      });
-      header.appendChild(addButton);
-
-      (addedItems[sectionName] || []).forEach(item => {
-        list.appendChild(createCustomItem(sectionName, item));
-      });
-    });
+    const item = {
+      id: `tw-custom-${slugify(sectionName)}-${Date.now()}`,
+      text
+    };
+    addedItems[sectionName] = [...(addedItems[sectionName] || []), item];
+    saveAddedItems(addedItems);
+    renderSections();
   };
 
-  getCheckboxes().forEach(registerCheckbox);
-  hydrateAddedItems();
+  const openIngredientForm = preferredSection => {
+    closeForms();
+    newItemSection.value = normalizeSection(preferredSection || 'Misc');
+    addIngredientForm.classList.add('is-open');
+    newItemText.focus();
+  };
 
-  wasComplete = isComplete();
+  const openRecipeForm = () => {
+    closeForms();
+    refreshRecipeOptions();
+    newRecipeDay.value = '';
+    addRecipeForm.classList.add('is-open');
+    newRecipeChoice.focus();
+  };
+
+  const createRecipeGroup = (items) => {
+    const fragment = document.createDocumentFragment();
+    const itemsByRecipe = items.reduce((groups, item) => {
+      groups[item.recipe] = [...(groups[item.recipe] || []), item];
+      return groups;
+    }, {});
+
+    Object.entries(itemsByRecipe)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .forEach(([recipeName, recipeItems]) => {
+      const subhead = document.createElement('div');
+      subhead.className = 'recipe-subhead';
+      const label = document.createElement('span');
+      label.textContent = recipeName;
+      const remove = document.createElement('button');
+      remove.type = 'button';
+      remove.className = 'remove-recipe-btn';
+      remove.setAttribute('aria-label', `Remove ${recipeName}`);
+      remove.textContent = 'x';
+      remove.addEventListener('click', () => removeRecipe(recipeItems[0].recipeId));
+      subhead.append(label, remove);
+      fragment.appendChild(subhead);
+      recipeItems.forEach(item => fragment.appendChild(createItemRow(item)));
+    });
+
+    return fragment;
+  };
+
+  const createSection = (sectionName, planned, items) => {
+    const section = document.createElement('div');
+    section.className = 'section';
+
+    const header = document.createElement('div');
+    header.className = 'section-header need';
+
+    const label = document.createElement('span');
+    label.textContent = sectionName;
+
+    const addButton = document.createElement('button');
+    addButton.type = 'button';
+    addButton.className = 'add-item-btn';
+    addButton.setAttribute('aria-label', `Add ingredient to ${sectionName}`);
+    addButton.textContent = '+';
+    addButton.addEventListener('click', () => openIngredientForm(sectionName));
+
+    const list = document.createElement('div');
+    list.className = 'item-list';
+    if (planned.length) list.appendChild(createRecipeGroup(planned));
+    items.forEach(item => list.appendChild(createCustomItem(sectionName, item)));
+
+    header.append(label, addButton);
+    section.append(header, list);
+    return section;
+  };
+
+  const renderSections = () => {
+    const addedItems = loadAddedItems();
+    const recipeItems = recipeItemsBySection();
+    sectionsRoot.innerHTML = '';
+    sectionOptions.forEach(sectionName => {
+      const planned = recipeItems[sectionName] || [];
+      const items = (addedItems[sectionName] || []).filter(item => item?.id && item?.text);
+      if (!planned.length && !items.length) return;
+      sectionsRoot.appendChild(createSection(sectionName, planned, items));
+    });
+    wasComplete = isComplete();
+  };
+
+  addIngredient.addEventListener('click', () => openIngredientForm());
+  addRecipe.addEventListener('click', openRecipeForm);
+  cancelAddItem.addEventListener('click', () => {
+    addIngredientForm.classList.remove('is-open');
+    newItemText.value = '';
+  });
+  cancelAddRecipe.addEventListener('click', () => addRecipeForm.classList.remove('is-open'));
+  addIngredientForm.addEventListener('submit', event => {
+    event.preventDefault();
+    const cleanText = newItemText.value.trim();
+    if (!cleanText) return;
+    addCustomItem(normalizeSection(newItemSection.value), cleanText);
+    newItemText.value = '';
+    addIngredientForm.classList.remove('is-open');
+  });
+  addRecipeForm.addEventListener('submit', event => {
+    event.preventDefault();
+    const recipeId = newRecipeChoice.value;
+    const selectedRecipes = loadSelectedRecipes();
+    if (recipeId && !selectedRecipes.some(entry => entry.id === recipeId)) {
+      const day = newRecipeDay.value;
+      const purchasedItems = loadPurchasedItems();
+      Object.values(recipeCatalog[recipeId]?.items || {}).flat().forEach(([id]) => {
+        purchasedItems.delete(`tw-${recipeId}-${id}`);
+      });
+      savePurchasedItems(purchasedItems);
+      saveSelectedRecipes([...selectedRecipes, { id: recipeId, day, date: dateForDay(day) }]);
+    }
+    addRecipeForm.classList.remove('is-open');
+    renderSections();
+  });
+  completeShoppingTrip.addEventListener('click', completeTrip);
+  renderSections();
 </script>
 </body>
 </html>

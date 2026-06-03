@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Grocery List - Crispy Shrimp Tacos</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../theme.css?v=4">
+</head>
+<body>
+<div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
+
+<div class="page-title">Grocery List</div>
+<div class="page-sub">Crispy Shrimp Tacos</div>
+
+<div class="section">
+  <div class="section-header need">Produce</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="cst1"><label for="cst1">Limes<span class="item-note">3, for slaw, crema, and serving</span></label></div>
+    <div class="item"><input type="checkbox" id="cst2"><label for="cst2">Cabbage or slaw mix<span class="item-note">About 3 cups shredded</span></label></div>
+    <div class="item"><input type="checkbox" id="cst3"><label for="cst3">White onion<span class="item-note">1 small</span></label></div>
+    <div class="item"><input type="checkbox" id="cst4"><label for="cst4">Green onions<span class="item-note">1 bunch</span></label></div>
+    <div class="item"><input type="checkbox" id="cst5"><label for="cst5">Cilantro<span class="item-note">Small bunch</span></label></div>
+    <div class="item"><input type="checkbox" id="cst6"><label for="cst6">Garlic<span class="item-note">1 head, optional for crema</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Seafood</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="cst7"><label for="cst7">Raw shrimp<span class="item-note">1 lb, peeled and deveined</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Dairy</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="cst8"><label for="cst8">Greek yogurt or sour cream<span class="item-note">At least 1/3 cup</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Pantry</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="cst9"><label for="cst9">Small tortillas<span class="item-note">Corn or flour, 8-10</span></label></div>
+    <div class="item"><input type="checkbox" id="cst10"><label for="cst10">Cornstarch<span class="item-note">About 2 tbsp for crisping</span></label></div>
+    <div class="item"><input type="checkbox" id="cst11"><label for="cst11">Horseradish<span class="item-note">About 1 tsp for the crema</span></label></div>
+    <div class="item"><input type="checkbox" id="cst12"><label for="cst12">Hot sauce<span class="item-note">A few dashes</span></label></div>
+    <div class="item"><input type="checkbox" id="cst13"><label for="cst13">Honey<span class="item-note">Optional tiny drizzle for the crema</span></label></div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    const key = `crispy-shrimp-tacos-${cb.id}`;
+    cb.checked = localStorage.getItem(key) === 'checked';
+    cb.addEventListener('change', () => {
+      localStorage.setItem(key, cb.checked ? 'checked' : '');
+    });
+  });
+</script>
+<script src="../grocery-boom.js?v=1"></script>
+</body>
+</html>

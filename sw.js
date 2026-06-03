@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v109';
+const CACHE_NAME = 'jeffs-kitchen-v112';
 
 const PAGES = [
   './',
@@ -9,7 +9,7 @@ const PAGES = [
   './docs/menu-card.css',
   './docs/wide-layout.css',
   './docs/wide-pills.js',
-  './docs/instruction-content.js?v=7',
+  './docs/instruction-content.js?v=8',
   './docs/instruction-renderer.js?v=10',
   './docs/grocery-boom.js',
   './docs/poll/dinner-poll.html',
@@ -54,6 +54,10 @@ const PAGES = [
   './docs/garlic-shrimp-rice-bowls/garlic-shrimp-rice-bowls-menu.html',
   './docs/garlic-shrimp-rice-bowls/garlic-shrimp-rice-bowls-instructions.html',
   './docs/garlic-shrimp-rice-bowls/garlic-shrimp-rice-bowls-wide.html',
+  './docs/crispy-shrimp-tacos/grocery-list-crispy-shrimp-tacos.html',
+  './docs/crispy-shrimp-tacos/crispy-shrimp-tacos-menu.html',
+  './docs/crispy-shrimp-tacos/crispy-shrimp-tacos-instructions.html',
+  './docs/crispy-shrimp-tacos/crispy-shrimp-tacos-wide.html',
   './docs/charcoal-chicken/grocery-list-charcoal-chicken.html',
   './docs/charcoal-chicken/charcoal-chicken-instructions.html',
   './docs/grilled-chicken-sandwiches/grocery-list-grilled-chicken-sandwiches.html',
