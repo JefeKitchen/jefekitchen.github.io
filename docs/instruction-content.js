@@ -172,6 +172,169 @@ window.INSTRUCTION_CONTENT["garlic-shrimp-rice-bowls"] = {
 </div>`
 };
 
+window.INSTRUCTION_CONTENT["steak-scallion-fried-rice"] = {
+    "title": "Steak Scallion Fried Rice Instructions",
+    "heroTitle": "Steak Scallion <span>Fried Rice</span>",
+    "heroSub": "Serves 2-3 · Prep ~20 min · Cook ~20 min",
+    "body": `<div class="hero">
+  <div class="hero-title">Steak Scallion <span>Fried Rice</span></div>
+  <div class="hero-sub">Serves 2-3 · Prep ~20 min · Cook ~20 min</div>
+</div>
+
+<div class="sec">Rice</div>
+<div class="ingredient-pull">
+  <div class="ingredient-pull-title">Pull Out</div>
+  <div class="ingredient-pull-list">
+    <span class="ingredient-pill">White rice</span>
+    <span class="ingredient-pill">Water</span>
+    <span class="ingredient-pill">Salt</span>
+  </div>
+</div>
+<div class="cook-block wide-half">
+  <div class="cook-head">
+    <span>
+      <span class="badge">Best if cold</span>
+      <h3>Cook or prep the rice</h3>
+    </span>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">If using leftover rice, use about <span class="ing">4 cups cooked white rice</span> and break up clumps with your hands.</span></li>
+    <li><span class="st">If cooking fresh rice, rinse <span class="ing">1 1/2 cups white rice</span>. Cook with <span class="ing">2 cups water</span> and a pinch of <span class="ing">salt</span>.</span></li>
+    <li><span class="st">Spread fresh rice on a plate or sheet pan for <span class="ing">10-15 minutes</span> so steam can escape. Dryer rice fries better.</span></li>
+  </ol>
+</div>
+
+<div class="sec">Cucumber</div>
+<div class="ingredient-pull">
+  <div class="ingredient-pull-title">Pull Out</div>
+  <div class="ingredient-pull-list">
+    <span class="ingredient-pill">Cucumber</span>
+    <span class="ingredient-pill">Rice vinegar</span>
+    <span class="ingredient-pill">Sesame oil</span>
+    <span class="ingredient-pill">Salt</span>
+  </div>
+</div>
+<div class="cook-block wide-half">
+  <div class="cook-head">
+    <span>
+      <span class="badge">Cold side</span>
+      <h3>Make cucumber crunch</h3>
+    </span>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Slice <span class="ing">1 cucumber</span> into half moons or thin coins.</span></li>
+    <li><span class="st">Toss with <span class="ing">1 tbsp rice vinegar</span>, <span class="ing">1/2 tsp sesame oil</span>, and a pinch of <span class="ing">salt</span>.</span></li>
+    <li><span class="st">Set aside while everything cooks. Taste before serving and add another tiny splash of vinegar if it needs brightness.</span></li>
+  </ol>
+</div>
+
+<div class="sec">Prep</div>
+<div class="ingredient-pull">
+  <div class="ingredient-pull-title">Pull Out</div>
+  <div class="ingredient-pull-list">
+    <span class="ingredient-pill">Steak</span>
+    <span class="ingredient-pill">White onion</span>
+    <span class="ingredient-pill">Green onions</span>
+    <span class="ingredient-pill">Garlic</span>
+    <span class="ingredient-pill">Eggs</span>
+  </div>
+</div>
+<div class="cook-block wide-full">
+  <div class="cook-head">
+    <span>
+      <span class="badge">Mise first</span>
+      <h3>Slice everything before heat</h3>
+    </span>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Thinly slice <span class="ing">12-16 oz steak</span> across the grain. Season with a pinch of <span class="ing">salt</span> and <span class="ing">black pepper</span>.</span></li>
+    <li><span class="st">Dice <span class="ing">1 small white onion</span>. Mince <span class="ing">3 garlic cloves</span>.</span></li>
+    <li><span class="st">Slice <span class="ing">1 bunch green onions</span>. Keep whites and light greens in one pile; keep dark greens separate for finishing.</span></li>
+    <li><span class="st">Beat <span class="ing">2 eggs</span> in a small bowl with a pinch of <span class="ing">salt</span>.</span></li>
+  </ol>
+</div>
+
+<div class="sec">Sauce</div>
+<div class="ingredient-pull">
+  <div class="ingredient-pull-title">Pull Out</div>
+  <div class="ingredient-pull-list">
+    <span class="ingredient-pill">Soy sauce</span>
+    <span class="ingredient-pill">Rice vinegar</span>
+    <span class="ingredient-pill">Honey</span>
+    <span class="ingredient-pill">Sesame oil</span>
+    <span class="ingredient-pill">Chili crisp</span>
+  </div>
+</div>
+<div class="cook-block wide-half">
+  <div class="cook-head">
+    <span>
+      <span class="badge">Bowl sauce</span>
+      <h3>Mix the soy-garlic sauce</h3>
+    </span>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Stir together <span class="ing">3 tbsp soy sauce</span>, <span class="ing">1 tbsp rice vinegar</span>, <span class="ing">1 tsp honey</span>, and <span class="ing">1 tsp sesame oil</span>.</span></li>
+    <li><span class="st">For heat, add <span class="ing">1-2 tsp chili crisp or sriracha</span>. Keep it optional if you want the bowls milder.</span></li>
+  </ol>
+</div>
+
+<div class="sec">Cook</div>
+<div class="ingredient-pull">
+  <div class="ingredient-pull-title">Pull Out</div>
+  <div class="ingredient-pull-list">
+    <span class="ingredient-pill">Steak</span>
+    <span class="ingredient-pill">Eggs</span>
+    <span class="ingredient-pill">Rice</span>
+    <span class="ingredient-pill">White onion</span>
+    <span class="ingredient-pill">Green onions</span>
+    <span class="ingredient-pill">Garlic</span>
+    <span class="ingredient-pill">Sauce</span>
+  </div>
+</div>
+<div class="cook-block wide-full">
+  <div class="cook-head">
+    <span>
+      <span class="badge">Hot pan</span>
+      <h3>Fry the rice</h3>
+    </span>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Heat a large skillet or wok over <span class="ing">medium-high</span>. Add about <span class="ing">1 tbsp neutral oil</span>.</span></li>
+    <li><span class="st">Add steak in a single layer. Sear <span class="ing">60-90 seconds</span> without moving, then toss for another <span class="ing">30-60 seconds</span>. Pull steak to a plate while it is still tender.</span></li>
+    <li><span class="st">Add another small drizzle of <span class="ing">oil</span>. Scramble the <span class="ing">2 eggs</span> just until set, then move them to the steak plate.</span></li>
+    <li><span class="st">Add <span class="ing">white onion</span> and the green onion whites. Cook <span class="ing">2-3 minutes</span>, until softened and a little browned.</span></li>
+    <li><span class="st">Add <span class="ing">garlic</span> and cook <span class="ing">30 seconds</span>, just until fragrant.</span></li>
+    <li><span class="st">Add the <span class="ing">rice</span>. Press it into the pan and let it sit for <span class="ing">1 minute</span> before tossing so some grains crisp.</span></li>
+    <li><span class="st">Pour in the <span class="ing">sauce</span>. Toss until the rice is evenly coated, about <span class="ing">1-2 minutes</span>.</span></li>
+    <li><span class="st">Return the <span class="ing">steak</span> and <span class="ing">eggs</span> to the pan. Toss with most of the dark green onions. Taste and add a small splash of soy sauce if it needs salt.</span></li>
+  </ol>
+</div>
+
+<div class="sec">Serve</div>
+<div class="ingredient-pull">
+  <div class="ingredient-pull-title">Pull Out</div>
+  <div class="ingredient-pull-list">
+    <span class="ingredient-pill">Fried rice</span>
+    <span class="ingredient-pill">Cucumber</span>
+    <span class="ingredient-pill">Green onions</span>
+    <span class="ingredient-pill">Lime</span>
+  </div>
+</div>
+<div class="cook-block wide-half">
+  <div class="cook-head">
+    <span>
+      <span class="badge">Bowls</span>
+      <h3>Finish and plate</h3>
+    </span>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Spoon <span class="ing">fried rice</span> into bowls.</span></li>
+    <li><span class="st">Top with the rest of the <span class="ing">green onions</span> and serve the <span class="ing">cucumber crunch</span> on the side.</span></li>
+    <li><span class="st">If you have <span class="ing">lime</span>, squeeze a small wedge over each bowl right before eating.</span></li>
+  </ol>
+</div>`
+};
+
 window.INSTRUCTION_CONTENT["crispy-shrimp-tacos"] = {
   "title": "Crispy Shrimp Tacos Instructions",
   "heroTitle": "Crispy Shrimp <span>Tacos</span>",

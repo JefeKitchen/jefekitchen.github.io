@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v121';
+const CACHE_NAME = 'jeffs-kitchen-v122';
 
 const PAGES = [
   './',
@@ -12,7 +12,7 @@ const PAGES = [
   './docs/menu-card.css',
   './docs/wide-layout.css',
   './docs/wide-pills.js',
-  './docs/instruction-content.js?v=8',
+  './docs/instruction-content.js?v=9',
   './docs/instruction-renderer.js?v=10',
   './docs/grocery-boom.js',
   './docs/poll/dinner-poll.html',
@@ -32,6 +32,9 @@ const PAGES = [
   './docs/beef-onion-smash-bowls/beef-onion-smash-bowls-menu.html',
   './docs/crispy-onion-chicken-bowls/crispy-onion-chicken-bowls-menu.html',
   './docs/steak-scallion-fried-rice/steak-scallion-fried-rice-menu.html',
+  './docs/steak-scallion-fried-rice/grocery-list-steak-scallion-fried-rice.html',
+  './docs/steak-scallion-fried-rice/steak-scallion-fried-rice-instructions.html',
+  './docs/steak-scallion-fried-rice/steak-scallion-fried-rice-wide.html',
   './docs/oniony-chicken-quesadillas/oniony-chicken-quesadillas-menu.html',
   './docs/korean-beef-scallion-bowls/korean-beef-scallion-bowls-menu.html',
   './docs/one-pan-lemon-chicken/one-pan-lemon-chicken-menu.html',

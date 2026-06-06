@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Grocery List - Steak Scallion Fried Rice</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../theme.css?v=4">
+</head>
+<body>
+<div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
+
+<div class="page-title">Grocery List</div>
+<div class="page-sub">Steak Scallion Fried Rice</div>
+
+<div class="section">
+  <div class="section-header need">Produce</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="ssfr1"><label for="ssfr1">Green onions<span class="item-note">1 large bunch</span></label></div>
+    <div class="item"><input type="checkbox" id="ssfr2"><label for="ssfr2">White onion<span class="item-note">1 small</span></label></div>
+    <div class="item"><input type="checkbox" id="ssfr3"><label for="ssfr3">Garlic<span class="item-note">1 head</span></label></div>
+    <div class="item"><input type="checkbox" id="ssfr4"><label for="ssfr4">Cucumber<span class="item-note">1, for side</span></label></div>
+    <div class="item"><input type="checkbox" id="ssfr5"><label for="ssfr5">Lime<span class="item-note">1, optional for serving or drink</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Meat/Seafood</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="ssfr6"><label for="ssfr6">Steak<span class="item-note">12-16 oz flank, sirloin, or skirt</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Dairy</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="ssfr7"><label for="ssfr7">Eggs<span class="item-note">2</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Pantry</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="ssfr8"><label for="ssfr8">White rice<span class="item-note">1 1/2 cups dry, or leftover cooked rice</span></label></div>
+    <div class="item"><input type="checkbox" id="ssfr9"><label for="ssfr9">Soy sauce<span class="item-note">About 1/4 cup</span></label></div>
+    <div class="item"><input type="checkbox" id="ssfr10"><label for="ssfr10">Rice vinegar<span class="item-note">For cucumber and sauce</span></label></div>
+    <div class="item"><input type="checkbox" id="ssfr11"><label for="ssfr11">Sesame oil<span class="item-note">Small bottle, if needed</span></label></div>
+    <div class="item"><input type="checkbox" id="ssfr12"><label for="ssfr12">Honey or brown sugar<span class="item-note">About 1 tbsp</span></label></div>
+    <div class="item"><input type="checkbox" id="ssfr13"><label for="ssfr13">Chili crisp or sriracha<span class="item-note">Optional heat</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Alcohol/Drinks</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="ssfr14"><label for="ssfr14">Ginger beer<span class="item-note">For optional highball</span></label></div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    const key = `steak-scallion-fried-rice-${cb.id}`;
+    cb.checked = localStorage.getItem(key) === 'checked';
+    cb.addEventListener('change', () => {
+      localStorage.setItem(key, cb.checked ? 'checked' : '');
+    });
+  });
+</script>
+<script src="../grocery-boom.js?v=1"></script>
+</body>
+</html>
