@@ -280,6 +280,27 @@
   .icon-link:active {
     filter: brightness(1.15);
   }
+  .week-remove-btn {
+    align-items: center;
+    appearance: none;
+    background: transparent;
+    border: 0;
+    color: var(--muted);
+    cursor: pointer;
+    display: inline-flex;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 18px;
+    height: 34px;
+    justify-content: center;
+    line-height: 1;
+    margin-left: 1px;
+    padding: 0;
+    width: 22px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .week-remove-btn:active {
+    color: var(--gold);
+  }
   .choice-sheet {
     position: fixed;
     inset: 0;
@@ -1027,6 +1048,15 @@
     if (key === thisWeekShoppingRecipesKey) clearPurchasedRecipe(recipeId);
   }
 
+  function removeThisWeekRecipe(recipeId) {
+    saveThisWeekRecipes(loadThisWeekRecipes().filter(entry => entry.id !== recipeId));
+    saveShoppingRecipes(loadShoppingRecipes().filter(entry => entry.id !== recipeId));
+    clearPurchasedRecipe(recipeId);
+    renderThisWeekPlans();
+    hidePastWeekPlans();
+    populateWeekRecipeForm();
+  }
+
   function renderThisWeekPlans() {
     const grid = document.getElementById('thisWeekGrid');
     if (!grid) return;
@@ -1050,6 +1080,7 @@
           <div class="card-actions" aria-label="This Week ${recipe.title} links">
             <a class="icon-link" href="${recipe.menu}" aria-label="${recipe.title} menu" title="Menu">📜</a>
             <a class="icon-link instruction-choice-link" href="${recipe.phone}" data-phone="${recipe.phone}" data-wide="${recipe.wide}" aria-label="${recipe.title} cooking instructions" title="Cooking Instructions">🥘</a>
+            <button class="week-remove-btn" type="button" data-remove-this-week="${entry.id}" aria-label="Remove ${recipe.title} from This Week" title="Remove from This Week">×</button>
           </div>
         </div>
       `;
@@ -1210,6 +1241,14 @@
   });
 
   cancelWeekRecipe.addEventListener('click', closeWeekChoice);
+
+  document.getElementById('thisWeekGrid')?.addEventListener('click', event => {
+    const button = event.target.closest('[data-remove-this-week]');
+    if (!button) return;
+    event.preventDefault();
+    event.stopPropagation();
+    removeThisWeekRecipe(button.dataset.removeThisWeek);
+  });
 
   weekRecipeForm.addEventListener('submit', event => {
     event.preventDefault();
