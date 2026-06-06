@@ -193,14 +193,14 @@ window.INSTRUCTION_CONTENT["steak-scallion-fried-rice"] = {
 <div class="cook-block wide-half">
   <div class="cook-head">
     <span>
-      <span class="badge">Best if cold</span>
-      <h3>Cook or prep the rice</h3>
+      <span class="badge">Start here</span>
+      <h3>Cook the rice</h3>
     </span>
   </div>
   <ol class="cook-steps">
-    <li><span class="st">If using leftover rice, use about <span class="ing">4 cups cooked white rice</span> and break up clumps with your hands.</span></li>
-    <li><span class="st">If cooking fresh rice, rinse <span class="ing">1 1/2 cups white rice</span>. Cook with <span class="ing">2 cups water</span> and a pinch of <span class="ing">salt</span>.</span></li>
-    <li><span class="st">Spread fresh rice on a plate or sheet pan for <span class="ing">10-15 minutes</span> so steam can escape. Dryer rice fries better.</span></li>
+    <li><span class="st">Rinse <span class="ing">1 1/2 cups white rice</span>. Cook with <span class="ing">2 cups water</span> and a pinch of <span class="ing">salt</span>.</span></li>
+    <li><span class="st">When the rice is done, spread it on a plate or sheet pan for <span class="ing">10-15 minutes</span> so steam can escape before frying.</span></li>
+    <li><span class="st">Break up clumps with your hands or a fork before it goes into the skillet.</span></li>
   </ol>
 </div>
 
