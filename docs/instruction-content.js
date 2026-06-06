@@ -181,6 +181,30 @@ window.INSTRUCTION_CONTENT["steak-scallion-fried-rice"] = {
   <div class="hero-sub">Serves 2-3 · Prep ~20 min · Cook ~20 min</div>
 </div>
 
+<div class="sec">Drink</div>
+<div class="ingredient-pull">
+  <div class="ingredient-pull-title">Pull Out</div>
+  <div class="ingredient-pull-list">
+    <span class="ingredient-pill">Vodka</span>
+    <span class="ingredient-pill">Lime</span>
+    <span class="ingredient-pill">Soda water</span>
+    <span class="ingredient-pill">Ice</span>
+  </div>
+</div>
+<div class="cook-block wide-half">
+  <div class="cook-head">
+    <span>
+      <span class="badge">Clean and easy</span>
+      <h3>Vodka lime soda</h3>
+    </span>
+  </div>
+  <ol class="cook-steps">
+    <li><span class="st">Fill a glass with <span class="ing">ice</span>. Add <span class="ing">2 oz vodka</span> and <span class="ing">1/2 oz lime juice</span>.</span></li>
+    <li><span class="st">Top with cold <span class="ing">soda water</span> and stir once.</span></li>
+    <li><span class="st">Taste and add another squeeze of <span class="ing">lime</span> if you want it brighter.</span></li>
+  </ol>
+</div>
+
 <div class="sec">Rice</div>
 <div class="ingredient-pull">
   <div class="ingredient-pull-title">Pull Out</div>
