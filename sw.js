@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v120';
+const CACHE_NAME = 'jeffs-kitchen-v121';
 
 const PAGES = [
   './',
@@ -29,6 +29,11 @@ const PAGES = [
   './docs/honey-garlic/honey-garlic-chicken-wide.html',
   './docs/honey-garlic/honey-garlic-menu.html',
   './docs/honey-garlic/grocery-list-honey-garlic.html',
+  './docs/beef-onion-smash-bowls/beef-onion-smash-bowls-menu.html',
+  './docs/crispy-onion-chicken-bowls/crispy-onion-chicken-bowls-menu.html',
+  './docs/steak-scallion-fried-rice/steak-scallion-fried-rice-menu.html',
+  './docs/oniony-chicken-quesadillas/oniony-chicken-quesadillas-menu.html',
+  './docs/korean-beef-scallion-bowls/korean-beef-scallion-bowls-menu.html',
   './docs/one-pan-lemon-chicken/one-pan-lemon-chicken-menu.html',
   './docs/garlic-butter-shrimp-skillet/garlic-butter-shrimp-skillet-menu.html',
   './docs/beef-onion-smash-skillet/beef-onion-smash-skillet-menu.html',

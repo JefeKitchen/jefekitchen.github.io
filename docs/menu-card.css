@@ -261,6 +261,34 @@ body {
   --leaf: #66713e;
 }
 
+.theme-crispy-onion-chicken {
+  --paper: #fff2d7;
+  --ink: #211914;
+  --accent: #b56c25;
+  --leaf: #6b7247;
+}
+
+.theme-scallion-rice {
+  --paper: #f3f0df;
+  --ink: #171d19;
+  --accent: #697b30;
+  --leaf: #4f755b;
+}
+
+.theme-quesadilla {
+  --paper: #fff1d2;
+  --ink: #21170f;
+  --accent: #b66a22;
+  --leaf: #667a45;
+}
+
+.theme-korean-beef {
+  --paper: #f6eadb;
+  --ink: #211715;
+  --accent: #9b3f30;
+  --leaf: #536a54;
+}
+
 .mini-menu .header {
   margin-bottom: 22px;
   padding-bottom: 22px;
