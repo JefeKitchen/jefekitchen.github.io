@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v131';
+const CACHE_NAME = 'jeffs-kitchen-v132';
 
 const PAGES = [
   './',
@@ -12,7 +12,7 @@ const PAGES = [
   './docs/menu-card.css',
   './docs/wide-layout.css',
   './docs/wide-pills.js',
-  './docs/instruction-content.js?v=9',
+  './docs/instruction-content.js?v=10',
   './docs/instruction-renderer.js?v=10',
   './docs/grocery-boom.js',
   './docs/poll/dinner-poll.html',
@@ -31,6 +31,10 @@ const PAGES = [
   './docs/honey-garlic/grocery-list-honey-garlic.html',
   './docs/beef-onion-smash-bowls/beef-onion-smash-bowls-menu.html',
   './docs/crispy-onion-chicken-bowls/crispy-onion-chicken-bowls-menu.html',
+  './docs/beef-broccoli-wok/beef-broccoli-wok-menu.html',
+  './docs/beef-broccoli-wok/grocery-list-beef-broccoli-wok.html',
+  './docs/beef-broccoli-wok/beef-broccoli-wok-instructions.html',
+  './docs/beef-broccoli-wok/beef-broccoli-wok-wide.html',
   './docs/steak-scallion-fried-rice/steak-scallion-fried-rice-menu.html',
   './docs/steak-scallion-fried-rice/grocery-list-steak-scallion-fried-rice.html',
   './docs/steak-scallion-fried-rice/steak-scallion-fried-rice-instructions.html',

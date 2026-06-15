@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beef & Broccoli Wok Grocery List</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../theme.css?v=4">
+</head>
+<body>
+<div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="hero-title">Beef & <span>Broccoli</span></div>
+    <div class="hero-sub">Grocery List</div>
+  </div>
+
+  <div class="section-block">
+    <div class="sec">Produce</div>
+    <label class="check-row"><input type="checkbox"><span>Broccoli <em>1 large head or about 12 oz florets</em></span></label>
+    <label class="check-row"><input type="checkbox"><span>Garlic <em>1 head</em></span></label>
+    <label class="check-row"><input type="checkbox"><span>Fresh ginger <em>Small piece</em></span></label>
+    <label class="check-row"><input type="checkbox"><span>Green onions <em>1 bunch</em></span></label>
+    <label class="check-row"><input type="checkbox"><span>English cucumber <em>1, for side</em></span></label>
+  </div>
+
+  <div class="section-block">
+    <div class="sec">Meat/Seafood</div>
+    <label class="check-row"><input type="checkbox"><span>Flank, skirt, or sirloin steak <em>1 lb</em></span></label>
+  </div>
+
+  <div class="section-block">
+    <div class="sec">Pantry</div>
+    <label class="check-row"><input type="checkbox"><span>Jasmine rice <em>1 1/2 cups dry</em></span></label>
+    <label class="check-row"><input type="checkbox"><span>Soy sauce <em>About 1/3 cup total</em></span></label>
+    <label class="check-row"><input type="checkbox"><span>Oyster sauce <em>About 2 tbsp</em></span></label>
+    <label class="check-row"><input type="checkbox"><span>Rice vinegar <em>For sauce and cucumber side</em></span></label>
+    <label class="check-row"><input type="checkbox"><span>Sesame oil <em>Small bottle</em></span></label>
+    <label class="check-row"><input type="checkbox"><span>Cornstarch <em>For beef and sauce</em></span></label>
+    <label class="check-row"><input type="checkbox"><span>Brown sugar or honey <em>About 1 tbsp</em></span></label>
+    <label class="check-row"><input type="checkbox"><span>Neutral high-heat oil <em>Canola, vegetable, avocado, or peanut</em></span></label>
+  </div>
+</div>
+<script src="../grocery-boom.js?v=1"></script>
+<script>
+const boxes = [...document.querySelectorAll('input[type="checkbox"]')];
+const key = 'beef-broccoli-wok-grocery-v1';
+const saved = JSON.parse(localStorage.getItem(key) || '{}');
+boxes.forEach((box, index) => {
+  box.id = 'bb-' + index;
+  box.checked = !!saved[box.id];
+  box.addEventListener('change', () => {
+    saved[box.id] = box.checked;
+    localStorage.setItem(key, JSON.stringify(saved));
+    window.GroceryBoom && window.GroceryBoom.check(boxes);
+  });
+});
+</script>
+</body>
+</html>

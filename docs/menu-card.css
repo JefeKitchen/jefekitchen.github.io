@@ -302,6 +302,13 @@ body {
   padding: 13px 0;
 }
 
+.theme-wok {
+  --paper: #f4efe4;
+  --ink: #161b18;
+  --accent: #8f4b2f;
+  --leaf: #4f6a55;
+}
+
 .themed .page {
   background: var(--paper);
   color: var(--ink);
