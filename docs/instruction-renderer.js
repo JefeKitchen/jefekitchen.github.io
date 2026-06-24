@@ -3,6 +3,8 @@
   const recipeId = document.body.dataset.recipe;
   const layout = document.body.dataset.layout || 'phone';
   const recipe = window.INSTRUCTION_CONTENT && window.INSTRUCTION_CONTENT[recipeId];
+  const params = new URLSearchParams(window.location.search);
+  const isLunch = params.get('meal') === 'lunch';
 
   if (!root || !recipe) return;
 
@@ -15,6 +17,21 @@
   const text = (node, selector) => node.querySelector(selector)?.textContent.trim() || '';
   const html = (node, selector) => node.querySelector(selector)?.innerHTML.trim() || '';
   const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const isSectionHeader = (node) => node.classList.contains('sec') || node.classList.contains('sec-header');
+
+  const removeDrinkSection = (scope) => {
+    if (!isLunch) return;
+    Array.from(scope.querySelectorAll('.sec, .sec-header')).forEach(section => {
+      if (section.textContent.trim().toLowerCase() !== 'drink') return;
+      let cursor = section.nextElementSibling;
+      section.remove();
+      while (cursor && !isSectionHeader(cursor)) {
+        const next = cursor.nextElementSibling;
+        cursor.remove();
+        cursor = next;
+      }
+    });
+  };
 
   const cleanIngredientName = (value) => value
     .replace(/^[\d./¼½¾–\-\s]+(?:oz|lb|lbs|tbsp|tsp|cups?|can|cans|clove|cloves|inch|inches|seconds?|sec|min(?:utes?)?)?\b\s*/i, '')
@@ -140,6 +157,7 @@
   const sectionsFromPhoneContent = () => {
     const holder = document.createElement('div');
     holder.innerHTML = recipe.body;
+    removeDrinkSection(holder);
     highlightIngredients(holder);
     const sections = [];
 
@@ -213,6 +231,7 @@
 
   const renderPhone = () => {
     const content = makeTemplate(recipe.body);
+    removeDrinkSection(content);
     highlightIngredients(content);
     root.replaceChildren(content);
   };

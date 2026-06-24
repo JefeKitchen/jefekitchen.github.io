@@ -196,7 +196,7 @@
   }
 </style>
 <script src="../recipe-catalog.js?v=1"></script>
-<script type="module" src="../firebase-state.js?v=2"></script>
+<script type="module" src="../firebase-state.js?v=3"></script>
 </head>
 <body>
 <div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
@@ -417,6 +417,7 @@
       const recipe = recipeCatalog[entry.id];
       Object.entries(recipe.items).forEach(([sectionName, items]) => {
         const normalizedSection = normalizeSection(sectionName);
+        if ((entry.meal || '').toLowerCase() === 'lunch' && normalizedSection === 'Alcohol/Drinks') return;
         const visibleItems = items
           .map(([id, text, note]) => ({
             id: `tw-${entry.id}-${id}`,

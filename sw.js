@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v145';
+const CACHE_NAME = 'jeffs-kitchen-v146';
 
 const PAGES = [
   './',
@@ -15,8 +15,8 @@ const PAGES = [
   './docs/instruction-content.js?v=14',
   './docs/recipe-catalog.js?v=1',
   './docs/firebase-config.js',
-  './docs/firebase-state.js?v=2',
-  './docs/instruction-renderer.js?v=10',
+  './docs/firebase-state.js?v=3',
+  './docs/instruction-renderer.js?v=11',
   './docs/grocery-boom.js',
   './docs/poll/dinner-poll.html',
   './docs/beef-meatballs-buttered-noodles/beef-meatballs-buttered-noodles-menu.html',
@@ -126,7 +126,7 @@ const APP_SHELL = [
   './docs/theme.css',
   './docs/recipe-catalog.js?v=1',
   './docs/firebase-config.js',
-  './docs/firebase-state.js?v=2',
+  './docs/firebase-state.js?v=3',
   './docs/combined-shopping/this-week-shopping-list.html'
 ];
 
@@ -148,33 +148,34 @@ self.addEventListener('activate', event => {
   self.clients.claim();
 });
 
-// Fetch - cache first for known app pages, network otherwise.
+// Fetch - network first for known app pages, cache fallback when offline.
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
 
   const requestUrl = new URL(event.request.url);
 
-  if (requestUrl.pathname.endsWith('/docs/theme.css')) {
+  if (!PAGE_URLS.has(requestUrl.href)) return;
+
+  if (requestUrl.origin !== self.location.origin) return;
+
+  if (event.request.mode === 'navigate') {
     event.respondWith(
       fetch(event.request).then(response => {
         const copy = response.clone();
         caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
         return response;
-      }).catch(() => caches.match(event.request))
+      }).catch(() => caches.match(event.request).then(cached => cached || caches.match('./index.html')))
     );
     return;
   }
 
-  if (!PAGE_URLS.has(requestUrl.href)) return;
-
   event.respondWith(
-    caches.match(event.request).then(cached => {
-      if (cached) return cached;
-      return fetch(event.request).then(response => {
+    fetch(event.request).then(response => {
+      if (response.ok) {
         const copy = response.clone();
         caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
-        return response;
-      });
-    })
+      }
+      return response;
+    }).catch(() => caches.match(event.request))
   );
 });
