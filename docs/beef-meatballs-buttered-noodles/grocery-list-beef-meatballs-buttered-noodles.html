@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beef Meatballs with Buttered Noodles Grocery List</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../theme.css?v=4">
+</head>
+<body>
+<div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="hero-title">Beef Meatballs <span>& Noodles</span></div>
+    <div class="hero-sub">Grocery List</div>
+  </div>
+
+  <div class="section-block">
+    <div class="sec">Produce</div>
+    <label class="check-row"><input type="checkbox"><span>Parsley <em>Small bunch, optional</em></span></label>
+    <label class="check-row"><input type="checkbox"><span>Garlic <em>1 head, optional for meatballs</em></span></label>
+  </div>
+
+  <div class="section-block">
+    <div class="sec">Meat/Seafood</div>
+    <label class="check-row"><input type="checkbox"><span>Ground beef <em>1 lb</em></span></label>
+  </div>
+
+  <div class="section-block">
+    <div class="sec">Dairy</div>
+    <label class="check-row"><input type="checkbox"><span>Egg <em>1</em></span></label>
+    <label class="check-row"><input type="checkbox"><span>Parmesan <em>About 1/2 cup</em></span></label>
+    <label class="check-row"><input type="checkbox"><span>Butter <em>4 tbsp</em></span></label>
+  </div>
+
+  <div class="section-block">
+    <div class="sec">Pantry</div>
+    <label class="check-row"><input type="checkbox"><span>Egg noodles <em>12 oz</em></span></label>
+    <label class="check-row"><input type="checkbox"><span>Breadcrumbs <em>1/2 cup</em></span></label>
+    <label class="check-row"><input type="checkbox"><span>Beef or chicken broth <em>1 cup</em></span></label>
+    <label class="check-row"><input type="checkbox"><span>Flour <em>1 tbsp, optional for sauce</em></span></label>
+  </div>
+</div>
+<script src="../grocery-boom.js?v=1"></script>
+<script>
+const boxes = [...document.querySelectorAll('input[type="checkbox"]')];
+const key = 'beef-meatballs-buttered-noodles-grocery-v1';
+const saved = JSON.parse(localStorage.getItem(key) || '{}');
+boxes.forEach((box, index) => {
+  box.id = 'beef-meatballs-buttered-noodles-' + index;
+  box.checked = !!saved[box.id];
+  box.addEventListener('change', () => {
+    saved[box.id] = box.checked;
+    localStorage.setItem(key, JSON.stringify(saved));
+    window.GroceryBoom && window.GroceryBoom.check(boxes);
+  });
+});
+</script>
+</body>
+</html>

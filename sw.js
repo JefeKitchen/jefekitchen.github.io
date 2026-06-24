@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v135';
+const CACHE_NAME = 'jeffs-kitchen-v136';
 
 const PAGES = [
   './',
@@ -12,16 +12,25 @@ const PAGES = [
   './docs/menu-card.css',
   './docs/wide-layout.css',
   './docs/wide-pills.js',
-  './docs/instruction-content.js?v=11',
+  './docs/instruction-content.js?v=12',
   './docs/instruction-renderer.js?v=10',
   './docs/grocery-boom.js',
   './docs/poll/dinner-poll.html',
   './docs/beef-meatballs-buttered-noodles/beef-meatballs-buttered-noodles-menu.html',
+  './docs/beef-meatballs-buttered-noodles/grocery-list-beef-meatballs-buttered-noodles.html',
+  './docs/beef-meatballs-buttered-noodles/beef-meatballs-buttered-noodles-instructions.html',
+  './docs/beef-meatballs-buttered-noodles/beef-meatballs-buttered-noodles-wide.html',
   './docs/chicken-mashed-potato-bowls/chicken-mashed-potato-bowls-menu.html',
   './docs/creamy-orzo-chicken/creamy-orzo-chicken-menu.html',
   './docs/baked-salmon-rice-cucumber/baked-salmon-rice-cucumber-menu.html',
+  './docs/baked-salmon-rice-cucumber/grocery-list-baked-salmon-rice-cucumber.html',
+  './docs/baked-salmon-rice-cucumber/baked-salmon-rice-cucumber-instructions.html',
+  './docs/baked-salmon-rice-cucumber/baked-salmon-rice-cucumber-wide.html',
   './docs/chicken-pot-pie-rice-skillet/chicken-pot-pie-rice-skillet-menu.html',
   './docs/mild-chicken-noodle-bake/mild-chicken-noodle-bake-menu.html',
+  './docs/mild-chicken-noodle-bake/grocery-list-mild-chicken-noodle-bake.html',
+  './docs/mild-chicken-noodle-bake/mild-chicken-noodle-bake-instructions.html',
+  './docs/mild-chicken-noodle-bake/mild-chicken-noodle-bake-wide.html',
   './docs/smash-sliders/slider-guide-lineup-a.html',
   './docs/smash-sliders/slider-menu.html',
   './docs/smash-sliders/slider-prep-order.html',

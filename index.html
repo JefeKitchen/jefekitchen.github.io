@@ -589,6 +589,21 @@
 <summary class="group-label">Beef</summary>
 <div class="group-grid">
 
+<!-- BEEF-MEATBALLS-BUTTERED-NOODLES -->
+<div class="section">
+  <div class="card recipe-card">
+    <div class="card-copy">
+      <div class="card-title">Beef Meatballs with Buttered Noodles</div>
+      <span class="card-subtitle">Tender Meatballs · Buttered Noodles</span>
+    </div>
+    <div class="card-actions" aria-label="Beef Meatballs with Buttered Noodles links">
+      <a class="icon-link" href="./docs/beef-meatballs-buttered-noodles/beef-meatballs-buttered-noodles-menu.html" aria-label="Beef Meatballs with Buttered Noodles menu" title="Menu">📜</a>
+      <a class="icon-link" href="./docs/beef-meatballs-buttered-noodles/grocery-list-beef-meatballs-buttered-noodles.html" aria-label="Beef Meatballs with Buttered Noodles grocery list" title="Grocery List">🛒</a>
+      <a class="icon-link instruction-choice-link" href="./docs/beef-meatballs-buttered-noodles/beef-meatballs-buttered-noodles-instructions.html" data-phone="./docs/beef-meatballs-buttered-noodles/beef-meatballs-buttered-noodles-instructions.html" data-wide="./docs/beef-meatballs-buttered-noodles/beef-meatballs-buttered-noodles-wide.html" aria-label="Beef Meatballs with Buttered Noodles cooking instructions" title="Cooking Instructions">🥘</a>
+    </div>
+  </div>
+</div>
+
 <!-- BEEF BROCCOLI WOK -->
 <div class="section">
   <div class="card recipe-card">
@@ -706,6 +721,21 @@
 <summary class="group-label">Chicken</summary>
 <div class="group-grid">
 
+<!-- MILD-CHICKEN-NOODLE-BAKE -->
+<div class="section">
+  <div class="card recipe-card">
+    <div class="card-copy">
+      <div class="card-title">Mild Chicken Noodle Bake</div>
+      <span class="card-subtitle">Chicken · Noodles · Peas</span>
+    </div>
+    <div class="card-actions" aria-label="Mild Chicken Noodle Bake links">
+      <a class="icon-link" href="./docs/mild-chicken-noodle-bake/mild-chicken-noodle-bake-menu.html" aria-label="Mild Chicken Noodle Bake menu" title="Menu">📜</a>
+      <a class="icon-link" href="./docs/mild-chicken-noodle-bake/grocery-list-mild-chicken-noodle-bake.html" aria-label="Mild Chicken Noodle Bake grocery list" title="Grocery List">🛒</a>
+      <a class="icon-link instruction-choice-link" href="./docs/mild-chicken-noodle-bake/mild-chicken-noodle-bake-instructions.html" data-phone="./docs/mild-chicken-noodle-bake/mild-chicken-noodle-bake-instructions.html" data-wide="./docs/mild-chicken-noodle-bake/mild-chicken-noodle-bake-wide.html" aria-label="Mild Chicken Noodle Bake cooking instructions" title="Cooking Instructions">🥘</a>
+    </div>
+  </div>
+</div>
+
 <!-- HONEY MUSTARD CHICKEN -->
 <div class="section">
   <div class="card recipe-card">
@@ -771,6 +801,21 @@
 <details class="recipe-group" data-section="seafood">
 <summary class="group-label">Seafood</summary>
 <div class="group-grid">
+
+<!-- BAKED-SALMON-RICE-CUCUMBER -->
+<div class="section">
+  <div class="card recipe-card">
+    <div class="card-copy">
+      <div class="card-title">Baked Salmon with Rice & Cucumber</div>
+      <span class="card-subtitle">Salmon · Rice · Cucumber</span>
+    </div>
+    <div class="card-actions" aria-label="Baked Salmon with Rice & Cucumber links">
+      <a class="icon-link" href="./docs/baked-salmon-rice-cucumber/baked-salmon-rice-cucumber-menu.html" aria-label="Baked Salmon with Rice & Cucumber menu" title="Menu">📜</a>
+      <a class="icon-link" href="./docs/baked-salmon-rice-cucumber/grocery-list-baked-salmon-rice-cucumber.html" aria-label="Baked Salmon with Rice & Cucumber grocery list" title="Grocery List">🛒</a>
+      <a class="icon-link instruction-choice-link" href="./docs/baked-salmon-rice-cucumber/baked-salmon-rice-cucumber-instructions.html" data-phone="./docs/baked-salmon-rice-cucumber/baked-salmon-rice-cucumber-instructions.html" data-wide="./docs/baked-salmon-rice-cucumber/baked-salmon-rice-cucumber-wide.html" aria-label="Baked Salmon with Rice & Cucumber cooking instructions" title="Cooking Instructions">🥘</a>
+    </div>
+  </div>
+</div>
 
 <!-- GARLIC SHRIMP RICE BOWLS -->
 <div class="section">
@@ -894,6 +939,27 @@
   const defaultThisWeekRecipes = [];
   const weekDayOptions = ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   const thisWeekCatalog = {
+    'beef-meatballs-buttered-noodles': {
+      title: 'Beef Meatballs with Buttered Noodles',
+      subtitle: 'Tender Meatballs · Buttered Noodles',
+      menu: './docs/beef-meatballs-buttered-noodles/beef-meatballs-buttered-noodles-menu.html',
+      phone: './docs/beef-meatballs-buttered-noodles/beef-meatballs-buttered-noodles-instructions.html',
+      wide: './docs/beef-meatballs-buttered-noodles/beef-meatballs-buttered-noodles-wide.html'
+    },
+    'baked-salmon-rice-cucumber': {
+      title: 'Baked Salmon with Rice & Cucumber',
+      subtitle: 'Salmon · Rice · Cucumber',
+      menu: './docs/baked-salmon-rice-cucumber/baked-salmon-rice-cucumber-menu.html',
+      phone: './docs/baked-salmon-rice-cucumber/baked-salmon-rice-cucumber-instructions.html',
+      wide: './docs/baked-salmon-rice-cucumber/baked-salmon-rice-cucumber-wide.html'
+    },
+    'mild-chicken-noodle-bake': {
+      title: 'Mild Chicken Noodle Bake',
+      subtitle: 'Chicken · Noodles · Peas',
+      menu: './docs/mild-chicken-noodle-bake/mild-chicken-noodle-bake-menu.html',
+      phone: './docs/mild-chicken-noodle-bake/mild-chicken-noodle-bake-instructions.html',
+      wide: './docs/mild-chicken-noodle-bake/mild-chicken-noodle-bake-wide.html'
+    },
     'cuban-sandwiches': {
       title: 'Cuban Sandwiches',
       subtitle: 'Pork · Ham · Swiss · Pickles',
