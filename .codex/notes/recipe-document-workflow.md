@@ -9,6 +9,7 @@ Every new recipe should feel like it has always belonged in the app. Do not crea
 A complete recipe usually means:
 
 - Home page card/catalog entry
+- Shared recipe metadata and shopping items in docs/recipe-catalog.js
 - Menu card
 - Theme-matched drink pairing for dinner recipes
 - Grocery list
@@ -55,6 +56,7 @@ Instruction pages:
 - Breakfast and snack entries do not need a drink pairing unless the user asks.
 - Grocery lists use the established light grocery-list format with store sections, small aligned checkboxes, .item-note, and checked-item strikethrough.
 - Cooking instructions use shared content from docs/instruction-content.js; phone and wide pages are render shells.
+- Home planning and This Week shopping use docs/recipe-catalog.js as the shared recipe registry. Do not duplicate recipe names, paths, or shopping items inside index.html or the This Week grocery page.
 - Dinner cooking instructions put the drink as the first instruction section. Simple wine or beer pairings can be a short tongue-in-cheek instruction.
 - Ingredient pull pills are section-specific, clickable independently, and contain ingredient names only.
 - Ingredients in instructions are highlighted with .ing wherever practical.
@@ -65,13 +67,14 @@ Instruction pages:
 
 ## Recipe Build Order
 
-1. Add or update shared recipe data/content first.
+1. Add or update docs/recipe-catalog.js first with the recipe id, title, subtitle, section, paths, and shopping items.
 2. Create phone and wide instruction shells from existing thin-render pages.
 3. Create the grocery list by copying a mature grocery list and changing content only.
 4. Create the menu card by copying a mature menu card and changing content/theme only.
-5. Add the home page catalog entry and any This Week/poll data needed.
-6. Update sw.js page list and cache.
-7. Verify in browser before saying done.
+5. Add or update shared instruction content in docs/instruction-content.js.
+6. Add any poll data needed.
+7. Update sw.js page list and cache.
+8. Verify in browser before saying done.
 
 ## Verification Checklist
 
