@@ -212,6 +212,10 @@
     height: 100%;
     min-width: 0;
   }
+  .results-empty {
+    color: var(--muted);
+    font-size: 13px;
+  }
 
 </style>
 <link rel="stylesheet" href="../theme.css?v=4">
@@ -317,11 +321,6 @@
 
   const optionLabel = option => option.dataset.writeIn ? (writeInInput.value.trim() || 'Wildcard') : option.dataset.choice;
 
-  const optionOrder = () => pollOptions.map(option => ({
-    id: option.dataset.choiceId,
-    choice: option.dataset.choice
-  }));
-
   const selectOption = option => {
     selectedOption = option;
     pollOptions.forEach(candidate => candidate.classList.toggle('is-selected', candidate === option));
@@ -338,17 +337,21 @@
       totals[id].count += 1;
       return totals;
     }, {});
-    const rows = optionOrder().map(option => ({
-      id: option.id,
-      choice: option.choice,
-      count: counts[option.id]?.count || 0
+    const rows = Object.entries(counts).map(([id, result]) => ({
+      id,
+      choice: result.choice,
+      count: result.count
     }));
-    Object.entries(counts).forEach(([id, result]) => {
-      if (!rows.some(row => row.id === id)) rows.push({ id, choice: result.choice, count: result.count });
-    });
     const topCount = Math.max(1, ...rows.map(row => row.count));
 
     resultsPanel.innerHTML = '';
+    if (!rows.length) {
+      const empty = document.createElement('div');
+      empty.className = 'results-empty';
+      empty.textContent = 'No votes yet.';
+      resultsPanel.appendChild(empty);
+      return;
+    }
     rows.forEach(row => {
       const result = document.createElement('div');
       result.className = 'result-row';
