@@ -65,19 +65,13 @@
     margin: 14px 20px 0;
   }
   .meal-filter {
+    border-top: 1px solid var(--border);
     display: none;
     margin: 12px 20px 0;
+    padding-top: 10px;
   }
   .meal-filter.is-visible {
     display: block;
-  }
-  .meal-filter-title {
-    color: var(--muted);
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 1.6px;
-    margin-bottom: 7px;
-    text-transform: uppercase;
   }
   .meal-filter-list {
     display: flex;
@@ -86,10 +80,10 @@
   }
   .meal-filter-btn {
     appearance: none;
-    background: var(--gold);
-    border: 1px solid #d0b35f;
+    background: #181818;
+    border: 1px solid var(--border);
     border-radius: 999px;
-    color: #111;
+    color: var(--gold);
     cursor: pointer;
     font-family: 'Source Sans 3', sans-serif;
     font-size: 12px;
@@ -102,10 +96,12 @@
     border-color: var(--border);
     color: var(--muted);
     opacity: 0.58;
-    text-decoration: line-through;
   }
   .meal-filter-btn:active {
     border-color: var(--gold);
+    color: var(--gold);
+  }
+  .page-title .accent {
     color: var(--gold);
   }
   .top-add-btn {
@@ -245,10 +241,10 @@
 <body>
 <div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
 
-<div class="page-title">Grocery List</div>
+<div class="page-title">Grocery <span class="accent">List</span></div>
 
 <div class="list-toolbar">
-  <button class="top-add-btn" type="button" id="addIngredient">+ Add Ingredient</button>
+  <button class="top-add-btn" type="button" id="addIngredient">+ Add Item</button>
 </div>
 
 <form class="add-item-form" id="addIngredientForm">
@@ -265,7 +261,6 @@
 </div>
 
 <div class="meal-filter" id="mealFilter">
-  <div class="meal-filter-title">Meals</div>
   <div class="meal-filter-list" id="mealFilterList"></div>
 </div>
 
@@ -322,10 +317,10 @@
   const slugify = value => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
   const loadAddedItems = () => {
-    if (cloudAddedItems) return cloudAddedItems;
+    if (cloudAddedItems) return normalizeAddedItemsBySection(cloudAddedItems);
 
     try {
-      return JSON.parse(localStorage.getItem(addedItemsKey)) || {};
+      return normalizeAddedItemsBySection(JSON.parse(localStorage.getItem(addedItemsKey)) || {});
     } catch {
       return {};
     }
@@ -369,7 +364,7 @@
   const saveHiddenMeals = meals => localStorage.setItem(hiddenMealsKey, JSON.stringify([...meals]));
 
   const groupCloudItemsBySection = items => items.reduce((sections, item) => {
-    const sectionName = normalizeSection(item.section);
+    const sectionName = inferSectionForItem(item.text, item.section);
     sections[sectionName] = [...(sections[sectionName] || []), {
       id: item.id,
       text: item.text
@@ -417,6 +412,111 @@
   const normalizeSection = value => {
     const clean = (value || '').trim().toLowerCase();
     return sectionAliases[clean] || sectionOptions.find(option => option.toLowerCase() === clean) || 'Misc';
+  };
+
+  const manualItemSections = {
+    apple: 'Produce',
+    apples: 'Produce',
+    banana: 'Produce',
+    bananas: 'Produce',
+    cilantro: 'Produce',
+    cucumber: 'Produce',
+    cucumbers: 'Produce',
+    garlic: 'Produce',
+    ginger: 'Produce',
+    lemon: 'Produce',
+    lemons: 'Produce',
+    lime: 'Produce',
+    limes: 'Produce',
+    mint: 'Produce',
+    onion: 'Produce',
+    onions: 'Produce',
+    parsley: 'Produce',
+    scallion: 'Produce',
+    scallions: 'Produce',
+    'green onion': 'Produce',
+    'green onions': 'Produce',
+    tomato: 'Produce',
+    tomatoes: 'Produce',
+    pita: 'Bakery',
+    pitas: 'Bakery',
+    'pita chips': 'Snacks',
+    rice: 'Pantry',
+    noodles: 'Pantry',
+    pasta: 'Pantry'
+  };
+  let knownItemSections = null;
+
+  const normalizeItemName = value => (value || '')
+    .toLowerCase()
+    .replace(/\([^)]*\)/g, ' ')
+    .replace(/\b\d+([./-]\d+)?\b/g, ' ')
+    .replace(/\b(about|bag|bottle|box|bunch|can|cans|clove|cloves|cup|cups|dry|fresh|frozen|head|jar|large|lb|lbs|medium|oz|package|pkg|small|tbsp|tsp)\b/g, ' ')
+    .replace(/\b(optional|if using|for|to taste|as needed)\b/g, ' ')
+    .replace(/[^a-z\s]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  const singularizeItemName = value => value
+    .split(' ')
+    .map(word => word.endsWith('ies') && word.length > 4 ? `${word.slice(0, -3)}y` : word)
+    .map(word => word.endsWith('s') && word.length > 3 ? word.slice(0, -1) : word)
+    .join(' ');
+
+  const addKnownItemSection = (map, name, section) => {
+    const clean = normalizeItemName(name);
+    if (!clean) return;
+    map[clean] = section;
+    map[singularizeItemName(clean)] = section;
+  };
+
+  const getKnownItemSections = () => {
+    if (knownItemSections) return knownItemSections;
+
+    knownItemSections = {};
+    Object.entries(manualItemSections).forEach(([name, section]) => {
+      addKnownItemSection(knownItemSections, name, section);
+    });
+    Object.values(recipeCatalog).forEach(recipe => {
+      Object.entries(recipe.items || {}).forEach(([sectionName, items]) => {
+        const section = normalizeSection(sectionName);
+        items.forEach(([, text]) => addKnownItemSection(knownItemSections, text, section));
+      });
+    });
+    return knownItemSections;
+  };
+
+  const inferSectionForItem = (text, selectedSection = 'Misc') => {
+    const section = normalizeSection(selectedSection);
+    if (section !== 'Misc') return section;
+
+    const clean = normalizeItemName(text);
+    const singular = singularizeItemName(clean);
+    const known = getKnownItemSections();
+    if (known[clean]) return known[clean];
+    if (known[singular]) return known[singular];
+
+    const tokens = singular.split(' ').filter(token => token.length > 2);
+    const match = Object.entries(known).find(([knownName]) => {
+      const knownTokens = knownName.split(' ').filter(token => token.length > 2);
+      return tokens.length > 0 && (
+        tokens.every(token => knownTokens.includes(token)) ||
+        knownTokens.every(token => tokens.includes(token))
+      );
+    });
+
+    return match?.[1] || section;
+  };
+
+  const normalizeAddedItemsBySection = itemsBySection => {
+    return Object.entries(itemsBySection || {}).reduce((sections, [sectionName, items]) => {
+      (items || []).forEach(item => {
+        if (!item?.id || !item?.text) return;
+        const inferredSection = inferSectionForItem(item.text, sectionName);
+        sections[inferredSection] = [...(sections[inferredSection] || []), item];
+      });
+      return sections;
+    }, {});
   };
 
   const closeForms = () => {
@@ -618,19 +718,20 @@
   };
 
   const addCustomItem = async (sectionName, text) => {
+    const finalSection = inferSectionForItem(text, sectionName);
     const addedItems = loadAddedItems();
     const item = {
-      id: `tw-custom-${slugify(sectionName)}-${Date.now()}`,
+      id: `tw-custom-${slugify(finalSection)}-${Date.now()}`,
       text
     };
-    addedItems[sectionName] = [...(addedItems[sectionName] || []), item];
+    addedItems[finalSection] = [...(addedItems[finalSection] || []), item];
     saveAddedItems(addedItems);
     renderSections();
 
     if (window.KitchenCloud?.ensureSignedIn) {
       try {
         await window.KitchenCloud.ensureSignedIn();
-        await window.KitchenCloud.saveShoppingItem({ ...item, section: sectionName });
+        await window.KitchenCloud.saveShoppingItem({ ...item, section: finalSection });
         return;
       } catch (error) {
         console.warn('Kitchen shopping sync item save unavailable; keeping local item', error);
@@ -720,7 +821,7 @@
     const addButton = document.createElement('button');
     addButton.type = 'button';
     addButton.className = 'add-item-btn';
-    addButton.setAttribute('aria-label', `Add ingredient to ${sectionName}`);
+    addButton.setAttribute('aria-label', `Add item to ${sectionName}`);
     addButton.textContent = '+';
     addButton.addEventListener('click', () => openIngredientForm(sectionName));
 
