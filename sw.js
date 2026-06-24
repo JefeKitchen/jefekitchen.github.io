@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v144';
+const CACHE_NAME = 'jeffs-kitchen-v145';
 
 const PAGES = [
   './',
@@ -15,7 +15,7 @@ const PAGES = [
   './docs/instruction-content.js?v=14',
   './docs/recipe-catalog.js?v=1',
   './docs/firebase-config.js',
-  './docs/firebase-state.js?v=1',
+  './docs/firebase-state.js?v=2',
   './docs/instruction-renderer.js?v=10',
   './docs/grocery-boom.js',
   './docs/poll/dinner-poll.html',
@@ -115,11 +115,25 @@ const PAGES = [
 ];
 
 const PAGE_URLS = new Set(PAGES.map(page => new URL(page, self.registration.scope).href));
+const APP_SHELL = [
+  './',
+  './index.html',
+  './manifest.json',
+  './assets/icons/icon-192.png',
+  './assets/icons/icon-512.png',
+  './assets/icons/apple-touch-icon.png',
+  './assets/icons/favicon.png',
+  './docs/theme.css',
+  './docs/recipe-catalog.js?v=1',
+  './docs/firebase-config.js',
+  './docs/firebase-state.js?v=2',
+  './docs/combined-shopping/this-week-shopping-list.html'
+];
 
 // Install - cache the app shell and linked pages.
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(PAGES))
+    caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL))
   );
   self.skipWaiting();
 });
@@ -154,6 +168,13 @@ self.addEventListener('fetch', event => {
   if (!PAGE_URLS.has(requestUrl.href)) return;
 
   event.respondWith(
-    caches.match(event.request).then(cached => cached || fetch(event.request))
+    caches.match(event.request).then(cached => {
+      if (cached) return cached;
+      return fetch(event.request).then(response => {
+        const copy = response.clone();
+        caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
+        return response;
+      });
+    })
   );
 });

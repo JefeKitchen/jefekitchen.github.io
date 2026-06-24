@@ -548,7 +548,7 @@
   }
 </style>
 <script src="./docs/recipe-catalog.js?v=1"></script>
-<script type="module" src="./docs/firebase-state.js?v=1"></script>
+<script type="module" src="./docs/firebase-state.js?v=2"></script>
 </head>
 <body>
 
@@ -640,8 +640,10 @@
   let savedSections = {};
   let pendingInstructionLinks = null;
   let cloudThisWeekRecipes = null;
+  let cloudShoppingRecipes = null;
   let cloudSyncStarted = false;
   let unwatchCloudPlans = null;
+  let unwatchCloudShopping = null;
 
   function localDateKey(date = new Date()) {
     const year = date.getFullYear();
@@ -753,6 +755,8 @@
   }
 
   function loadShoppingRecipes() {
+    if (Array.isArray(cloudShoppingRecipes)) return cloudShoppingRecipes;
+
     const raw = localStorage.getItem(thisWeekShoppingRecipesKey);
     if (raw === null) {
       const legacy = localStorage.getItem(legacyThisWeekRecipesKey);
@@ -808,6 +812,16 @@
         console.warn('Kitchen sync save unavailable; using local plan', error);
       }
     }
+    if (key === thisWeekShoppingRecipesKey && window.KitchenCloud?.ensureSignedIn) {
+      try {
+        await window.KitchenCloud.ensureSignedIn();
+        await window.KitchenCloud.saveShoppingRecipe(entry);
+        clearPurchasedRecipe(recipeId);
+        return;
+      } catch (error) {
+        console.warn('Kitchen shopping sync save unavailable; using local list', error);
+      }
+    }
 
     entries.push(entry);
     saver(entries);
@@ -818,6 +832,7 @@
     if (window.KitchenCloud?.isSignedIn?.()) {
       try {
         await window.KitchenCloud.removePlan(recipeId);
+        await window.KitchenCloud.removeShoppingRecipe(recipeId);
       } catch (error) {
         console.warn('Kitchen sync remove unavailable; removing local plan', error);
         saveThisWeekRecipes(loadThisWeekRecipes().filter(entry => entry.id !== recipeId));
@@ -868,9 +883,14 @@
         unwatchCloudPlans();
         unwatchCloudPlans = null;
       }
+      if (unwatchCloudShopping) {
+        unwatchCloudShopping();
+        unwatchCloudShopping = null;
+      }
 
       if (!user) {
         cloudThisWeekRecipes = null;
+        cloudShoppingRecipes = null;
         renderThisWeekPlans();
         populateWeekRecipeForm();
         return;
@@ -885,6 +905,14 @@
       }, () => {
         cloudThisWeekRecipes = null;
         renderThisWeekPlans();
+        populateWeekRecipeForm();
+      });
+      unwatchCloudShopping = window.KitchenCloud.watchShopping(snapshot => {
+        cloudShoppingRecipes = sortRecipeEntries(normalizeRecipeEntries(snapshot.recipes));
+        localStorage.setItem(thisWeekShoppingRecipesKey, JSON.stringify(cloudShoppingRecipes));
+        populateWeekRecipeForm();
+      }, () => {
+        cloudShoppingRecipes = null;
         populateWeekRecipeForm();
       });
     });

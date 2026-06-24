@@ -196,6 +196,7 @@
   }
 </style>
 <script src="../recipe-catalog.js?v=1"></script>
+<script type="module" src="../firebase-state.js?v=2"></script>
 </head>
 <body>
 <div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
@@ -254,6 +255,11 @@
   const cancelAddItem = document.getElementById('cancelAddItem');
   const completeShoppingTrip = document.getElementById('completeShoppingTrip');
   let wasComplete = false;
+  let cloudSelectedRecipes = null;
+  let cloudAddedItems = null;
+  let cloudPurchasedItems = null;
+  let cloudSyncStarted = false;
+  let unwatchCloudShopping = null;
 
   const getCheckboxes = () => Array.from(document.querySelectorAll('input[type="checkbox"]'));
   const isComplete = () => {
@@ -264,6 +270,8 @@
   const slugify = value => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
   const loadAddedItems = () => {
+    if (cloudAddedItems) return cloudAddedItems;
+
     try {
       return JSON.parse(localStorage.getItem(addedItemsKey)) || {};
     } catch {
@@ -272,6 +280,8 @@
   };
 
   const loadSelectedRecipes = () => {
+    if (Array.isArray(cloudSelectedRecipes)) return cloudSelectedRecipes;
+
     const raw = localStorage.getItem(selectedRecipesKey);
     if (raw === null) return [...defaultRecipeIds];
     try {
@@ -284,6 +294,8 @@
   };
 
   const loadPurchasedItems = () => {
+    if (Array.isArray(cloudPurchasedItems)) return new Set(cloudPurchasedItems);
+
     try {
       return new Set(JSON.parse(localStorage.getItem(purchasedItemsKey)) || []);
     } catch {
@@ -294,6 +306,52 @@
   const saveAddedItems = items => localStorage.setItem(addedItemsKey, JSON.stringify(items));
   const saveSelectedRecipes = recipeIds => localStorage.setItem(selectedRecipesKey, JSON.stringify(recipeIds));
   const savePurchasedItems = items => localStorage.setItem(purchasedItemsKey, JSON.stringify([...items]));
+
+  const groupCloudItemsBySection = items => items.reduce((sections, item) => {
+    const sectionName = normalizeSection(item.section);
+    sections[sectionName] = [...(sections[sectionName] || []), {
+      id: item.id,
+      text: item.text
+    }];
+    return sections;
+  }, {});
+
+  const startCloudSync = () => {
+    if (cloudSyncStarted || !window.KitchenCloud) return;
+    cloudSyncStarted = true;
+
+    window.KitchenCloud.watchAuth(user => {
+      if (unwatchCloudShopping) {
+        unwatchCloudShopping();
+        unwatchCloudShopping = null;
+      }
+
+      if (!user) {
+        cloudSelectedRecipes = null;
+        cloudAddedItems = null;
+        cloudPurchasedItems = null;
+        renderSections();
+        return;
+      }
+
+      unwatchCloudShopping = window.KitchenCloud.watchShopping(snapshot => {
+        cloudSelectedRecipes = snapshot.recipes
+          .map(entry => typeof entry === 'string' ? { id: entry } : entry)
+          .filter(entry => recipeCatalog[entry.id]);
+        cloudAddedItems = groupCloudItemsBySection(snapshot.customItems);
+        cloudPurchasedItems = snapshot.purchasedItems;
+        saveSelectedRecipes(cloudSelectedRecipes);
+        saveAddedItems(cloudAddedItems);
+        savePurchasedItems(cloudPurchasedItems);
+        renderSections();
+      }, () => {
+        cloudSelectedRecipes = null;
+        cloudAddedItems = null;
+        cloudPurchasedItems = null;
+        renderSections();
+      });
+    });
+  };
 
   const normalizeSection = value => {
     const clean = (value || '').trim().toLowerCase();
@@ -377,19 +435,31 @@
     }, {});
   };
 
-  const removeRecipe = recipeId => {
+  const removeRecipe = async recipeId => {
     const selectedRecipes = loadSelectedRecipes().filter(entry => entry.id !== recipeId);
     const purchasedItems = loadPurchasedItems();
+    if (window.KitchenCloud?.isSignedIn?.()) {
+      try {
+        await window.KitchenCloud.removeShoppingRecipe(recipeId);
+      } catch (error) {
+        console.warn('Kitchen shopping sync remove unavailable; removing local recipe', error);
+      }
+    }
     saveSelectedRecipes(selectedRecipes);
     Object.values(recipeCatalog[recipeId]?.items || {}).flat().forEach(([id]) => {
       purchasedItems.delete(`tw-${recipeId}-${id}`);
       localStorage.removeItem(`this-week-tw-${recipeId}-${id}`);
+      if (window.KitchenCloud?.isSignedIn?.()) {
+        window.KitchenCloud.clearPurchasedItem(`tw-${recipeId}-${id}`).catch(error => {
+          console.warn('Kitchen shopping sync purchased cleanup unavailable', error);
+        });
+      }
     });
     savePurchasedItems(purchasedItems);
     renderSections();
   };
 
-  const completeTrip = () => {
+  const completeTrip = async () => {
     const checked = getCheckboxes().filter(cb => cb.checked);
     if (!checked.length) return;
 
@@ -403,8 +473,18 @@
           addedItems[sectionName] = (addedItems[sectionName] || []).filter(item => item.id !== cb.id);
           if (!addedItems[sectionName].length) delete addedItems[sectionName];
         });
+        if (window.KitchenCloud?.isSignedIn?.()) {
+          window.KitchenCloud.removeShoppingItem(cb.id).catch(error => {
+            console.warn('Kitchen shopping sync custom cleanup unavailable', error);
+          });
+        }
       } else {
         purchasedItems.add(cb.id);
+        if (window.KitchenCloud?.isSignedIn?.()) {
+          window.KitchenCloud.markPurchased(cb.id).catch(error => {
+            console.warn('Kitchen shopping sync purchased item unavailable', error);
+          });
+        }
       }
     });
 
@@ -413,10 +493,17 @@
     renderSections();
   };
 
-  const removeCustomItem = (sectionName, item) => {
+  const removeCustomItem = async (sectionName, item) => {
     const addedItems = loadAddedItems();
     addedItems[sectionName] = (addedItems[sectionName] || []).filter(saved => saved.id !== item.id);
     if (!addedItems[sectionName].length) delete addedItems[sectionName];
+    if (window.KitchenCloud?.isSignedIn?.()) {
+      try {
+        await window.KitchenCloud.removeShoppingItem(item.id);
+      } catch (error) {
+        console.warn('Kitchen shopping sync item remove unavailable; removing local item', error);
+      }
+    }
     saveAddedItems(addedItems);
     localStorage.removeItem(`this-week-${item.id}`);
     renderSections();
@@ -463,7 +550,7 @@
     return row;
   };
 
-  const addCustomItem = (sectionName, text) => {
+  const addCustomItem = async (sectionName, text) => {
     const addedItems = loadAddedItems();
     const item = {
       id: `tw-custom-${slugify(sectionName)}-${Date.now()}`,
@@ -472,6 +559,16 @@
     addedItems[sectionName] = [...(addedItems[sectionName] || []), item];
     saveAddedItems(addedItems);
     renderSections();
+
+    if (window.KitchenCloud?.ensureSignedIn) {
+      try {
+        await window.KitchenCloud.ensureSignedIn();
+        await window.KitchenCloud.saveShoppingItem({ ...item, section: sectionName });
+        return;
+      } catch (error) {
+        console.warn('Kitchen shopping sync item save unavailable; keeping local item', error);
+      }
+    }
   };
 
   const openIngredientForm = preferredSection => {
@@ -554,15 +651,17 @@
     addIngredientForm.classList.remove('is-open');
     newItemText.value = '';
   });
-  addIngredientForm.addEventListener('submit', event => {
+  addIngredientForm.addEventListener('submit', async event => {
     event.preventDefault();
     const cleanText = newItemText.value.trim();
     if (!cleanText) return;
-    addCustomItem(normalizeSection(newItemSection.value), cleanText);
+    await addCustomItem(normalizeSection(newItemSection.value), cleanText);
     newItemText.value = '';
     addIngredientForm.classList.remove('is-open');
   });
   completeShoppingTrip.addEventListener('click', completeTrip);
+  window.addEventListener('kitchen-cloud-ready', startCloudSync);
+  startCloudSync();
   renderSections();
 </script>
 </body>

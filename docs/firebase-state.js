@@ -21,6 +21,9 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 const plansCollection = collection(db, "households", householdId, "plans");
+const shoppingRecipesCollection = collection(db, "households", householdId, "shoppingRecipes");
+const shoppingItemsCollection = collection(db, "households", householdId, "shoppingItems");
+const purchasedItemsCollection = collection(db, "households", householdId, "purchasedItems");
 
 function normalizePlan(docSnap) {
   const data = docSnap.data() || {};
@@ -29,6 +32,25 @@ function normalizePlan(docSnap) {
     recipeId: data.recipeId || docSnap.id,
     day: data.day || "",
     date: data.date || ""
+  };
+}
+
+function normalizeShoppingRecipe(docSnap) {
+  const data = docSnap.data() || {};
+  return {
+    id: data.recipeId || docSnap.id,
+    recipeId: data.recipeId || docSnap.id,
+    day: data.day || "",
+    date: data.date || ""
+  };
+}
+
+function normalizeShoppingItem(docSnap) {
+  const data = docSnap.data() || {};
+  return {
+    id: data.id || docSnap.id,
+    section: data.section || "Misc",
+    text: data.text || ""
   };
 }
 
@@ -53,6 +75,56 @@ function watchPlans(callback, onError) {
   );
 }
 
+function watchShopping(callback, onError) {
+  const state = {
+    recipes: [],
+    customItems: [],
+    purchasedItems: []
+  };
+  let readyCount = 0;
+
+  const emit = () => callback({ ...state });
+  const markReady = () => {
+    readyCount += 1;
+    if (readyCount >= 3) emit();
+  };
+  const fail = error => {
+    console.warn("Kitchen shopping sync unavailable", error);
+    if (onError) onError(error);
+  };
+
+  const unwatchRecipes = onSnapshot(
+    shoppingRecipesCollection,
+    snapshot => {
+      state.recipes = snapshot.docs.map(normalizeShoppingRecipe);
+      readyCount >= 3 ? emit() : markReady();
+    },
+    fail
+  );
+  const unwatchItems = onSnapshot(
+    shoppingItemsCollection,
+    snapshot => {
+      state.customItems = snapshot.docs.map(normalizeShoppingItem).filter(item => item.text);
+      readyCount >= 3 ? emit() : markReady();
+    },
+    fail
+  );
+  const unwatchPurchased = onSnapshot(
+    purchasedItemsCollection,
+    snapshot => {
+      state.purchasedItems = snapshot.docs.map(docSnap => docSnap.id);
+      readyCount >= 3 ? emit() : markReady();
+    },
+    fail
+  );
+
+  return () => {
+    unwatchRecipes();
+    unwatchItems();
+    unwatchPurchased();
+  };
+}
+
 function savePlan(entry) {
   return setDoc(doc(plansCollection, entry.id), {
     recipeId: entry.id,
@@ -66,12 +138,56 @@ function removePlan(recipeId) {
   return deleteDoc(doc(plansCollection, recipeId));
 }
 
+function saveShoppingRecipe(entry) {
+  return setDoc(doc(shoppingRecipesCollection, entry.id), {
+    recipeId: entry.id,
+    day: entry.day || "",
+    date: entry.date || "",
+    updatedAt: serverTimestamp()
+  });
+}
+
+function removeShoppingRecipe(recipeId) {
+  return deleteDoc(doc(shoppingRecipesCollection, recipeId));
+}
+
+function saveShoppingItem(item) {
+  return setDoc(doc(shoppingItemsCollection, item.id), {
+    id: item.id,
+    section: item.section || "Misc",
+    text: item.text || "",
+    updatedAt: serverTimestamp()
+  });
+}
+
+function removeShoppingItem(itemId) {
+  return deleteDoc(doc(shoppingItemsCollection, itemId));
+}
+
+function markPurchased(itemId) {
+  return setDoc(doc(purchasedItemsCollection, itemId), {
+    id: itemId,
+    updatedAt: serverTimestamp()
+  });
+}
+
+function clearPurchasedItem(itemId) {
+  return deleteDoc(doc(purchasedItemsCollection, itemId));
+}
+
 window.KitchenCloud = {
   ensureSignedIn,
   watchAuth,
   watchPlans,
+  watchShopping,
   savePlan,
   removePlan,
+  saveShoppingRecipe,
+  removeShoppingRecipe,
+  saveShoppingItem,
+  removeShoppingItem,
+  markPurchased,
+  clearPurchasedItem,
   isSignedIn: () => !!auth.currentUser
 };
 
