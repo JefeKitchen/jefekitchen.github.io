@@ -548,6 +548,7 @@
   }
 </style>
 <script src="./docs/recipe-catalog.js?v=1"></script>
+<script type="module" src="./docs/firebase-state.js?v=1"></script>
 </head>
 <body>
 
@@ -638,6 +639,9 @@
   const thisWeekCatalog = window.JEFES_KITCHEN_CATALOG.recipes;
   let savedSections = {};
   let pendingInstructionLinks = null;
+  let cloudThisWeekRecipes = null;
+  let cloudSyncStarted = false;
+  let unwatchCloudPlans = null;
 
   function localDateKey(date = new Date()) {
     const year = date.getFullYear();
@@ -727,6 +731,8 @@
   }
 
   function loadThisWeekRecipes() {
+    if (Array.isArray(cloudThisWeekRecipes)) return cloudThisWeekRecipes;
+
     const raw = localStorage.getItem(thisWeekRecipesKey);
     if (raw === null) {
       const legacy = localStorage.getItem(legacyThisWeekRecipesKey);
@@ -786,18 +792,40 @@
     }
   }
 
-  function addRecipeEntry(key, recipeId, day) {
+  async function addRecipeEntry(key, recipeId, day) {
     const loader = key === thisWeekRecipesKey ? loadThisWeekRecipes : loadShoppingRecipes;
     const saver = key === thisWeekRecipesKey ? saveThisWeekRecipes : saveShoppingRecipes;
     const entries = loader();
     if (entries.some(entry => entry.id === recipeId)) return;
-    entries.push({ id: recipeId, day, date: dateForDay(day) });
+    const entry = { id: recipeId, day, date: dateForDay(day) };
+
+    if (key === thisWeekRecipesKey && window.KitchenCloud?.ensureSignedIn) {
+      try {
+        await window.KitchenCloud.ensureSignedIn();
+        await window.KitchenCloud.savePlan(entry);
+        return;
+      } catch (error) {
+        console.warn('Kitchen sync save unavailable; using local plan', error);
+      }
+    }
+
+    entries.push(entry);
     saver(entries);
     if (key === thisWeekShoppingRecipesKey) clearPurchasedRecipe(recipeId);
   }
 
-  function removeThisWeekRecipe(recipeId) {
-    saveThisWeekRecipes(loadThisWeekRecipes().filter(entry => entry.id !== recipeId));
+  async function removeThisWeekRecipe(recipeId) {
+    if (window.KitchenCloud?.isSignedIn?.()) {
+      try {
+        await window.KitchenCloud.removePlan(recipeId);
+      } catch (error) {
+        console.warn('Kitchen sync remove unavailable; removing local plan', error);
+        saveThisWeekRecipes(loadThisWeekRecipes().filter(entry => entry.id !== recipeId));
+      }
+    } else {
+      saveThisWeekRecipes(loadThisWeekRecipes().filter(entry => entry.id !== recipeId));
+    }
+
     saveShoppingRecipes(loadShoppingRecipes().filter(entry => entry.id !== recipeId));
     clearPurchasedRecipe(recipeId);
     renderThisWeekPlans();
@@ -830,6 +858,37 @@
   renderRecipeGroups();
   renderThisWeekPlans();
   hidePastWeekPlans();
+
+  function startCloudSync() {
+    if (cloudSyncStarted || !window.KitchenCloud) return;
+    cloudSyncStarted = true;
+
+    window.KitchenCloud.watchAuth(user => {
+      if (unwatchCloudPlans) {
+        unwatchCloudPlans();
+        unwatchCloudPlans = null;
+      }
+
+      if (!user) {
+        cloudThisWeekRecipes = null;
+        renderThisWeekPlans();
+        populateWeekRecipeForm();
+        return;
+      }
+
+      unwatchCloudPlans = window.KitchenCloud.watchPlans(entries => {
+        cloudThisWeekRecipes = sortRecipeEntries(normalizeRecipeEntries(entries));
+        localStorage.setItem(thisWeekRecipesKey, JSON.stringify(cloudThisWeekRecipes));
+        renderThisWeekPlans();
+        hidePastWeekPlans();
+        populateWeekRecipeForm();
+      }, () => {
+        cloudThisWeekRecipes = null;
+        renderThisWeekPlans();
+        populateWeekRecipeForm();
+      });
+    });
+  }
 
   try {
     savedSections = JSON.parse(localStorage.getItem(sectionStateKey) || '{}');
@@ -896,6 +955,9 @@
     weekChoice.classList.remove('is-open');
     weekChoice.setAttribute('aria-hidden', 'true');
   }
+
+  window.addEventListener('kitchen-cloud-ready', startCloudSync);
+  startCloudSync();
 
   function detectedInstructionLayout() {
     const ua = navigator.userAgent || '';
@@ -989,17 +1051,17 @@
     removeThisWeekRecipe(button.dataset.removeThisWeek);
   });
 
-  weekRecipeForm.addEventListener('submit', event => {
+  weekRecipeForm.addEventListener('submit', async event => {
     event.preventDefault();
     const recipeId = weekRecipeChoice.value;
     const day = weekRecipeDay.value;
     const scope = weekRecipeScope.value;
 
     if (scope === 'plan' || scope === 'both') {
-      addRecipeEntry(thisWeekRecipesKey, recipeId, day);
+      await addRecipeEntry(thisWeekRecipesKey, recipeId, day);
     }
     if (scope === 'shopping' || scope === 'both') {
-      addRecipeEntry(thisWeekShoppingRecipesKey, recipeId, day);
+      await addRecipeEntry(thisWeekShoppingRecipesKey, recipeId, day);
     }
 
     closeWeekChoice();
