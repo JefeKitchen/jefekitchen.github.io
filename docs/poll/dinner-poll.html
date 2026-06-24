@@ -69,13 +69,18 @@
     margin-bottom: 13px;
   }
   .poll-option {
+    appearance: none;
     display: block;
     padding: 15px 14px;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 8px;
     color: var(--text);
+    cursor: pointer;
+    font: inherit;
     text-decoration: none;
+    text-align: left;
+    width: 100%;
     -webkit-tap-highlight-color: transparent;
   }
   .poll-option:active {
@@ -103,9 +108,124 @@
     font-weight: 600;
     line-height: 1.2;
   }
+  .poll-actions,
+  .write-in-wrap,
+  .results-panel {
+    margin: 0 20px 14px;
+  }
+  .poll-actions {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: 1fr 1fr;
+  }
+  .submit-vote,
+  .results-toggle {
+    appearance: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 11px 12px;
+  }
+  .submit-vote {
+    background: var(--gold);
+    border: 1px solid var(--gold);
+    color: #111;
+  }
+  .submit-vote:disabled {
+    opacity: 0.45;
+  }
+  .results-toggle {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+  .write-in-wrap {
+    display: none;
+  }
+  .write-in-wrap.is-open {
+    display: block;
+  }
+  .write-in-wrap input {
+    appearance: none;
+    background: #101010;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 16px;
+    padding: 11px 12px;
+    width: 100%;
+  }
+  .vote-status {
+    color: var(--muted);
+    font-size: 12px;
+    margin: -2px 20px 14px;
+    min-height: 18px;
+  }
+  .results-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: none;
+    padding: 12px;
+  }
+  .results-panel.is-open {
+    display: block;
+  }
+  .result-row {
+    display: grid;
+    gap: 7px;
+    margin-bottom: 11px;
+  }
+  .result-row:last-child {
+    margin-bottom: 0;
+  }
+  .result-top {
+    align-items: center;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+  }
+  .result-name {
+    color: var(--text);
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.15;
+  }
+  .result-count {
+    color: var(--gold);
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .result-bar {
+    background: #101010;
+    border-radius: 999px;
+    height: 6px;
+    overflow: hidden;
+  }
+  .result-fill {
+    background: var(--gold);
+    border-radius: inherit;
+    height: 100%;
+    min-width: 0;
+  }
 
 </style>
 <link rel="stylesheet" href="../theme.css?v=4">
+<style>
+  .poll-option.is-selected {
+    background: #211d14 !important;
+    border-color: var(--gold) !important;
+    color: var(--gold) !important;
+  }
+  .poll-option.is-selected .option-title {
+    color: var(--gold) !important;
+  }
+</style>
+<script type="module" src="../firebase-state.js?v=4"></script>
 </head>
 <body>
 <div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
@@ -116,89 +236,199 @@
 
 <div class="poll-list">
   <div class="poll-row">
-    <a class="poll-option" href="sms:?body=Survey%20says%3A%20beef%20meatballs%20with%20buttered%20noodles." data-choice="beef meatballs with buttered noodles">
+    <button class="poll-option" type="button" data-choice-id="beef-meatballs-buttered-noodles" data-choice="Beef Meatballs with Buttered Noodles">
       <span>
         <span class="option-title">Beef Meatballs with Buttered Noodles</span>
       </span>
-    </a>
+    </button>
     <a class="poll-menu-link" href="../beef-meatballs-buttered-noodles/beef-meatballs-buttered-noodles-menu.html" aria-label="Beef Meatballs with Buttered Noodles menu">📜</a>
   </div>
   <div class="poll-row">
-    <a class="poll-option" href="sms:?body=Survey%20says%3A%20chicken%20and%20mashed%20potato%20bowls." data-choice="chicken and mashed potato bowls">
+    <button class="poll-option" type="button" data-choice-id="chicken-mashed-potato-bowls" data-choice="Chicken & Mashed Potato Bowls">
       <span>
         <span class="option-title">Chicken & Mashed Potato Bowls</span>
       </span>
-    </a>
+    </button>
     <a class="poll-menu-link" href="../chicken-mashed-potato-bowls/chicken-mashed-potato-bowls-menu.html" aria-label="Chicken & Mashed Potato Bowls menu">📜</a>
   </div>
   <div class="poll-row">
-    <a class="poll-option" href="sms:?body=Survey%20says%3A%20creamy%20orzo%20with%20chicken." data-choice="creamy orzo with chicken">
+    <button class="poll-option" type="button" data-choice-id="creamy-orzo-chicken" data-choice="Creamy Orzo with Chicken">
       <span>
         <span class="option-title">Creamy Orzo with Chicken</span>
       </span>
-    </a>
+    </button>
     <a class="poll-menu-link" href="../creamy-orzo-chicken/creamy-orzo-chicken-menu.html" aria-label="Creamy Orzo with Chicken menu">📜</a>
   </div>
   <div class="poll-row">
-    <a class="poll-option" href="sms:?body=Survey%20says%3A%20baked%20salmon%20with%20rice%20and%20cucumber." data-choice="baked salmon with rice and cucumber">
+    <button class="poll-option" type="button" data-choice-id="baked-salmon-rice-cucumber" data-choice="Baked Salmon with Rice & Cucumber">
       <span>
         <span class="option-title">Baked Salmon with Rice & Cucumber</span>
       </span>
-    </a>
+    </button>
     <a class="poll-menu-link" href="../baked-salmon-rice-cucumber/baked-salmon-rice-cucumber-menu.html" aria-label="Baked Salmon with Rice & Cucumber menu">📜</a>
   </div>
   <div class="poll-row">
-    <a class="poll-option" href="sms:?body=Survey%20says%3A%20chicken%20pot%20pie%20rice%20skillet." data-choice="chicken pot pie rice skillet">
+    <button class="poll-option" type="button" data-choice-id="chicken-pot-pie-rice-skillet" data-choice="Chicken Pot Pie Rice Skillet">
       <span>
         <span class="option-title">Chicken Pot Pie Rice Skillet</span>
       </span>
-    </a>
+    </button>
     <a class="poll-menu-link" href="../chicken-pot-pie-rice-skillet/chicken-pot-pie-rice-skillet-menu.html" aria-label="Chicken Pot Pie Rice Skillet menu">📜</a>
   </div>
   <div class="poll-row">
-    <a class="poll-option" href="sms:?body=Survey%20says%3A%20mild%20chicken%20noodle%20bake." data-choice="mild chicken noodle bake">
+    <button class="poll-option" type="button" data-choice-id="mild-chicken-noodle-bake" data-choice="Mild Chicken Noodle Bake">
       <span>
         <span class="option-title">Mild Chicken Noodle Bake</span>
       </span>
-    </a>
+    </button>
     <a class="poll-menu-link" href="../mild-chicken-noodle-bake/mild-chicken-noodle-bake-menu.html" aria-label="Mild Chicken Noodle Bake menu">📜</a>
   </div>
   <div class="poll-row">
-    <a class="poll-option" href="sms:?body=I%20reject%20the%20ballot%20and%20nominate%3A%20" data-write-in="true">
+    <button class="poll-option" type="button" data-choice-id="wildcard" data-choice="Wildcard" data-write-in="true">
       <span>
         <span class="option-title">Wildcard</span>
       </span>
-    </a>
+    </button>
   </div>
 </div>
 
+<div class="write-in-wrap" id="writeInWrap">
+  <input id="writeInInput" type="text" autocomplete="off" placeholder="Nominate a din">
+</div>
+
+<div class="poll-actions">
+  <button class="submit-vote" type="button" id="submitVote" disabled>Submit Vote</button>
+  <button class="results-toggle" type="button" id="resultsToggle">Results</button>
+</div>
+<div class="vote-status" id="voteStatus"></div>
+<div class="results-panel" id="resultsPanel"></div>
+
 <script>
-  const responses = [
-    choice => `Survey says: ${choice}.`,
-    choice => `I have consulted my heart and my belly, and they both request ${choice}.`,
-    choice => `I am pleased to announce that my dinner instincts have chosen ${choice}.`,
-    choice => `After careful deliberation, the council has selected ${choice}.`,
-    choice => `My stomach has entered the chat and requested ${choice}.`,
-    choice => `Tonight feels like ${choice}.`
-  ];
+  const pollOptions = Array.from(document.querySelectorAll('.poll-option'));
+  const submitVote = document.getElementById('submitVote');
+  const resultsToggle = document.getElementById('resultsToggle');
+  const resultsPanel = document.getElementById('resultsPanel');
+  const voteStatus = document.getElementById('voteStatus');
+  const writeInWrap = document.getElementById('writeInWrap');
+  const writeInInput = document.getElementById('writeInInput');
+  let selectedOption = null;
+  let votes = [];
+  let unwatchVotes = null;
 
-  function smsLink(message) {
-    const separator = /iP(ad|hone|od)/i.test(navigator.userAgent) ? '&' : '?';
-    return `sms:${separator}body=${encodeURIComponent(message)}`;
-  }
+  const optionLabel = option => option.dataset.writeIn ? (writeInInput.value.trim() || 'Wildcard') : option.dataset.choice;
 
-  document.querySelectorAll('.poll-option').forEach(option => {
-    option.addEventListener('click', event => {
-      event.preventDefault();
-      if (option.dataset.writeIn) {
-        window.location.href = smsLink('I reject the ballot and nominate: ');
-        return;
-      }
-      const choice = option.dataset.choice;
-      const response = responses[Math.floor(Math.random() * responses.length)](choice);
-      window.location.href = smsLink(response);
+  const optionOrder = () => pollOptions.map(option => ({
+    id: option.dataset.choiceId,
+    choice: option.dataset.choice
+  }));
+
+  const selectOption = option => {
+    selectedOption = option;
+    pollOptions.forEach(candidate => candidate.classList.toggle('is-selected', candidate === option));
+    writeInWrap.classList.toggle('is-open', !!option.dataset.writeIn);
+    submitVote.disabled = false;
+    voteStatus.textContent = '';
+    if (option.dataset.writeIn) writeInInput.focus();
+  };
+
+  const renderResults = () => {
+    const counts = votes.reduce((totals, vote) => {
+      const id = vote.choiceId || 'wildcard';
+      totals[id] = totals[id] || { choice: vote.choice || 'Wildcard', count: 0 };
+      totals[id].count += 1;
+      return totals;
+    }, {});
+    const rows = optionOrder().map(option => ({
+      id: option.id,
+      choice: option.choice,
+      count: counts[option.id]?.count || 0
+    }));
+    Object.entries(counts).forEach(([id, result]) => {
+      if (!rows.some(row => row.id === id)) rows.push({ id, choice: result.choice, count: result.count });
     });
+    const topCount = Math.max(1, ...rows.map(row => row.count));
+
+    resultsPanel.innerHTML = '';
+    rows.forEach(row => {
+      const result = document.createElement('div');
+      result.className = 'result-row';
+      const top = document.createElement('div');
+      top.className = 'result-top';
+      const name = document.createElement('div');
+      name.className = 'result-name';
+      name.textContent = row.choice;
+      const count = document.createElement('div');
+      count.className = 'result-count';
+      count.textContent = `${row.count}`;
+      top.append(name, count);
+      const bar = document.createElement('div');
+      bar.className = 'result-bar';
+      const fill = document.createElement('div');
+      fill.className = 'result-fill';
+      fill.style.width = `${(row.count / topCount) * 100}%`;
+      bar.appendChild(fill);
+      result.append(top, bar);
+      resultsPanel.appendChild(result);
+    });
+  };
+
+  const startPollSync = () => {
+    if (unwatchVotes || !window.KitchenCloud?.watchPollVotes) return;
+    unwatchVotes = window.KitchenCloud.watchPollVotes(nextVotes => {
+      votes = nextVotes;
+      const mine = votes.find(vote => vote.voterId === window.KitchenCloud.currentUserId?.());
+      if (mine && !selectedOption) {
+        const previous = pollOptions.find(option => option.dataset.choiceId === mine.choiceId);
+        if (previous) {
+          selectOption(previous);
+          if (previous.dataset.writeIn) writeInInput.value = mine.choice;
+        }
+      }
+      renderResults();
+    }, () => {
+      voteStatus.textContent = 'Poll sync is unavailable right now.';
+    });
+  };
+
+  pollOptions.forEach(option => {
+    option.addEventListener('click', () => selectOption(option));
   });
+
+  submitVote.addEventListener('click', async () => {
+    if (!selectedOption) return;
+    const choice = optionLabel(selectedOption);
+    if (selectedOption.dataset.writeIn && !writeInInput.value.trim()) {
+      voteStatus.textContent = 'Write in your din first.';
+      writeInInput.focus();
+      return;
+    }
+    submitVote.disabled = true;
+    voteStatus.textContent = 'Saving vote...';
+    try {
+      await window.KitchenCloud.ensureSignedIn();
+      await window.KitchenCloud.savePollVote({
+        choiceId: selectedOption.dataset.choiceId,
+        choice,
+        writeIn: !!selectedOption.dataset.writeIn
+      });
+      voteStatus.textContent = 'Vote saved.';
+    } catch (error) {
+      console.warn('Poll vote save failed', error);
+      voteStatus.textContent = 'Vote did not save. Try again?';
+      submitVote.disabled = false;
+      return;
+    }
+    submitVote.disabled = false;
+  });
+
+  resultsToggle.addEventListener('click', () => {
+    resultsPanel.classList.toggle('is-open');
+    renderResults();
+  });
+
+  window.addEventListener('kitchen-cloud-ready', startPollSync);
+  startPollSync();
+  renderResults();
 </script>
 
 </body>

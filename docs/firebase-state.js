@@ -24,6 +24,7 @@ const plansCollection = collection(db, "households", householdId, "plans");
 const shoppingRecipesCollection = collection(db, "households", householdId, "shoppingRecipes");
 const shoppingItemsCollection = collection(db, "households", householdId, "shoppingItems");
 const purchasedItemsCollection = collection(db, "households", householdId, "purchasedItems");
+const pollVotesCollection = collection(db, "households", householdId, "polls", "current", "votes");
 
 function normalizePlan(docSnap) {
   const data = docSnap.data() || {};
@@ -53,6 +54,16 @@ function normalizeShoppingItem(docSnap) {
     id: data.id || docSnap.id,
     section: data.section || "Misc",
     text: data.text || ""
+  };
+}
+
+function normalizePollVote(docSnap) {
+  const data = docSnap.data() || {};
+  return {
+    voterId: docSnap.id,
+    choiceId: data.choiceId || "",
+    choice: data.choice || "",
+    writeIn: !!data.writeIn
   };
 }
 
@@ -127,6 +138,17 @@ function watchShopping(callback, onError) {
   };
 }
 
+function watchPollVotes(callback, onError) {
+  return onSnapshot(
+    pollVotesCollection,
+    snapshot => callback(snapshot.docs.map(normalizePollVote)),
+    error => {
+      console.warn("Kitchen poll sync unavailable", error);
+      if (onError) onError(error);
+    }
+  );
+}
+
 function savePlan(entry) {
   return setDoc(doc(plansCollection, entry.id), {
     recipeId: entry.id,
@@ -179,11 +201,26 @@ function clearPurchasedItem(itemId) {
   return deleteDoc(doc(purchasedItemsCollection, itemId));
 }
 
+async function savePollVote(vote) {
+  const user = await ensureSignedIn();
+  return setDoc(doc(pollVotesCollection, user.uid), {
+    choiceId: vote.choiceId || "",
+    choice: vote.choice || "",
+    writeIn: !!vote.writeIn,
+    updatedAt: serverTimestamp()
+  });
+}
+
+function currentUserId() {
+  return auth.currentUser?.uid || "";
+}
+
 window.KitchenCloud = {
   ensureSignedIn,
   watchAuth,
   watchPlans,
   watchShopping,
+  watchPollVotes,
   savePlan,
   removePlan,
   saveShoppingRecipe,
@@ -192,6 +229,8 @@ window.KitchenCloud = {
   removeShoppingItem,
   markPurchased,
   clearPurchasedItem,
+  savePollVote,
+  currentUserId,
   isSignedIn: () => !!auth.currentUser
 };
 
