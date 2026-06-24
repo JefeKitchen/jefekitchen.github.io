@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v132';
+const CACHE_NAME = 'jeffs-kitchen-v135';
 
 const PAGES = [
   './',
@@ -12,10 +12,16 @@ const PAGES = [
   './docs/menu-card.css',
   './docs/wide-layout.css',
   './docs/wide-pills.js',
-  './docs/instruction-content.js?v=10',
+  './docs/instruction-content.js?v=11',
   './docs/instruction-renderer.js?v=10',
   './docs/grocery-boom.js',
   './docs/poll/dinner-poll.html',
+  './docs/beef-meatballs-buttered-noodles/beef-meatballs-buttered-noodles-menu.html',
+  './docs/chicken-mashed-potato-bowls/chicken-mashed-potato-bowls-menu.html',
+  './docs/creamy-orzo-chicken/creamy-orzo-chicken-menu.html',
+  './docs/baked-salmon-rice-cucumber/baked-salmon-rice-cucumber-menu.html',
+  './docs/chicken-pot-pie-rice-skillet/chicken-pot-pie-rice-skillet-menu.html',
+  './docs/mild-chicken-noodle-bake/mild-chicken-noodle-bake-menu.html',
   './docs/smash-sliders/slider-guide-lineup-a.html',
   './docs/smash-sliders/slider-menu.html',
   './docs/smash-sliders/slider-prep-order.html',
@@ -66,6 +72,14 @@ const PAGES = [
   './docs/buffalo-chickpea-dip/buffalo-chickpea-dip-wide.html',
   './docs/buffalo-chickpea-dip/buffalo-chickpea-dip-menu.html',
   './docs/combined-shopping/this-week-shopping-list.html',
+  './docs/cuban-sandwiches/cuban-sandwiches-menu.html',
+  './docs/cuban-sandwiches/grocery-list-cuban-sandwiches.html',
+  './docs/cuban-sandwiches/cuban-sandwiches-instructions.html',
+  './docs/cuban-sandwiches/cuban-sandwiches-wide.html',
+  './docs/mojo-pork-bowls/mojo-pork-bowls-menu.html',
+  './docs/mojo-pork-bowls/grocery-list-mojo-pork-bowls.html',
+  './docs/mojo-pork-bowls/mojo-pork-bowls-instructions.html',
+  './docs/mojo-pork-bowls/mojo-pork-bowls-wide.html',
   './docs/carnitas-elote-bowls/grocery-list-carnitas-elote-bowls.html',
   './docs/carnitas-elote-bowls/carnitas-elote-bowls-menu.html',
   './docs/carnitas-elote-bowls/carnitas-elote-bowls-instructions.html',

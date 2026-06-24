@@ -669,6 +669,36 @@
     </div>
   </div>
 </div>
+<!-- CUBAN SANDWICHES -->
+<div class="section">
+  <div class="card recipe-card">
+    <div class="card-copy">
+      <div class="card-title">Cuban Sandwiches</div>
+      <span class="card-subtitle">Pork · Ham · Swiss · Pickles</span>
+    </div>
+    <div class="card-actions" aria-label="Cuban Sandwiches links">
+      <a class="icon-link" href="./docs/cuban-sandwiches/cuban-sandwiches-menu.html" aria-label="Cuban Sandwiches menu" title="Menu">📜</a>
+      <a class="icon-link" href="./docs/cuban-sandwiches/grocery-list-cuban-sandwiches.html" aria-label="Cuban Sandwiches grocery list" title="Grocery List">🛒</a>
+      <a class="icon-link instruction-choice-link" href="./docs/cuban-sandwiches/cuban-sandwiches-instructions.html" data-phone="./docs/cuban-sandwiches/cuban-sandwiches-instructions.html" data-wide="./docs/cuban-sandwiches/cuban-sandwiches-wide.html" aria-label="Cuban Sandwiches cooking instructions" title="Cooking Instructions">🥘</a>
+    </div>
+  </div>
+</div>
+
+<!-- MOJO PORK BOWLS -->
+<div class="section">
+  <div class="card recipe-card">
+    <div class="card-copy">
+      <div class="card-title">Mojo Pork Bowls</div>
+      <span class="card-subtitle">Black Beans · Pickles · Rice</span>
+    </div>
+    <div class="card-actions" aria-label="Mojo Pork Bowls links">
+      <a class="icon-link" href="./docs/mojo-pork-bowls/mojo-pork-bowls-menu.html" aria-label="Mojo Pork Bowls menu" title="Menu">📜</a>
+      <a class="icon-link" href="./docs/mojo-pork-bowls/grocery-list-mojo-pork-bowls.html" aria-label="Mojo Pork Bowls grocery list" title="Grocery List">🛒</a>
+      <a class="icon-link instruction-choice-link" href="./docs/mojo-pork-bowls/mojo-pork-bowls-instructions.html" data-phone="./docs/mojo-pork-bowls/mojo-pork-bowls-instructions.html" data-wide="./docs/mojo-pork-bowls/mojo-pork-bowls-wide.html" aria-label="Mojo Pork Bowls cooking instructions" title="Cooking Instructions">🥘</a>
+    </div>
+  </div>
+</div>
+
 </div>
 </details>
 
@@ -864,6 +894,20 @@
   const defaultThisWeekRecipes = [];
   const weekDayOptions = ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   const thisWeekCatalog = {
+    'cuban-sandwiches': {
+      title: 'Cuban Sandwiches',
+      subtitle: 'Pork · Ham · Swiss · Pickles',
+      menu: './docs/cuban-sandwiches/cuban-sandwiches-menu.html',
+      phone: './docs/cuban-sandwiches/cuban-sandwiches-instructions.html',
+      wide: './docs/cuban-sandwiches/cuban-sandwiches-wide.html'
+    },
+    'mojo-pork-bowls': {
+      title: 'Mojo Pork Bowls',
+      subtitle: 'Black Beans · Pickles · Rice',
+      menu: './docs/mojo-pork-bowls/mojo-pork-bowls-menu.html',
+      phone: './docs/mojo-pork-bowls/mojo-pork-bowls-instructions.html',
+      wide: './docs/mojo-pork-bowls/mojo-pork-bowls-wide.html'
+    },
     'beef-broccoli-wok': {
       title: 'Beef & Broccoli Wok',
       subtitle: 'Broccoli · Rice · Wok Basics',

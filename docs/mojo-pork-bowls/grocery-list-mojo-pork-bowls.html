@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mojo Pork Bowls Grocery List</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../theme.css?v=4">
+</head>
+<body>
+<div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="hero-title">Mojo Pork <span>Bowls</span></div>
+    <div class="hero-sub">Grocery List</div>
+  </div>
+
+  <div class="section-block">
+    <div class="sec">Produce</div>
+    <label class="check-row"><input type="checkbox"><span>White or yellow onion <em>1</em></span></label>
+    <label class="check-row"><input type="checkbox"><span>Garlic <em>1 head</em></span></label>
+    <label class="check-row"><input type="checkbox"><span>Lime <em>2</em></span></label>
+    <label class="check-row"><input type="checkbox"><span>Orange <em>1, or orange juice</em></span></label>
+    <label class="check-row"><input type="checkbox"><span>Cilantro <em>Optional finish</em></span></label>
+  </div>
+
+  <div class="section-block">
+    <div class="sec">Meat/Seafood</div>
+    <label class="check-row"><input type="checkbox"><span>Roast pork or pork tenderloin <em>1-1 1/4 lb</em></span></label>
+    <label class="check-row"><input type="checkbox"><span>Ham <em>Optional, 3-4 slices for crispy bits</em></span></label>
+  </div>
+
+  <div class="section-block">
+    <div class="sec">Pantry</div>
+    <label class="check-row"><input type="checkbox"><span>White rice <em>1 1/2 cups dry</em></span></label>
+    <label class="check-row"><input type="checkbox"><span>Black beans <em>1 can</em></span></label>
+    <label class="check-row"><input type="checkbox"><span>Dill pickles <em>For crunch</em></span></label>
+    <label class="check-row"><input type="checkbox"><span>Yellow mustard <em>For drizzle</em></span></label>
+    <label class="check-row"><input type="checkbox"><span>Cumin <em>For beans and pork</em></span></label>
+    <label class="check-row"><input type="checkbox"><span>Oregano <em>For pork</em></span></label>
+    <label class="check-row"><input type="checkbox"><span>Chicken broth or water <em>Splash for beans</em></span></label>
+  </div>
+
+  <div class="section-block">
+    <div class="sec">Dairy</div>
+    <label class="check-row"><input type="checkbox"><span>Swiss cheese <em>Optional light topping</em></span></label>
+  </div>
+</div>
+<script src="../grocery-boom.js?v=1"></script>
+<script>
+const boxes = [...document.querySelectorAll('input[type="checkbox"]')];
+const key = 'mojo-pork-bowls-grocery-v1';
+const saved = JSON.parse(localStorage.getItem(key) || '{}');
+boxes.forEach((box, index) => {
+  box.id = 'mojo-pork-bowls-' + index;
+  box.checked = !!saved[box.id];
+  box.addEventListener('change', () => {
+    saved[box.id] = box.checked;
+    localStorage.setItem(key, JSON.stringify(saved));
+    window.GroceryBoom && window.GroceryBoom.check(boxes);
+  });
+});
+</script>
+</body>
+</html>

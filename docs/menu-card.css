@@ -309,6 +309,62 @@ body {
   --leaf: #4f6a55;
 }
 
+.theme-cuban {
+  --paper: #f5ead8;
+  --ink: #1f1912;
+  --accent: #b35d2c;
+  --leaf: #6f7f47;
+}
+
+.theme-mojo {
+  --paper: #f7f0df;
+  --ink: #1c1a14;
+  --accent: #c37a2c;
+  --leaf: #476d55;
+}
+
+.theme-cozy-beef {
+  --paper: #f4eadc;
+  --ink: #211912;
+  --accent: #8d5639;
+  --leaf: #6f7356;
+}
+
+.theme-cozy-chicken {
+  --paper: #f7efde;
+  --ink: #1f1a13;
+  --accent: #a8793c;
+  --leaf: #6e7d61;
+}
+
+.theme-cozy-orzo {
+  --paper: #f5f0df;
+  --ink: #1e1c15;
+  --accent: #a88a45;
+  --leaf: #63775b;
+}
+
+.theme-cozy-salmon {
+  --paper: #f3eadf;
+  --ink: #1c1a18;
+  --accent: #b16f5d;
+  --leaf: #60766c;
+}
+
+.theme-cozy-potpie {
+  --paper: #f7edd8;
+  --ink: #1d1912;
+  --accent: #b07b34;
+  --leaf: #65734f;
+}
+
+.theme-cozy-noodle {
+  --paper: #f3ecdc;
+  --ink: #1f1b15;
+  --accent: #9d7445;
+  --leaf: #70785b;
+}
+
 .themed .page {
   background: var(--paper);
   color: var(--ink);
