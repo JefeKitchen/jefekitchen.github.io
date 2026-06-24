@@ -94,28 +94,49 @@ body {
 .section-card.wide,
 .section-card.full { grid-column: 1 / -1; }
 
-.section-head {
-  background: var(--raised);
-  border-bottom: 1px solid var(--border);
-  padding: 11px 14px 9px;
+.section-card .section-head {
+  background: var(--raised) !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--border) !important;
+  color: var(--text) !important;
+  display: block !important;
+  font-family: 'Source Sans 3', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+  line-height: normal !important;
+  margin: 0 !important;
+  padding: 11px 14px 9px !important;
+  text-transform: none !important;
 }
 
-.section-label {
-  color: var(--gold);
-  display: block;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 1.8px;
-  line-height: 1.2;
-  margin-bottom: 4px;
-  text-transform: uppercase;
+.section-card .section-label {
+  background: transparent !important;
+  border: 0 !important;
+  color: var(--gold) !important;
+  display: block !important;
+  font-family: 'Source Sans 3', sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  letter-spacing: 1.8px !important;
+  line-height: 1.2 !important;
+  margin: 0 0 4px !important;
+  padding: 0 !important;
+  text-transform: uppercase !important;
 }
 
-h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 22px;
-  font-weight: 600;
-  line-height: 1.15;
+.section-card .section-head h2 {
+  background: transparent !important;
+  border: 0 !important;
+  color: var(--text) !important;
+  font-family: 'Playfair Display', serif !important;
+  font-size: 22px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.15 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
 }
 
 .pull {
@@ -153,13 +174,16 @@ ol {
 }
 
 li {
+  align-items: start;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   color: var(--text);
   counter-increment: step;
+  display: grid;
   font-size: 15px;
+  gap: 14px;
+  grid-template-columns: 24px minmax(0, 1fr);
   line-height: 1.45;
-  padding: 8px 0 8px 38px;
-  position: relative;
+  padding: 8px 0;
 }
 
 li:first-child {
@@ -180,10 +204,11 @@ li::before {
   font-weight: 600;
   height: 24px;
   justify-content: center;
-  left: 0;
-  position: absolute;
-  top: 8px;
   width: 24px;
+}
+
+li > * {
+  min-width: 0;
 }
 
 .ing {

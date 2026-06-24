@@ -484,9 +484,11 @@ ol {
 }
 
 .cook-steps li {
+  align-items: start !important;
   counter-increment: s !important;
-  display: flex !important;
+  display: grid !important;
   gap: 12px !important;
+  grid-template-columns: 18px minmax(0, 1fr) !important;
   padding: 7px 0 !important;
   border-bottom: 1px solid var(--border) !important;
   font-size: 13px !important;
@@ -508,11 +510,10 @@ ol {
   color: var(--gold) !important;
   min-width: 18px !important;
   line-height: 1.6 !important;
-  flex-shrink: 0 !important;
+  text-align: center !important;
 }
 
 .cook-steps li .st {
-  flex: 1 !important;
   min-width: 0 !important;
 }
 

@@ -2,58 +2,202 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mojo Pork Bowls Grocery List</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Grocery List — Mojo Pork Bowls</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #f2f2f0;
+    color: #111;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 15px;
+    margin: 0 auto;
+    max-width: 480px;
+    padding: 32px 20px 60px;
+  }
+
+  .page-title {
+    color: #111;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    letter-spacing: 2px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .page-sub {
+    color: #888;
+    font-size: 12px;
+    letter-spacing: 3px;
+    margin-bottom: 28px;
+    text-transform: uppercase;
+  }
+
+  .section {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+
+  .section-header {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 3px;
+    padding: 9px 16px;
+  }
+
+  .section-header.need {
+    background: #111;
+    color: #fff;
+  }
+
+  .item-list { padding: 6px 0; }
+
+  .item {
+    align-items: flex-start;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    display: flex;
+    gap: 14px;
+    padding: 10px 16px;
+  }
+
+  .item:last-child { border-bottom: 0; }
+
+  .item input[type="checkbox"] {
+    accent-color: #111;
+    cursor: pointer;
+    flex-shrink: 0;
+    height: 16px;
+    margin-top: 2px;
+    width: 16px;
+  }
+
+  .item label {
+    color: #111;
+    cursor: pointer;
+    flex: 1;
+    font-size: 14.5px;
+    line-height: 1.4;
+    pointer-events: none;
+  }
+
+  .item input[type="checkbox"]:checked ~ label {
+    color: #aaa;
+    text-decoration: line-through;
+  }
+
+  .item-note {
+    color: #999;
+    display: block;
+    font-size: 11.5px;
+    margin-top: 1px;
+  }
+</style>
 <link rel="stylesheet" href="../theme.css?v=4">
 </head>
 <body>
+<style>.back-bar{position:sticky;top:0;z-index:1000;background:#171717;border-bottom:1px solid #2c2c2c;padding:4px 10px;margin:-32px -20px 28px;}.back-bar a{color:#b8953a;text-decoration:none;font-family:-apple-system,sans-serif;font-size:30px;line-height:1;display:inline-flex;align-items:center;justify-content:center;width:36px;height:32px;}</style>
 <div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
 
-<div class="wrap">
-  <div class="hero">
-    <div class="hero-title">Mojo Pork <span>Bowls</span></div>
-    <div class="hero-sub">Grocery List</div>
-  </div>
+<div class="page-title">Grocery List</div>
+<div class="page-sub">Mojo Pork Bowls</div>
 
-  <div class="section-block">
-    <div class="sec">Produce</div>
-    <label class="check-row"><input type="checkbox"><span>White or yellow onion <em>1</em></span></label>
-    <label class="check-row"><input type="checkbox"><span>Garlic <em>1 head</em></span></label>
-    <label class="check-row"><input type="checkbox"><span>Lime <em>2</em></span></label>
-    <label class="check-row"><input type="checkbox"><span>Orange <em>1, or orange juice</em></span></label>
-    <label class="check-row"><input type="checkbox"><span>Cilantro <em>Optional finish</em></span></label>
-  </div>
-
-  <div class="section-block">
-    <div class="sec">Meat/Seafood</div>
-    <label class="check-row"><input type="checkbox"><span>Roast pork or pork tenderloin <em>1-1 1/4 lb</em></span></label>
-    <label class="check-row"><input type="checkbox"><span>Ham <em>Optional, 3-4 slices for crispy bits</em></span></label>
-  </div>
-
-  <div class="section-block">
-    <div class="sec">Pantry</div>
-    <label class="check-row"><input type="checkbox"><span>White rice <em>1 1/2 cups dry</em></span></label>
-    <label class="check-row"><input type="checkbox"><span>Black beans <em>1 can</em></span></label>
-    <label class="check-row"><input type="checkbox"><span>Dill pickles <em>For crunch</em></span></label>
-    <label class="check-row"><input type="checkbox"><span>Yellow mustard <em>For drizzle</em></span></label>
-    <label class="check-row"><input type="checkbox"><span>Cumin <em>For beans and pork</em></span></label>
-    <label class="check-row"><input type="checkbox"><span>Oregano <em>For pork</em></span></label>
-    <label class="check-row"><input type="checkbox"><span>Chicken broth or water <em>Splash for beans</em></span></label>
-  </div>
-
-  <div class="section-block">
-    <div class="sec">Dairy</div>
-    <label class="check-row"><input type="checkbox"><span>Swiss cheese <em>Optional light topping</em></span></label>
+<div class="section">
+  <div class="section-header need">Produce</div>
+  <div class="item-list">
+    <div class="item">
+      <input type="checkbox" id="mojo-pork-bowls-0">
+      <label for="mojo-pork-bowls-0">White or yellow onion<span class="item-note">1</span></label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="mojo-pork-bowls-1">
+      <label for="mojo-pork-bowls-1">Garlic<span class="item-note">1 head</span></label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="mojo-pork-bowls-2">
+      <label for="mojo-pork-bowls-2">Lime<span class="item-note">2</span></label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="mojo-pork-bowls-3">
+      <label for="mojo-pork-bowls-3">Orange<span class="item-note">1, or orange juice</span></label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="mojo-pork-bowls-4">
+      <label for="mojo-pork-bowls-4">Cilantro<span class="item-note">Optional finish</span></label>
+    </div>
   </div>
 </div>
+
+<div class="section">
+  <div class="section-header need">Meat/Seafood</div>
+  <div class="item-list">
+    <div class="item">
+      <input type="checkbox" id="mojo-pork-bowls-5">
+      <label for="mojo-pork-bowls-5">Roast pork or pork tenderloin<span class="item-note">1-1 1/4 lb</span></label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="mojo-pork-bowls-6">
+      <label for="mojo-pork-bowls-6">Ham<span class="item-note">Optional, 3-4 slices for crispy bits</span></label>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Dairy</div>
+  <div class="item-list">
+    <div class="item">
+      <input type="checkbox" id="mojo-pork-bowls-7">
+      <label for="mojo-pork-bowls-7">Swiss cheese<span class="item-note">Optional light topping</span></label>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Pantry</div>
+  <div class="item-list">
+    <div class="item">
+      <input type="checkbox" id="mojo-pork-bowls-8">
+      <label for="mojo-pork-bowls-8">White rice<span class="item-note">1 1/2 cups dry</span></label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="mojo-pork-bowls-9">
+      <label for="mojo-pork-bowls-9">Black beans<span class="item-note">1 can</span></label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="mojo-pork-bowls-10">
+      <label for="mojo-pork-bowls-10">Dill pickles<span class="item-note">For crunch</span></label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="mojo-pork-bowls-11">
+      <label for="mojo-pork-bowls-11">Yellow mustard<span class="item-note">For drizzle</span></label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="mojo-pork-bowls-12">
+      <label for="mojo-pork-bowls-12">Cumin<span class="item-note">For beans and pork</span></label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="mojo-pork-bowls-13">
+      <label for="mojo-pork-bowls-13">Oregano<span class="item-note">For pork</span></label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="mojo-pork-bowls-14">
+      <label for="mojo-pork-bowls-14">Chicken broth or water<span class="item-note">Splash for beans</span></label>
+    </div>
+  </div>
+</div>
+
 <script src="../grocery-boom.js?v=1"></script>
 <script>
 const boxes = [...document.querySelectorAll('input[type="checkbox"]')];
 const key = 'mojo-pork-bowls-grocery-v1';
 const saved = JSON.parse(localStorage.getItem(key) || '{}');
-boxes.forEach((box, index) => {
-  box.id = 'mojo-pork-bowls-' + index;
+boxes.forEach((box) => {
   box.checked = !!saved[box.id];
   box.addEventListener('change', () => {
     saved[box.id] = box.checked;

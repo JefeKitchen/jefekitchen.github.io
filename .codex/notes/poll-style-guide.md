@@ -2,6 +2,8 @@
 
 This is an internal reference for future Codex work on the dinner poll. It is not linked in the app.
 
+For complete new recipes, start with `.codex/notes/recipe-document-workflow.md`.
+
 ## Purpose
 
 The dinner poll should feel like a lightweight, fun ballot for picking dinner. It should be fast to scan on a phone, open the user's SMS app with a silly prewritten response, and optionally let the voter preview a small menu card before voting.
@@ -48,6 +50,8 @@ If the poll does not have menu cards, use a single-column poll row. If menu card
 
 For poll previews, create small menu cards rather than full recipe docs unless the user explicitly asks for full docs.
 
+Use `.codex/notes/menu-card-style-guide.md` as the source of truth for menu card structure and formatting.
+
 Path pattern:
 
 `docs/<poll-option-slug>/<poll-option-slug>-menu.html`
@@ -55,7 +59,7 @@ Path pattern:
 The menu card should:
 
 - Use `../menu-card.css`.
-- Use `<main class="page mini-menu">`.
+- Use the same classic menu structure as the rest of the app: `<main class="page">`, a `.header`, then `.section-label` plus `.menu-item` sections. Do not use the compact `mini-menu` or `course` layouts unless the user explicitly asks for a different experiment.
 - Use `<body class="themed theme-...">` with a dish-appropriate theme class.
 - Have a back button to `../poll/dinner-poll.html`, not the home page.
 - Feel related to the dish, but stay subtle. Variety is good; over-designed is not.
@@ -101,7 +105,7 @@ Use the description line for the vibe or preparation note.
 
 ## Themes
 
-Poll menu card themes live in `docs/menu-card.css`. Add compact theme classes as needed.
+Poll menu card themes live in `docs/menu-card.css`. Add theme classes as needed, but keep the markup consistent with the established menu pages.
 
 Theme guidance:
 
