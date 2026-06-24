@@ -1002,8 +1002,6 @@
 
   function populateWeekRecipeForm() {
     populateWeekRecipeSections();
-    const planned = loadThisWeekRecipes().map(entry => entry.id);
-    const shopping = loadShoppingRecipes().map(entry => entry.id);
     if (!weekRecipeSection.value && window.JEFES_KITCHEN_CATALOG.sections[0]) {
       weekRecipeSection.value = window.JEFES_KITCHEN_CATALOG.sections[0].id;
     }
@@ -1018,10 +1016,7 @@
       .forEach(([recipeId, recipe]) => {
         const option = document.createElement('option');
         option.value = recipeId;
-        const statuses = [];
-        if (planned.includes(recipeId)) statuses.push('week');
-        if (shopping.includes(recipeId)) statuses.push('list');
-        option.textContent = statuses.length ? `${recipe.title} (${statuses.join(' + ')})` : recipe.title;
+        option.textContent = recipe.title;
         weekRecipeChoice.appendChild(option);
       });
 

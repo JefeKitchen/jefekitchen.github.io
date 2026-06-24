@@ -64,6 +64,50 @@
     grid-template-columns: 1fr;
     margin: 14px 20px 0;
   }
+  .meal-filter {
+    display: none;
+    margin: 12px 20px 0;
+  }
+  .meal-filter.is-visible {
+    display: block;
+  }
+  .meal-filter-title {
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.6px;
+    margin-bottom: 7px;
+    text-transform: uppercase;
+  }
+  .meal-filter-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+  .meal-filter-btn {
+    appearance: none;
+    background: var(--gold);
+    border: 1px solid #d0b35f;
+    border-radius: 999px;
+    color: #111;
+    cursor: pointer;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 7px 10px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .meal-filter-btn.is-off {
+    background: #181818;
+    border-color: var(--border);
+    color: var(--muted);
+    opacity: 0.58;
+    text-decoration: line-through;
+  }
+  .meal-filter-btn:active {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
   .top-add-btn {
     appearance: none;
     background: var(--surface);
@@ -220,12 +264,18 @@
   <button class="complete-trip-btn" type="button" id="completeShoppingTrip">Complete Shopping Trip</button>
 </div>
 
+<div class="meal-filter" id="mealFilter">
+  <div class="meal-filter-title">Meals</div>
+  <div class="meal-filter-list" id="mealFilterList"></div>
+</div>
+
 <div id="shoppingSections"></div>
 
 <script>
   const addedItemsKey = 'this-week-added-items-v2';
   const selectedRecipesKey = 'this-week-shopping-recipes-v1';
   const purchasedItemsKey = 'this-week-purchased-items-v1';
+  const hiddenMealsKey = 'this-week-hidden-shopping-meals-v1';
   const defaultRecipeIds = [];
   const sectionOptions = window.JEFES_KITCHEN_CATALOG.shoppingSections;
   const recipeCatalog = window.JEFES_KITCHEN_CATALOG.recipes;
@@ -248,6 +298,8 @@
     other: 'Misc'
   };
   const sectionsRoot = document.getElementById('shoppingSections');
+  const mealFilter = document.getElementById('mealFilter');
+  const mealFilterList = document.getElementById('mealFilterList');
   const addIngredient = document.getElementById('addIngredient');
   const addIngredientForm = document.getElementById('addIngredientForm');
   const newItemText = document.getElementById('newItemText');
@@ -261,7 +313,7 @@
   let cloudSyncStarted = false;
   let unwatchCloudShopping = null;
 
-  const getCheckboxes = () => Array.from(document.querySelectorAll('input[type="checkbox"]'));
+  const getCheckboxes = () => Array.from(document.querySelectorAll('.item input[type="checkbox"]'));
   const isComplete = () => {
     const checkboxes = getCheckboxes();
     return checkboxes.length > 0 && checkboxes.every(cb => cb.checked);
@@ -303,9 +355,18 @@
     }
   };
 
+  const loadHiddenMeals = () => {
+    try {
+      return new Set(JSON.parse(localStorage.getItem(hiddenMealsKey)) || []);
+    } catch {
+      return new Set();
+    }
+  };
+
   const saveAddedItems = items => localStorage.setItem(addedItemsKey, JSON.stringify(items));
   const saveSelectedRecipes = recipeIds => localStorage.setItem(selectedRecipesKey, JSON.stringify(recipeIds));
   const savePurchasedItems = items => localStorage.setItem(purchasedItemsKey, JSON.stringify([...items]));
+  const saveHiddenMeals = meals => localStorage.setItem(hiddenMealsKey, JSON.stringify([...meals]));
 
   const groupCloudItemsBySection = items => items.reduce((sections, item) => {
     const sectionName = normalizeSection(item.section);
@@ -413,7 +474,9 @@
   const recipeItemsBySection = () => {
     const selectedRecipes = loadSelectedRecipes();
     const purchasedItems = loadPurchasedItems();
+    const hiddenMeals = loadHiddenMeals();
     return selectedRecipes.reduce((sections, entry) => {
+      if (hiddenMeals.has(entry.id)) return sections;
       const recipe = recipeCatalog[entry.id];
       Object.entries(recipe.items).forEach(([sectionName, items]) => {
         const normalizedSection = normalizeSection(sectionName);
@@ -447,6 +510,9 @@
       }
     }
     saveSelectedRecipes(selectedRecipes);
+    const hiddenMeals = loadHiddenMeals();
+    hiddenMeals.delete(recipeId);
+    saveHiddenMeals(hiddenMeals);
     Object.values(recipeCatalog[recipeId]?.items || {}).flat().forEach(([id]) => {
       purchasedItems.delete(`tw-${recipeId}-${id}`);
       localStorage.removeItem(`this-week-tw-${recipeId}-${id}`);
@@ -579,6 +645,40 @@
     newItemText.focus();
   };
 
+  const mealFilterLabel = entry => {
+    const recipe = recipeCatalog[entry.id];
+    return recipe.name;
+  };
+
+  const renderMealFilters = () => {
+    const selectedRecipes = loadSelectedRecipes();
+    const hiddenMeals = loadHiddenMeals();
+    mealFilterList.innerHTML = '';
+    mealFilter.classList.toggle('is-visible', selectedRecipes.length > 0);
+
+    selectedRecipes.forEach(entry => {
+      const recipe = recipeCatalog[entry.id];
+      if (!recipe) return;
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'meal-filter-btn';
+      button.classList.toggle('is-off', hiddenMeals.has(entry.id));
+      button.setAttribute('aria-pressed', hiddenMeals.has(entry.id) ? 'false' : 'true');
+      button.textContent = mealFilterLabel(entry);
+      button.addEventListener('click', () => {
+        const nextHiddenMeals = loadHiddenMeals();
+        if (nextHiddenMeals.has(entry.id)) {
+          nextHiddenMeals.delete(entry.id);
+        } else {
+          nextHiddenMeals.add(entry.id);
+        }
+        saveHiddenMeals(nextHiddenMeals);
+        renderSections();
+      });
+      mealFilterList.appendChild(button);
+    });
+  };
+
   const createRecipeGroup = (items) => {
     const fragment = document.createDocumentFragment();
     const itemsByRecipe = items.reduce((groups, item) => {
@@ -637,6 +737,7 @@
   const renderSections = () => {
     const addedItems = loadAddedItems();
     const recipeItems = recipeItemsBySection();
+    renderMealFilters();
     sectionsRoot.innerHTML = '';
     sectionOptions.forEach(sectionName => {
       const planned = recipeItems[sectionName] || [];
