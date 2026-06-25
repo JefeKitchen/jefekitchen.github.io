@@ -239,9 +239,7 @@
     border-color: var(--gold);
     color: var(--gold);
   }
-  .add-item-btn,
-  .remove-item-btn,
-  .remove-recipe-btn {
+  .add-item-btn {
     appearance: none;
     background: transparent;
     border: 0;
@@ -255,22 +253,8 @@
     margin: -4px -4px -4px 8px;
     padding: 4px 8px;
   }
-  .add-item-btn:active,
-  .remove-item-btn:active {
+  .add-item-btn:active {
     color: var(--gold);
-  }
-  .remove-item-btn {
-    flex-shrink: 0;
-    font-size: 16px;
-    line-height: 1;
-    margin: -2px -4px -2px 4px;
-    padding: 2px 4px;
-  }
-  .remove-recipe-btn {
-    font-size: 13px;
-    line-height: 1;
-    margin: -4px -6px -4px 8px;
-    padding: 4px 6px;
   }
   .section .item {
     padding: 10px 14px !important;
@@ -1016,13 +1000,7 @@
       subhead.className = 'recipe-subhead';
       const label = document.createElement('span');
       label.textContent = recipeName;
-      const remove = document.createElement('button');
-      remove.type = 'button';
-      remove.className = 'remove-recipe-btn';
-      remove.setAttribute('aria-label', `Remove ${recipeName}`);
-      remove.textContent = 'x';
-      remove.addEventListener('click', () => removeRecipe(recipeItems[0].recipeId));
-      subhead.append(label, remove);
+      subhead.appendChild(label);
       fragment.appendChild(subhead);
       recipeItems.forEach(item => fragment.appendChild(createItemRow(item, () => removePlannedItem(item))));
     });
