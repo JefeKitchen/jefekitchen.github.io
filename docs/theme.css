@@ -417,6 +417,23 @@ ol {
   padding: 0 !important;
 }
 
+.cook-block > .ingredient-pull.is-nested,
+.phase > .ingredient-pull.is-nested {
+  margin: 0 !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--border) !important;
+  border-radius: 0 !important;
+  background: var(--surface) !important;
+}
+
+.ingredient-pull.is-nested .ingredient-pull-title {
+  display: none !important;
+}
+
+.ingredient-pull.is-nested .ingredient-pull-list {
+  padding: 10px 14px 12px !important;
+}
+
 .ingredient-pill {
   border: 1px solid var(--border) !important;
   border-radius: 999px !important;

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v147';
+const CACHE_NAME = 'jeffs-kitchen-v148';
 
 const PAGES = [
   './',
@@ -16,7 +16,7 @@ const PAGES = [
   './docs/recipe-catalog.js?v=1',
   './docs/firebase-config.js',
   './docs/firebase-state.js?v=3',
-  './docs/instruction-renderer.js?v=11',
+  './docs/instruction-renderer.js?v=12',
   './docs/grocery-boom.js',
   './docs/poll/dinner-poll.html',
   './docs/beef-meatballs-buttered-noodles/beef-meatballs-buttered-noodles-menu.html',

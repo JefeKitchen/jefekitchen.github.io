@@ -229,10 +229,24 @@
     return laidOut;
   };
 
+  const nestPhoneIngredientPulls = (scope) => {
+    Array.from(scope.querySelectorAll('.ingredient-pull')).forEach(pull => {
+      let target = pull.nextElementSibling;
+      while (target && !target.matches('.cook-block, .phase, .steps-list')) {
+        target = target.nextElementSibling;
+      }
+      if (!target) return;
+      const head = target.querySelector('.cook-head, .phase-head') || target;
+      pull.classList.add('is-nested');
+      head.insertAdjacentElement('afterend', pull);
+    });
+  };
+
   const renderPhone = () => {
     const content = makeTemplate(recipe.body);
     removeDrinkSection(content);
     highlightIngredients(content);
+    nestPhoneIngredientPulls(content);
     root.replaceChildren(content);
   };
 
