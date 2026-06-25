@@ -217,6 +217,16 @@
   .complete-trip-btn:active {
     filter: brightness(1.08);
   }
+  .complete-trip-btn:disabled {
+    background: var(--surface);
+    border-color: var(--border);
+    color: var(--muted);
+    cursor: default;
+    opacity: 0.55;
+  }
+  .complete-trip-btn:disabled:active {
+    filter: none;
+  }
   .reset-list-btn:active {
     border-color: var(--gold);
     color: var(--gold);
@@ -378,6 +388,12 @@
   const isComplete = () => {
     const checkboxes = getCheckboxes();
     return checkboxes.length > 0 && checkboxes.every(cb => cb.checked);
+  };
+  const hasTripChanges = () => {
+    return getCheckboxes().some(cb => cb.checked) || loadRemovedItems().size > 0;
+  };
+  const updateTripButtonState = () => {
+    completeShoppingTrip.disabled = !hasTripChanges();
   };
 
   const slugify = value => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
@@ -645,6 +661,7 @@
       const complete = isComplete();
       if (complete && !wasComplete) showCartBoom();
       wasComplete = complete;
+      updateTripButtonState();
     });
   };
 
@@ -1042,6 +1059,7 @@
       sectionsRoot.appendChild(createSection(sectionName, planned, items));
     });
     wasComplete = isComplete();
+    updateTripButtonState();
   };
 
   addIngredient.addEventListener('click', () => openIngredientForm());
