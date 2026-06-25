@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v146';
+const CACHE_NAME = 'jeffs-kitchen-v147';
 
 const PAGES = [
   './',
@@ -12,7 +12,7 @@ const PAGES = [
   './docs/menu-card.css',
   './docs/wide-layout.css',
   './docs/wide-pills.js',
-  './docs/instruction-content.js?v=14',
+  './docs/instruction-content.js?v=15',
   './docs/recipe-catalog.js?v=1',
   './docs/firebase-config.js',
   './docs/firebase-state.js?v=3',
@@ -112,6 +112,20 @@ const PAGES = [
   './docs/chicken-skewers/chicken-skewers-menu.html',
   './docs/chicken-skewers/chicken-skewers-instructions.html',
   './docs/chicken-skewers/chicken-skewers-wide.html',
+  './docs/sriracha-salmon-rice-bowls/sriracha-salmon-rice-bowls-menu.html',
+  './docs/sriracha-salmon-rice-bowls/grocery-list-sriracha-salmon-rice-bowls.html',
+  './docs/sriracha-salmon-rice-bowls/sriracha-salmon-rice-bowls-instructions.html',
+  './docs/sriracha-salmon-rice-bowls/sriracha-salmon-rice-bowls-wide.html',
+  './docs/savory-roasted-edamame/savory-roasted-edamame-menu.html',
+  './docs/savory-roasted-edamame/grocery-list-savory-roasted-edamame.html',
+  './docs/savory-roasted-edamame/savory-roasted-edamame-instructions.html',
+  './docs/savory-roasted-edamame/savory-roasted-edamame-wide.html',
+  './docs/poll/snackie-menus/spicy-honey-pretzel-snack-mix.html',
+  './docs/poll/snackie-menus/savory-roasted-edamame.html',
+  './docs/poll/snackie-menus/crunchy-ranch-chickpeas.html',
+  './docs/poll/snackie-menus/buffalo-ranch-snack-crackers.html',
+  './docs/poll/snackie-menus/sesame-soy-trail-mix.html',
+  './docs/poll/snackie-menus/chocolate-peanut-butter-protein-bites.html',
 ];
 
 const PAGE_URLS = new Set(PAGES.map(page => new URL(page, self.registration.scope).href));

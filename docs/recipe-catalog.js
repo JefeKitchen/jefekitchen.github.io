@@ -1,5 +1,3 @@
-// Shared recipe metadata for the home planner and This Week grocery list.
-// Keep recipe identity, paths, categories, and shopping items here first when adding a recipe.
 window.JEFES_KITCHEN_CATALOG = {
   "shoppingSections": [
     "Produce",
@@ -50,7 +48,8 @@ window.JEFES_KITCHEN_CATALOG = {
       "recipes": [
         "baked-salmon-rice-cucumber",
         "garlic-shrimp-rice-bowls",
-        "crispy-shrimp-tacos"
+        "crispy-shrimp-tacos",
+        "sriracha-salmon-rice-bowls"
       ]
     },
     {
@@ -64,7 +63,8 @@ window.JEFES_KITCHEN_CATALOG = {
       "id": "snackies",
       "title": "Snackies",
       "recipes": [
-        "buffalo-chickpea-dip"
+        "buffalo-chickpea-dip",
+        "savory-roasted-edamame"
       ]
     }
   ],
@@ -1444,6 +1444,168 @@ window.JEFES_KITCHEN_CATALOG = {
         ]
       },
       "grocery": "./docs/steak-scallion-fried-rice/grocery-list-steak-scallion-fried-rice.html"
+    },
+    "sriracha-salmon-rice-bowls": {
+      "id": "sriracha-salmon-rice-bowls",
+      "name": "Sriracha Salmon Rice Bowls",
+      "title": "Sriracha Salmon Rice Bowls",
+      "subtitle": "Salmon · Rice · Avocado",
+      "section": "seafood",
+      "menu": "./docs/sriracha-salmon-rice-bowls/sriracha-salmon-rice-bowls-menu.html",
+      "phone": "./docs/sriracha-salmon-rice-bowls/sriracha-salmon-rice-bowls-instructions.html",
+      "wide": "./docs/sriracha-salmon-rice-bowls/sriracha-salmon-rice-bowls-wide.html",
+      "grocery": "./docs/sriracha-salmon-rice-bowls/grocery-list-sriracha-salmon-rice-bowls.html",
+      "items": {
+        "Produce": [
+          [
+            "avocado",
+            "Avocados",
+            "2"
+          ],
+          [
+            "cucumber",
+            "English cucumber",
+            "1"
+          ],
+          [
+            "green-onions",
+            "Green onions",
+            "1 bunch"
+          ],
+          [
+            "lime",
+            "Limes",
+            "2"
+          ],
+          [
+            "ginger",
+            "Fresh ginger",
+            "Small knob"
+          ]
+        ],
+        "Meat/Seafood": [
+          [
+            "salmon",
+            "Salmon fillets",
+            "1-1 1/4 lb"
+          ]
+        ],
+        "Refrigerated": [
+          [
+            "edamame",
+            "Shelled edamame",
+            "12 oz frozen bag"
+          ]
+        ],
+        "Pantry": [
+          [
+            "rice",
+            "White rice",
+            "1 1/2 cups dry"
+          ],
+          [
+            "sriracha",
+            "Sriracha",
+            "Small bottle, if needed"
+          ],
+          [
+            "soy-sauce",
+            "Soy sauce",
+            "About 1/4 cup"
+          ],
+          [
+            "rice-vinegar",
+            "Rice vinegar",
+            "For cucumber and sauce"
+          ],
+          [
+            "sesame-oil",
+            "Sesame oil",
+            "Small bottle, if needed"
+          ],
+          [
+            "sesame-seeds",
+            "Sesame seeds or furikake",
+            "For topping"
+          ],
+          [
+            "honey",
+            "Honey or brown sugar",
+            "1-2 tsp"
+          ],
+          [
+            "nori",
+            "Nori sheets or seaweed snacks",
+            "Optional topping"
+          ]
+        ],
+        "Alcohol/Drinks": [
+          [
+            "sake",
+            "Sake",
+            "For spritz, if needed"
+          ],
+          [
+            "soda-water",
+            "Soda water",
+            "For spritz, if needed"
+          ]
+        ]
+      }
+    },
+    "savory-roasted-edamame": {
+      "id": "savory-roasted-edamame",
+      "name": "Savory Roasted Edamame",
+      "title": "Savory Roasted Edamame",
+      "subtitle": "Edamame · Sesame · Spice",
+      "section": "snackies",
+      "menu": "./docs/savory-roasted-edamame/savory-roasted-edamame-menu.html",
+      "phone": "./docs/savory-roasted-edamame/savory-roasted-edamame-instructions.html",
+      "wide": "./docs/savory-roasted-edamame/savory-roasted-edamame-wide.html",
+      "grocery": "./docs/savory-roasted-edamame/grocery-list-savory-roasted-edamame.html",
+      "items": {
+        "Produce": [
+          [
+            "lime",
+            "Lime",
+            "1"
+          ]
+        ],
+        "Refrigerated": [
+          [
+            "edamame",
+            "Shelled edamame",
+            "12 oz frozen bag"
+          ]
+        ],
+        "Pantry": [
+          [
+            "soy-sauce",
+            "Soy sauce",
+            "1 tbsp"
+          ],
+          [
+            "sesame-oil",
+            "Sesame oil",
+            "1 tsp"
+          ],
+          [
+            "sesame-seeds",
+            "Sesame seeds",
+            "For finishing"
+          ],
+          [
+            "chili-flakes",
+            "Chili flakes or chili crisp",
+            "Optional heat"
+          ],
+          [
+            "garlic-powder",
+            "Garlic powder",
+            "If needed"
+          ]
+        ]
+      }
     }
   }
 };

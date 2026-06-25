@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Grocery List — Savory Roasted Edamame</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #f2f2f0; color: #111; font-family: 'Source Sans 3', sans-serif; font-size: 15px; margin: 0 auto; max-width: 480px; padding: 32px 20px 60px; }
+  .page-title { color: #111; font-family: 'Bebas Neue', sans-serif; font-size: 42px; letter-spacing: 2px; line-height: 1; margin-bottom: 4px; }
+  .page-sub { color: #888; font-size: 12px; letter-spacing: 3px; margin-bottom: 28px; text-transform: uppercase; }
+  .section { background: #fff; border: 1px solid #ddd; border-radius: 6px; margin-bottom: 16px; overflow: hidden; }
+  .section-header { font-family: 'Bebas Neue', sans-serif; font-size: 14px; letter-spacing: 3px; padding: 9px 16px; }
+  .section-header.need { background: #111; color: #fff; }
+  .item-list { padding: 6px 0; }
+  .item { align-items: flex-start; border-bottom: 1px solid #f0f0f0; cursor: pointer; display: flex; gap: 14px; padding: 10px 16px; }
+  .item:last-child { border-bottom: 0; }
+  .item input[type="checkbox"] { accent-color: #111; cursor: pointer; flex-shrink: 0; height: 16px; margin-top: 2px; width: 16px; }
+  .item label { color: #111; cursor: pointer; flex: 1; font-size: 14.5px; line-height: 1.4; pointer-events: none; }
+  .item input[type="checkbox"]:checked ~ label { color: #aaa; text-decoration: line-through; }
+  .item-note { color: #999; display: block; font-size: 11.5px; margin-top: 1px; }
+</style>
+<link rel="stylesheet" href="../theme.css?v=4">
+</head>
+<body>
+<style>.back-bar{position:sticky;top:0;z-index:1000;background:#171717;border-bottom:1px solid #2c2c2c;padding:4px 10px;margin:-32px -20px 28px;}.back-bar a{color:#b8953a;text-decoration:none;font-family:-apple-system,sans-serif;font-size:30px;line-height:1;display:inline-flex;align-items:center;justify-content:center;width:36px;height:32px;}</style>
+<div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
+
+<div class="page-title">Grocery List</div>
+<div class="page-sub">Savory Roasted Edamame</div>
+
+<div class="section">
+  <div class="section-header need">Produce</div>
+  <div class="item-list">
+    <div class="item">
+      <input type="checkbox" id="savory-roasted-edamame-0">
+      <label for="savory-roasted-edamame-0">Lime<span class="item-note">1</span></label>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Refrigerated</div>
+  <div class="item-list">
+    <div class="item">
+      <input type="checkbox" id="savory-roasted-edamame-1">
+      <label for="savory-roasted-edamame-1">Shelled edamame<span class="item-note">12 oz frozen bag</span></label>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Pantry</div>
+  <div class="item-list">
+    <div class="item">
+      <input type="checkbox" id="savory-roasted-edamame-2">
+      <label for="savory-roasted-edamame-2">Soy sauce<span class="item-note">1 tbsp</span></label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="savory-roasted-edamame-3">
+      <label for="savory-roasted-edamame-3">Sesame oil<span class="item-note">1 tsp</span></label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="savory-roasted-edamame-4">
+      <label for="savory-roasted-edamame-4">Sesame seeds<span class="item-note">For finishing</span></label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="savory-roasted-edamame-5">
+      <label for="savory-roasted-edamame-5">Chili flakes or chili crisp<span class="item-note">Optional heat</span></label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="savory-roasted-edamame-6">
+      <label for="savory-roasted-edamame-6">Garlic powder<span class="item-note">If needed</span></label>
+    </div>
+  </div>
+</div>
+
+<script src="../grocery-boom.js?v=1"></script>
+<script>
+const boxes = [...document.querySelectorAll('input[type="checkbox"]')];
+const key = 'savory-roasted-edamame-grocery-v1';
+const saved = JSON.parse(localStorage.getItem(key) || '{}');
+boxes.forEach((box) => {
+  box.checked = !!saved[box.id];
+  box.addEventListener('change', () => {
+    saved[box.id] = box.checked;
+    localStorage.setItem(key, JSON.stringify(saved));
+    window.GroceryBoom && window.GroceryBoom.check(boxes);
+  });
+});
+</script>
+</body>
+</html>
