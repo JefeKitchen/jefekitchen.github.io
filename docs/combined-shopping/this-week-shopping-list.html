@@ -257,6 +257,12 @@
   .section .item {
     padding: 10px 14px !important;
     -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  .section .item * {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
     user-select: none;
   }
   .section .item .item-note {
@@ -816,7 +822,15 @@
       removed = false;
       pressTimer = window.setTimeout(() => remove(event), 700);
     });
+    row.addEventListener('touchstart', event => {
+      clearPress();
+      removed = false;
+      pressTimer = window.setTimeout(() => remove(event), 700);
+    }, { passive: false });
     ['pointerup', 'pointercancel', 'pointerleave'].forEach(eventName => {
+      row.addEventListener(eventName, clearPress);
+    });
+    ['touchend', 'touchcancel', 'touchmove'].forEach(eventName => {
       row.addEventListener(eventName, clearPress);
     });
   };
