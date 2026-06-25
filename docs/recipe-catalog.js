@@ -1539,14 +1539,9 @@ window.JEFES_KITCHEN_CATALOG = {
         ],
         "Alcohol/Drinks": [
           [
-            "sake",
-            "Sake",
-            "For spritz, if needed"
-          ],
-          [
-            "soda-water",
-            "Soda water",
-            "For spritz, if needed"
+            "crisp-lager",
+            "Crisp lager or pilsner",
+            "For drink, if needed"
           ]
         ]
       }
