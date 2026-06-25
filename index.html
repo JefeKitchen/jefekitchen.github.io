@@ -211,6 +211,15 @@
     gap: 12px;
     padding: 11px 12px 11px 14px;
   }
+  .recipe-card[data-card-href],
+  .recipe-card[data-default-instructions] {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .recipe-card[data-card-href]:active,
+  .recipe-card[data-default-instructions]:active {
+    filter: brightness(1.06);
+  }
   .card-copy {
     flex: 1;
     min-width: 0;
@@ -608,7 +617,7 @@
 
 <!-- THIS WEEK: GROCERY LIST -->
 <div class="section">
-  <div class="card recipe-card">
+  <div class="card recipe-card" data-card-href="./docs/combined-shopping/this-week-shopping-list.html" role="link" tabindex="0">
     <div class="card-copy">
       <div class="card-title">Grocery List</div>
       <span class="card-subtitle">Add items as needed</span>
@@ -727,7 +736,7 @@
       : `<div class="card-title">${recipe.title}</div>`;
 
     return `
-      <div class="card recipe-card">
+      <div class="card recipe-card" data-default-instructions="true" data-phone="${instructionPhone}" data-wide="${instructionWide}" role="link" tabindex="0">
         <div class="card-copy">
           ${titleBlock}
           <span class="card-subtitle">${recipe.subtitle}</span>
@@ -1080,6 +1089,23 @@
     instructionChoice.setAttribute('aria-hidden', 'false');
   }
 
+  function openDefaultInstructions(links) {
+    const savedPreference = localStorage.getItem(instructionPreferenceKey);
+    const devicePreference = detectedInstructionLayout();
+    const legacyWidePreference = 'ip' + 'ad';
+    const normalizedPreference = savedPreference === legacyWidePreference ? 'wide' : savedPreference;
+    if (savedPreference === legacyWidePreference) localStorage.setItem(instructionPreferenceKey, 'wide');
+    const preference = normalizedPreference === 'ask' ? '' : (normalizedPreference || devicePreference);
+
+    if (preference && links[preference]) {
+      if (!normalizedPreference) localStorage.setItem(instructionPreferenceKey, preference);
+      window.location.href = links[preference];
+      return;
+    }
+
+    openInstructionChoice(links);
+  }
+
   function wireInstructionLinks() {
     document.querySelectorAll('.instruction-choice-link').forEach(link => {
       if (link.dataset.choiceWired) return;
@@ -1090,25 +1116,41 @@
         phone: link.dataset.phone,
         wide: link.dataset.wide
       };
-      const savedPreference = localStorage.getItem(instructionPreferenceKey);
-      const devicePreference = detectedInstructionLayout();
-      const legacyWidePreference = 'ip' + 'ad';
-      const normalizedPreference = savedPreference === legacyWidePreference ? 'wide' : savedPreference;
-      if (savedPreference === legacyWidePreference) localStorage.setItem(instructionPreferenceKey, 'wide');
-      const preference = normalizedPreference === 'ask' ? '' : (normalizedPreference || devicePreference);
-
-      if (preference && links[preference]) {
-        if (!normalizedPreference) localStorage.setItem(instructionPreferenceKey, preference);
-        window.location.href = links[preference];
-        return;
-      }
-
-      openInstructionChoice(links);
+      openDefaultInstructions(links);
     });
     });
   }
 
   wireInstructionLinks();
+
+  document.addEventListener('click', event => {
+    if (event.target.closest('a, button, input, select, textarea, label')) return;
+    const card = event.target.closest('[data-card-href], [data-default-instructions]');
+    if (!card) return;
+    if (card.dataset.cardHref) {
+      window.location.href = card.dataset.cardHref;
+      return;
+    }
+    openDefaultInstructions({
+      phone: card.dataset.phone,
+      wide: card.dataset.wide
+    });
+  });
+
+  document.addEventListener('keydown', event => {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    const card = event.target.closest('[data-card-href], [data-default-instructions]');
+    if (!card || event.target !== card) return;
+    event.preventDefault();
+    if (card.dataset.cardHref) {
+      window.location.href = card.dataset.cardHref;
+      return;
+    }
+    openDefaultInstructions({
+      phone: card.dataset.phone,
+      wide: card.dataset.wide
+    });
+  });
 
   instructionChoice.addEventListener('click', event => {
     if (event.target === instructionChoice) {
