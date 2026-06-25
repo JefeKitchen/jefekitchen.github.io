@@ -52,6 +52,7 @@ function normalizeShoppingItem(docSnap) {
   const data = docSnap.data() || {};
   return {
     id: data.id || docSnap.id,
+    requestedSection: data.requestedSection || data.section || "Misc",
     section: data.section || "Misc",
     text: data.text || ""
   };
@@ -180,6 +181,7 @@ function removeShoppingRecipe(recipeId) {
 function saveShoppingItem(item) {
   return setDoc(doc(shoppingItemsCollection, item.id), {
     id: item.id,
+    requestedSection: item.requestedSection || item.section || "Misc",
     section: item.section || "Misc",
     text: item.text || "",
     updatedAt: serverTimestamp()

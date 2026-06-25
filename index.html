@@ -671,6 +671,7 @@
   const thisWeekRecipesKey = 'this-week-planned-recipes-v1';
   const thisWeekShoppingRecipesKey = 'this-week-shopping-recipes-v1';
   const purchasedItemsKey = 'this-week-purchased-items-v1';
+  const removedItemsKey = 'this-week-removed-items-v1';
   const legacyThisWeekRecipesKey = 'this-week-selected-recipes-v1';
   const defaultThisWeekRecipes = [];
   const weekDayOptions = ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -829,12 +830,18 @@
   function clearPurchasedRecipe(recipeId) {
     try {
       const purchased = new Set(JSON.parse(localStorage.getItem(purchasedItemsKey)) || []);
+      const removed = new Set(JSON.parse(localStorage.getItem(removedItemsKey)) || []);
       Array.from(purchased).forEach(itemId => {
         if (itemId.startsWith(`tw-${recipeId}-`)) purchased.delete(itemId);
       });
+      Array.from(removed).forEach(itemId => {
+        if (itemId.startsWith(`tw-${recipeId}-`)) removed.delete(itemId);
+      });
       localStorage.setItem(purchasedItemsKey, JSON.stringify([...purchased]));
+      localStorage.setItem(removedItemsKey, JSON.stringify([...removed]));
     } catch {
       localStorage.removeItem(purchasedItemsKey);
+      localStorage.removeItem(removedItemsKey);
     }
   }
 

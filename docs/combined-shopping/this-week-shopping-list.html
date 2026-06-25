@@ -53,6 +53,21 @@
     right: 20px;
     text-align: center;
   }
+  .remove-toast {
+    background: #171717;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    bottom: 18px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .36);
+    color: var(--muted);
+    font-size: 13px;
+    left: 20px;
+    padding: 9px 12px;
+    position: fixed;
+    right: 20px;
+    text-align: center;
+    z-index: 2500;
+  }
   .section-header {
     align-items: center !important;
     display: flex !important;
@@ -172,14 +187,15 @@
     color: var(--muted);
   }
   .trip-toolbar {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: 1fr 1fr;
     margin: 8px 20px 0;
   }
-  .complete-trip-btn {
+  .complete-trip-btn,
+  .reset-list-btn {
     appearance: none;
-    background: var(--gold);
-    border: 1px solid var(--gold);
     border-radius: 6px;
-    color: #111;
     cursor: pointer;
     font-family: 'Source Sans 3', sans-serif;
     font-size: 13px;
@@ -188,8 +204,22 @@
     text-align: left;
     width: 100%;
   }
+  .complete-trip-btn {
+    background: var(--gold);
+    border: 1px solid var(--gold);
+    color: #111;
+  }
+  .reset-list-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
   .complete-trip-btn:active {
     filter: brightness(1.08);
+  }
+  .reset-list-btn:active {
+    border-color: var(--gold);
+    color: var(--gold);
   }
   .add-item-btn,
   .remove-item-btn,
@@ -226,6 +256,8 @@
   }
   .section .item {
     padding: 10px 14px !important;
+    -webkit-touch-callout: none;
+    user-select: none;
   }
   .section .item .item-note {
     background: #202020 !important;
@@ -238,6 +270,16 @@
     padding: 2px 7px !important;
     vertical-align: 1px !important;
     white-space: normal !important;
+  }
+  .section .item .item-note-list {
+    display: inline-flex !important;
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+    margin: 0 0 0 7px !important;
+    vertical-align: 1px !important;
+  }
+  .section .item .item-note-list .item-note {
+    margin: 0 !important;
   }
   @keyframes boom-pop {
     0% { opacity: 0; transform: translate(-50%, -50%) scale(.35) rotate(-14deg); }
@@ -273,6 +315,7 @@
 
 <div class="trip-toolbar">
   <button class="complete-trip-btn" type="button" id="completeShoppingTrip">Complete Shopping Trip</button>
+  <button class="reset-list-btn" type="button" id="resetList">Reset List</button>
 </div>
 
 <div class="meal-filter" id="mealFilter">
@@ -285,6 +328,7 @@
   const addedItemsKey = 'this-week-added-items-v2';
   const selectedRecipesKey = 'this-week-shopping-recipes-v1';
   const purchasedItemsKey = 'this-week-purchased-items-v1';
+  const removedItemsKey = 'this-week-removed-items-v1';
   const hiddenMealsKey = 'this-week-hidden-shopping-meals-v1';
   const defaultRecipeIds = [];
   const sectionOptions = window.JEFES_KITCHEN_CATALOG.shoppingSections;
@@ -316,6 +360,7 @@
   const newItemSection = document.getElementById('newItemSection');
   const cancelAddItem = document.getElementById('cancelAddItem');
   const completeShoppingTrip = document.getElementById('completeShoppingTrip');
+  const resetList = document.getElementById('resetList');
   let wasComplete = false;
   let cloudSelectedRecipes = null;
   let cloudAddedItems = null;
@@ -365,6 +410,14 @@
     }
   };
 
+  const loadRemovedItems = () => {
+    try {
+      return new Set(JSON.parse(localStorage.getItem(removedItemsKey)) || []);
+    } catch {
+      return new Set();
+    }
+  };
+
   const loadHiddenMeals = () => {
     try {
       return new Set(JSON.parse(localStorage.getItem(hiddenMealsKey)) || []);
@@ -376,13 +429,16 @@
   const saveAddedItems = items => localStorage.setItem(addedItemsKey, JSON.stringify(items));
   const saveSelectedRecipes = recipeIds => localStorage.setItem(selectedRecipesKey, JSON.stringify(recipeIds));
   const savePurchasedItems = items => localStorage.setItem(purchasedItemsKey, JSON.stringify([...items]));
+  const saveRemovedItems = items => localStorage.setItem(removedItemsKey, JSON.stringify([...items]));
   const saveHiddenMeals = meals => localStorage.setItem(hiddenMealsKey, JSON.stringify([...meals]));
 
   const groupCloudItemsBySection = items => items.reduce((sections, item) => {
-    const sectionName = inferSectionForItem(item.text, item.section);
+    const requestedSection = item.requestedSection || 'Misc';
+    const sectionName = inferSectionForItem(item.text, requestedSection);
     sections[sectionName] = [...(sections[sectionName] || []), {
       id: item.id,
-      text: item.text
+      text: item.text,
+      requestedSection
     }];
     return sections;
   }, {});
@@ -510,24 +566,15 @@
     const known = getKnownItemSections();
     if (known[clean]) return known[clean];
     if (known[singular]) return known[singular];
-
-    const tokens = singular.split(' ').filter(token => token.length > 2);
-    const match = Object.entries(known).find(([knownName]) => {
-      const knownTokens = knownName.split(' ').filter(token => token.length > 2);
-      return tokens.length > 0 && (
-        tokens.every(token => knownTokens.includes(token)) ||
-        knownTokens.every(token => tokens.includes(token))
-      );
-    });
-
-    return match?.[1] || section;
+    return section;
   };
 
   const normalizeAddedItemsBySection = itemsBySection => {
     return Object.entries(itemsBySection || {}).reduce((sections, [sectionName, items]) => {
       (items || []).forEach(item => {
         if (!item?.id || !item?.text) return;
-        const inferredSection = inferSectionForItem(item.text, sectionName);
+        const requestedSection = item.requestedSection || 'Misc';
+        const inferredSection = inferSectionForItem(item.text, requestedSection);
         sections[inferredSection] = [...(sections[inferredSection] || []), item];
       });
       return sections;
@@ -573,6 +620,15 @@
     window.setTimeout(() => boom.remove(), 2200);
   };
 
+  const showRemoveToast = text => {
+    document.querySelector('.remove-toast')?.remove();
+    const toast = document.createElement('div');
+    toast.className = 'remove-toast';
+    toast.textContent = `Removed ${text}.`;
+    document.body.appendChild(toast);
+    window.setTimeout(() => toast.remove(), 1600);
+  };
+
   const registerCheckbox = cb => {
     if (cb.dataset.registered) return;
     cb.dataset.registered = 'true';
@@ -589,6 +645,7 @@
   const recipeItemsBySection = () => {
     const selectedRecipes = loadSelectedRecipes();
     const purchasedItems = loadPurchasedItems();
+    const removedItems = loadRemovedItems();
     const hiddenMeals = loadHiddenMeals();
     return selectedRecipes.reduce((sections, entry) => {
       if (hiddenMeals.has(entry.id)) return sections;
@@ -604,7 +661,7 @@
             text,
             note
           }))
-          .filter(item => !purchasedItems.has(item.id));
+          .filter(item => !purchasedItems.has(item.id) && !removedItems.has(item.id));
         sections[normalizedSection] = [
           ...(sections[normalizedSection] || []),
           ...visibleItems
@@ -617,6 +674,7 @@
   const removeRecipe = async recipeId => {
     const selectedRecipes = loadSelectedRecipes().filter(entry => entry.id !== recipeId);
     const purchasedItems = loadPurchasedItems();
+    const removedItems = loadRemovedItems();
     if (window.KitchenCloud?.isSignedIn?.()) {
       try {
         await window.KitchenCloud.removeShoppingRecipe(recipeId);
@@ -630,6 +688,7 @@
     saveHiddenMeals(hiddenMeals);
     Object.values(recipeCatalog[recipeId]?.items || {}).flat().forEach(([id]) => {
       purchasedItems.delete(`tw-${recipeId}-${id}`);
+      removedItems.delete(`tw-${recipeId}-${id}`);
       localStorage.removeItem(`this-week-tw-${recipeId}-${id}`);
       if (window.KitchenCloud?.isSignedIn?.()) {
         window.KitchenCloud.clearPurchasedItem(`tw-${recipeId}-${id}`).catch(error => {
@@ -638,18 +697,33 @@
       }
     });
     savePurchasedItems(purchasedItems);
+    saveRemovedItems(removedItems);
     renderSections();
   };
 
   const completeTrip = async () => {
     const checked = getCheckboxes().filter(cb => cb.checked);
-    if (!checked.length) return;
+    const removedItems = loadRemovedItems();
+    if (!checked.length && !removedItems.size) return;
 
     const purchasedItems = loadPurchasedItems();
     const addedItems = loadAddedItems();
 
+    removedItems.forEach(itemId => {
+      purchasedItems.add(itemId);
+      localStorage.removeItem(`this-week-${itemId}`);
+      if (window.KitchenCloud?.isSignedIn?.()) {
+        window.KitchenCloud.markPurchased(itemId).catch(error => {
+          console.warn('Kitchen shopping sync hidden item unavailable', error);
+        });
+      }
+    });
+
     checked.forEach(cb => {
       localStorage.removeItem(`this-week-${cb.id}`);
+      const row = cb.closest('.item');
+      const itemIds = row?.dataset.itemIds ? JSON.parse(row.dataset.itemIds) : [cb.id];
+      itemIds.forEach(itemId => localStorage.removeItem(`this-week-${itemId}`));
       if (cb.id.startsWith('tw-custom-')) {
         Object.keys(addedItems).forEach(sectionName => {
           addedItems[sectionName] = (addedItems[sectionName] || []).filter(item => item.id !== cb.id);
@@ -661,17 +735,34 @@
           });
         }
       } else {
-        purchasedItems.add(cb.id);
-        if (window.KitchenCloud?.isSignedIn?.()) {
-          window.KitchenCloud.markPurchased(cb.id).catch(error => {
-            console.warn('Kitchen shopping sync purchased item unavailable', error);
-          });
-        }
+        itemIds.forEach(itemId => {
+          purchasedItems.add(itemId);
+          if (window.KitchenCloud?.isSignedIn?.()) {
+            window.KitchenCloud.markPurchased(itemId).catch(error => {
+              console.warn('Kitchen shopping sync purchased item unavailable', error);
+            });
+          }
+        });
       }
     });
 
     saveAddedItems(addedItems);
     savePurchasedItems(purchasedItems);
+    saveRemovedItems(new Set());
+    renderSections();
+  };
+
+  const resetCurrentList = async () => {
+    if (!window.confirm('Reset checked and removed items?')) return;
+
+    getCheckboxes().forEach(cb => {
+      cb.checked = false;
+      localStorage.removeItem(`this-week-${cb.id}`);
+    });
+    localStorage.removeItem(removedItemsKey);
+    saveHiddenMeals(new Set());
+
+    showRemoveToast('list actions');
     renderSections();
   };
 
@@ -691,10 +782,50 @@
     renderSections();
   };
 
-  const createItemRow = item => {
+  const removePlannedItem = async item => {
+    const removedItems = loadRemovedItems();
+    (item.itemIds || [item.id]).forEach(itemId => {
+      removedItems.add(itemId);
+      localStorage.removeItem(`this-week-${itemId}`);
+    });
+    saveRemovedItems(removedItems);
+    renderSections();
+  };
+
+  const attachHiddenRemove = (row, item, onRemove) => {
+    let pressTimer = null;
+    let removed = false;
+    const clearPress = () => {
+      if (pressTimer) window.clearTimeout(pressTimer);
+      pressTimer = null;
+    };
+    const remove = event => {
+      event.preventDefault();
+      event.stopPropagation();
+      if (removed) return;
+      removed = true;
+      clearPress();
+      showRemoveToast(item.text);
+      onRemove();
+    };
+
+    row.addEventListener('contextmenu', remove);
+    row.addEventListener('pointerdown', event => {
+      if (event.pointerType === 'mouse') return;
+      clearPress();
+      removed = false;
+      pressTimer = window.setTimeout(() => remove(event), 700);
+    });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(eventName => {
+      row.addEventListener(eventName, clearPress);
+    });
+  };
+
+  const createItemRow = (item, onRemove) => {
     const row = document.createElement('div');
     row.className = item.custom ? 'item custom-item' : 'item';
     if (item.custom) row.dataset.customId = item.id;
+    if (item.itemIds?.length) row.dataset.itemIds = JSON.stringify(item.itemIds);
 
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
@@ -703,7 +834,17 @@
     const label = document.createElement('label');
     label.htmlFor = item.id;
     label.textContent = item.text;
-    if (item.note) {
+    if (item.recipeNotes?.length) {
+      const noteList = document.createElement('span');
+      noteList.className = 'item-note-list';
+      item.recipeNotes.forEach(recipeNote => {
+        const note = document.createElement('span');
+        note.className = 'item-note';
+        note.textContent = recipeNote;
+        noteList.appendChild(note);
+      });
+      label.appendChild(noteList);
+    } else if (item.note) {
       const note = document.createElement('span');
       note.className = 'item-note';
       note.textContent = item.note;
@@ -712,31 +853,21 @@
 
     row.append(checkbox, label);
     registerCheckbox(checkbox);
+    if (onRemove) attachHiddenRemove(row, item, onRemove);
     return row;
   };
 
   const createCustomItem = (sectionName, item) => {
-    const row = createItemRow({ ...item, custom: true });
-
-    const remove = document.createElement('button');
-    remove.type = 'button';
-    remove.className = 'remove-item-btn';
-    remove.setAttribute('aria-label', `Remove ${item.text}`);
-    remove.textContent = 'x';
-    remove.addEventListener('click', event => {
-      event.stopPropagation();
-      removeCustomItem(sectionName, item);
-    });
-
-    row.appendChild(remove);
-    return row;
+    return createItemRow({ ...item, custom: true }, () => removeCustomItem(sectionName, item));
   };
 
   const addCustomItem = async (sectionName, text) => {
-    const finalSection = inferSectionForItem(text, sectionName);
+    const requestedSection = normalizeSection(sectionName);
+    const finalSection = inferSectionForItem(text, requestedSection);
     const addedItems = loadAddedItems();
     const item = {
       id: `tw-custom-${slugify(finalSection)}-${Date.now()}`,
+      requestedSection,
       text
     };
     addedItems[finalSection] = [...(addedItems[finalSection] || []), item];
@@ -797,7 +928,37 @@
 
   const createRecipeGroup = (items) => {
     const fragment = document.createDocumentFragment();
-    const itemsByRecipe = items.reduce((groups, item) => {
+    const itemGroups = items.reduce((groups, item) => {
+      const key = normalizeItemName(item.text);
+      groups[key] = [...(groups[key] || []), item];
+      return groups;
+    }, {});
+    const sharedItems = [];
+    const individualItems = [];
+
+    Object.values(itemGroups).forEach(group => {
+      const recipeIds = [...new Set(group.map(item => item.recipeId))];
+      if (recipeIds.length > 1) {
+        sharedItems.push({
+          id: `tw-shared-${slugify(group[0].text)}-${recipeIds.map(slugify).sort().join('-')}`,
+          itemIds: group.map(item => item.id),
+          recipeIds,
+          recipe: 'Shared',
+          text: group[0].text,
+          recipeNotes: group.map(item => item.note ? `${item.recipe}: ${item.note}` : item.recipe)
+        });
+        return;
+      }
+      individualItems.push(...group);
+    });
+
+    if (sharedItems.length) {
+      sharedItems
+        .sort((a, b) => a.text.localeCompare(b.text))
+        .forEach(item => fragment.appendChild(createItemRow(item, () => removePlannedItem(item))));
+    }
+
+    const itemsByRecipe = individualItems.reduce((groups, item) => {
       groups[item.recipe] = [...(groups[item.recipe] || []), item];
       return groups;
     }, {});
@@ -817,7 +978,7 @@
       remove.addEventListener('click', () => removeRecipe(recipeItems[0].recipeId));
       subhead.append(label, remove);
       fragment.appendChild(subhead);
-      recipeItems.forEach(item => fragment.appendChild(createItemRow(item)));
+      recipeItems.forEach(item => fragment.appendChild(createItemRow(item, () => removePlannedItem(item))));
     });
 
     return fragment;
@@ -842,8 +1003,8 @@
 
     const list = document.createElement('div');
     list.className = 'item-list';
-    if (planned.length) list.appendChild(createRecipeGroup(planned));
     items.forEach(item => list.appendChild(createCustomItem(sectionName, item)));
+    if (planned.length) list.appendChild(createRecipeGroup(planned));
 
     header.append(label, addButton);
     section.append(header, list);
@@ -878,6 +1039,7 @@
     addIngredientForm.classList.remove('is-open');
   });
   completeShoppingTrip.addEventListener('click', completeTrip);
+  resetList.addEventListener('click', resetCurrentList);
   window.addEventListener('kitchen-cloud-ready', startCloudSync);
   startCloudSync();
   renderSections();
