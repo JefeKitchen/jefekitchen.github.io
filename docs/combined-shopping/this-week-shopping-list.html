@@ -714,8 +714,27 @@
 
     const purchasedItems = loadPurchasedItems();
     const addedItems = loadAddedItems();
+    const removeAddedItem = itemId => {
+      Object.keys(addedItems).forEach(sectionName => {
+        addedItems[sectionName] = (addedItems[sectionName] || []).filter(item => item.id !== itemId);
+        if (!addedItems[sectionName].length) delete addedItems[sectionName];
+      });
+    };
+    const removeCloudAddedItem = itemId => {
+      if (window.KitchenCloud?.isSignedIn?.()) {
+        window.KitchenCloud.removeShoppingItem(itemId).catch(error => {
+          console.warn('Kitchen shopping sync custom cleanup unavailable', error);
+        });
+      }
+    };
 
     removedItems.forEach(itemId => {
+      if (itemId.startsWith('tw-custom-')) {
+        removeAddedItem(itemId);
+        removeCloudAddedItem(itemId);
+        localStorage.removeItem(`this-week-${itemId}`);
+        return;
+      }
       purchasedItems.add(itemId);
       localStorage.removeItem(`this-week-${itemId}`);
       if (window.KitchenCloud?.isSignedIn?.()) {
@@ -731,15 +750,8 @@
       const itemIds = row?.dataset.itemIds ? JSON.parse(row.dataset.itemIds) : [cb.id];
       itemIds.forEach(itemId => localStorage.removeItem(`this-week-${itemId}`));
       if (cb.id.startsWith('tw-custom-')) {
-        Object.keys(addedItems).forEach(sectionName => {
-          addedItems[sectionName] = (addedItems[sectionName] || []).filter(item => item.id !== cb.id);
-          if (!addedItems[sectionName].length) delete addedItems[sectionName];
-        });
-        if (window.KitchenCloud?.isSignedIn?.()) {
-          window.KitchenCloud.removeShoppingItem(cb.id).catch(error => {
-            console.warn('Kitchen shopping sync custom cleanup unavailable', error);
-          });
-        }
+        removeAddedItem(cb.id);
+        removeCloudAddedItem(cb.id);
       } else {
         itemIds.forEach(itemId => {
           purchasedItems.add(itemId);
@@ -773,17 +785,9 @@
   };
 
   const removeCustomItem = async (sectionName, item) => {
-    const addedItems = loadAddedItems();
-    addedItems[sectionName] = (addedItems[sectionName] || []).filter(saved => saved.id !== item.id);
-    if (!addedItems[sectionName].length) delete addedItems[sectionName];
-    if (window.KitchenCloud?.isSignedIn?.()) {
-      try {
-        await window.KitchenCloud.removeShoppingItem(item.id);
-      } catch (error) {
-        console.warn('Kitchen shopping sync item remove unavailable; removing local item', error);
-      }
-    }
-    saveAddedItems(addedItems);
+    const removedItems = loadRemovedItems();
+    removedItems.add(item.id);
+    saveRemovedItems(removedItems);
     localStorage.removeItem(`this-week-${item.id}`);
     renderSections();
   };
@@ -1028,11 +1032,12 @@
   const renderSections = () => {
     const addedItems = loadAddedItems();
     const recipeItems = recipeItemsBySection();
+    const removedItems = loadRemovedItems();
     renderMealFilters();
     sectionsRoot.innerHTML = '';
     sectionOptions.forEach(sectionName => {
       const planned = recipeItems[sectionName] || [];
-      const items = (addedItems[sectionName] || []).filter(item => item?.id && item?.text);
+      const items = (addedItems[sectionName] || []).filter(item => item?.id && item?.text && !removedItems.has(item.id));
       if (!planned.length && !items.length) return;
       sectionsRoot.appendChild(createSection(sectionName, planned, items));
     });
