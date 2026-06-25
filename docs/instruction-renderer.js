@@ -5,6 +5,9 @@
   const recipe = window.INSTRUCTION_CONTENT && window.INSTRUCTION_CONTENT[recipeId];
   const params = new URLSearchParams(window.location.search);
   const isLunch = params.get('meal') === 'lunch';
+  const targetServings = Number(params.get('servings') || 0);
+  const baseServings = Number(params.get('baseServings') || 0);
+  const servingType = params.get('servingType') || 'people';
 
   if (!root || !recipe) return;
 
@@ -158,6 +161,7 @@
     const holder = document.createElement('div');
     holder.innerHTML = recipe.body;
     removeDrinkSection(holder);
+    scaleForServings(holder);
     highlightIngredients(holder);
     const sections = [];
 
@@ -242,9 +246,19 @@
     });
   };
 
+  const scaleForServings = (scope) => {
+    if (!window.KitchenQuantityScaler?.scaleInstructionContent) return;
+    window.KitchenQuantityScaler.scaleInstructionContent(scope, {
+      targetServings,
+      baseServings,
+      servingType
+    });
+  };
+
   const renderPhone = () => {
     const content = makeTemplate(recipe.body);
     removeDrinkSection(content);
+    scaleForServings(content);
     highlightIngredients(content);
     nestPhoneIngredientPulls(content);
     root.replaceChildren(content);
@@ -253,6 +267,7 @@
   const renderWide = () => {
     const sections = layoutWideSections(sectionsFromPhoneContent());
     const source = makeTemplate(recipe.body);
+    scaleForServings(source);
     const heroTitle = html(source, '.hero-title') || html(source, '.recipe-title') || recipe.heroTitle || recipe.title;
     const metaSub = Array.from(source.querySelectorAll('.recipe-meta .meta-item'))
       .map(item => `${text(item, '.meta-label')} ${text(item, '.meta-value')}`.trim())

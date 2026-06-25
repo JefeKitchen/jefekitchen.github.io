@@ -33,7 +33,8 @@ function normalizePlan(docSnap) {
     recipeId: data.recipeId || docSnap.id,
     day: data.day || "",
     date: data.date || "",
-    meal: data.meal || ""
+    meal: data.meal || "",
+    servings: Number(data.servings || 0) || undefined
   };
 }
 
@@ -44,7 +45,8 @@ function normalizeShoppingRecipe(docSnap) {
     recipeId: data.recipeId || docSnap.id,
     day: data.day || "",
     date: data.date || "",
-    meal: data.meal || ""
+    meal: data.meal || "",
+    servings: Number(data.servings || 0) || undefined
   };
 }
 
@@ -156,6 +158,7 @@ function savePlan(entry) {
     day: entry.day || "",
     date: entry.date || "",
     meal: entry.meal || "",
+    servings: Number(entry.servings || 0) || null,
     updatedAt: serverTimestamp()
   });
 }
@@ -170,6 +173,7 @@ function saveShoppingRecipe(entry) {
     day: entry.day || "",
     date: entry.date || "",
     meal: entry.meal || "",
+    servings: Number(entry.servings || 0) || null,
     updatedAt: serverTimestamp()
   });
 }

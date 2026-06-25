@@ -301,7 +301,9 @@
   }
 </style>
 <script src="../recipe-catalog.js?v=1"></script>
-<script type="module" src="../firebase-state.js?v=3"></script>
+<script src="../recipe-serving-data.js?v=1"></script>
+<script src="../quantity-scaler.js?v=1"></script>
+<script type="module" src="../firebase-state.js?v=4"></script>
 </head>
 <body>
 <div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
@@ -344,6 +346,36 @@
   const defaultRecipeIds = [];
   const sectionOptions = window.JEFES_KITCHEN_CATALOG.shoppingSections;
   const recipeCatalog = window.JEFES_KITCHEN_CATALOG.recipes;
+  const servingData = window.JEFES_RECIPE_SERVINGS || {};
+
+  const servingInfo = recipe => {
+    const info = servingData[recipe.id] || {};
+    const servingType = info.servingType || (recipe.section === 'snackies' ? 'servings' : 'people');
+    return {
+      baseServings: Number(info.baseServings || (servingType === 'servings' ? 4 : 2)),
+      defaultServings: Number(info.defaultServings || (servingType === 'servings' ? 8 : 2)),
+      servingType
+    };
+  };
+
+  const normalizeServingCount = (recipe, value) => {
+    const info = servingInfo(recipe);
+    const parsed = Number(value);
+    return Number.isFinite(parsed) && parsed > 0 ? parsed : info.defaultServings;
+  };
+
+  const servingFactor = (recipe, entry) => {
+    const info = servingInfo(recipe);
+    return normalizeServingCount(recipe, entry.servings) / info.baseServings;
+  };
+
+  const scaleItemText = (text, factor) => window.KitchenQuantityScaler?.scaleQuantityText
+    ? window.KitchenQuantityScaler.scaleQuantityText(text, factor)
+    : text;
+
+  const scaleItemNote = (note, factor) => window.KitchenQuantityScaler?.scaleStandaloneNote
+    ? window.KitchenQuantityScaler.scaleStandaloneNote(note, factor)
+    : note;
   const sectionAliases = {
     produce: 'Produce',
     dairy: 'Dairy',
@@ -403,17 +435,20 @@
     }
   };
 
+  const normalizeSelectedRecipes = raw => (Array.isArray(raw) ? raw : [])
+    .map(entry => typeof entry === 'string' ? { id: entry } : entry)
+    .filter(entry => recipeCatalog[entry.id])
+    .map(entry => ({ ...entry, servings: normalizeServingCount(recipeCatalog[entry.id], entry.servings) }));
+
   const loadSelectedRecipes = () => {
-    if (Array.isArray(cloudSelectedRecipes)) return cloudSelectedRecipes;
+    if (Array.isArray(cloudSelectedRecipes)) return normalizeSelectedRecipes(cloudSelectedRecipes);
 
     const raw = localStorage.getItem(selectedRecipesKey);
-    if (raw === null) return [...defaultRecipeIds];
+    if (raw === null) return normalizeSelectedRecipes(defaultRecipeIds);
     try {
-      return JSON.parse(raw)
-        .map(entry => typeof entry === 'string' ? { id: entry } : entry)
-        .filter(entry => recipeCatalog[entry.id]);
+      return normalizeSelectedRecipes(JSON.parse(raw));
     } catch {
-      return [...defaultRecipeIds];
+      return normalizeSelectedRecipes(defaultRecipeIds);
     }
   };
 
@@ -479,9 +514,7 @@
       }
 
       unwatchCloudShopping = window.KitchenCloud.watchShopping(snapshot => {
-        cloudSelectedRecipes = snapshot.recipes
-          .map(entry => typeof entry === 'string' ? { id: entry } : entry)
-          .filter(entry => recipeCatalog[entry.id]);
+        cloudSelectedRecipes = normalizeSelectedRecipes(snapshot.recipes);
         cloudAddedItems = groupCloudItemsBySection(snapshot.customItems);
         cloudPurchasedItems = snapshot.purchasedItems;
         saveSelectedRecipes(cloudSelectedRecipes);
@@ -668,6 +701,7 @@
     return selectedRecipes.reduce((sections, entry) => {
       if (hiddenMeals.has(entry.id)) return sections;
       const recipe = recipeCatalog[entry.id];
+      const factor = servingFactor(recipe, entry);
       Object.entries(recipe.items).forEach(([sectionName, items]) => {
         const normalizedSection = normalizeSection(sectionName);
         if ((entry.meal || '').toLowerCase() === 'lunch' && normalizedSection === 'Alcohol/Drinks') return;
@@ -676,8 +710,8 @@
             id: `tw-${entry.id}-${id}`,
             recipe: recipe.name,
             recipeId: entry.id,
-            text,
-            note
+            text: scaleItemText(text, factor),
+            note: scaleItemNote(note, factor)
           }))
           .filter(item => !purchasedItems.has(item.id) && !removedItems.has(item.id));
         sections[normalizedSection] = [
