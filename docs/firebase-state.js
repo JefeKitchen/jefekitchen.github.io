@@ -213,6 +213,11 @@ async function savePollVote(vote) {
   });
 }
 
+async function removePollVote() {
+  const user = await ensureSignedIn();
+  return deleteDoc(doc(pollVotesCollection, user.uid));
+}
+
 function currentUserId() {
   return auth.currentUser?.uid || "";
 }
@@ -232,6 +237,7 @@ window.KitchenCloud = {
   markPurchased,
   clearPurchasedItem,
   savePollVote,
+  removePollVote,
   currentUserId,
   isSignedIn: () => !!auth.currentUser
 };

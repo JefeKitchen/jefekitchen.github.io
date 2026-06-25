@@ -400,28 +400,32 @@
   submitVote.addEventListener('click', async () => {
     if (!selectedOption) return;
     const choice = optionLabel(selectedOption);
-    if (selectedOption.dataset.writeIn && !writeInInput.value.trim()) {
-      voteStatus.textContent = 'Write in your snackie first.';
-      writeInInput.focus();
-      return;
-    }
+    const isBlankWriteIn = selectedOption.dataset.writeIn && !writeInInput.value.trim();
     submitVote.disabled = true;
-    voteStatus.textContent = 'Saving vote...';
+    voteStatus.textContent = isBlankWriteIn ? 'Removing vote...' : 'Saving vote...';
     try {
       await window.KitchenCloud.ensureSignedIn();
-      await window.KitchenCloud.savePollVote({
-        choiceId: selectedOption.dataset.choiceId,
-        choice,
-        writeIn: !!selectedOption.dataset.writeIn
-      });
-      voteStatus.textContent = 'Vote saved.';
+      if (isBlankWriteIn) {
+        await window.KitchenCloud.removePollVote();
+        selectedOption = null;
+        pollOptions.forEach(candidate => candidate.classList.remove('is-selected'));
+        writeInInput.value = '';
+        voteStatus.textContent = 'Vote removed.';
+      } else {
+        await window.KitchenCloud.savePollVote({
+          choiceId: selectedOption.dataset.choiceId,
+          choice,
+          writeIn: !!selectedOption.dataset.writeIn
+        });
+        voteStatus.textContent = 'Vote saved.';
+      }
     } catch (error) {
       console.warn('Poll vote save failed', error);
-      voteStatus.textContent = 'Vote did not save. Try again?';
+      voteStatus.textContent = isBlankWriteIn ? 'Vote did not clear. Try again?' : 'Vote did not save. Try again?';
       submitVote.disabled = false;
       return;
     }
-    submitVote.disabled = false;
+    submitVote.disabled = !!isBlankWriteIn;
   });
 
   resultsToggle.addEventListener('click', () => {
