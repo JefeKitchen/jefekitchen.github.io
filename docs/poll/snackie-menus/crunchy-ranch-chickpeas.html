@@ -6,32 +6,169 @@
 <title>Crunchy Ranch Chickpeas Menu</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Bebas+Neue&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../menu-card.css">
+
+<style>
+  body.themed {
+    background: #0d0d0c;
+  }
+  .page {
+    color: #ddd8cf;
+  }
+  body.themed .page {
+    background: #11100f;
+    border-color: rgba(184,149,58,0.22);
+    box-shadow: 0 18px 42px rgba(0,0,0,0.52);
+    color: #ddd8cf;
+  }
+  body.themed .page::before {
+    border-color: rgba(184,149,58,0.16);
+  }
+  body.themed .header {
+    border-bottom-color: rgba(184,149,58,0.20);
+  }
+  body.themed .eyebrow,
+  body.themed .section-label {
+    color: #a78942;
+  }
+  body.themed .title {
+    color: #ddd8cf;
+  }
+  body.themed .title span {
+    color: #b8953a;
+  }
+  body.themed .ornament {
+    color: rgba(184,149,58,0.72);
+  }
+  body.themed .footer {
+    border-top-color: rgba(184,149,58,0.20);
+    color: rgba(221,216,207,0.52);
+  }
+
+  .cover-art {
+    align-items: center;
+    background:
+      radial-gradient(circle at 30% 35%, rgba(184,149,58,0.12), transparent 34%),
+      linear-gradient(145deg, #151412, #0b0b0a);
+    border: 1px solid rgba(184,149,58,0.18);
+    border-radius: 8px;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.025), 0 16px 34px rgba(0,0,0,0.28);
+    display: flex;
+    height: 128px;
+    justify-content: center;
+    margin: 16px 0 18px;
+    overflow: hidden;
+    position: relative;
+  }
+  .cover-art::before {
+    background: #b8953a;
+    content: '';
+    height: 1px;
+    left: 18px;
+    opacity: 0.18;
+    position: absolute;
+    right: 18px;
+    top: 22px;
+  }
+  .cover-art::after {
+    background: #b8953a;
+    bottom: 22px;
+    content: '';
+    height: 1px;
+    left: 18px;
+    opacity: 0.10;
+    position: absolute;
+    right: 18px;
+  }
+  .art-piece { position: absolute; }
+  .art-pretzel {
+    border: 8px solid #9d7438;
+    border-left-color: transparent;
+    border-radius: 50%;
+    height: 62px;
+    opacity: 0.86;
+    width: 62px;
+  }
+  .art-pretzel.one { left: 68px; top: 34px; transform: rotate(28deg); }
+  .art-pretzel.two { right: 70px; top: 34px; transform: rotate(-32deg); }
+  .art-stick { background: #aa843e; border-radius: 999px; height: 8px; opacity: 0.84; width: 78px; }
+  .art-stick.one { left: 124px; top: 59px; transform: rotate(18deg); }
+  .art-stick.two { right: 122px; top: 64px; transform: rotate(-17deg); }
+  .art-bean, .art-chickpea, .art-cracker, .art-nut, .art-bite { border-radius: 999px; height: 34px; width: 50px; }
+  .art-bean { background: #4f6949; box-shadow: inset -8px -5px 0 rgba(0,0,0,0.22); }
+  .art-bean.one { left: 74px; top: 35px; transform: rotate(-18deg); }
+  .art-bean.two { left: 142px; top: 65px; transform: rotate(22deg); }
+  .art-bean.three { right: 92px; top: 45px; transform: rotate(-8deg); }
+  .art-chickpea { background: #9c793d; height: 38px; width: 38px; box-shadow: inset -5px -4px 0 rgba(0,0,0,0.22); }
+  .art-chickpea.one { left: 82px; top: 44px; }
+  .art-chickpea.two { left: 150px; top: 66px; }
+  .art-chickpea.three { right: 118px; top: 40px; }
+  .art-chickpea.four { right: 66px; top: 72px; }
+  .art-cracker { background: #9f5e35; border-radius: 8px; height: 42px; width: 42px; transform: rotate(12deg); }
+  .art-cracker::before { color: rgba(0,0,0,0.28); content: '· ·'; font-size: 22px; left: 7px; position: absolute; top: 4px; }
+  .art-cracker.one { left: 78px; top: 43px; }
+  .art-cracker.two { left: 151px; top: 60px; transform: rotate(-10deg); }
+  .art-cracker.three { right: 92px; top: 42px; transform: rotate(22deg); }
+  .art-nut { background: #835936; height: 42px; width: 34px; box-shadow: inset -5px -5px 0 rgba(0,0,0,0.22); }
+  .art-nut.one { left: 84px; top: 42px; transform: rotate(12deg); }
+  .art-nut.two { left: 158px; top: 65px; transform: rotate(-20deg); }
+  .art-nut.three { right: 96px; top: 45px; transform: rotate(28deg); }
+  .art-dash { background: #9d7c3d; border-radius: 999px; height: 6px; opacity: 0.8; width: 42px; }
+  .art-dash.one { left: 120px; top: 45px; transform: rotate(-18deg); }
+  .art-dash.two { right: 145px; top: 75px; transform: rotate(18deg); }
+  .art-bite { background: #5f3f31; height: 44px; width: 44px; box-shadow: inset -6px -5px 0 rgba(0,0,0,0.24); }
+  .art-bite::before { background: #201915; border-radius: 50%; content: ''; height: 8px; left: 11px; position: absolute; top: 12px; width: 8px; box-shadow: 15px 9px 0 #201915; }
+  .art-bite.one { left: 86px; top: 42px; }
+  .art-bite.two { left: 158px; top: 63px; transform: rotate(12deg); }
+  .art-bite.three { right: 100px; top: 44px; transform: rotate(-9deg); }
+  .back-copy {
+    background: rgba(255,255,255,0.035);
+    border: 1px solid rgba(184,149,58,0.13);
+    border-radius: 8px;
+    margin: 18px 0 20px;
+    padding: 18px 18px 16px;
+  }
+  .back-copy p { color: #d7d0c5; font-family: 'Cormorant Garamond', serif; font-size: 21px; line-height: 1.32; }
+  .quote-stack { display: grid; gap: 12px; margin-top: 18px; }
+  .snack-quote { border-left: 2px solid rgba(184,149,58,0.56); color: #d8d2c8; padding: 2px 0 2px 13px; }
+  .snack-quote blockquote { font-family: 'Playfair Display', serif; font-size: 18px; line-height: 1.28; }
+  .snack-quote cite { color: rgba(221,216,207,0.48); display: block; font-family: 'Source Sans 3', sans-serif; font-size: 11px; font-style: normal; letter-spacing: 1.8px; margin-top: 7px; text-transform: uppercase; }
+  .mood-mix .back-copy { box-shadow: inset 0 0 0 1px rgba(184,149,58,0.10); }
+  .mood-green .header { text-align: left; }
+  .mood-ranch .snack-quote:nth-child(2) { transform: rotate(-0.5deg); }
+  .mood-buffalo .snack-quote:nth-child(odd) { color: #d4b063; }
+  .mood-sesame .back-copy { border-style: dashed; }
+  .mood-sweet .back-copy p { font-size: 22px; }
+</style>
 </head>
-<body class="themed theme-buffalo">
+<body class="themed theme-buffalo mood-ranch">
 <div class="back-bar"><a href="../dinner-poll.html" aria-label="Back to poll">&#8249;</a></div>
 
 <main class="page">
   <header class="header">
-    <div class="eyebrow">Oven Snack</div>
+    <div class="eyebrow">Ranch-Crunch Field Notes</div>
     <div class="title">Crunchy Ranch <span>Chickpeas</span></div>
-    <div class="sub">Crispy, herby, salty little bowl snack.</div>
     <div class="ornament">&mdash; &bull; &mdash;</div>
   </header>
 
-  <div class="section-label">Snack</div>
-  <section class="menu-item">
-    <div class="item-name">Crunchy Ranch Chickpeas</div>
-    <div class="item-sub">Chickpeas &middot; ranch seasoning &middot; lemon</div>
-    <div class="item-desc">Roasted chickpeas with a ranchy, tangy finish. Crunchy enough to feel snacky, not so involved it becomes dinner.</div>
+  <div class="cover-art"><span class="art-piece art-chickpea one"></span><span class="art-piece art-chickpea two"></span><span class="art-piece art-chickpea three"></span><span class="art-piece art-chickpea four"></span></div>
+
+  <section class="back-copy">
+    <p>Chickpeas take a hard left into snack territory with crispy edges, ranchy herbs, garlic, and a little lemony lift. They are compact, portable, and somehow both wholesome and deeply snack-brained.</p>
   </section>
 
-  <div class="section-label">Store</div>
-  <section class="menu-item">
-    <div class="item-name">Loose Lid Life</div>
-    <div class="item-sub">Container &middot; room temp &middot; crunch</div>
-    <div class="item-desc">Best stored once fully cool, with a slightly loose lid if you want to protect the crunch.</div>
+  <section class="quote-stack" aria-label="Satisfied eater quotes">
+
+    <div class="snack-quote">
+      <blockquote>“The ranch smell is lovely. I will place my chin nearby and wait with emotional maturity.”</blockquote>
+      <cite>Kimber, Crunch Diplomat</cite>
+    </div>
+    <div class="snack-quote">
+      <blockquote>“Ranch smell has entered my jurisdiction. I will sit politely for three seconds, then escalate.”</blockquote>
+      <cite>Theo, Ranch Nose Manager</cite>
+    </div>
   </section>
-  <footer class="footer">Snack now, snack later.</footer>
+
+  <footer class="footer">For later. Allegedly.</footer>
 </main>
 </body>
 </html>

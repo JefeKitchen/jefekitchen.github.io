@@ -36,8 +36,6 @@ window.JEFES_KITCHEN_CATALOG = {
       "title": "Chicken",
       "recipes": [
         "mild-chicken-noodle-bake",
-        "honey-mustard",
-        "honey-garlic",
         "pineapple-orange-teriyaki",
         "chicken-skewers"
       ]
@@ -1607,5 +1605,9 @@ window.JEFES_KITCHEN_CATALOG = {
         ]
       }
     }
-  }
+  },
+  "archivedRecipes": [
+    "honey-mustard",
+    "honey-garlic"
+  ]
 };
