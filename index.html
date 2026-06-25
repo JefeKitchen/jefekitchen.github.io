@@ -210,6 +210,8 @@
     align-items: center;
     gap: 12px;
     padding: 11px 12px 11px 14px;
+    -webkit-user-select: none;
+    user-select: none;
   }
   .recipe-card[data-card-href],
   .recipe-card[data-default-instructions] {
@@ -668,7 +670,7 @@
         <label class="week-check"><input id="weekRecipeShop" type="checkbox" checked> Shop</label>
       </div>
       <div class="choice-actions">
-        <button class="choice-button choice-primary" type="submit">Add</button>
+        <button class="choice-button choice-primary" type="submit" id="weekRecipeSubmit">Add</button>
         <button class="choice-button choice-cancel" type="button" id="cancelWeekRecipe">Cancel</button>
       </div>
     </form>
@@ -776,7 +778,7 @@
       : `<div class="card-title">${recipe.title}</div>`;
 
     return `
-      <div class="card recipe-card" data-default-instructions="true" data-phone="${instructionPhone}" data-wide="${instructionWide}" role="link" tabindex="0">
+      <div class="card recipe-card" data-default-instructions="true" data-recipe-id="${recipe.id}" data-week-entry="${options.weekEntry ? 'true' : ''}" data-phone="${instructionPhone}" data-wide="${instructionWide}" role="link" tabindex="0">
         <div class="card-copy">
           ${titleBlock}
           <span class="card-subtitle">${recipe.subtitle}</span>
@@ -898,13 +900,20 @@
     }
   }
 
-  async function addRecipeEntry(key, recipeId, day, meal = '', servings = '') {
+  function makeRecipeEntry(recipeId, day, meal = '', servings = '') {
+    const recipe = thisWeekCatalog[recipeId];
+    return {
+      id: recipeId,
+      day,
+      date: dateForDay(day),
+      meal,
+      servings: normalizeServingCount(recipe, servings)
+    };
+  }
+
+  async function saveRecipeEntry(key, entry) {
     const loader = key === thisWeekRecipesKey ? loadThisWeekRecipes : loadShoppingRecipes;
     const saver = key === thisWeekRecipesKey ? saveThisWeekRecipes : saveShoppingRecipes;
-    const entries = loader();
-    if (entries.some(entry => entry.id === recipeId)) return;
-    const recipe = thisWeekCatalog[recipeId];
-    const entry = { id: recipeId, day, date: dateForDay(day), meal, servings: normalizeServingCount(recipe, servings) };
 
     if (key === thisWeekRecipesKey && window.KitchenCloud?.ensureSignedIn) {
       try {
@@ -919,16 +928,50 @@
       try {
         await window.KitchenCloud.ensureSignedIn();
         await window.KitchenCloud.saveShoppingRecipe(entry);
-        clearPurchasedRecipe(recipeId);
+        clearPurchasedRecipe(entry.id);
         return;
       } catch (error) {
         console.warn('Kitchen shopping sync save unavailable; using local list', error);
       }
     }
 
+    const entries = loader().filter(item => item.id !== entry.id);
     entries.push(entry);
     saver(entries);
-    if (key === thisWeekShoppingRecipesKey) clearPurchasedRecipe(recipeId);
+    if (key === thisWeekShoppingRecipesKey) clearPurchasedRecipe(entry.id);
+  }
+
+  async function addRecipeEntry(key, recipeId, day, meal = '', servings = '') {
+    const loader = key === thisWeekRecipesKey ? loadThisWeekRecipes : loadShoppingRecipes;
+    if (loader().some(entry => entry.id === recipeId)) return;
+    await saveRecipeEntry(key, makeRecipeEntry(recipeId, day, meal, servings));
+  }
+
+  async function updateRecipeEntry(originalRecipeId, recipeId, day, meal = '', servings = '', addPlan = true, addShopping = true) {
+    const entry = makeRecipeEntry(recipeId, day, meal, servings);
+    if (originalRecipeId && originalRecipeId !== recipeId) {
+      await removeThisWeekRecipe(originalRecipeId);
+    }
+
+    if (addPlan) {
+      await saveRecipeEntry(thisWeekRecipesKey, entry);
+    } else if (originalRecipeId || recipeId) {
+      await removeThisWeekRecipe(originalRecipeId || recipeId);
+    }
+
+    if (addShopping) {
+      await saveRecipeEntry(thisWeekShoppingRecipesKey, entry);
+    } else {
+      saveShoppingRecipes(loadShoppingRecipes().filter(item => item.id !== recipeId));
+      if (window.KitchenCloud?.isSignedIn?.()) {
+        try {
+          await window.KitchenCloud.removeShoppingRecipe(recipeId);
+        } catch (error) {
+          console.warn('Kitchen shopping sync remove unavailable; removing local list item', error);
+        }
+      }
+    }
+    clearPurchasedRecipe(recipeId);
   }
 
   async function removeThisWeekRecipe(recipeId) {
@@ -969,7 +1012,8 @@
         showServings: true,
         includeGrocery: false,
         labelPrefix: 'This Week ',
-        remove: true
+        remove: true,
+        weekEntry: true
       });
       grid.appendChild(section);
     });
@@ -1053,6 +1097,11 @@
   const weekRecipeShop = document.getElementById('weekRecipeShop');
   const weekRecipeServings = document.getElementById('weekRecipeServings');
   const cancelWeekRecipe = document.getElementById('cancelWeekRecipe');
+  const weekChoiceTitle = document.getElementById('weekChoiceTitle');
+  const weekRecipeSubmit = document.getElementById('weekRecipeSubmit');
+  let weekChoiceMode = { type: 'add', originalRecipeId: '' };
+  let suppressCardClick = false;
+  let cardLongPressTimer = null;
 
   function populateWeekRecipeSections() {
     if (weekRecipeSection.options.length) return;
@@ -1064,7 +1113,7 @@
     });
   }
 
-  function populateWeekServings() {
+  function populateWeekServings(selectedServings = '') {
     if (!weekRecipeServings) return;
     const recipe = thisWeekCatalog[weekRecipeChoice.value];
     if (!recipe) return;
@@ -1089,12 +1138,22 @@
       option.textContent = label;
       weekRecipeServings.appendChild(option);
     });
-    weekRecipeServings.value = String(info.defaultServings);
+    const desired = String(selectedServings || info.defaultServings);
+    weekRecipeServings.value = [...weekRecipeServings.options].some(option => option.value === desired)
+      ? desired
+      : String(info.defaultServings);
   }
 
-  function populateWeekRecipeForm() {
+  function sectionIdForRecipe(recipeId) {
+    return window.JEFES_KITCHEN_CATALOG.sections.find(section => section.recipes.includes(recipeId))?.id || '';
+  }
+
+  function populateWeekRecipeForm(selectedRecipeId = '', selectedServings = '') {
     populateWeekRecipeSections();
-    if (!weekRecipeSection.value && window.JEFES_KITCHEN_CATALOG.sections[0]) {
+    const selectedSectionId = selectedRecipeId ? sectionIdForRecipe(selectedRecipeId) : '';
+    if (selectedSectionId) {
+      weekRecipeSection.value = selectedSectionId;
+    } else if (!weekRecipeSection.value && window.JEFES_KITCHEN_CATALOG.sections[0]) {
       weekRecipeSection.value = window.JEFES_KITCHEN_CATALOG.sections[0].id;
     }
     const selectedSection = window.JEFES_KITCHEN_CATALOG.sections
@@ -1112,7 +1171,10 @@
         weekRecipeChoice.appendChild(option);
       });
 
-    populateWeekServings();
+    if (selectedRecipeId && [...weekRecipeChoice.options].some(option => option.value === selectedRecipeId)) {
+      weekRecipeChoice.value = selectedRecipeId;
+    }
+    populateWeekServings(selectedServings);
 
     if (!weekRecipeDay.options.length) {
       weekDayOptions.forEach(day => {
@@ -1124,13 +1186,20 @@
     }
   }
 
-  function openWeekChoice() {
-    populateWeekRecipeForm();
-    weekRecipeDay.value = '';
-    weekRecipeLunch.checked = false;
-    weekRecipePlan.checked = true;
-    weekRecipeShop.checked = true;
-    populateWeekServings();
+  function openWeekChoice(options = {}) {
+    const entry = options.entry || null;
+    const recipeId = options.recipeId || entry?.id || '';
+    const isEdit = options.mode === 'edit' && entry;
+    const shoppingEntry = recipeId ? loadShoppingRecipes().find(item => item.id === recipeId) : null;
+    weekChoiceMode = { type: isEdit ? 'edit' : 'add', originalRecipeId: isEdit ? entry.id : '' };
+    weekChoiceTitle.textContent = isEdit ? 'Edit Recipe' : 'Add Recipe';
+    weekRecipeSubmit.textContent = isEdit ? 'Update' : 'Add';
+    populateWeekRecipeForm(recipeId, entry?.servings);
+    weekRecipeDay.value = entry?.day || '';
+    weekRecipeLunch.checked = (entry?.meal || '') === 'lunch';
+    weekRecipePlan.checked = isEdit ? true : true;
+    weekRecipeShop.checked = isEdit ? !!shoppingEntry : true;
+    if (entry?.servings) populateWeekServings(entry.servings);
     weekChoice.classList.add('is-open');
     weekChoice.setAttribute('aria-hidden', 'false');
     weekRecipeSection.focus();
@@ -1139,6 +1208,7 @@
   function closeWeekChoice() {
     weekChoice.classList.remove('is-open');
     weekChoice.setAttribute('aria-hidden', 'true');
+    weekChoiceMode = { type: 'add', originalRecipeId: '' };
   }
 
   window.addEventListener('kitchen-cloud-ready', startCloudSync);
@@ -1200,9 +1270,58 @@
     });
   }
 
+  function openWeekChoiceForCard(card) {
+    if (!card?.dataset?.recipeId) return false;
+    const recipeId = card.dataset.recipeId;
+    if (!thisWeekCatalog[recipeId]) return false;
+    const entry = card.dataset.weekEntry === 'true'
+      ? loadThisWeekRecipes().find(item => item.id === recipeId)
+      : null;
+    openWeekChoice(entry ? { mode: 'edit', entry } : { mode: 'add', recipeId });
+    return true;
+  }
+
+  function clearCardLongPress() {
+    if (cardLongPressTimer) {
+      clearTimeout(cardLongPressTimer);
+      cardLongPressTimer = null;
+    }
+  }
+
   wireInstructionLinks();
 
+  document.addEventListener('contextmenu', event => {
+    if (event.target.closest('a, button, input, select, textarea, label')) return;
+    const card = event.target.closest('.recipe-card[data-recipe-id]');
+    if (!card) return;
+    event.preventDefault();
+    suppressCardClick = true;
+    openWeekChoiceForCard(card);
+    setTimeout(() => { suppressCardClick = false; }, 250);
+  });
+
+  document.addEventListener('pointerdown', event => {
+    if (event.button !== 0 || event.target.closest('a, button, input, select, textarea, label')) return;
+    const card = event.target.closest('.recipe-card[data-recipe-id]');
+    if (!card) return;
+    clearCardLongPress();
+    cardLongPressTimer = setTimeout(() => {
+      suppressCardClick = true;
+      openWeekChoiceForCard(card);
+      setTimeout(() => { suppressCardClick = false; }, 450);
+    }, 600);
+  });
+
+  ['pointerup', 'pointercancel', 'pointerleave', 'scroll'].forEach(eventName => {
+    document.addEventListener(eventName, clearCardLongPress, { passive: true });
+  });
+
   document.addEventListener('click', event => {
+    if (suppressCardClick) {
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
     if (event.target.closest('a, button, input, select, textarea, label')) return;
     const card = event.target.closest('[data-card-href], [data-default-instructions]');
     if (!card) return;
@@ -1260,8 +1379,8 @@
   });
 
   cancelWeekRecipe.addEventListener('click', closeWeekChoice);
-  weekRecipeSection.addEventListener('change', populateWeekRecipeForm);
-  weekRecipeChoice.addEventListener('change', populateWeekServings);
+  weekRecipeSection.addEventListener('change', () => populateWeekRecipeForm());
+  weekRecipeChoice.addEventListener('change', () => populateWeekServings());
 
   document.getElementById('thisWeekGrid')?.addEventListener('click', event => {
     const button = event.target.closest('[data-remove-this-week]');
@@ -1282,11 +1401,15 @@
 
     if (!addPlan && !addShopping) return;
 
-    if (addPlan) {
-      await addRecipeEntry(thisWeekRecipesKey, recipeId, day, meal, servings);
-    }
-    if (addShopping) {
-      await addRecipeEntry(thisWeekShoppingRecipesKey, recipeId, day, meal, servings);
+    if (weekChoiceMode.type === 'edit') {
+      await updateRecipeEntry(weekChoiceMode.originalRecipeId, recipeId, day, meal, servings, addPlan, addShopping);
+    } else {
+      if (addPlan) {
+        await addRecipeEntry(thisWeekRecipesKey, recipeId, day, meal, servings);
+      }
+      if (addShopping) {
+        await addRecipeEntry(thisWeekShoppingRecipesKey, recipeId, day, meal, servings);
+      }
     }
 
     closeWeekChoice();
