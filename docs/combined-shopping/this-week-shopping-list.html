@@ -959,7 +959,7 @@
   const createRecipeGroup = (items) => {
     const fragment = document.createDocumentFragment();
     const itemGroups = items.reduce((groups, item) => {
-      const key = normalizeItemName(item.text);
+      const key = singularizeItemName(normalizeItemName(item.text));
       groups[key] = [...(groups[key] || []), item];
       return groups;
     }, {});
