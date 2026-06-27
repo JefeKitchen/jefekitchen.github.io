@@ -725,8 +725,10 @@
 
   const removeRecipe = async recipeId => {
     const selectedRecipes = loadSelectedRecipes().filter(entry => entry.id !== recipeId);
+    cloudSelectedRecipes = Array.isArray(cloudSelectedRecipes) ? selectedRecipes : cloudSelectedRecipes;
     const purchasedItems = loadPurchasedItems();
     const removedItems = loadRemovedItems();
+    saveSelectedRecipes(selectedRecipes);
     if (window.KitchenCloud?.isSignedIn?.()) {
       try {
         await window.KitchenCloud.removeShoppingRecipe(recipeId);
@@ -734,7 +736,6 @@
         console.warn('Kitchen shopping sync remove unavailable; removing local recipe', error);
       }
     }
-    saveSelectedRecipes(selectedRecipes);
     const hiddenMeals = loadHiddenMeals();
     hiddenMeals.delete(recipeId);
     saveHiddenMeals(hiddenMeals);

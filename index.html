@@ -975,23 +975,29 @@
   }
 
   async function removeThisWeekRecipe(recipeId) {
-    if (window.KitchenCloud?.isSignedIn?.()) {
-      try {
-        await window.KitchenCloud.removePlan(recipeId);
-        await window.KitchenCloud.removeShoppingRecipe(recipeId);
-      } catch (error) {
-        console.warn('Kitchen sync remove unavailable; removing local plan', error);
-        saveThisWeekRecipes(loadThisWeekRecipes().filter(entry => entry.id !== recipeId));
-      }
-    } else {
-      saveThisWeekRecipes(loadThisWeekRecipes().filter(entry => entry.id !== recipeId));
-    }
-
-    saveShoppingRecipes(loadShoppingRecipes().filter(entry => entry.id !== recipeId));
+    const nextPlans = loadThisWeekRecipes().filter(entry => entry.id !== recipeId);
+    const nextShopping = loadShoppingRecipes().filter(entry => entry.id !== recipeId);
+    cloudThisWeekRecipes = Array.isArray(cloudThisWeekRecipes) ? nextPlans : cloudThisWeekRecipes;
+    cloudShoppingRecipes = Array.isArray(cloudShoppingRecipes) ? nextShopping : cloudShoppingRecipes;
+    saveThisWeekRecipes(nextPlans);
+    saveShoppingRecipes(nextShopping);
     clearPurchasedRecipe(recipeId);
     renderThisWeekPlans();
     hidePastWeekPlans();
     populateWeekRecipeForm();
+
+    if (window.KitchenCloud?.isSignedIn?.()) {
+      try {
+        await window.KitchenCloud.removePlan(recipeId);
+      } catch (error) {
+        console.warn('Kitchen sync plan remove unavailable; removed locally', error);
+      }
+      try {
+        await window.KitchenCloud.removeShoppingRecipe(recipeId);
+      } catch (error) {
+        console.warn('Kitchen sync shopping remove unavailable; removed locally', error);
+      }
+    }
   }
 
   function renderThisWeekPlans() {
