@@ -212,11 +212,6 @@ window.JEFES_KITCHEN_CATALOG = {
       "items": {
         "Produce": [
           [
-            "carrots",
-            "Carrots",
-            "2"
-          ],
-          [
             "parsley",
             "Parsley",
             "Small bunch, optional"
@@ -246,6 +241,13 @@ window.JEFES_KITCHEN_CATALOG = {
             "Optional topping"
           ]
         ],
+        "Frozen": [
+          [
+            "peas-carrots",
+            "Frozen pea and carrot medley",
+            "1 1/2 cups"
+          ]
+        ],
         "Pantry": [
           [
             "egg-noodles",
@@ -261,11 +263,6 @@ window.JEFES_KITCHEN_CATALOG = {
             "flour",
             "Flour",
             "3 tbsp"
-          ],
-          [
-            "peas",
-            "Frozen peas",
-            "1 cup"
           ],
           [
             "breadcrumbs",
