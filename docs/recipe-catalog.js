@@ -35,9 +35,10 @@ window.JEFES_KITCHEN_CATALOG = {
       "id": "chicken",
       "title": "Chicken",
       "recipes": [
+        "chicken-fried-rice",
+        "chicken-skewers",
         "mild-chicken-noodle-bake",
-        "pineapple-orange-teriyaki",
-        "chicken-skewers"
+        "pineapple-orange-teriyaki"
       ]
     },
     {
@@ -274,6 +275,106 @@ window.JEFES_KITCHEN_CATALOG = {
         ]
       },
       "grocery": "./docs/mild-chicken-noodle-bake/grocery-list-mild-chicken-noodle-bake.html"
+    },
+    "chicken-fried-rice": {
+      "id": "chicken-fried-rice",
+      "name": "Chicken Fried Rice",
+      "title": "Chicken Fried Rice",
+      "subtitle": "Rotisserie Chicken · Rice · Scallions",
+      "section": "chicken",
+      "menu": "./docs/chicken-fried-rice/chicken-fried-rice-menu.html",
+      "phone": "./docs/chicken-fried-rice/chicken-fried-rice-instructions.html",
+      "wide": "./docs/chicken-fried-rice/chicken-fried-rice-wide.html",
+      "items": {
+        "Produce": [
+          [
+            "green-onions",
+            "Green onions",
+            "1 bunch"
+          ],
+          [
+            "onion",
+            "White or yellow onion",
+            "1 small"
+          ],
+          [
+            "garlic",
+            "Garlic",
+            "1 head"
+          ],
+          [
+            "cucumber",
+            "Cucumber",
+            "1"
+          ],
+          [
+            "lime",
+            "Lime",
+            "1"
+          ]
+        ],
+        "Meat/Seafood": [
+          [
+            "rotisserie-chicken",
+            "Rotisserie chicken",
+            "About 2 cups shredded"
+          ]
+        ],
+        "Dairy": [
+          [
+            "eggs",
+            "Eggs",
+            "2"
+          ]
+        ],
+        "Refrigerated": [
+          [
+            "peas-carrots",
+            "Frozen peas and carrots",
+            "1 cup"
+          ]
+        ],
+        "Pantry": [
+          [
+            "white-rice",
+            "White rice",
+            "1 cup dry; cook ahead if possible"
+          ],
+          [
+            "soy-sauce",
+            "Soy sauce",
+            "About 1/4 cup"
+          ],
+          [
+            "rice-vinegar",
+            "Rice vinegar",
+            "For side and sauce"
+          ],
+          [
+            "sesame-oil",
+            "Sesame oil",
+            "Small bottle, if needed"
+          ],
+          [
+            "neutral-oil",
+            "Neutral oil",
+            "For frying, if needed"
+          ],
+          [
+            "sriracha",
+            "Sriracha or chili crisp",
+            "Optional heat"
+          ]
+        ],
+        "Alcohol/Drinks": [
+          [
+            "lager",
+            "Crisp lager or pilsner",
+            "Optional pairing"
+          ]
+        ]
+      },
+      "grocery": "./docs/chicken-fried-rice/grocery-list-chicken-fried-rice.html"
     },
     "cuban-sandwiches": {
       "id": "cuban-sandwiches",

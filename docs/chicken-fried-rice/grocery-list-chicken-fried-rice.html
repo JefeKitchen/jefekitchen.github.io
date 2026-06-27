@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Grocery List - Chicken Fried Rice</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../theme.css?v=4">
+</head>
+<body>
+<div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
+
+<div class="page-title">Grocery List</div>
+<div class="page-sub">Chicken Fried Rice</div>
+
+<div class="section">
+  <div class="section-header need">Produce</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="cfr1"><label for="cfr1">Green onions<span class="item-note">1 bunch</span></label></div>
+    <div class="item"><input type="checkbox" id="cfr2"><label for="cfr2">White or yellow onion<span class="item-note">1 small</span></label></div>
+    <div class="item"><input type="checkbox" id="cfr3"><label for="cfr3">Garlic<span class="item-note">1 head</span></label></div>
+    <div class="item"><input type="checkbox" id="cfr4"><label for="cfr4">Cucumber<span class="item-note">1, for side</span></label></div>
+    <div class="item"><input type="checkbox" id="cfr5"><label for="cfr5">Lime<span class="item-note">1, for side</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Meat/Seafood</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="cfr6"><label for="cfr6">Rotisserie chicken<span class="item-note">About 2 cups shredded</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Dairy</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="cfr7"><label for="cfr7">Eggs<span class="item-note">2</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Refrigerated</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="cfr8"><label for="cfr8">Frozen peas and carrots<span class="item-note">1 cup</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Pantry</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="cfr9"><label for="cfr9">White rice<span class="item-note">1 cup dry; cook ahead if possible</span></label></div>
+    <div class="item"><input type="checkbox" id="cfr10"><label for="cfr10">Soy sauce<span class="item-note">About 1/4 cup</span></label></div>
+    <div class="item"><input type="checkbox" id="cfr11"><label for="cfr11">Rice vinegar<span class="item-note">For side and sauce</span></label></div>
+    <div class="item"><input type="checkbox" id="cfr12"><label for="cfr12">Sesame oil<span class="item-note">Small bottle, if needed</span></label></div>
+    <div class="item"><input type="checkbox" id="cfr13"><label for="cfr13">Neutral oil<span class="item-note">For frying, if needed</span></label></div>
+    <div class="item"><input type="checkbox" id="cfr14"><label for="cfr14">Sriracha or chili crisp<span class="item-note">Optional heat</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Alcohol/Drinks</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="cfr15"><label for="cfr15">Crisp lager or pilsner<span class="item-note">Optional pairing</span></label></div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    const key = `chicken-fried-rice-${cb.id}`;
+    cb.checked = localStorage.getItem(key) === 'checked';
+    cb.addEventListener('change', () => {
+      localStorage.setItem(key, cb.checked ? 'checked' : '');
+    });
+  });
+</script>
+<script src="../grocery-boom.js?v=1"></script>
+</body>
+</html>

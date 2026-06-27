@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v151';
+const CACHE_NAME = 'jeffs-kitchen-v152';
 
 const PAGES = [
   './',
@@ -12,7 +12,7 @@ const PAGES = [
   './docs/menu-card.css',
   './docs/wide-layout.css',
   './docs/wide-pills.js',
-  './docs/instruction-content.js?v=16',
+  './docs/instruction-content.js?v=17',
   './docs/quantity-scaler.js?v=1',
   './docs/recipe-catalog.js?v=1',
   './docs/recipe-serving-data.js?v=1',
@@ -33,6 +33,10 @@ const PAGES = [
   './docs/baked-salmon-rice-cucumber/baked-salmon-rice-cucumber-wide.html',
   './docs/chicken-pot-pie-rice-skillet/chicken-pot-pie-rice-skillet-menu.html',
   './docs/mild-chicken-noodle-bake/mild-chicken-noodle-bake-menu.html',
+  './docs/chicken-fried-rice/chicken-fried-rice-wide.html',
+  './docs/chicken-fried-rice/chicken-fried-rice-instructions.html',
+  './docs/chicken-fried-rice/grocery-list-chicken-fried-rice.html',
+  './docs/chicken-fried-rice/chicken-fried-rice-menu.html',
   './docs/mild-chicken-noodle-bake/grocery-list-mild-chicken-noodle-bake.html',
   './docs/mild-chicken-noodle-bake/mild-chicken-noodle-bake-instructions.html',
   './docs/mild-chicken-noodle-bake/mild-chicken-noodle-bake-wide.html',

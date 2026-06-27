@@ -9,6 +9,11 @@ window.JEFES_RECIPE_SERVINGS = {
     "defaultServings": 2,
     "servingType": "people"
   },
+  "chicken-fried-rice": {
+    "baseServings": 2,
+    "defaultServings": 2,
+    "servingType": "people"
+  },
   "mild-chicken-noodle-bake": {
     "baseServings": 4,
     "defaultServings": 2,
