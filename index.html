@@ -942,8 +942,6 @@
   }
 
   async function addRecipeEntry(key, recipeId, day, meal = '', servings = '') {
-    const loader = key === thisWeekRecipesKey ? loadThisWeekRecipes : loadShoppingRecipes;
-    if (loader().some(entry => entry.id === recipeId)) return;
     await saveRecipeEntry(key, makeRecipeEntry(recipeId, day, meal, servings));
   }
 
