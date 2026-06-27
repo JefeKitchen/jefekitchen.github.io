@@ -723,6 +723,54 @@
     }, {});
   };
 
+  const itemIdsForRecipe = entry => {
+    const recipe = recipeCatalog[entry.id];
+    if (!recipe) return [];
+    return Object.entries(recipe.items).flatMap(([sectionName, items]) => {
+      const normalizedSection = normalizeSection(sectionName);
+      if ((entry.meal || '').toLowerCase() === 'lunch' && normalizedSection === 'Alcohol/Drinks') return [];
+      return items.map(([id]) => `tw-${entry.id}-${id}`);
+    });
+  };
+
+  const pruneCompletedRecipes = async (purchasedItems, removedItems) => {
+    const selectedRecipes = loadSelectedRecipes();
+    const completedRecipeIds = selectedRecipes
+      .filter(entry => {
+        const itemIds = itemIdsForRecipe(entry);
+        return itemIds.length > 0 && itemIds.every(itemId => purchasedItems.has(itemId) || removedItems.has(itemId));
+      })
+      .map(entry => entry.id);
+
+    if (!completedRecipeIds.length) return;
+
+    const completedRecipeSet = new Set(completedRecipeIds);
+    const nextRecipes = selectedRecipes.filter(entry => !completedRecipeSet.has(entry.id));
+    cloudSelectedRecipes = Array.isArray(cloudSelectedRecipes) ? nextRecipes : cloudSelectedRecipes;
+    saveSelectedRecipes(nextRecipes);
+
+    const hiddenMeals = loadHiddenMeals();
+    completedRecipeIds.forEach(recipeId => {
+      hiddenMeals.delete(recipeId);
+      itemIdsForRecipe({ id: recipeId }).forEach(itemId => {
+        purchasedItems.delete(itemId);
+        removedItems.delete(itemId);
+        localStorage.removeItem(`this-week-${itemId}`);
+        if (window.KitchenCloud?.isSignedIn?.()) {
+          window.KitchenCloud.clearPurchasedItem(itemId).catch(error => {
+            console.warn('Kitchen shopping sync purchased prune unavailable', error);
+          });
+        }
+      });
+      if (window.KitchenCloud?.isSignedIn?.()) {
+        window.KitchenCloud.removeShoppingRecipe(recipeId).catch(error => {
+          console.warn('Kitchen shopping sync recipe prune unavailable', error);
+        });
+      }
+    });
+    saveHiddenMeals(hiddenMeals);
+  };
+
   const removeRecipe = async recipeId => {
     const selectedRecipes = loadSelectedRecipes().filter(entry => entry.id !== recipeId);
     cloudSelectedRecipes = Array.isArray(cloudSelectedRecipes) ? selectedRecipes : cloudSelectedRecipes;
@@ -811,6 +859,7 @@
       }
     });
 
+    await pruneCompletedRecipes(purchasedItems, removedItems);
     saveAddedItems(addedItems);
     savePurchasedItems(purchasedItems);
     saveRemovedItems(new Set());
