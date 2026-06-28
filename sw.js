@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v157';
+const CACHE_NAME = 'jeffs-kitchen-v159';
 
 const PAGES = [
   './',
@@ -13,12 +13,12 @@ const PAGES = [
   './docs/wide-layout.css',
   './docs/wide-pills.js',
   './docs/instruction-content.js?v=17',
-  './docs/quantity-scaler.js?v=1',
+  './docs/quantity-scaler.js?v=2',
   './docs/recipe-catalog.js?v=1',
   './docs/recipe-serving-data.js?v=1',
   './docs/firebase-config.js',
   './docs/firebase-state.js?v=4',
-  './docs/instruction-renderer.js?v=13',
+  './docs/instruction-renderer.js?v=14',
   './docs/grocery-boom.js',
   './docs/poll/dinner-poll.html',
   './docs/beef-meatballs-buttered-noodles/beef-meatballs-buttered-noodles-menu.html',
@@ -146,7 +146,7 @@ const APP_SHELL = [
   './docs/theme.css',
   './docs/recipe-catalog.js?v=1',
   './docs/recipe-serving-data.js?v=1',
-  './docs/quantity-scaler.js?v=1',
+  './docs/quantity-scaler.js?v=2',
   './docs/firebase-config.js',
   './docs/firebase-state.js?v=4',
   './docs/combined-shopping/this-week-shopping-list.html'

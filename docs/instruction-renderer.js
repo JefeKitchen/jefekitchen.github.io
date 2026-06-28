@@ -5,9 +5,11 @@
   const recipe = window.INSTRUCTION_CONTENT && window.INSTRUCTION_CONTENT[recipeId];
   const params = new URLSearchParams(window.location.search);
   const isLunch = params.get('meal') === 'lunch';
-  const targetServings = Number(params.get('servings') || 0);
-  const baseServings = Number(params.get('baseServings') || 0);
-  const servingType = params.get('servingType') || 'people';
+  const servingDefaults = window.JEFES_RECIPE_SERVINGS?.[recipeId] || {};
+  const baseServings = Number(params.get('baseServings') || servingDefaults.baseServings || 0);
+  const defaultTargetServings = Number(servingDefaults.defaultServings || baseServings || 0);
+  const targetServings = Number(params.get('servings') || defaultTargetServings || 0);
+  const servingType = params.get('servingType') || servingDefaults.servingType || 'people';
 
   if (!root || !recipe) return;
 
@@ -15,6 +17,39 @@
     const template = document.createElement('template');
     template.innerHTML = html;
     return template.content.cloneNode(true);
+  };
+
+  const changeServings = (delta) => {
+    const next = Math.max(1, Math.round(targetServings + delta));
+    const nextUrl = new URL(window.location.href);
+    nextUrl.searchParams.set('servings', String(next));
+    if (baseServings) nextUrl.searchParams.set('baseServings', String(baseServings));
+    nextUrl.searchParams.set('servingType', servingType);
+    window.location.href = nextUrl.toString();
+  };
+
+  const renderServingControl = () => {
+    if (!targetServings || !baseServings) return;
+    const control = document.createElement('div');
+    control.className = 'serving-control';
+    const unit = servingType === 'servings' ? 'servings' : targetServings === 1 ? 'person' : 'people';
+    control.innerHTML = `
+      <button type="button" class="serving-step" data-serving-delta="-1" aria-label="Decrease servings">-</button>
+      <div class="serving-readout">
+        <span class="serving-kicker">Scale</span>
+        <span class="serving-value">${targetServings} ${unit}</span>
+      </div>
+      <button type="button" class="serving-step" data-serving-delta="1" aria-label="Increase servings">+</button>
+    `;
+    control.querySelectorAll('[data-serving-delta]').forEach(button => {
+      button.addEventListener('click', () => changeServings(Number(button.dataset.servingDelta || 0)));
+    });
+    const target = root.querySelector('.shell .hero, .hero, .header');
+    if (target) {
+      target.insertAdjacentElement('afterend', control);
+    } else {
+      root.prepend(control);
+    }
   };
 
   const text = (node, selector) => node.querySelector(selector)?.textContent.trim() || '';
@@ -345,5 +380,6 @@
     renderPhone();
   }
 
+  renderServingControl();
   wireIngredientPills();
 })();

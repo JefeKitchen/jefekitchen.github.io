@@ -42,7 +42,7 @@
 
   const pluralizeUnit = (unit, quantity) => {
     if (!unit) return '';
-    if (Math.abs(quantity - 1) < 0.01) return unit.replace(/s$/, '');
+    if (Math.abs(quantity - 1) < 0.01 || (/^cups?$/i.test(unit) && quantity < 1)) return unit.replace(/s$/, '');
     if (/^(lb|lbs)$/i.test(unit)) return 'lb';
     if (/^(tbsp|tsp|oz)$/i.test(unit)) return unit;
     if (/pkg$/i.test(unit)) return 'packages';
@@ -97,9 +97,9 @@
     root.querySelectorAll('.hero-sub').forEach(node => {
       const current = node.textContent;
       if (/Serves\s+[^·]+/.test(current)) {
-        node.textContent = current.replace(/Serves\s+[^·]+/, label);
+        node.textContent = current.replace(/Serves\s+[^·]+/, `${label} `);
       } else if (/Makes\s+[^·]+/.test(current)) {
-        node.textContent = current.replace(/Makes\s+[^·]+/, label);
+        node.textContent = current.replace(/Makes\s+[^·]+/, `${label} `);
       }
     });
   };
