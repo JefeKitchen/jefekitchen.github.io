@@ -11,11 +11,15 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Source Sans 3', sans-serif;
-  min-height: 100vh;
-  padding: 46px 22px 28px;
+  background: var(--bg) !important;
+  color: var(--text) !important;
+  display: block !important;
+  font-family: "Source Sans 3", sans-serif !important;
+  margin: 0 !important;
+  max-width: none !important;
+  min-height: 100vh !important;
+  padding: 46px clamp(18px, 3vw, 32px) 28px !important;
+  width: 100% !important;
 }
 
 .back-bar {
@@ -43,36 +47,41 @@ body {
 }
 
 .shell {
-  margin: 0 auto;
-  max-width: 1040px;
+  margin: 0 auto !important;
+  max-width: 1180px !important;
+  width: 100% !important;
 }
 
 .hero {
-  align-items: end;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  display: grid;
-  gap: 18px;
-  grid-template-columns: minmax(0, 1fr) auto;
-  margin-bottom: 18px;
-  padding: 16px 18px;
+  align-items: end !important;
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 8px !important;
+  display: grid !important;
+  gap: 18px !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  margin: 0 0 18px !important;
+  padding: 16px 18px !important;
+  text-align: left !important;
 }
 
 .hero-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(32px, 4vw, 52px);
-  font-weight: 600;
-  line-height: 1;
+  color: var(--text) !important;
+  font-family: "Playfair Display", serif !important;
+  font-size: clamp(34px, 5vw, 64px) !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  margin: 0 !important;
 }
 
 .hero-title span { color: var(--gold); }
 
 .hero-sub {
-  color: var(--muted);
-  font-size: 15px;
-  line-height: 1.4;
-  text-align: right;
+  color: var(--muted) !important;
+  font-size: 15px !important;
+  line-height: 1.4 !important;
+  margin: 0 !important;
+  text-align: right !important;
 }
 
 .board {
@@ -100,7 +109,7 @@ body {
   border-bottom: 1px solid var(--border) !important;
   color: var(--text) !important;
   display: block !important;
-  font-family: 'Source Sans 3', sans-serif !important;
+  font-family: "Source Sans 3", sans-serif !important;
   font-size: 16px !important;
   font-weight: 400 !important;
   letter-spacing: 0 !important;
@@ -115,7 +124,7 @@ body {
   border: 0 !important;
   color: var(--gold) !important;
   display: block !important;
-  font-family: 'Source Sans 3', sans-serif !important;
+  font-family: "Source Sans 3", sans-serif !important;
   font-size: 10px !important;
   font-weight: 600 !important;
   letter-spacing: 1.8px !important;
@@ -129,7 +138,7 @@ body {
   background: transparent !important;
   border: 0 !important;
   color: var(--text) !important;
-  font-family: 'Playfair Display', serif !important;
+  font-family: "Playfair Display", serif !important;
   font-size: 22px !important;
   font-weight: 600 !important;
   letter-spacing: 0 !important;
@@ -207,17 +216,15 @@ li::before {
   width: 24px;
 }
 
-li > * {
-  min-width: 0;
-}
+li > * { min-width: 0; }
 
 .ing {
   color: var(--gold);
   font-weight: 600;
 }
 
-@media (orientation: landscape) and (min-width: 760px) {
-  body { padding: 48px 24px 24px; }
+@media (min-width: 720px) {
+  body { padding: 48px clamp(20px, 3vw, 36px) 28px !important; }
 
   .board {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -237,5 +244,7 @@ li > * {
 }
 
 @media (min-width: 980px) {
+  body { padding-left: clamp(28px, 4vw, 56px) !important; padding-right: clamp(28px, 4vw, 56px) !important; }
+
   .section-card.full { grid-column: 1 / -1; }
 }
