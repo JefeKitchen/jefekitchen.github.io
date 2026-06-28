@@ -252,29 +252,31 @@ li > * { min-width: 0; }
 
 .serving-control {
   align-items: center !important;
-  background: var(--surface) !important;
-  border: 1px solid var(--border) !important;
-  border-radius: 8px !important;
-  display: grid !important;
-  gap: 10px !important;
-  grid-template-columns: 40px minmax(0, 1fr) 40px !important;
-  margin: 12px 20px 0 !important;
-  padding: 10px !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  display: inline-grid !important;
+  gap: 6px !important;
+  grid-template-columns: 28px auto 28px !important;
+  justify-self: start !important;
+  margin: 8px 20px 0 !important;
+  padding: 0 !important;
+  width: auto !important;
 }
 
 .serving-step {
   align-items: center !important;
   appearance: none !important;
-  background: var(--raised) !important;
-  border: 1px solid var(--border) !important;
-  border-radius: 8px !important;
+  background: transparent !important;
+  border: 1px solid rgba(184, 149, 58, 0.28) !important;
+  border-radius: 999px !important;
   color: var(--gold) !important;
   cursor: pointer !important;
   display: inline-flex !important;
-  font: 700 22px/1 "Source Sans 3", sans-serif !important;
-  height: 38px !important;
+  font: 600 15px/1 "Source Sans 3", sans-serif !important;
+  height: 26px !important;
   justify-content: center !important;
-  width: 40px !important;
+  width: 28px !important;
 }
 
 .serving-readout {
@@ -285,24 +287,24 @@ li > * { min-width: 0; }
 .serving-kicker {
   color: var(--muted) !important;
   display: block !important;
-  font-size: 10px !important;
+  font-size: 9px !important;
   font-weight: 600 !important;
-  letter-spacing: 1.6px !important;
-  line-height: 1.1 !important;
+  letter-spacing: 1.3px !important;
+  line-height: 1 !important;
   text-transform: uppercase !important;
 }
 
 .serving-value {
-  color: var(--text) !important;
+  color: var(--muted) !important;
   display: block !important;
-  font-family: "Playfair Display", serif !important;
-  font-size: 22px !important;
+  font-family: "Source Sans 3", sans-serif !important;
+  font-size: 13px !important;
   font-weight: 600 !important;
-  line-height: 1.1 !important;
-  margin-top: 2px !important;
+  line-height: 1.15 !important;
+  margin-top: 1px !important;
 }
 
 
 .shell > .serving-control {
-  margin: -6px 0 18px !important;
+  margin: -8px 0 14px !important;
 }

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v159';
+const CACHE_NAME = 'jeffs-kitchen-v160';
 
 const PAGES = [
   './',
