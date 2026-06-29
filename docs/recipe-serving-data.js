@@ -100,7 +100,7 @@ window.JEFES_RECIPE_SERVINGS = {
     "servingType": "people"
   },
   "sriracha-salmon-rice-bowls": {
-    "baseServings": 3.5,
+    "baseServings": 3,
     "defaultServings": 3,
     "servingType": "people"
   },
