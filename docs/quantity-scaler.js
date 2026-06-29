@@ -62,7 +62,7 @@
       const scaledLow = a * factor;
       const scaledHigh = b * factor;
       const formattedHigh = formatNumber(scaledHigh, unit);
-      return `${formatNumber(scaledLow, unit)}-${formattedHigh} ${pluralizeUnit(unit, scaledHigh)}`;
+      return `${formatNumber(scaledLow, unit)}-${formattedHigh} ${pluralizeUnit(unit, parseQuantity(formattedHigh))}`;
     });
 
     const singleWithUnit = new RegExp(`\\b(\\d+(?:\\s+\\d+\/\\d+|\/\\d+|\\.\\d+)?|[¼½¾⅓⅔])\\s*(${unitPattern})\\b`, 'gi');
@@ -70,7 +70,8 @@
       const value = parseQuantity(qty);
       if (!Number.isFinite(value)) return match;
       const scaled = value * factor;
-      return `${formatNumber(scaled, unit)} ${pluralizeUnit(unit, scaled)}`;
+      const formatted = formatNumber(scaled, unit);
+      return `${formatted} ${pluralizeUnit(unit, parseQuantity(formatted))}`;
     });
     return next;
   };

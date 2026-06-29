@@ -22,33 +22,44 @@
   .meal-filter-btn.is-off { color: var(--muted); opacity: .58; }
   .prep-board { gap: 30px; }
   .prep-meal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
     display: grid;
-    gap: 12px;
+    gap: 0;
     grid-column: 1 / -1;
+    overflow: hidden;
     transition: opacity .16s ease;
   }
   .prep-meal + .prep-meal {
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    padding-top: 22px;
+    margin-top: 2px;
   }
   .prep-meal.is-done { opacity: .62; }
   .prep-meal.is-done .prep-meal-board { display: none; }
-  .prep-meal.is-done .prep-meal-title { color: var(--muted); text-decoration: line-through; }
+  .prep-meal.is-done .prep-meal-head { border-bottom: 0; }
+  .prep-meal.is-done .prep-meal-title { color: var(--muted) !important; text-decoration: line-through; }
   .prep-meal-head {
+    background: var(--raised) !important;
+    border: 0 !important;
+    border-bottom: 1px solid var(--border) !important;
     cursor: pointer;
-    display: inline-block;
-    justify-self: start;
-    padding: 0 2px;
+    display: block;
+    padding: 13px 14px 12px;
     -webkit-tap-highlight-color: transparent;
     user-select: none;
   }
   .prep-meal-title {
-    color: var(--text);
-    font-family: 'Playfair Display', serif;
-    font-size: 30px;
-    font-weight: 600;
-    line-height: 1.08;
-    margin: 0;
+    background: transparent !important;
+    border: 0 !important;
+    color: var(--text) !important;
+    font-family: 'Playfair Display', serif !important;
+    font-size: clamp(26px, 3.2vw, 36px) !important;
+    font-weight: 600 !important;
+    letter-spacing: 0 !important;
+    line-height: 1.08 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-transform: none !important;
   }
   .prep-meal-meta {
     color: var(--gold);
@@ -63,8 +74,12 @@
     display: grid;
     gap: 14px;
     grid-template-columns: 1fr;
+    padding: 16px;
   }
-  .prep-task { position: relative; }
+  .prep-task {
+    margin: 0 !important;
+    position: relative;
+  }
   @media (max-width: 719px) {
     body { max-width: 480px !important; margin: 0 auto !important; padding: 0 0 60px !important; }
     .back-bar { position: sticky !important; }
@@ -73,9 +88,10 @@
     .hero-title { font-size: 36px !important; }
     .meal-filter { margin: 12px 20px 16px !important; }
     .prep-board { display: grid; margin: 0 20px 28px; }
-    .prep-board { gap: 26px; }
-    .prep-meal + .prep-meal { padding-top: 20px; }
-    .prep-meal-title { font-size: 26px; }
+    .prep-board { gap: 18px; }
+    .prep-meal-head { padding: 12px 13px 11px; }
+    .prep-meal-board { gap: 12px; padding: 12px; }
+    .prep-meal-title { font-size: 28px !important; }
   }
   @media (min-width: 720px) {
     .prep-meal-board {
@@ -98,7 +114,7 @@
 <script src="../recipe-catalog.js?v=1"></script>
 <script src="../instruction-content.js?v=20"></script>
 <script src="../recipe-serving-data.js?v=1"></script>
-<script src="../quantity-scaler.js?v=2"></script>
+<script src="../quantity-scaler.js?v=3"></script>
 <script src="../prep-catalog.js?v=2"></script>
 <script src="../instruction-tools.js?v=1"></script>
 <script type="module" src="../firebase-state.js?v=4"></script>
@@ -242,10 +258,48 @@
       next.full = next.steps.length >= 4 || section.full;
       next.split = next.steps.length >= 4 && section.split;
     }
+    next.steps = adaptPrepAheadSteps(next.steps);
+    next.pills = instructionTools.pillsFromSteps(next.steps).length ? instructionTools.pillsFromSteps(next.steps) : next.pills;
+    return next;
+  }
+  function stepText(step) {
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = step;
+    return wrapper.textContent.trim();
+  }
+  function adaptPrepAheadSteps(steps) {
+    const next = [];
+    steps.forEach(step => {
+      const text = stepText(step);
+      const lower = text.toLowerCase();
+      if (/\b(serve immediately|serve with|build plates|build the bowls|plate it up|finish and serve)\b/.test(lower)) return;
+      if (/\b(keep covered off heat|hold just fine|keep it next to the stove|keep near the stove|set aside|let it sit while|hang out while|until serving|until the .* ready|right before serving)\b/.test(lower)) {
+        if (!next.some(existing => /refrigerate/i.test(stepText(existing)))) {
+          const cooked = /\b(rice|noodles?|cook|warm|heat|hot)\b/.test(lower);
+          next.push(cooked
+            ? '<span>Let cool, then refrigerate until cook time.</span>'
+            : '<span>Refrigerate until cook time.</span>');
+        }
+        return;
+      }
+      next.push(step);
+    });
     return next;
   }
   function renderTask(section) {
     return instructionTools.renderSectionCard(section, { className: 'prep-task' });
+  }
+  function balancePrepGrid(sections) {
+    const next = sections.map(section => ({ ...section }));
+    let trailingHalfWidth = 0;
+    for (let index = next.length - 1; index >= 0; index -= 1) {
+      if (next[index].full) break;
+      trailingHalfWidth += 1;
+    }
+    if (trailingHalfWidth % 2 === 1 && next.length) {
+      next[next.length - 1].full = true;
+    }
+    return next;
   }
   function render() {
     const entries = sortEntries(loadPlans());
@@ -261,6 +315,7 @@
         .map(spec => prepSectionFromSpec(sections, spec))
         .filter(Boolean);
       if (!prepSections.length) return '';
+      const balancedSections = balancePrepGrid(prepSections);
       const doneId = 'meal:' + entry.id;
       const checked = done.has(doneId);
       const meta = entryMeta(entry);
@@ -268,7 +323,7 @@
         '<header class="prep-meal-head" role="button" tabindex="0" aria-pressed="' + (checked ? 'true' : 'false') + '" aria-label="Toggle prep for ' + escapeHtml(recipe?.name || entry.id) + '">' +
         (meta ? '<div class="prep-meal-meta">' + escapeHtml(meta) + '</div>' : '') +
         '<h2 class="prep-meal-title">' + escapeHtml(recipe?.name || entry.id) + '</h2></header>' +
-        '<div class="prep-meal-board">' + prepSections.map(section => renderTask(section)).join('') + '</div>' +
+        '<div class="prep-meal-board">' + balancedSections.map(section => renderTask(section)).join('') + '</div>' +
       '</section>';
     }).join('');
     list.querySelectorAll('.prep-meal-head').forEach(header => {
