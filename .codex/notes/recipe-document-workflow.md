@@ -107,6 +107,7 @@ If any of those fail, fix before reporting back.
 - The Prep utility should render immediately after Grocery List in This Week whenever both are present.
 - The page title should be `Prep`, not `Prep List`.
 - Prep task cards should use the actual wide instruction card structure/classes (`.section-card`, `.section-head`, `.section-label`, `.pull`, `.pill`, `ol > li`) so the page is visually seamless with recipe instructions.
+- Prep should visually group tasks by recipe. The recipe name belongs in the group heading; individual task card labels should stay short, usually only the prep category, with no servings/lunch metadata.
 - Prep must override the shared phone-first `theme.css` body width on desktop/tablet. The wide Prep view should use a full-width shell, not the default 480px document width.
-- Completed prep tasks should collapse to a compact checked-off row; do not leave full steps visible after completion.
+- Prep completion should happen at the recipe group level, not the individual task level. The recipe group header carries day/serving metadata once and acts as the subtle completion control; do not show a checkbox unless the user asks for one.
 - Dated This Week entries with dates before today should be pruned from plans and shopping data, not merely hidden with CSS.
