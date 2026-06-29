@@ -106,6 +106,7 @@ If any of those fail, fix before reporting back.
 - Prep should use desktop width well: recipe cards span the page and prep tasks flow into columns inside each recipe. Do not make recipe cards into narrow side-by-side phone cards.
 - The Prep utility should render immediately after Grocery List in This Week whenever both are present.
 - The page title should be `Prep`, not `Prep List`.
-- Prep task cards should match normal instruction cards: raised section header, small gold label, Playfair title, pull-out ingredient pills, numbered steps, and compact collapsed state.
+- Prep task cards should use the actual wide instruction card structure/classes (`.section-card`, `.section-head`, `.section-label`, `.pull`, `.pill`, `ol > li`) so the page is visually seamless with recipe instructions.
+- Prep must override the shared phone-first `theme.css` body width on desktop/tablet. The wide Prep view should use a full-width shell, not the default 480px document width.
 - Completed prep tasks should collapse to a compact checked-off row; do not leave full steps visible after completion.
 - Dated This Week entries with dates before today should be pruned from plans and shopping data, not merely hidden with CSS.
