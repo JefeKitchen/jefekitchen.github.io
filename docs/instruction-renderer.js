@@ -292,6 +292,7 @@
   };
 
   const pairAssignmentsKey = `pair-cook-assignments-${recipeId}`;
+  const pairDoneKey = `pair-cook-done-${recipeId}`;
 
   const readPairAssignments = () => {
     try {
@@ -303,6 +304,18 @@
 
   const writePairAssignments = (assignments) => {
     localStorage.setItem(pairAssignmentsKey, JSON.stringify(assignments));
+  };
+
+  const readPairDone = () => {
+    try {
+      return JSON.parse(localStorage.getItem(pairDoneKey) || '{}');
+    } catch {
+      return {};
+    }
+  };
+
+  const writePairDone = (done) => {
+    localStorage.setItem(pairDoneKey, JSON.stringify(done));
   };
 
   const defaultPairLane = (section) => {
@@ -369,8 +382,8 @@
       ` : ''}
       <ol>
         ${group.tasks.map(task => `
-          <li data-pair-task="${task.key}" data-lane="${task.lane}">
-            <span>${task.step}</span>
+          <li class="${readPairDone()[task.key] ? 'is-done' : ''}" data-pair-task="${task.key}" data-lane="${task.lane}">
+            <span class="pair-step-text">${task.step}</span>
             <button type="button" class="pair-move" data-pair-move="${task.key}">
               ${task.lane === 'cook' ? 'Prep' : 'Cook'}
             </button>
@@ -393,6 +406,33 @@
         renderServingControl();
         wireIngredientPills();
         wirePairMoves();
+        wirePairStepDone();
+      });
+    });
+  };
+
+  const wirePairStepDone = () => {
+    const done = readPairDone();
+    root.querySelectorAll('[data-pair-task]').forEach(step => {
+      step.setAttribute('role', 'button');
+      step.setAttribute('tabindex', '0');
+      step.setAttribute('aria-pressed', step.classList.contains('is-done') ? 'true' : 'false');
+      const toggle = () => {
+        const key = step.dataset.pairTask;
+        done[key] = !done[key];
+        step.classList.toggle('is-done', !!done[key]);
+        step.setAttribute('aria-pressed', done[key] ? 'true' : 'false');
+        writePairDone(done);
+      };
+      step.addEventListener('click', event => {
+        if (event.target.closest('.pair-move')) return;
+        toggle();
+      });
+      step.addEventListener('keydown', event => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        if (event.target.closest('.pair-move')) return;
+        event.preventDefault();
+        toggle();
       });
     });
   };
@@ -557,4 +597,5 @@
   renderServingControl();
   wireIngredientPills();
   wirePairMoves();
+  wirePairStepDone();
 })();

@@ -308,7 +308,8 @@ li > * { min-width: 0; }
   display: grid;
   gap: 14px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  min-height: calc(100vh - 190px);
+  height: calc(100vh - 210px);
+  min-height: 520px;
 }
 
 .pair-column {
@@ -317,6 +318,7 @@ li > * { min-width: 0; }
   border-radius: 8px;
   display: flex;
   flex-direction: column;
+  height: 100%;
   min-height: 0;
   overflow: hidden;
 }
@@ -350,8 +352,12 @@ li > * { min-width: 0; }
   display: grid;
   align-content: start;
   gap: 8px;
+  flex: 1 1 auto;
+  min-height: 0;
   overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 8px;
+  -webkit-overflow-scrolling: touch;
 }
 
 .pair-task {
@@ -403,14 +409,74 @@ li > * { min-width: 0; }
 }
 
 .pair-task ol {
+  counter-reset: step;
+  list-style: none;
   padding: 8px 10px 10px;
 }
 
 .pair-task li {
   align-items: start;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  counter-increment: step;
+  display: grid;
+  font-size: 14px;
   gap: 10px;
   grid-template-columns: 22px minmax(0, 1fr) auto;
+  line-height: 1.45;
   padding: 7px 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pair-task li:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.pair-task li::before {
+  align-items: center;
+  background: var(--gold);
+  border-radius: 50%;
+  color: #111;
+  content: counter(step);
+  display: inline-flex;
+  font-size: 11px;
+  font-weight: 600;
+  height: 22px;
+  justify-content: center;
+  width: 22px;
+}
+
+.pair-step-text {
+  color: var(--text);
+  display: block;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  transition: color 160ms ease, max-height 160ms ease, opacity 160ms ease;
+}
+
+.pair-task li.is-done {
+  cursor: pointer;
+  padding: 5px 0;
+}
+
+.pair-task li.is-done::before {
+  background: transparent;
+  border: 1px solid rgba(184, 149, 58, 0.35);
+  color: var(--gold);
+  content: "✓";
+}
+
+.pair-task li.is-done .pair-step-text {
+  color: var(--muted);
+  max-height: 1.45em;
+  opacity: 0.55;
+  overflow: hidden;
+  text-decoration: line-through;
+}
+
+.pair-task li.is-done .pair-move {
+  opacity: 0.45;
 }
 
 @media (max-width: 760px) {

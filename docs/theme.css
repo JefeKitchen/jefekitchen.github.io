@@ -704,6 +704,7 @@ ol {
   display: grid !important;
   gap: 12px !important;
   grid-template-columns: minmax(260px, 1fr) minmax(260px, 1fr) !important;
+  height: calc(100vh - 170px) !important;
   margin-top: 14px !important;
   overflow-x: auto !important;
   padding-bottom: 4px !important;
@@ -715,8 +716,8 @@ ol {
   border-radius: 8px !important;
   display: flex !important;
   flex-direction: column !important;
-  max-height: calc(100vh - 170px) !important;
-  min-height: 420px !important;
+  height: 100% !important;
+  min-height: 0 !important;
   overflow: hidden !important;
 }
 
@@ -749,8 +750,12 @@ ol {
   display: grid !important;
   align-content: start !important;
   gap: 8px !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
   overflow-y: auto !important;
+  overscroll-behavior: contain !important;
   padding: 8px !important;
+  -webkit-overflow-scrolling: touch !important;
 }
 
 .pair-task {
@@ -804,11 +809,72 @@ ol {
 
 .pair-task ol {
   margin: 0 !important;
-  padding: 0 12px !important;
+  padding: 8px 10px 10px !important;
+  counter-reset: step !important;
+  list-style: none !important;
 }
 
 .pair-task li {
+  align-items: start !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+  color: var(--text) !important;
+  counter-increment: step !important;
   display: grid !important;
+  font-size: 14px !important;
+  gap: 10px !important;
   grid-template-columns: 20px minmax(0, 1fr) auto !important;
+  line-height: 1.45 !important;
   padding: 7px 0 !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.pair-task li:first-child {
+  border-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.pair-task li::before {
+  align-items: center !important;
+  background: var(--gold) !important;
+  border-radius: 50% !important;
+  color: #111 !important;
+  content: counter(step) !important;
+  display: inline-flex !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  height: 20px !important;
+  justify-content: center !important;
+  width: 20px !important;
+}
+
+.pair-step-text {
+  color: var(--text) !important;
+  display: block !important;
+  min-width: 0 !important;
+  overflow-wrap: anywhere !important;
+  transition: color 160ms ease, max-height 160ms ease, opacity 160ms ease !important;
+}
+
+.pair-task li.is-done {
+  cursor: pointer !important;
+  padding: 5px 0 !important;
+}
+
+.pair-task li.is-done::before {
+  background: transparent !important;
+  border: 1px solid rgba(184, 149, 58, 0.35) !important;
+  color: var(--gold) !important;
+  content: "✓" !important;
+}
+
+.pair-task li.is-done .pair-step-text {
+  color: var(--muted) !important;
+  max-height: 1.45em !important;
+  opacity: 0.55 !important;
+  overflow: hidden !important;
+  text-decoration: line-through !important;
+}
+
+.pair-task li.is-done .pair-move {
+  opacity: 0.45 !important;
 }
