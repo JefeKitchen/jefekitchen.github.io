@@ -49,7 +49,6 @@
         .sort((a, b) => a - b);
       control.insertAdjacentHTML('beforeend', `
         <label class="serving-control">
-          <span class="serving-kicker">Scale</span>
           <select class="serving-select" aria-label="Scale recipe">
             ${values.map(value => `<option value="${value}" ${value === targetServings ? 'selected' : ''}>${value} servings</option>`).join('')}
           </select>
@@ -79,6 +78,19 @@
   const html = (node, selector) => node.querySelector(selector)?.innerHTML.trim() || '';
   const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const isSectionHeader = (node) => node.classList.contains('sec') || node.classList.contains('sec-header');
+  const formatHeroSub = (value, separator) => {
+    const parts = String(value || "").split(/\s*·\s*/).filter(Boolean);
+    const visibleParts = targetServings && baseServings
+      ? parts.filter(part => !/^serves\b/i.test(part.trim()))
+      : parts;
+    return visibleParts.join(separator);
+  };
+
+  const updateHeroSub = (scope, separator) => {
+    const heroSub = scope.querySelector?.(".hero-sub");
+    if (!heroSub) return;
+    heroSub.innerHTML = formatHeroSub(heroSub.textContent, separator);
+  };
 
   const removeDrinkSection = (scope) => {
     if (!isLunch) return;
@@ -343,10 +355,31 @@
       section.steps.forEach((step, stepIndex) => {
         const key = `${sectionIndex}-${stepIndex}`;
         const shared = isPairSharedStarter(section);
+        if (shared) {
+          tasks.push({
+            key: `${sectionIndex}-drink-cook`,
+            originalIndex: tasks.length,
+            lane: 'cook',
+            label: `${section.label} · Jeff`,
+            title: section.title,
+            pills: section.pills,
+            step
+          });
+          tasks.push({
+            key: `${sectionIndex}-drink-prep`,
+            originalIndex: tasks.length,
+            lane: 'prep',
+            label: `${section.label} · Jaya`,
+            title: section.title,
+            pills: [],
+            step: 'Receive the drink from Jeff and keep it close. Sous chef privileges.'
+          });
+          return;
+        }
         tasks.push({
           key,
           originalIndex: tasks.length,
-          lane: shared ? 'shared' : assignments[key] || defaultPairLane(section),
+          lane: assignments[key] || defaultPairLane(section),
           label: section.label,
           title: section.title,
           pills: section.pills,
@@ -377,7 +410,7 @@
     return groups;
   };
 
-  const pairGroupKey = (group) => group.tasks.map(task => task.key).join('|');
+  const pairGroupKey = (group) => "section:" + group.tasks.map(task => task.key).join("|");
 
   const renderPairGroup = (group) => `
     <article class="pair-task ${readPairDone()[pairGroupKey(group)] ? 'is-done' : ''}" data-lane="${group.lane}" data-pair-group="${pairGroupKey(group)}">
@@ -412,7 +445,7 @@
     root.querySelectorAll('[data-pair-move]').forEach(button => {
       button.addEventListener('click', event => {
         event.stopPropagation();
-        const keys = (button.dataset.pairMove || '').split('|').filter(Boolean);
+        const keys = (button.dataset.pairMove || "").replace(/^section:/, "").split("|").filter(Boolean);
         const current = button.dataset.lane || 'prep';
         const nextLane = current === 'cook' ? 'prep' : 'cook';
         keys.forEach(key => {
@@ -499,6 +532,7 @@
     const content = makeTemplate(recipe.body);
     removeDrinkSection(content);
     scaleForServings(content);
+    updateHeroSub(content, " · ");
     highlightIngredients(content);
     nestPhoneIngredientPulls(content);
     root.replaceChildren(content);
@@ -519,7 +553,7 @@
       <main class="shell">
         <header class="hero">
           <div class="hero-title">${heroTitle}</div>
-          <div class="hero-sub">${heroSub.replace(/\s*·\s*/g, '<br>')}</div>
+          <div class="hero-sub">${formatHeroSub(heroSub, '<br>')}</div>
         </header>
         <div class="board">
           ${sections.map(section => `
@@ -561,7 +595,7 @@
       <main class="shell pair-shell">
         <header class="hero pair-hero">
           <div class="hero-title">${heroTitle}</div>
-          <div class="hero-sub">${heroSub.replace(/\s*·\s*/g, ' · ')}</div>
+          <div class="hero-sub">${formatHeroSub(heroSub, ' · ')}</div>
         </header>
         ${sharedGroups.length ? `
           <section class="pair-shared">

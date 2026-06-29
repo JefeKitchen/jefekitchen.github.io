@@ -94,6 +94,10 @@ When adding new recipes:
 - If the renderer creates ingredient pills from highlighted ingredients, check that the pills are clean.
 - Always inspect the rendered pills after changing instruction content. Source text can look fine while cached content or generated pills are still wrong.
 
+## Wok And Fried Rice Notes
+
+For fried rice, be conservative with oil and explicit about crisping cues. Start around `2 tsp neutral oil` for a home wok or large skillet, add only `1-2 tsp` more if the pan is truly dry, and tell the user to spread rice thin, let it sit briefly, and stop adding oil if the rice looks glossy or wet. Heat and surface contact crisp rice; excess oil can make it heavy and soft.
+
 ## Quantities
 
 The user does not need every salt-and-pepper amount, but they does want useful guidance.
@@ -137,15 +141,16 @@ Pair Cook mode must be verified on an iPad-like wide viewport, not only by check
 
 Rules:
 
-- The drink/beer/wine/cocktail section should be a shared starter above Jeff/Jaya columns, not assigned to one person.
-- Pair Cook should use a compact title/header treatment. It is a work surface, so the recipe hero must not consume a large chunk of iPad space.
+- In Pair Cook, drink/beer/wine/cocktail sections should not occupy a big shared top card. Put the drink into both columns: Jeff makes it, Jaya receives it. Keep the copy short and the cards compact.
+- Pair Cook should use the smallest practical title/header treatment. It is a work surface, so the recipe hero must be extremely vertically compact and must not duplicate serving info when a servings dropdown is present.
 - Each lane should scroll independently.
 - Task cards must use their natural height. Do not put pair task cards in a shrinking CSS grid row; use a vertical flex stack and keep `.pair-task` from shrinking.
 - Step text must be readable by default in both columns. The page should never show only section headers and ingredient pills unless the user intentionally collapsed a task.
 - After changing pair layout CSS, inspect rendered card measurements: each `.pair-task` should be tall enough to contain its header, pull pills, and ordered steps without clipping.
 - When changing pair-specific behavior, verify the browser is using the `renderPair` output, not only that a class or style exists somewhere in `renderWide`.
 - Pair Cook completion/compacting happens at the section card level. Tapping a section header can collapse that category; individual numbered steps should stay readable and should not be the done/collapse target.
-- Move controls between columns should live on the section header and move the whole category. Use subtle arrow buttons, not per-step controls or large `Cook`/`Prep` text pills.
+- Move controls between columns should live on the section header and move the whole category. Use very subtle arrow buttons, almost hidden unless the user is looking for them; do not use per-step controls or large `Cook`/`Prep` text pills.
+- Completed Pair Cook sections should collapse the whole section to the most compact useful title bar, hiding ingredient pills and numbered steps.
 
 ## Cache
 
