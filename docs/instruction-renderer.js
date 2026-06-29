@@ -120,9 +120,28 @@
       value.length <= 32 &&
       !value.endsWith(':') &&
       !/\d/.test(value) &&
-      !/^(glass|plate|bowl|bowls)$/i.test(value) &&
+      !/^(glass|plate|bowl|bowls|water|salt)$/i.test(value) &&
       !/^(high|low|medium|medium-low|medium-high|full|one side|do not.*|for a .* batch|two separate bowls)$/i.test(value) &&
       !/\b(sec|second|seconds|min|minute|minutes|hour|hours|f|inch|inches|thick)\b/.test(lower);
+  };
+
+  const cleanPills = (pills) => Array.from(new Map((pills || [])
+    .map(item => cleanIngredientName(item))
+    .filter(isIngredientLike)
+    .map(item => [item.toLowerCase(), item])).values());
+
+  const cleanIngredientPills = (scope) => {
+    scope.querySelectorAll('.ingredient-pull').forEach(pull => {
+      pull.querySelectorAll('.ingredient-pill').forEach(pill => {
+        const cleaned = cleanIngredientName(pill.textContent.trim());
+        if (!isIngredientLike(cleaned)) {
+          pill.remove();
+          return;
+        }
+        pill.textContent = cleaned;
+      });
+      if (!pull.querySelector('.ingredient-pill')) pull.remove();
+    });
   };
 
   const ingredientTerms = (scope) => {
@@ -198,7 +217,7 @@
     let cursor = node.previousElementSibling;
     while (cursor && !cursor.classList.contains('sec') && !cursor.classList.contains('sec-header')) {
       if (cursor.classList.contains('ingredient-pull')) {
-        return Array.from(cursor.querySelectorAll('.ingredient-pill')).map(pill => pill.textContent.trim());
+        return cleanPills(Array.from(cursor.querySelectorAll('.ingredient-pill')).map(pill => pill.textContent.trim()));
       }
       cursor = cursor.previousElementSibling;
     }
@@ -235,6 +254,7 @@
     holder.innerHTML = recipe.body;
     removeDrinkSection(holder);
     scaleForServings(holder);
+    cleanIngredientPills(holder);
     highlightIngredients(holder);
     const sections = [];
 
@@ -532,6 +552,7 @@
     const content = makeTemplate(recipe.body);
     removeDrinkSection(content);
     scaleForServings(content);
+    cleanIngredientPills(content);
     updateHeroSub(content, " · ");
     highlightIngredients(content);
     nestPhoneIngredientPulls(content);
