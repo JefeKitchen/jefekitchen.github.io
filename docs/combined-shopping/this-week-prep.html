@@ -96,9 +96,11 @@
 </main>
 
 <script src="../recipe-catalog.js?v=1"></script>
+<script src="../instruction-content.js?v=20"></script>
 <script src="../recipe-serving-data.js?v=1"></script>
 <script src="../quantity-scaler.js?v=2"></script>
-<script src="../prep-catalog.js?v=1"></script>
+<script src="../prep-catalog.js?v=2"></script>
+<script src="../instruction-tools.js?v=1"></script>
 <script type="module" src="../firebase-state.js?v=4"></script>
 <script>
   const plannedRecipesKey = 'this-week-planned-recipes-v1';
@@ -109,6 +111,8 @@
   const recipeCatalog = window.JEFES_KITCHEN_CATALOG?.recipes || {};
   const servingData = window.JEFES_KITCHEN_SERVINGS || window.JEFES_RECIPE_SERVINGS || {};
   const prepCatalog = window.JEFES_KITCHEN_PREP || {};
+  const instructionContent = window.INSTRUCTION_CONTENT || {};
+  const instructionTools = window.KitchenInstructionTools;
   let cloudPlans = null;
   let cloudStarted = false;
   let unwatchPlans = null;
@@ -185,11 +189,6 @@
   }
   function loadSet(key) { return new Set(readJson(key, [])); }
   function saveSet(key, set) { writeJson(key, [...set]); }
-  function scaleText(text, recipeId, servings) {
-    const base = servingData[recipeId]?.baseServings || 2;
-    if (!text || !window.KitchenQuantityScaler || !servings || servings === base) return text;
-    return window.KitchenQuantityScaler.scaleQuantityText(text, servings / base);
-  }
   function entryMeta(entry) {
     return [entry.day, entry.servings ? entry.servings + ' servings' : ''].filter(Boolean).join(' · ');
   }
@@ -214,14 +213,39 @@
       wrap.appendChild(button);
     });
   }
-  function renderTask(entry, task) {
-    const label = task.label || 'Prep';
-    const pills = (task.items || []).map(item => '<span class="pill">' + escapeHtml(item) + '</span>').join('');
-    const steps = (task.steps || []).map(step => '<li><span>' + escapeHtml(scaleText(step, entry.id, entry.servings)) + '</span></li>').join('');
-    return '<section class="section-card prep-task">' +
-      '<div class="section-head"><span class="section-label">' + escapeHtml(label) + '</span><h2>' + escapeHtml(task.title) + '</h2></div>' +
-      (pills ? '<div class="pull">' + pills + '</div>' : '') +
-      (steps ? '<ol>' + steps + '</ol>' : '') + '</section>';
+  function recipeSections(entry) {
+    const recipe = instructionContent[entry.id];
+    if (!recipe || !instructionTools) return [];
+    const defaults = servingData[entry.id] || {};
+    return instructionTools.extractSections(recipe.body, {
+      targetServings: entry.servings,
+      baseServings: defaults.baseServings || defaults.defaultServings || 3,
+      servingType: defaults.servingType || 'people'
+    });
+  }
+  function findSection(sections, spec) {
+    const wanted = String(spec.section || spec.title || '').toLowerCase();
+    if (!wanted) return null;
+    return sections.find(section => section.title.toLowerCase() === wanted) ||
+      sections.find(section => section.key === wanted) ||
+      sections.find(section => section.title.toLowerCase().includes(wanted));
+  }
+  function prepSectionFromSpec(sections, spec) {
+    const section = findSection(sections, spec);
+    if (!section) return null;
+    const next = { ...section };
+    if (Array.isArray(spec.steps) && spec.steps.length) {
+      next.steps = spec.steps
+        .map(index => section.steps[index])
+        .filter(Boolean);
+      next.pills = instructionTools.pillsFromSteps(next.steps);
+      next.full = next.steps.length >= 4 || section.full;
+      next.split = next.steps.length >= 4 && section.split;
+    }
+    return next;
+  }
+  function renderTask(section) {
+    return instructionTools.renderSectionCard(section, { className: 'prep-task' });
   }
   function render() {
     const entries = sortEntries(loadPlans());
@@ -232,6 +256,11 @@
     const visible = entries.filter(entry => !hidden.has(entry.id) && Array.isArray(prepCatalog[entry.id]) && prepCatalog[entry.id].length);
     list.innerHTML = visible.map(entry => {
       const recipe = recipeCatalog[entry.id];
+      const sections = recipeSections(entry);
+      const prepSections = prepCatalog[entry.id]
+        .map(spec => prepSectionFromSpec(sections, spec))
+        .filter(Boolean);
+      if (!prepSections.length) return '';
       const doneId = 'meal:' + entry.id;
       const checked = done.has(doneId);
       const meta = entryMeta(entry);
@@ -239,7 +268,7 @@
         '<header class="prep-meal-head" role="button" tabindex="0" aria-pressed="' + (checked ? 'true' : 'false') + '" aria-label="Toggle prep for ' + escapeHtml(recipe?.name || entry.id) + '">' +
         (meta ? '<div class="prep-meal-meta">' + escapeHtml(meta) + '</div>' : '') +
         '<h2 class="prep-meal-title">' + escapeHtml(recipe?.name || entry.id) + '</h2></header>' +
-        '<div class="prep-meal-board">' + prepCatalog[entry.id].map(task => renderTask(entry, task)).join('') + '</div>' +
+        '<div class="prep-meal-board">' + prepSections.map(section => renderTask(section)).join('') + '</div>' +
       '</section>';
     }).join('');
     list.querySelectorAll('.prep-meal-head').forEach(header => {

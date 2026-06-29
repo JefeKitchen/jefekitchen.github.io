@@ -8,6 +8,8 @@ Every new recipe should feel like it has always belonged in the app. Do not crea
 
 Design posture: subtle first. Prefer the quietest useful control, small affordances, restrained color, and minimal text. It is better to start too minimal and let the user ask for more emphasis than to introduce loud buttons, oversized pills, or decorative UI that has to be toned down later.
 
+Architecture posture: hook new functionality into existing recipe data, renderers, styles, and utilities first. When a feature deals with existing recipes, instructions, grocery lists, or planning data, reuse the existing framework and create only the small amount of new glue needed. Avoid duplicate catalogs, duplicate renderers, and hand-written copies of recipe content.
+
 A complete recipe usually means:
 
 - Home page card/catalog entry
@@ -93,10 +95,12 @@ If any of those fail, fix before reporting back.
 
 ## Prep List Metadata
 
-- When adding or materially changing a recipe, add prep-ahead tasks in `docs/prep-catalog.js`.
-- Prep tasks should stay recipe-specific. Do not merge shared tasks across recipes, even if the ingredient is the same, because the user wants amounts stored with the correct meal.
-- Keep prep tasks practical: chop/store vegetables, cook rice ahead, portion proteins, mix sauces, measure spice blends, or stage toppings. Avoid filler tasks.
-- Use concise ingredient pills. Prefer broad useful labels like `Rice`, `Green onions`, `Sauce` over verbose measured phrases.
+- When adding or materially changing a recipe, add prep-ahead section references in `docs/prep-catalog.js`.
+- `docs/prep-catalog.js` is metadata only. Do not write separate Prep step text, ingredient lists, storage notes, or formatting there.
+- Prep references should point to real instruction section titles from `docs/instruction-content.js`, with optional zero-based `steps` indexes if only part of a section is prep-ahead.
+- Prep tasks stay recipe-specific. Do not merge shared tasks across recipes, even if the ingredient is the same, because the user wants amounts stored with the correct meal.
+- Keep prep references practical: chop/store vegetables, cook rice ahead, portion proteins, mix sauces, measure spice blends, or stage toppings. Avoid filler tasks.
+- Prep ingredient pills and bolded ingredient text should come from `docs/instruction-tools.js` extracting the real instruction section, not from hand-written Prep copy.
 - Normal meal defaults should target 3 servings. Snackies should keep serving-style estimates, usually 6-8 servings.
 
 ## This Week Prep Utility
@@ -107,6 +111,7 @@ If any of those fail, fix before reporting back.
 - The Prep utility should render immediately after Grocery List in This Week whenever both are present.
 - The page title should be `Prep`, not `Prep List`.
 - Prep task cards should use the actual wide instruction card structure/classes (`.section-card`, `.section-head`, `.section-label`, `.pull`, `.pill`, `ol > li`) so the page is visually seamless with recipe instructions.
+- Prep should render instruction cards through shared instruction helpers (`docs/instruction-tools.js`) rather than recreating card markup or ingredient parsing inside the Prep page.
 - Prep should visually group tasks by recipe. The recipe name belongs in the group heading; individual task card labels should stay short, usually only the prep category, with no servings/lunch metadata.
 - Prep must override the shared phone-first `theme.css` body width on desktop/tablet. The wide Prep view should use a full-width shell, not the default 480px document width.
 - Prep completion should happen at the recipe group level, not the individual task level. The recipe group header carries day/serving metadata once and acts as the subtle completion control; do not show a checkbox unless the user asks for one.
