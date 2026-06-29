@@ -314,15 +314,14 @@ li > * { min-width: 0; }
 .pair-hero {
   align-items: center !important;
   flex: 0 0 auto;
-  gap: 10px !important;
-  margin-bottom: 10px !important;
-  padding: 6px 10px !important;
-  transition: padding 160ms ease, opacity 160ms ease;
+  gap: 8px !important;
+  margin-bottom: 8px !important;
+  padding: 4px 8px !important;
 }
 
 .pair-hero .hero-title {
-  font-size: clamp(22px, 2.8vw, 34px) !important;
-  line-height: 0.95 !important;
+  font-size: clamp(19px, 2.2vw, 28px) !important;
+  line-height: 1 !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
   white-space: nowrap !important;
@@ -336,19 +335,6 @@ li > * { min-width: 0; }
 
 .pair-hero .instruction-controls {
   margin-top: 0 !important;
-}
-
-.pair-shell.is-scrolled .pair-hero {
-  padding-bottom: 4px !important;
-  padding-top: 4px !important;
-}
-
-.pair-shell.is-scrolled .pair-hero .hero-title {
-  font-size: clamp(19px, 2.2vw, 28px) !important;
-}
-
-.pair-shell.is-scrolled .pair-hero .hero-sub {
-  opacity: 0.7 !important;
 }
 
 .pair-shared {
@@ -494,7 +480,7 @@ li > * { min-width: 0; }
   display: grid;
   font-size: 14px;
   gap: 10px;
-  grid-template-columns: 22px minmax(0, 1fr) auto;
+  grid-template-columns: 22px minmax(0, 1fr);
   line-height: 1.45;
   padding: 7px 0;
   -webkit-tap-highlight-color: transparent;

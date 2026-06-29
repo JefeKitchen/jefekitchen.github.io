@@ -145,7 +145,7 @@ Rules:
 - After changing pair layout CSS, inspect rendered card measurements: each `.pair-task` should be tall enough to contain its header, pull pills, and ordered steps without clipping.
 - When changing pair-specific behavior, verify the browser is using the `renderPair` output, not only that a class or style exists somewhere in `renderWide`.
 - Pair Cook completion/compacting happens at the section card level. Tapping a section header can collapse that category; individual numbered steps should stay readable and should not be the done/collapse target.
-- Move controls between columns should be subtle arrow buttons, not large `Cook`/`Prep` text pills.
+- Move controls between columns should live on the section header and move the whole category. Use subtle arrow buttons, not per-step controls or large `Cook`/`Prep` text pills.
 
 ## Cache
 

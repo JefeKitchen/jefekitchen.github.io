@@ -6,6 +6,8 @@ This is the first internal note to read before adding a new recipe to Jefe's Kit
 
 Every new recipe should feel like it has always belonged in the app. Do not create a new visual pattern unless the user explicitly asks for a redesign.
 
+Design posture: subtle first. Prefer the quietest useful control, small affordances, restrained color, and minimal text. It is better to start too minimal and let the user ask for more emphasis than to introduce loud buttons, oversized pills, or decorative UI that has to be toned down later.
+
 A complete recipe usually means:
 
 - Home page card/catalog entry

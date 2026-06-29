@@ -386,6 +386,11 @@
           <span class="pair-task-label">${group.label}</span>
           <strong>${group.title}</strong>
         </span>
+        ${group.lane === 'shared' ? '' : `
+          <button type="button" class="pair-move" data-pair-move="${pairGroupKey(group)}" data-lane="${group.lane}" aria-label="Move section to ${group.lane === 'cook' ? 'prep' : 'cook'}">
+            ${group.lane === 'cook' ? '&rarr;' : '&larr;'}
+          </button>
+        `}
       </div>
       ${group.pills.length ? `
         <div class="pull pair-pull">
@@ -396,11 +401,6 @@
         ${group.tasks.map(task => `
           <li data-pair-task="${task.key}" data-lane="${task.lane}">
             <span class="pair-step-text">${task.step}</span>
-            ${task.lane === 'shared' ? '' : `
-              <button type="button" class="pair-move" data-pair-move="${task.key}" aria-label="Move to ${task.lane === 'cook' ? 'prep' : 'cook'}">
-                ${task.lane === 'cook' ? '&rarr;' : '&larr;'}
-              </button>
-            `}
           </li>
         `).join('')}
       </ol>
@@ -410,18 +410,20 @@
   const wirePairMoves = () => {
     const assignments = readPairAssignments();
     root.querySelectorAll('[data-pair-move]').forEach(button => {
-      button.addEventListener('click', () => {
-        const key = button.dataset.pairMove;
-        const task = root.querySelector(`[data-pair-task="${key}"]`);
-        const current = task?.dataset.lane || assignments[key] || 'prep';
-        assignments[key] = current === 'cook' ? 'prep' : 'cook';
+      button.addEventListener('click', event => {
+        event.stopPropagation();
+        const keys = (button.dataset.pairMove || '').split('|').filter(Boolean);
+        const current = button.dataset.lane || 'prep';
+        const nextLane = current === 'cook' ? 'prep' : 'cook';
+        keys.forEach(key => {
+          assignments[key] = nextLane;
+        });
         writePairAssignments(assignments);
         renderPair();
         renderServingControl();
         wireIngredientPills();
         wirePairMoves();
         wirePairSharedCollapse();
-        wirePairHeaderScroll();
         wirePairSectionDone();
       });
     });
@@ -445,19 +447,6 @@
         toggle();
       });
     });
-  };
-
-  const wirePairHeaderScroll = () => {
-    const shell = root.querySelector('.pair-shell');
-    if (!shell) return;
-    const update = () => {
-      const scrolled = Array.from(root.querySelectorAll('.pair-scroll')).some(scroll => scroll.scrollTop > 8);
-      shell.classList.toggle('is-scrolled', scrolled);
-    };
-    root.querySelectorAll('.pair-scroll').forEach(scroll => {
-      scroll.addEventListener('scroll', update, { passive: true });
-    });
-    update();
   };
 
   const wirePairSectionDone = () => {
@@ -572,7 +561,7 @@
       <main class="shell pair-shell">
         <header class="hero pair-hero">
           <div class="hero-title">${heroTitle}</div>
-          <div class="hero-sub">${heroSub.replace(/\s*·\s*/g, '<br>')}</div>
+          <div class="hero-sub">${heroSub.replace(/\s*·\s*/g, ' · ')}</div>
         </header>
         ${sharedGroups.length ? `
           <section class="pair-shared">
@@ -651,6 +640,5 @@
   wireIngredientPills();
   wirePairMoves();
   wirePairSharedCollapse();
-  wirePairHeaderScroll();
   wirePairSectionDone();
 })();
