@@ -54,6 +54,7 @@
   const scaleQuantityText = (text, factor) => {
     if (!factor || Math.abs(factor - 1) < 0.01 || noScale.test(text)) return text;
     let next = text;
+    const rangeTokens = [];
     const rangeWithUnit = new RegExp(`\\b(\\d+(?:\\s+\\d+\/\\d+|\/\\d+|\\.\\d+)?|[¼½¾⅓⅔])\\s*[-–]\\s*(\\d+(?:\\s+\\d+\/\\d+|\/\\d+|\\.\\d+)?|[¼½¾⅓⅔])\\s*(${unitPattern})\\b`, 'gi');
     next = next.replace(rangeWithUnit, (match, low, high, unit) => {
       const a = parseQuantity(low);
@@ -61,8 +62,15 @@
       if (!Number.isFinite(a) || !Number.isFinite(b)) return match;
       const scaledLow = a * factor;
       const scaledHigh = b * factor;
+      const formattedLow = formatNumber(scaledLow, unit);
       const formattedHigh = formatNumber(scaledHigh, unit);
-      return `${formatNumber(scaledLow, unit)}-${formattedHigh} ${pluralizeUnit(unit, parseQuantity(formattedHigh))}`;
+      const unitText = pluralizeUnit(unit, parseQuantity(formattedHigh));
+      const scaledRange = formattedLow === formattedHigh
+        ? `${formattedHigh} ${unitText}`
+        : `${formattedLow}-${formattedHigh} ${unitText}`;
+      const token = `__JK_RANGE_${rangeTokens.length}__`;
+      rangeTokens.push(scaledRange);
+      return token;
     });
 
     const singleWithUnit = new RegExp(`\\b(\\d+(?:\\s+\\d+\/\\d+|\/\\d+|\\.\\d+)?|[¼½¾⅓⅔])\\s*(${unitPattern})\\b`, 'gi');
@@ -72,6 +80,9 @@
       const scaled = value * factor;
       const formatted = formatNumber(scaled, unit);
       return `${formatted} ${pluralizeUnit(unit, parseQuantity(formatted))}`;
+    });
+    rangeTokens.forEach((value, index) => {
+      next = next.replace(`__JK_RANGE_${index}__`, value);
     });
     return next;
   };

@@ -372,12 +372,10 @@
     const assignments = readPairAssignments();
     const tasks = [];
     sections.forEach((section, sectionIndex) => {
-      section.steps.forEach((step, stepIndex) => {
-        const key = `${sectionIndex}-${stepIndex}`;
-        const shared = isPairSharedStarter(section);
-        if (shared) {
+      if (isPairSharedStarter(section)) {
+        section.steps.forEach((step, stepIndex) => {
           tasks.push({
-            key: `${sectionIndex}-drink-cook`,
+            key: `${sectionIndex}-drink-cook-${stepIndex}`,
             originalIndex: tasks.length,
             lane: 'cook',
             label: `${section.label} · Jeff`,
@@ -385,17 +383,20 @@
             pills: section.pills,
             step
           });
-          tasks.push({
-            key: `${sectionIndex}-drink-prep`,
-            originalIndex: tasks.length,
-            lane: 'prep',
-            label: `${section.label} · Jaya`,
-            title: section.title,
-            pills: [],
-            step: 'Receive the drink from Jeff and keep it close. Sous chef privileges.'
-          });
-          return;
-        }
+        });
+        tasks.push({
+          key: `${sectionIndex}-drink-prep`,
+          originalIndex: tasks.length,
+          lane: 'prep',
+          label: `${section.label} · Jaya`,
+          title: section.title,
+          pills: [],
+          step: 'Receive the drink from Jeff and keep it close. Sous chef privileges.'
+        });
+        return;
+      }
+      section.steps.forEach((step, stepIndex) => {
+        const key = `${sectionIndex}-${stepIndex}`;
         tasks.push({
           key,
           originalIndex: tasks.length,
