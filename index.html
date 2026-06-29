@@ -746,11 +746,35 @@
     return `${year}-${month}-${day}`;
   }
 
-  function hidePastWeekPlans() {
+  function prunePastWeekPlans() {
     const today = localDateKey();
-    document.querySelectorAll('.week-plan-card[data-plan-date]').forEach(card => {
-      card.classList.toggle('week-plan-hidden', card.dataset.planDate < today);
-    });
+    const plans = loadThisWeekRecipes();
+    const expired = plans.filter(entry => entry.date && entry.date < today);
+    if (!expired.length) return false;
+
+    const expiredIds = new Set(expired.map(entry => entry.id));
+    const nextPlans = plans.filter(entry => !expiredIds.has(entry.id));
+    const nextShopping = loadShoppingRecipes().filter(entry => !expiredIds.has(entry.id));
+    cloudThisWeekRecipes = Array.isArray(cloudThisWeekRecipes) ? nextPlans : cloudThisWeekRecipes;
+    cloudShoppingRecipes = Array.isArray(cloudShoppingRecipes) ? nextShopping : cloudShoppingRecipes;
+    saveThisWeekRecipes(nextPlans);
+    saveShoppingRecipes(nextShopping);
+    expiredIds.forEach(clearPurchasedRecipe);
+
+    if (window.KitchenCloud?.isSignedIn?.()) {
+      expiredIds.forEach(recipeId => {
+        window.KitchenCloud.removePlan(recipeId).catch(error => {
+          console.warn('Kitchen sync expired plan remove unavailable', error);
+        });
+        window.KitchenCloud.removeShoppingRecipe(recipeId).catch(error => {
+          console.warn('Kitchen sync expired shopping remove unavailable', error);
+        });
+      });
+    }
+
+    renderThisWeekPlans();
+    populateWeekRecipeForm();
+    return true;
   }
 
   function dateForDay(day) {
@@ -1004,7 +1028,7 @@
     saveShoppingRecipes(nextShopping);
     clearPurchasedRecipe(recipeId);
     renderThisWeekPlans();
-    hidePastWeekPlans();
+    prunePastWeekPlans();
     populateWeekRecipeForm();
 
     if (window.KitchenCloud?.isSignedIn?.()) {
@@ -1049,7 +1073,7 @@
 
   renderRecipeGroups();
   renderThisWeekPlans();
-  hidePastWeekPlans();
+  prunePastWeekPlans();
 
   function startCloudSync() {
     if (cloudSyncStarted || !window.KitchenCloud) return;
@@ -1077,7 +1101,7 @@
         cloudThisWeekRecipes = sortRecipeEntries(normalizeRecipeEntries(entries));
         localStorage.setItem(thisWeekRecipesKey, JSON.stringify(cloudThisWeekRecipes));
         renderThisWeekPlans();
-        hidePastWeekPlans();
+        prunePastWeekPlans();
         populateWeekRecipeForm();
       }, () => {
         cloudThisWeekRecipes = null;
@@ -1468,7 +1492,7 @@
 
     closeWeekChoice();
     renderThisWeekPlans();
-    hidePastWeekPlans();
+    prunePastWeekPlans();
   });
 
   resetInstructionChoice.addEventListener('click', () => {

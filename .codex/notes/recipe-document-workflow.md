@@ -103,3 +103,5 @@ If any of those fail, fix before reporting back.
 
 - The Prep card is not permanent on the home page. It is a removable This Week utility item added from the same + menu as recipes.
 - Prep opens `docs/combined-shopping/this-week-prep.html` and derives upcoming meals from the shared This Week plan data.
+- Completed prep tasks should collapse to a compact checked-off row; do not leave full steps visible after completion.
+- Dated This Week entries with dates before today should be pruned from plans and shopping data, not merely hidden with CSS.

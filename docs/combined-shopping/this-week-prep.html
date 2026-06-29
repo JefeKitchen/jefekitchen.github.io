@@ -19,21 +19,25 @@
   .meal-filter-btn.is-off { color: var(--muted); opacity: .58; }
   .prep-list { display: grid; gap: 14px; margin: 16px 20px 28px; }
   .prep-card { background: var(--surface); border: 1px solid var(--border); border-radius: 7px; overflow: hidden; }
-  .prep-card-head { border-bottom: 1px solid var(--border); padding: 13px 14px 12px; }
+  .prep-card-head {
+    align-items: baseline; border-bottom: 1px solid var(--border); display: flex;
+    gap: 10px; justify-content: space-between; padding: 11px 14px 10px;
+  }
   .prep-meta {
-    color: var(--gold); font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
-    margin-bottom: 4px; text-transform: uppercase;
+    color: var(--gold); flex: 0 0 auto; font-size: 10px; font-weight: 700;
+    letter-spacing: 1.4px; text-transform: uppercase;
   }
   .prep-card h2 {
-    color: var(--text); font-family: 'Playfair Display', serif; font-size: 28px;
-    font-weight: 600; line-height: 1; margin: 0;
+    color: var(--text); font-family: 'Playfair Display', serif; font-size: 24px;
+    font-weight: 600; line-height: 1.05; margin: 0;
   }
-  .prep-task { border-bottom: 1px solid var(--border); padding: 12px 14px; }
+  .prep-task { border-bottom: 1px solid var(--border); padding: 10px 14px; transition: opacity .16s ease; }
   .prep-task:last-child { border-bottom: 0; }
-  .prep-task.is-done { opacity: .48; }
-  .prep-task.is-done .prep-task-title,
-  .prep-task.is-done li,
-  .prep-task.is-done .prep-storage { text-decoration: line-through; }
+  .prep-task.is-done { opacity: .56; padding-bottom: 8px; padding-top: 8px; }
+  .prep-task.is-done .prep-pills,
+  .prep-task.is-done .prep-steps,
+  .prep-task.is-done .prep-storage { display: none; }
+  .prep-task.is-done .prep-task-title { color: var(--muted); text-decoration: line-through; }
   .prep-task-top { align-items: start; display: grid; gap: 10px; grid-template-columns: 22px 1fr; }
   .prep-check {
     appearance: none; background: #121212; border: 1px solid var(--border); border-radius: 50%;
@@ -72,6 +76,7 @@
 <script type="module" src="../firebase-state.js?v=4"></script>
 <script>
   const plannedRecipesKey = 'this-week-planned-recipes-v1';
+  const shoppingRecipesKey = 'this-week-shopping-recipes-v1';
   const hiddenPrepMealsKey = 'this-week-hidden-prep-meals-v1';
   const prepDoneKey = 'this-week-prep-done-v1';
   const utilityIds = new Set(['this-week-prep']);
@@ -105,6 +110,12 @@
       };
     }).filter(Boolean);
   }
+  function localDateKey(date = new Date()) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return year + '-' + month + '-' + day;
+  }
   function sortEntries(entries) {
     const today = new Date();
     const todayIndex = today.getDay();
@@ -118,7 +129,34 @@
       return aDay - bDay || (recipeCatalog[a.id]?.name || '').localeCompare(recipeCatalog[b.id]?.name || '');
     });
   }
-  function loadPlans() { return Array.isArray(cloudPlans) ? cloudPlans : sortEntries(normalizeEntries(readJson(plannedRecipesKey, []))); }
+  function isCurrentEntry(entry) { return !entry.date || entry.date >= localDateKey(); }
+  function pruneExpiredEntries(entries) {
+    const expired = entries.filter(entry => !isCurrentEntry(entry));
+    if (!expired.length) return entries;
+
+    const expiredIds = new Set(expired.map(entry => entry.id));
+    const nextPlans = entries.filter(entry => !expiredIds.has(entry.id));
+    const nextShopping = readJson(shoppingRecipesKey, []).filter(entry => !expiredIds.has(entry.id || entry.recipeId));
+    cloudPlans = Array.isArray(cloudPlans) ? nextPlans : cloudPlans;
+    writeJson(plannedRecipesKey, nextPlans);
+    writeJson(shoppingRecipesKey, nextShopping);
+
+    if (window.KitchenCloud?.isSignedIn?.()) {
+      expiredIds.forEach(recipeId => {
+        window.KitchenCloud.removePlan(recipeId).catch(error => {
+          console.warn('Kitchen sync expired plan remove unavailable', error);
+        });
+        window.KitchenCloud.removeShoppingRecipe(recipeId).catch(error => {
+          console.warn('Kitchen sync expired shopping remove unavailable', error);
+        });
+      });
+    }
+    return nextPlans;
+  }
+  function loadPlans() {
+    const entries = Array.isArray(cloudPlans) ? cloudPlans : normalizeEntries(readJson(plannedRecipesKey, []));
+    return sortEntries(pruneExpiredEntries(entries));
+  }
   function loadSet(key) { return new Set(readJson(key, [])); }
   function saveSet(key, set) { writeJson(key, [...set]); }
   function scaleText(text, recipeId, servings) {
@@ -173,8 +211,8 @@
       const recipe = recipeCatalog[entry.id];
       const meta = entryMeta(entry);
       return '<section class="prep-card"><header class="prep-card-head">' +
-        (meta ? '<div class="prep-meta">' + escapeHtml(meta) + '</div>' : '') +
-        '<h2>' + escapeHtml(recipe?.name || entry.id) + '</h2></header>' +
+        '<h2>' + escapeHtml(recipe?.name || entry.id) + '</h2>' +
+        (meta ? '<div class="prep-meta">' + escapeHtml(meta) + '</div>' : '') + '</header>' +
         prepCatalog[entry.id].map(task => renderTask(entry, task, done)).join('') + '</section>';
     }).join('');
     list.querySelectorAll('.prep-check').forEach(input => {
@@ -195,7 +233,7 @@
       if (unwatchPlans) unwatchPlans();
       if (!user) { cloudPlans = null; render(); return; }
       unwatchPlans = window.KitchenCloud.watchPlans(entries => {
-        cloudPlans = sortEntries(normalizeEntries(entries));
+        cloudPlans = sortEntries(pruneExpiredEntries(normalizeEntries(entries)));
         writeJson(plannedRecipesKey, cloudPlans);
         render();
       }, () => { cloudPlans = null; render(); });
