@@ -98,6 +98,7 @@
     .replace(/^[\d./¼½¾–\-\s]+(?:oz|lb|lbs|tbsp|tsp|cups?|can|cans|clove|cloves|inch|inches|seconds?|sec|min(?:utes?)?)?\b\s*/i, '')
     .replace(/\bpaper thin\b/i, '')
     .replace(/\s+per\s+.+$/i, '')
+    .replace(/\b(?:day[- ]old|fresh)\s+rice(?:\s+fallback)?\b/i, 'Rice')
     .replace(/\s+/g, ' ')
     .trim();
 
@@ -107,6 +108,7 @@
       value.length <= 32 &&
       !value.endsWith(':') &&
       !/\d/.test(value) &&
+      !/^(glass|plate|bowl|bowls)$/i.test(value) &&
       !/^(high|low|medium|medium-low|medium-high|full|one side|do not.*|for a .* batch|two separate bowls)$/i.test(value) &&
       !/\b(sec|second|seconds|min|minute|minutes|hour|hours|f|inch|inches|thick)\b/.test(lower);
   };
@@ -117,6 +119,7 @@
       .map(item => {
         if (/^onions?$/i.test(item)) return 'onions';
         if (/^more onion$/i.test(item)) return 'onions';
+        if (/^(?:day[- ]old|fresh)\s+rice(?:\s+fallback)?$/i.test(item)) return 'Rice';
         return item;
       })
       .filter(isIngredientLike);

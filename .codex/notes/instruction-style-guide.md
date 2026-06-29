@@ -66,6 +66,9 @@ Rules:
 - It is okay to repeat an ingredient in multiple sections if the user needs to pull it again for that section.
 - Do not sync clicked ingredient state across sections. Each section should be independent.
 - Keep pill text as ingredient names, not quantities or instructions.
+- Be conservative. Pills are for what the cook should physically pull out for that section, not every phrase in the steps.
+- Collapse variants into the useful ingredient name. Example: use `Rice`, not separate `Day-old rice` and `Fresh rice fallback` pills.
+- Do not include serving niceties or generic vessels such as `Glass`, `Plate`, or `Bowl` unless the vessel is truly the cooking tool for that step.
 
 Good pill text:
 
@@ -89,6 +92,7 @@ When adding new recipes:
 - Bold real ingredients.
 - Avoid bolding temperatures, times, heat levels, or vague process words.
 - If the renderer creates ingredient pills from highlighted ingredients, check that the pills are clean.
+- Always inspect the rendered pills after changing instruction content. Source text can look fine while cached content or generated pills are still wrong.
 
 ## Quantities
 
@@ -135,6 +139,7 @@ When changing instruction content, renderer behavior, or shared instruction CSS:
 - If changing `docs/instruction-content.js`, bump its query string in instruction pages and/or `sw.js` when needed.
 - If changing `docs/instruction-renderer.js`, bump its query string in instruction pages and/or `sw.js` when needed.
 - Shared CSS changes should still bump the service worker cache.
+- Verify the service worker version and the page query strings agree. Do not leave pages on a newer `instruction-content.js?v=N` while `sw.js` precaches an older one.
 
 ## Quick Checklist
 
@@ -143,6 +148,8 @@ Before finishing an instruction change:
 - Phone and wide layouts use shared content.
 - Step numbers do not overlap text at phone or wide widths.
 - Ingredient pills are clean and section-specific.
+- Rendered ingredient pills are conservative: no duplicate variants, no quantities, no instruction phrases, and no generic serving vessels like `Glass`.
 - Ingredients are highlighted consistently.
 - Approximate quantities are present where the user would otherwise have to guess.
 - The service worker cache was bumped for app-facing changes.
+- The browser loaded the expected `instruction-content.js`, `instruction-renderer.js`, and CSS query versions after cache bumps.

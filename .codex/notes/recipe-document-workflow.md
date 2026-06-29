@@ -58,7 +58,7 @@ Instruction pages:
 - Cooking instructions use shared content from docs/instruction-content.js; phone and wide pages are render shells.
 - Home planning and This Week shopping use docs/recipe-catalog.js as the shared recipe registry. Do not duplicate recipe names, paths, or shopping items inside index.html or the This Week grocery page.
 - Dinner cooking instructions put the drink as the first instruction section. Simple wine or beer pairings can be a short tongue-in-cheek instruction.
-- Ingredient pull pills are section-specific, clickable independently, and contain ingredient names only.
+- Ingredient pull pills are section-specific, clickable independently, conservative, and contain practical ingredient names only. Do not include generic serving vessels like `Glass`, and collapse variants like `day-old rice` / `fresh rice fallback` into `Rice`.
 - Ingredients in instructions are highlighted with .ing wherever practical.
 - Quantities should be present whenever the user would otherwise have to guess. Approximate language is fine.
 - Wide instruction section headers match Smash Sliders: small gold context label above a Playfair action title.
@@ -85,6 +85,6 @@ Before finishing any new recipe, check at least one page from each category in t
 - Phone instructions have clean step spacing and section-specific ingredient pills.
 - Wide instructions have Smash-style section headers and no awkward overlap.
 - Home page links go to the right menu, grocery, and instruction choices.
-- Cache was bumped and new offline pages were added to sw.js.
+- Cache was bumped, new offline pages were added to sw.js, and rendered pages are loading the expected content/renderer/CSS query versions.
 
 If any of those fail, fix before reporting back.
