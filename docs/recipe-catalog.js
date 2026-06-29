@@ -36,6 +36,7 @@ window.JEFES_KITCHEN_CATALOG = {
       "title": "Chicken",
       "recipes": [
         "chicken-fried-rice",
+        "rotisserie-chicken-chow-mein",
         "chicken-skewers",
         "mild-chicken-noodle-bake",
         "pineapple-orange-teriyaki"
@@ -372,6 +373,48 @@ window.JEFES_KITCHEN_CATALOG = {
         ]
       },
       "grocery": "./docs/chicken-fried-rice/grocery-list-chicken-fried-rice.html"
+    },
+    "rotisserie-chicken-chow-mein": {
+      "id": "rotisserie-chicken-chow-mein",
+      "name": "Rotisserie Chicken Chow Mein",
+      "title": "Rotisserie Chicken Chow Mein",
+      "subtitle": "Rotisserie Chicken · Noodles · Cabbage",
+      "section": "chicken",
+      "tags": ["rotisserie", "wok"],
+      "menu": "./docs/rotisserie-chicken-chow-mein/rotisserie-chicken-chow-mein-menu.html",
+      "phone": "./docs/rotisserie-chicken-chow-mein/rotisserie-chicken-chow-mein-instructions.html",
+      "wide": "./docs/rotisserie-chicken-chow-mein/rotisserie-chicken-chow-mein-wide.html",
+      "items": {
+        "Produce": [
+          ["green-cabbage", "Green cabbage", "1 small head or bag shredded cabbage"],
+          ["carrots", "Carrots", "2 medium or matchstick carrots"],
+          ["green-onions", "Green onions", "1 bunch"],
+          ["garlic", "Garlic", "1 head"],
+          ["ginger", "Fresh ginger", "Small knob"],
+          ["cucumber", "Cucumber", "1, for side"],
+          ["lime", "Lime", "2"]
+        ],
+        "Meat/Seafood": [
+          ["rotisserie-chicken", "Rotisserie chicken", "About 2 1/2 cups shredded"]
+        ],
+        "Refrigerated": [
+          ["chow-mein-noodles", "Chow mein or yakisoba noodles", "16-18 oz refrigerated pack"]
+        ],
+        "Pantry": [
+          ["soy-sauce", "Soy sauce", "About 1/4 cup"],
+          ["oyster-sauce", "Oyster sauce", "Small bottle"],
+          ["rice-vinegar", "Rice vinegar", "For sauce and cucumber side"],
+          ["sesame-oil", "Sesame oil", "Small bottle, if needed"],
+          ["cornstarch", "Cornstarch", "For sauce gloss"],
+          ["neutral-oil", "Neutral oil", "For wok cooking, if needed"],
+          ["chili-crisp", "Chili crisp or sriracha", "Optional heat"]
+        ],
+        "Alcohol/Drinks": [
+          ["ginger-beer", "Ginger beer or ginger soda", "For drink"],
+          ["gin-vodka", "Gin or vodka", "Optional"]
+        ]
+      },
+      "grocery": "./docs/rotisserie-chicken-chow-mein/grocery-list-rotisserie-chicken-chow-mein.html"
     },
     "cuban-sandwiches": {
       "id": "cuban-sandwiches",

@@ -1051,7 +1051,13 @@
 
     grid.querySelectorAll('.week-plan-card').forEach(card => card.remove());
 
-    sortRecipeEntries(loadThisWeekRecipes()).forEach(entry => {
+    const entries = sortRecipeEntries(loadThisWeekRecipes());
+    const orderedEntries = [
+      ...entries.filter(entry => entry.id === prepUtilityId),
+      ...entries.filter(entry => entry.id !== prepUtilityId)
+    ];
+
+    orderedEntries.forEach(entry => {
       const recipe = thisWeekCatalog[entry.id];
       const section = document.createElement('div');
       section.className = 'section week-plan-card';

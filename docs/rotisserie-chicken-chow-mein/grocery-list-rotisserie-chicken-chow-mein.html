@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Grocery List - Rotisserie Chicken Chow Mein</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../theme.css?v=4">
+</head>
+<body>
+<div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
+
+<div class="page-title">Grocery List</div>
+<div class="page-sub">Rotisserie Chicken Chow Mein</div>
+
+<div class="section">
+  <div class="section-header need">Produce</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="rccm1"><label for="rccm1">Green cabbage<span class="item-note">1 small head or bag shredded cabbage</span></label></div>
+    <div class="item"><input type="checkbox" id="rccm2"><label for="rccm2">Carrots<span class="item-note">2 medium or matchstick carrots</span></label></div>
+    <div class="item"><input type="checkbox" id="rccm3"><label for="rccm3">Green onions<span class="item-note">1 bunch</span></label></div>
+    <div class="item"><input type="checkbox" id="rccm4"><label for="rccm4">Garlic<span class="item-note">1 head</span></label></div>
+    <div class="item"><input type="checkbox" id="rccm5"><label for="rccm5">Fresh ginger<span class="item-note">Small knob</span></label></div>
+    <div class="item"><input type="checkbox" id="rccm6"><label for="rccm6">Cucumber<span class="item-note">1, for side</span></label></div>
+    <div class="item"><input type="checkbox" id="rccm7"><label for="rccm7">Lime<span class="item-note">2</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Meat/Seafood</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="rccm8"><label for="rccm8">Rotisserie chicken<span class="item-note">About 2 1/2 cups shredded</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Refrigerated</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="rccm9"><label for="rccm9">Chow mein or yakisoba noodles<span class="item-note">16-18 oz refrigerated pack</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Pantry</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="rccm10"><label for="rccm10">Soy sauce<span class="item-note">About 1/4 cup</span></label></div>
+    <div class="item"><input type="checkbox" id="rccm11"><label for="rccm11">Oyster sauce<span class="item-note">Small bottle</span></label></div>
+    <div class="item"><input type="checkbox" id="rccm12"><label for="rccm12">Rice vinegar<span class="item-note">For sauce and cucumber side</span></label></div>
+    <div class="item"><input type="checkbox" id="rccm13"><label for="rccm13">Sesame oil<span class="item-note">Small bottle, if needed</span></label></div>
+    <div class="item"><input type="checkbox" id="rccm14"><label for="rccm14">Cornstarch<span class="item-note">For sauce gloss</span></label></div>
+    <div class="item"><input type="checkbox" id="rccm15"><label for="rccm15">Neutral oil<span class="item-note">For wok cooking, if needed</span></label></div>
+    <div class="item"><input type="checkbox" id="rccm16"><label for="rccm16">Chili crisp or sriracha<span class="item-note">Optional heat</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Alcohol/Drinks</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="rccm17"><label for="rccm17">Ginger beer or ginger soda<span class="item-note">For drink</span></label></div>
+    <div class="item"><input type="checkbox" id="rccm18"><label for="rccm18">Gin or vodka<span class="item-note">Optional</span></label></div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    const key = `rotisserie-chicken-chow-mein-${cb.id}`;
+    cb.checked = localStorage.getItem(key) === 'checked';
+    cb.addEventListener('change', () => {
+      localStorage.setItem(key, cb.checked ? 'checked' : '');
+    });
+  });
+</script>
+<script src="../grocery-boom.js?v=1"></script>
+</body>
+</html>

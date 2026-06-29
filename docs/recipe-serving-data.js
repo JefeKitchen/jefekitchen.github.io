@@ -14,6 +14,11 @@ window.JEFES_RECIPE_SERVINGS = {
     "defaultServings": 3,
     "servingType": "people"
   },
+  "rotisserie-chicken-chow-mein": {
+    "baseServings": 3,
+    "defaultServings": 3,
+    "servingType": "people"
+  },
   "mild-chicken-noodle-bake": {
     "baseServings": 4,
     "defaultServings": 3,

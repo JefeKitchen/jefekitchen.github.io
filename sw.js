@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v173';
+const CACHE_NAME = 'jeffs-kitchen-v175';
 
 const PAGES = [
   './',
@@ -39,6 +39,10 @@ const PAGES = [
   './docs/chicken-fried-rice/chicken-fried-rice-instructions.html',
   './docs/chicken-fried-rice/grocery-list-chicken-fried-rice.html',
   './docs/chicken-fried-rice/chicken-fried-rice-menu.html',
+  './docs/rotisserie-chicken-chow-mein/rotisserie-chicken-chow-mein-menu.html',
+  './docs/rotisserie-chicken-chow-mein/grocery-list-rotisserie-chicken-chow-mein.html',
+  './docs/rotisserie-chicken-chow-mein/rotisserie-chicken-chow-mein-instructions.html',
+  './docs/rotisserie-chicken-chow-mein/rotisserie-chicken-chow-mein-wide.html',
   './docs/mild-chicken-noodle-bake/grocery-list-mild-chicken-noodle-bake.html',
   './docs/mild-chicken-noodle-bake/mild-chicken-noodle-bake-instructions.html',
   './docs/mild-chicken-noodle-bake/mild-chicken-noodle-bake-wide.html',

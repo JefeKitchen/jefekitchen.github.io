@@ -71,6 +71,42 @@ window.JEFES_KITCHEN_PREP = {
       storage: "Keep dry at room temperature."
     }
   ],
+  "rotisserie-chicken-chow-mein": [
+    {
+      id: "sauce",
+      label: "Sauce",
+      title: "Mix the chow mein sauce",
+      items: ["Soy sauce", "Oyster sauce", "Rice vinegar", "Sesame oil", "Cornstarch"],
+      steps: [
+        "Whisk the sauce ingredients together.",
+        "Keep it near the stove because the wok step moves quickly."
+      ],
+      storage: "Refrigerate in a small covered container."
+    },
+    {
+      id: "vegetables",
+      label: "Vegetables",
+      title: "Slice the vegetables",
+      items: ["Cabbage", "Carrots", "Green onions", "Garlic", "Ginger"],
+      steps: [
+        "Slice cabbage and carrots thinly.",
+        "Slice green onions, keeping the darker greens separate for finishing.",
+        "Mince garlic and ginger into a small container."
+      ],
+      storage: "Refrigerate vegetables and aromatics separately."
+    },
+    {
+      id: "chicken",
+      label: "Chicken",
+      title: "Pull the rotisserie chicken",
+      items: ["Rotisserie chicken"],
+      steps: [
+        "Shred about 2 1/2 cups chicken.",
+        "Remove bones, skin, and tough bits."
+      ],
+      storage: "Refrigerate covered."
+    }
+  ],
   "chicken-fried-rice": [
     {
       id: "rice",
