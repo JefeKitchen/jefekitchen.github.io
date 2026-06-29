@@ -115,7 +115,7 @@
 <script src="../instruction-content.js?v=20"></script>
 <script src="../recipe-serving-data.js?v=1"></script>
 <script src="../quantity-scaler.js?v=3"></script>
-<script src="../prep-catalog.js?v=2"></script>
+<script src="../prep-catalog.js?v=3"></script>
 <script src="../instruction-tools.js?v=1"></script>
 <script type="module" src="../firebase-state.js?v=4"></script>
 <script>
@@ -249,6 +249,7 @@
   function prepSectionFromSpec(sections, spec) {
     const section = findSection(sections, spec);
     if (!section) return null;
+    if (isApplianceOnlySection(section)) return null;
     const next = { ...section };
     if (Array.isArray(spec.steps) && spec.steps.length) {
       next.steps = spec.steps
@@ -261,6 +262,13 @@
     next.steps = adaptPrepAheadSteps(next.steps);
     next.pills = instructionTools.pillsFromSteps(next.steps).length ? instructionTools.pillsFromSteps(next.steps) : next.pills;
     return next;
+  }
+  function isApplianceOnlySection(section) {
+    const title = String(section.title || '').toLowerCase();
+    const label = String(section.label || '').toLowerCase();
+    const setupOnly = /\b(set up|setup|preheat|heat up|warm up|stage)\b/.test(title + ' ' + label);
+    const appliance = /\b(oven|breville|toaster|press|grill|wok|skillet|sheet pan|pan|casserole|rack)\b/.test(title + ' ' + label);
+    return setupOnly && appliance;
   }
   function stepText(step) {
     const wrapper = document.createElement('div');
@@ -306,8 +314,9 @@
     const hidden = loadSet(hiddenPrepMealsKey);
     const done = loadSet(prepDoneKey);
     const list = document.getElementById('prepList');
-    renderMealFilters(entries);
-    const visible = entries.filter(entry => !hidden.has(entry.id) && Array.isArray(prepCatalog[entry.id]) && prepCatalog[entry.id].length);
+    const prepReady = entries.filter(entry => Array.isArray(prepCatalog[entry.id]) && prepCatalog[entry.id].length);
+    renderMealFilters(prepReady);
+    const visible = prepReady.filter(entry => !hidden.has(entry.id));
     list.innerHTML = visible.map(entry => {
       const recipe = recipeCatalog[entry.id];
       const sections = recipeSections(entry);

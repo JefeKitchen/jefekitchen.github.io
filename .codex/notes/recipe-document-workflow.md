@@ -100,6 +100,7 @@ If any of those fail, fix before reporting back.
 - Prep references should point to real instruction section titles from `docs/instruction-content.js`, with optional zero-based `steps` indexes if only part of a section is prep-ahead.
 - Prep tasks stay recipe-specific. Do not merge shared tasks across recipes, even if the ingredient is the same, because the user wants amounts stored with the correct meal.
 - Keep prep references practical: chop/store vegetables, cook rice ahead, portion proteins, mix sauces, measure spice blends, or stage toppings. Avoid filler tasks.
+- Do not include appliance-only setup in Prep. Things like preheating ovens, setting up a sandwich press, staging pans, or heating cookware belong at cook time unless they directly prep actual food ingredients.
 - Prep ingredient pills and bolded ingredient text should come from `docs/instruction-tools.js` extracting the real instruction section, not from hand-written Prep copy.
 - Normal meal defaults should target 3 servings. Snackies should keep serving-style estimates, usually 6-8 servings.
 

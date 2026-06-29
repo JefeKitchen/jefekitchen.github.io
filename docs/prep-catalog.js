@@ -20,10 +20,6 @@ window.JEFES_KITCHEN_PREP = {
     { section: "Get Everything Ready First" },
     { section: "Mix the Quick Sauce" }
   ],
-  "cuban-sandwiches": [
-    { section: "Set Up a Sandwich Press" },
-    { section: "Assemble the Sandwiches" }
-  ],
   "mojo-pork-bowls": [
     { section: "Cook the Rice" },
     { section: "Pickle-Onion Crunch" },
