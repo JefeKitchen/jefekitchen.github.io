@@ -90,3 +90,16 @@ Before finishing any new recipe, check at least one page from each category in t
 - Cache was bumped, new offline pages were added to sw.js, and rendered pages are loading the expected content/renderer/CSS query versions.
 
 If any of those fail, fix before reporting back.
+
+## Prep List Metadata
+
+- When adding or materially changing a recipe, add prep-ahead tasks in `docs/prep-catalog.js`.
+- Prep tasks should stay recipe-specific. Do not merge shared tasks across recipes, even if the ingredient is the same, because the user wants amounts stored with the correct meal.
+- Keep prep tasks practical: chop/store vegetables, cook rice ahead, portion proteins, mix sauces, measure spice blends, or stage toppings. Avoid filler tasks.
+- Use concise ingredient pills. Prefer broad useful labels like `Rice`, `Green onions`, `Sauce` over verbose measured phrases.
+- Normal meal defaults should target 3 servings. Snackies should keep serving-style estimates, usually 6-8 servings.
+
+## This Week Prep Utility
+
+- The Prep card is not permanent on the home page. It is a removable This Week utility item added from the same + menu as recipes.
+- Prep opens `docs/combined-shopping/this-week-prep.html` and derives upcoming meals from the shared This Week plan data.

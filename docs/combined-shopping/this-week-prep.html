@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Prep - This Week</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../theme.css?v=4">
+<style>
+  body { padding-top: 18px; }
+  .page-title .accent { color: var(--gold); }
+  .meal-filter { border-top: 1px solid var(--border); margin: 12px 20px 0; padding-top: 10px; }
+  .meal-filter-list { display: flex; flex-wrap: wrap; gap: 7px; }
+  .meal-filter-btn {
+    appearance: none; background: #181818; border: 1px solid var(--border); border-radius: 999px;
+    color: var(--gold); cursor: pointer; font-family: 'Source Sans 3', sans-serif;
+    font-size: 12px; font-weight: 600; padding: 7px 10px; -webkit-tap-highlight-color: transparent;
+  }
+  .meal-filter-btn.is-off { color: var(--muted); opacity: .58; }
+  .prep-list { display: grid; gap: 14px; margin: 16px 20px 28px; }
+  .prep-card { background: var(--surface); border: 1px solid var(--border); border-radius: 7px; overflow: hidden; }
+  .prep-card-head { border-bottom: 1px solid var(--border); padding: 13px 14px 12px; }
+  .prep-meta {
+    color: var(--gold); font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+    margin-bottom: 4px; text-transform: uppercase;
+  }
+  .prep-card h2 {
+    color: var(--text); font-family: 'Playfair Display', serif; font-size: 28px;
+    font-weight: 600; line-height: 1; margin: 0;
+  }
+  .prep-task { border-bottom: 1px solid var(--border); padding: 12px 14px; }
+  .prep-task:last-child { border-bottom: 0; }
+  .prep-task.is-done { opacity: .48; }
+  .prep-task.is-done .prep-task-title,
+  .prep-task.is-done li,
+  .prep-task.is-done .prep-storage { text-decoration: line-through; }
+  .prep-task-top { align-items: start; display: grid; gap: 10px; grid-template-columns: 22px 1fr; }
+  .prep-check {
+    appearance: none; background: #121212; border: 1px solid var(--border); border-radius: 50%;
+    cursor: pointer; height: 18px; margin: 2px 0 0; width: 18px;
+  }
+  .prep-check:checked { background: var(--gold); border-color: var(--gold); box-shadow: inset 0 0 0 4px #121212; }
+  .prep-label {
+    color: var(--gold); font-size: 10px; font-weight: 700; letter-spacing: 1.4px;
+    margin-bottom: 2px; text-transform: uppercase;
+  }
+  .prep-task-title { color: var(--text); font-family: 'Playfair Display', serif; font-size: 21px; line-height: 1.05; }
+  .prep-pills { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 0 32px; }
+  .prep-pill {
+    background: #1b1b1b; border: 1px solid var(--border); border-radius: 999px;
+    color: var(--text); font-size: 12px; font-weight: 600; padding: 5px 8px;
+  }
+  .prep-steps { color: var(--text); font-size: 16px; line-height: 1.38; margin: 10px 0 0 32px; padding-left: 18px; }
+  .prep-steps li + li { margin-top: 5px; }
+  .prep-storage { color: var(--muted); font-size: 13px; margin: 8px 0 0 32px; }
+  @media (min-width: 820px) {
+    .prep-list, .meal-filter { margin-left: auto; margin-right: auto; max-width: 1120px; }
+    .prep-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+</style>
+</head>
+<body>
+<a class="back" href="../../index.html" aria-label="Back">‹</a>
+<h1 class="page-title">Prep <span class="accent">List</span></h1>
+<div class="meal-filter" id="mealFilter"><div class="meal-filter-list" id="mealFilterList"></div></div>
+<main class="prep-list" id="prepList"></main>
+
+<script src="../recipe-catalog.js?v=1"></script>
+<script src="../recipe-serving-data.js?v=1"></script>
+<script src="../quantity-scaler.js?v=2"></script>
+<script src="../prep-catalog.js?v=1"></script>
+<script type="module" src="../firebase-state.js?v=4"></script>
+<script>
+  const plannedRecipesKey = 'this-week-planned-recipes-v1';
+  const hiddenPrepMealsKey = 'this-week-hidden-prep-meals-v1';
+  const prepDoneKey = 'this-week-prep-done-v1';
+  const utilityIds = new Set(['this-week-prep']);
+  const recipeCatalog = window.JEFES_KITCHEN_CATALOG?.recipes || {};
+  const servingData = window.JEFES_KITCHEN_SERVINGS || window.JEFES_RECIPE_SERVINGS || {};
+  const prepCatalog = window.JEFES_KITCHEN_PREP || {};
+  let cloudPlans = null;
+  let cloudStarted = false;
+  let unwatchPlans = null;
+
+  function readJson(key, fallback) {
+    try { return JSON.parse(localStorage.getItem(key) || '') ?? fallback; }
+    catch { return fallback; }
+  }
+  function writeJson(key, value) { localStorage.setItem(key, JSON.stringify(value)); }
+  function escapeHtml(value) {
+    return String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
+  }
+  function normalizeEntries(entries) {
+    if (!Array.isArray(entries)) return [];
+    return entries.map(entry => {
+      const id = entry.id || entry.recipeId;
+      if (!id || utilityIds.has(id) || !recipeCatalog[id]) return null;
+      return {
+        id,
+        recipeId: id,
+        day: entry.day || '',
+        date: entry.date || '',
+        meal: entry.meal || 'dinner',
+        servings: Number(entry.servings) || servingData[id]?.defaultServings || 3
+      };
+    }).filter(Boolean);
+  }
+  function sortEntries(entries) {
+    const today = new Date();
+    const todayIndex = today.getDay();
+    const dayOrder = { Sunday: 0, Monday: 1, Tuesday: 2, Wednesday: 3, Thursday: 4, Friday: 5, Saturday: 6 };
+    return [...entries].sort((a, b) => {
+      if (a.date && b.date && a.date !== b.date) return a.date.localeCompare(b.date);
+      if (a.date && !b.date) return -1;
+      if (!a.date && b.date) return 1;
+      const aDay = a.day ? ((dayOrder[a.day] - todayIndex + 7) % 7) : 8;
+      const bDay = b.day ? ((dayOrder[b.day] - todayIndex + 7) % 7) : 8;
+      return aDay - bDay || (recipeCatalog[a.id]?.name || '').localeCompare(recipeCatalog[b.id]?.name || '');
+    });
+  }
+  function loadPlans() { return Array.isArray(cloudPlans) ? cloudPlans : sortEntries(normalizeEntries(readJson(plannedRecipesKey, []))); }
+  function loadSet(key) { return new Set(readJson(key, [])); }
+  function saveSet(key, set) { writeJson(key, [...set]); }
+  function scaleText(text, recipeId, servings) {
+    const base = servingData[recipeId]?.baseServings || 2;
+    if (!text || !window.KitchenQuantityScaler || !servings || servings === base) return text;
+    return window.KitchenQuantityScaler.scaleQuantityText(text, servings / base);
+  }
+  function entryMeta(entry) {
+    return [entry.day, entry.meal === 'lunch' ? 'Lunch' : '', entry.servings ? entry.servings + ' servings' : ''].filter(Boolean).join(' · ');
+  }
+  function renderMealFilters(entries) {
+    const wrap = document.getElementById('mealFilterList');
+    const filter = document.getElementById('mealFilter');
+    const hidden = loadSet(hiddenPrepMealsKey);
+    wrap.innerHTML = '';
+    filter.style.display = entries.length ? '' : 'none';
+    entries.forEach(entry => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'meal-filter-btn' + (hidden.has(entry.id) ? ' is-off' : '');
+      button.textContent = recipeCatalog[entry.id]?.name || entry.id;
+      button.addEventListener('click', () => {
+        const nextHidden = loadSet(hiddenPrepMealsKey);
+        if (nextHidden.has(entry.id)) nextHidden.delete(entry.id);
+        else nextHidden.add(entry.id);
+        saveSet(hiddenPrepMealsKey, nextHidden);
+        render();
+      });
+      wrap.appendChild(button);
+    });
+  }
+  function renderTask(entry, task, done) {
+    const doneId = entry.id + ':' + task.id;
+    const checked = done.has(doneId);
+    const pills = (task.items || []).map(item => '<span class="prep-pill">' + escapeHtml(item) + '</span>').join('');
+    const steps = (task.steps || []).map(step => '<li>' + escapeHtml(scaleText(step, entry.id, entry.servings)) + '</li>').join('');
+    const storage = task.storage ? '<p class="prep-storage">' + escapeHtml(scaleText(task.storage, entry.id, entry.servings)) + '</p>' : '';
+    return '<article class="prep-task' + (checked ? ' is-done' : '') + '" data-done-id="' + escapeHtml(doneId) + '">' +
+      '<div class="prep-task-top"><input class="prep-check" type="checkbox" aria-label="Complete ' + escapeHtml(task.title) + '"' + (checked ? ' checked' : '') + '><div>' +
+      '<div class="prep-label">' + escapeHtml(task.label || 'Prep') + '</div><div class="prep-task-title">' + escapeHtml(task.title) + '</div></div></div>' +
+      (pills ? '<div class="prep-pills">' + pills + '</div>' : '') +
+      (steps ? '<ol class="prep-steps">' + steps + '</ol>' : '') + storage + '</article>';
+  }
+  function render() {
+    const entries = sortEntries(loadPlans());
+    const hidden = loadSet(hiddenPrepMealsKey);
+    const done = loadSet(prepDoneKey);
+    const list = document.getElementById('prepList');
+    renderMealFilters(entries);
+    const visible = entries.filter(entry => !hidden.has(entry.id) && Array.isArray(prepCatalog[entry.id]) && prepCatalog[entry.id].length);
+    list.innerHTML = visible.map(entry => {
+      const recipe = recipeCatalog[entry.id];
+      const meta = entryMeta(entry);
+      return '<section class="prep-card"><header class="prep-card-head">' +
+        (meta ? '<div class="prep-meta">' + escapeHtml(meta) + '</div>' : '') +
+        '<h2>' + escapeHtml(recipe?.name || entry.id) + '</h2></header>' +
+        prepCatalog[entry.id].map(task => renderTask(entry, task, done)).join('') + '</section>';
+    }).join('');
+    list.querySelectorAll('.prep-check').forEach(input => {
+      input.addEventListener('change', event => {
+        const task = event.target.closest('.prep-task');
+        const nextDone = loadSet(prepDoneKey);
+        if (event.target.checked) nextDone.add(task.dataset.doneId);
+        else nextDone.delete(task.dataset.doneId);
+        saveSet(prepDoneKey, nextDone);
+        task.classList.toggle('is-done', event.target.checked);
+      });
+    });
+  }
+  function startCloudSync() {
+    if (cloudStarted || !window.KitchenCloud) return;
+    cloudStarted = true;
+    window.KitchenCloud.watchAuth(user => {
+      if (unwatchPlans) unwatchPlans();
+      if (!user) { cloudPlans = null; render(); return; }
+      unwatchPlans = window.KitchenCloud.watchPlans(entries => {
+        cloudPlans = sortEntries(normalizeEntries(entries));
+        writeJson(plannedRecipesKey, cloudPlans);
+        render();
+      }, () => { cloudPlans = null; render(); });
+    });
+  }
+  render();
+  window.addEventListener('kitchen-cloud-ready', startCloudSync);
+  startCloudSync();
+</script>
+</body>
+</html>

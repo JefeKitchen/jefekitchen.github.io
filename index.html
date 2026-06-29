@@ -606,13 +606,6 @@
   <div class="app-title">JEFE'S<br><span>KITCHEN</span></div>
 </div>
 
-<div class="section poll-section">
-  <a class="direct-card" href="./docs/poll/dinner-poll.html">
-    <div class="card-copy">
-      <div class="card-title">Pick Snackie</div>
-    </div>
-  </a>
-</div>
 
 <details class="recipe-group featured" data-section="this-week">
 <summary class="group-label"><span class="group-label-text">This Week</span><button class="group-add-btn" type="button" id="addThisWeekRecipe" aria-label="Add recipe to This Week">+</button></summary>
@@ -688,15 +681,28 @@
   const legacyThisWeekRecipesKey = 'this-week-selected-recipes-v1';
   const defaultThisWeekRecipes = [];
   const weekDayOptions = ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-  const thisWeekCatalog = window.JEFES_KITCHEN_CATALOG.recipes;
+  const prepUtilityId = 'this-week-prep';
+  const weekUtilitySections = [{ id: 'utility', title: 'This Week', recipes: [prepUtilityId] }];
+  const weekUtilityCatalog = {
+    [prepUtilityId]: {
+      id: prepUtilityId,
+      title: 'Prep',
+      name: 'Prep',
+      subtitle: '',
+      utility: true,
+      href: './docs/combined-shopping/this-week-prep.html',
+      icon: '🔪'
+    }
+  };
+  const thisWeekCatalog = { ...window.JEFES_KITCHEN_CATALOG.recipes, ...weekUtilityCatalog };
   const servingData = window.JEFES_RECIPE_SERVINGS || {};
 
   function servingInfo(recipe) {
     const info = servingData[recipe.id] || {};
-    const servingType = info.servingType || (recipe.section === 'snackies' ? 'servings' : 'people');
+    const servingType = info.servingType || (recipe.utility ? 'utility' : (recipe.section === 'snackies' ? 'servings' : 'people'));
     return {
-      baseServings: Number(info.baseServings || (servingType === 'servings' ? 4 : 2)),
-      defaultServings: Number(info.defaultServings || (servingType === 'servings' ? 8 : 2)),
+      baseServings: Number(info.baseServings || (servingType === 'utility' ? 1 : (servingType === 'servings' ? 4 : 2))),
+      defaultServings: Number(info.defaultServings || (servingType === 'utility' ? 1 : (servingType === 'servings' ? 8 : 3))),
       servingType
     };
   }
@@ -709,8 +715,9 @@
 
   function servingLabel(recipe, servings) {
     const info = servingInfo(recipe);
+    if (info.servingType === 'utility') return '';
     if (info.servingType === 'servings') return servings === 8 ? '6-8 servings' : servings + ' servings';
-    return servings === 1 ? '1 person' : servings + ' people';
+    return servings === 1 ? '1 serving' : servings + ' servings';
   }
 
   function withInstructionParams(url, recipe, options = {}) {
@@ -759,6 +766,22 @@
   }
 
   function recipeCardHtml(recipe, options = {}) {
+    if (recipe.utility) {
+      const removeButton = options.remove
+        ? `<button class="week-remove-btn" type="button" data-remove-this-week="${recipe.id}" aria-label="Remove ${recipe.title} from This Week" title="Remove from This Week">×</button>`
+        : '';
+      return `
+      <div class="card recipe-card" data-card-href="${recipe.href}" data-recipe-id="${recipe.id}" data-week-entry="${options.weekEntry ? 'true' : ''}" role="link" tabindex="0">
+        <div class="card-copy">
+          <div class="card-title">${recipe.title}</div>
+        </div>
+        <div class="card-actions" aria-label="${recipe.title} link">
+          <a class="icon-link" href="${recipe.href}" aria-label="${recipe.title}" title="${recipe.title}">${recipe.icon || '•'}</a>
+          ${removeButton}
+        </div>
+      </div>
+    `;
+    }
     const groceryLink = options.includeGrocery !== false && recipe.grocery
       ? `<a class="icon-link" href="${recipe.grocery}" aria-label="${recipe.title} grocery list" title="Grocery List">🛒</a>`
       : '';
@@ -1109,7 +1132,7 @@
 
   function populateWeekRecipeSections() {
     if (weekRecipeSection.options.length) return;
-    window.JEFES_KITCHEN_CATALOG.sections.forEach(section => {
+    [...weekUtilitySections, ...window.JEFES_KITCHEN_CATALOG.sections].forEach(section => {
       const option = document.createElement('option');
       option.value = section.id;
       option.textContent = section.title;
@@ -1122,6 +1145,11 @@
     const recipe = thisWeekCatalog[weekRecipeChoice.value];
     if (!recipe) return;
     const info = servingInfo(recipe);
+    if (recipe.utility) {
+      weekRecipeServings.innerHTML = '<option value="1">Prep</option>';
+      weekRecipeServings.value = '1';
+      return;
+    }
     const options = info.servingType === 'servings'
       ? [
           [4, '4 servings'],
@@ -1129,11 +1157,11 @@
           [12, '12 servings']
         ]
       : [
-          [2, '2 people'],
-          [3, '3 people'],
-          [4, '4 people'],
-          [5, '5 people'],
-          [6, '6 people']
+          [2, '2 servings'],
+          [3, '3 servings'],
+          [4, '4 servings'],
+          [5, '5 servings'],
+          [6, '6 servings']
         ];
     weekRecipeServings.innerHTML = '';
     options.forEach(([value, label]) => {
@@ -1149,6 +1177,7 @@
   }
 
   function sectionIdForRecipe(recipeId) {
+    if (weekUtilityCatalog[recipeId]) return 'utility';
     return window.JEFES_KITCHEN_CATALOG.sections.find(section => section.recipes.includes(recipeId))?.id || '';
   }
 
@@ -1160,9 +1189,10 @@
     } else if (!weekRecipeSection.value && window.JEFES_KITCHEN_CATALOG.sections[0]) {
       weekRecipeSection.value = window.JEFES_KITCHEN_CATALOG.sections[0].id;
     }
-    const selectedSection = window.JEFES_KITCHEN_CATALOG.sections
+    const weekSections = [...weekUtilitySections, ...window.JEFES_KITCHEN_CATALOG.sections];
+    const selectedSection = weekSections
       .find(section => section.id === weekRecipeSection.value)
-      || window.JEFES_KITCHEN_CATALOG.sections[0];
+      || weekSections[0];
     weekRecipeChoice.innerHTML = '';
     (selectedSection?.recipes || [])
       .map(recipeId => [recipeId, thisWeekCatalog[recipeId]])
@@ -1179,6 +1209,7 @@
       weekRecipeChoice.value = selectedRecipeId;
     }
     populateWeekServings(selectedServings);
+    syncWeekUtilityControls();
 
     if (!weekRecipeDay.options.length) {
       weekDayOptions.forEach(day => {
@@ -1188,6 +1219,18 @@
         weekRecipeDay.appendChild(option);
       });
     }
+  }
+
+  function syncWeekUtilityControls() {
+    const recipe = thisWeekCatalog[weekRecipeChoice.value];
+    const isUtility = !!recipe?.utility;
+    weekRecipeLunch.checked = isUtility ? false : weekRecipeLunch.checked;
+    weekRecipeLunch.disabled = isUtility;
+    weekRecipeShop.checked = isUtility ? false : weekRecipeShop.checked;
+    weekRecipeShop.disabled = isUtility;
+    weekRecipeServings.disabled = isUtility;
+    weekRecipeServings.style.display = isUtility ? 'none' : '';
+    if (isUtility) weekRecipePlan.checked = true;
   }
 
   function openWeekChoice(options = {}) {
@@ -1200,10 +1243,12 @@
     weekRecipeSubmit.textContent = isEdit ? 'Update' : 'Add';
     populateWeekRecipeForm(recipeId, entry?.servings);
     weekRecipeDay.value = entry?.day || '';
-    weekRecipeLunch.checked = (entry?.meal || '') === 'lunch';
-    weekRecipePlan.checked = isEdit ? true : true;
-    weekRecipeShop.checked = isEdit ? !!shoppingEntry : true;
+    const isUtility = !!thisWeekCatalog[recipeId]?.utility;
+    weekRecipeLunch.checked = isUtility ? false : (entry?.meal || '') === 'lunch';
+    weekRecipePlan.checked = true;
+    weekRecipeShop.checked = isUtility ? false : (isEdit ? !!shoppingEntry : true);
     if (entry?.servings) populateWeekServings(entry.servings);
+    syncWeekUtilityControls();
     weekChoice.classList.add('is-open');
     weekChoice.setAttribute('aria-hidden', 'false');
     weekRecipeSection.focus();
@@ -1384,7 +1429,10 @@
 
   cancelWeekRecipe.addEventListener('click', closeWeekChoice);
   weekRecipeSection.addEventListener('change', () => populateWeekRecipeForm());
-  weekRecipeChoice.addEventListener('change', () => populateWeekServings());
+  weekRecipeChoice.addEventListener('change', () => {
+    populateWeekServings();
+    syncWeekUtilityControls();
+  });
 
   document.getElementById('thisWeekGrid')?.addEventListener('click', event => {
     const button = event.target.closest('[data-remove-this-week]');
@@ -1398,10 +1446,12 @@
     event.preventDefault();
     const recipeId = weekRecipeChoice.value;
     const day = weekRecipeDay.value;
-    const meal = weekRecipeLunch.checked ? 'lunch' : '';
-    const servings = weekRecipeServings.value;
-    const addPlan = weekRecipePlan.checked;
-    const addShopping = weekRecipeShop.checked;
+    const selectedRecipe = thisWeekCatalog[recipeId];
+    const isUtility = !!selectedRecipe?.utility;
+    const meal = isUtility ? '' : (weekRecipeLunch.checked ? 'lunch' : '');
+    const servings = isUtility ? '1' : weekRecipeServings.value;
+    const addPlan = isUtility ? true : weekRecipePlan.checked;
+    const addShopping = isUtility ? false : weekRecipeShop.checked;
 
     if (!addPlan && !addShopping) return;
 
