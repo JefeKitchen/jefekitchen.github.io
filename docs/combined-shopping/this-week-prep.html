@@ -20,39 +20,38 @@
     font-size: 12px; font-weight: 600; padding: 7px 10px; -webkit-tap-highlight-color: transparent;
   }
   .meal-filter-btn.is-off { color: var(--muted); opacity: .58; }
-  .prep-board { gap: 22px; }
+  .prep-board { gap: 30px; }
   .prep-meal {
-    background: rgba(255, 255, 255, 0.018);
-    border: 1px solid var(--border);
-    border-radius: 8px;
     display: grid;
+    gap: 12px;
     grid-column: 1 / -1;
-    overflow: hidden;
     transition: opacity .16s ease;
+  }
+  .prep-meal + .prep-meal {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 22px;
   }
   .prep-meal.is-done { opacity: .62; }
   .prep-meal.is-done .prep-meal-board { display: none; }
-  .prep-meal.is-done .prep-meal-head { border-bottom: 0; padding-bottom: 11px; padding-top: 11px; }
   .prep-meal.is-done .prep-meal-title { color: var(--muted); text-decoration: line-through; }
   .prep-meal-head {
-    align-items: center;
-    border-bottom: 1px solid var(--border);
     cursor: pointer;
-    display: block;
-    padding: 14px 18px 13px;
+    display: inline-block;
+    justify-self: start;
+    padding: 0 2px;
     -webkit-tap-highlight-color: transparent;
     user-select: none;
   }
   .prep-meal-title {
     color: var(--text);
     font-family: 'Playfair Display', serif;
-    font-size: 26px;
+    font-size: 30px;
     font-weight: 600;
     line-height: 1.08;
     margin: 0;
   }
   .prep-meal-meta {
-    color: var(--muted);
+    color: var(--gold);
     font-family: 'Source Sans 3', sans-serif;
     font-size: 11px;
     font-weight: 700;
@@ -64,16 +63,8 @@
     display: grid;
     gap: 14px;
     grid-template-columns: 1fr;
-    padding: 14px;
   }
   .prep-task { position: relative; }
-  .prep-storage {
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    color: var(--muted);
-    font-size: 13px;
-    margin: 0 14px 13px 52px;
-    padding-top: 8px;
-  }
   @media (max-width: 719px) {
     body { max-width: 480px !important; margin: 0 auto !important; padding: 0 0 60px !important; }
     .back-bar { position: sticky !important; }
@@ -82,9 +73,9 @@
     .hero-title { font-size: 36px !important; }
     .meal-filter { margin: 12px 20px 16px !important; }
     .prep-board { display: grid; margin: 0 20px 28px; }
-    .prep-meal-head { padding: 13px 14px 12px; }
-    .prep-meal-board { padding: 12px; }
-    .prep-meal-title { font-size: 24px; }
+    .prep-board { gap: 26px; }
+    .prep-meal + .prep-meal { padding-top: 20px; }
+    .prep-meal-title { font-size: 26px; }
   }
   @media (min-width: 720px) {
     .prep-meal-board {
@@ -227,11 +218,10 @@
     const label = task.label || 'Prep';
     const pills = (task.items || []).map(item => '<span class="pill">' + escapeHtml(item) + '</span>').join('');
     const steps = (task.steps || []).map(step => '<li><span>' + escapeHtml(scaleText(step, entry.id, entry.servings)) + '</span></li>').join('');
-    const storage = task.storage ? '<p class="prep-storage">' + escapeHtml(scaleText(task.storage, entry.id, entry.servings)) + '</p>' : '';
     return '<section class="section-card prep-task">' +
       '<div class="section-head"><span class="section-label">' + escapeHtml(label) + '</span><h2>' + escapeHtml(task.title) + '</h2></div>' +
       (pills ? '<div class="pull">' + pills + '</div>' : '') +
-      (steps ? '<ol>' + steps + '</ol>' : '') + storage + '</section>';
+      (steps ? '<ol>' + steps + '</ol>' : '') + '</section>';
   }
   function render() {
     const entries = sortEntries(loadPlans());

@@ -110,4 +110,7 @@ If any of those fail, fix before reporting back.
 - Prep should visually group tasks by recipe. The recipe name belongs in the group heading; individual task card labels should stay short, usually only the prep category, with no servings/lunch metadata.
 - Prep must override the shared phone-first `theme.css` body width on desktop/tablet. The wide Prep view should use a full-width shell, not the default 480px document width.
 - Prep completion should happen at the recipe group level, not the individual task level. The recipe group header carries day/serving metadata once and acts as the subtle completion control; do not show a checkbox unless the user asks for one.
+- Prep recipe headings should be lightweight script-style dividers, not full-width boxed cards. Keep the task cards looking like normal instruction cards underneath.
+- Do not render separate storage/reheat footers in Prep. Fold only the useful storage action into the step itself, and skip reheat notes.
+- Prep steps should mirror the recipe exactly for prep-ahead work. Use the recipe's actual amounts and wording, including fuzzy language like `pinch` or `splash` when that is what the recipe calls for. Do not introduce new approximate amounts or vague substitutions that are not in the recipe.
 - Dated This Week entries with dates before today should be pruned from plans and shopping data, not merely hidden with CSS.

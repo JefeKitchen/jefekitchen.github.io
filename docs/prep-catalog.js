@@ -6,8 +6,8 @@ window.JEFES_KITCHEN_PREP = {
       title: "Mix and portion meatballs",
       items: ["Ground beef", "Egg", "Breadcrumbs", "Garlic", "Parsley"],
       steps: [
-        "Mix the meatball base gently until it just holds together.",
-        "Roll into even meatballs and refrigerate on a covered plate or tray."
+        "Mix 1 lb ground beef with 1 egg, 1/2 cup breadcrumbs, garlic, and parsley until it just holds together.",
+        "Roll into even meatballs and refrigerate."
       ],
       storage: "Store chilled up to 24 hours."
     },
@@ -17,8 +17,8 @@ window.JEFES_KITCHEN_PREP = {
       title: "Stage the noodle finish",
       items: ["Butter", "Garlic", "Parmesan", "Parsley"],
       steps: [
-        "Grate Parmesan, chop parsley, and keep the butter measured out.",
-        "Keep garlic separate so it stays sharp."
+        "Grate 1/4 cup Parmesan, chop parsley for finishing, and measure 3 tbsp butter.",
+        "Refrigerate cheese, parsley, and garlic."
       ],
       storage: "Refrigerate the cheese and parsley; butter can stay wrapped."
     }
@@ -30,8 +30,7 @@ window.JEFES_KITCHEN_PREP = {
       title: "Cook rice ahead",
       items: ["White rice", "Water", "Salt"],
       steps: [
-        "Cook the rice, fluff it, and let steam escape before storing.",
-        "Reheat with a tiny splash of water when dinner starts."
+        "Cook 1 cup dry white rice, fluff it, let it cool, and refrigerate.",
       ],
       storage: "Refrigerate in a shallow container."
     },
@@ -41,7 +40,7 @@ window.JEFES_KITCHEN_PREP = {
       title: "Make the cucumber side",
       items: ["Cucumber", "Rice vinegar", "Green onions"],
       steps: [
-        "Slice cucumber and green onions.",
+        "Slice 1 cucumber and 2 green onions; refrigerate.",
         "Toss with rice vinegar shortly before serving if you want it crisp, or ahead if you like it softer."
       ],
       storage: "Keep chilled."
@@ -54,7 +53,7 @@ window.JEFES_KITCHEN_PREP = {
       title: "Shred the chicken",
       items: ["Rotisserie chicken"],
       steps: [
-        "Pull the chicken from the bone and shred into bite-size pieces.",
+        "Shred 2-3 cups rotisserie chicken into bite-size pieces and refrigerate.",
         "Discard skin or save it separately if you want crispy bits."
       ],
       storage: "Refrigerate in a covered container."
@@ -65,7 +64,7 @@ window.JEFES_KITCHEN_PREP = {
       title: "Mix the crunchy top",
       items: ["Crackers", "Butter", "Parmesan"],
       steps: [
-        "Crush crackers and mix with Parmesan.",
+        "Crush 1/3 cup crackers or breadcrumbs and mix with 2 tbsp Parmesan; keep dry.",
         "Keep butter separate until bake time so the topping stays crisp."
       ],
       storage: "Keep dry at room temperature."
@@ -78,7 +77,7 @@ window.JEFES_KITCHEN_PREP = {
       title: "Mix the chow mein sauce",
       items: ["Soy sauce", "Oyster sauce", "Rice vinegar", "Sesame oil", "Cornstarch"],
       steps: [
-        "Whisk the sauce ingredients together.",
+        "Whisk 3 tbsp soy sauce, 2 tbsp oyster sauce, 1 tbsp rice vinegar, 1 tsp sesame oil, and 1 tsp cornstarch; refrigerate.",
         "Keep it near the stove because the wok step moves quickly."
       ],
       storage: "Refrigerate in a small covered container."
@@ -89,9 +88,9 @@ window.JEFES_KITCHEN_PREP = {
       title: "Slice the vegetables",
       items: ["Cabbage", "Carrots", "Green onions", "Garlic", "Ginger"],
       steps: [
-        "Slice cabbage and carrots thinly.",
-        "Slice green onions, keeping the darker greens separate for finishing.",
-        "Mince garlic and ginger into a small container."
+        "Slice 4 packed cups cabbage and 2 carrots thinly; refrigerate.",
+        "Slice 1 bunch green onions, keeping the darker greens separate for finishing.",
+        "Mince 3 garlic cloves and 1 tbsp fresh ginger into a small container."
       ],
       storage: "Refrigerate vegetables and aromatics separately."
     },
@@ -101,7 +100,7 @@ window.JEFES_KITCHEN_PREP = {
       title: "Pull the rotisserie chicken",
       items: ["Rotisserie chicken"],
       steps: [
-        "Shred about 2 1/2 cups chicken.",
+        "Shred 2 1/2 cups chicken and refrigerate.",
         "Remove bones, skin, and tough bits."
       ],
       storage: "Refrigerate covered."
@@ -114,8 +113,8 @@ window.JEFES_KITCHEN_PREP = {
       title: "Cook and chill rice",
       items: ["White rice", "Water", "Salt"],
       steps: [
-        "Cook rice ahead if possible.",
-        "Spread it out to cool, then refrigerate so it dries slightly before frying."
+        "Cook 1 cup dry white rice ahead if possible, let it cool, and refrigerate.",
+        "Spread it out so it dries slightly before frying."
       ],
       storage: "Refrigerate uncovered until cool, then cover."
     },
@@ -125,8 +124,8 @@ window.JEFES_KITCHEN_PREP = {
       title: "Set up the stir-fry bowls",
       items: ["Rotisserie chicken", "Onion", "Green onions", "Garlic", "Peas and carrots"],
       steps: [
-        "Chop onion, green onions, and garlic.",
-        "Portion chicken and peas and carrots so the wok moves fast."
+        "Chop 1 small onion, 1 bunch green onions, and 2 garlic cloves; refrigerate.",
+        "Portion 2 cups shredded chicken and 1 cup peas and carrots so the wok moves fast."
       ],
       storage: "Refrigerate each group separately."
     },
@@ -136,7 +135,7 @@ window.JEFES_KITCHEN_PREP = {
       title: "Mix the quick sauce",
       items: ["Soy sauce", "Rice vinegar", "Sesame oil", "Sriracha"],
       steps: [
-        "Stir the sauce ingredients together in a small container.",
+        "Stir 3 tbsp soy sauce, 1 tbsp rice vinegar, 1 tsp sesame oil, and 1-2 tsp sriracha or chili crisp; refrigerate.",
         "Shake before using."
       ],
       storage: "Refrigerate."
@@ -149,8 +148,8 @@ window.JEFES_KITCHEN_PREP = {
       title: "Build the sandwich kit",
       items: ["Roast pork", "Ham", "Swiss", "Pickles", "Bread"],
       steps: [
-        "Slice or portion the pork, ham, cheese, and pickles.",
-        "Keep bread separate so it does not soften."
+        "Slice or portion 8 oz pork, 4-6 slices ham, 4 slices Swiss, and dill pickles for 2 sandwiches; refrigerate fillings together.",
+        "Keep bread wrapped separately."
       ],
       storage: "Refrigerate fillings together; keep bread wrapped."
     },
@@ -160,7 +159,7 @@ window.JEFES_KITCHEN_PREP = {
       title: "Stage the press spread",
       items: ["Mustard", "Butter"],
       steps: [
-        "Measure mustard and soften butter if needed.",
+        "Measure 2 tbsp mustard and soften enough butter for a thin layer on the outside of 2 sandwiches. Keep mustard chilled.",
         "Keep them ready so assembly is quick."
       ],
       storage: "Refrigerate mustard; butter can stay covered at room temperature briefly."
@@ -173,8 +172,7 @@ window.JEFES_KITCHEN_PREP = {
       title: "Cook rice ahead",
       items: ["White rice", "Water", "Salt"],
       steps: [
-        "Cook the rice and cool it before storing.",
-        "Reheat with a small splash of water."
+        "Cook rice, let it cool, and refrigerate.",
       ],
       storage: "Refrigerate."
     },
@@ -184,8 +182,8 @@ window.JEFES_KITCHEN_PREP = {
       title: "Chop bowl toppings",
       items: ["White onion", "Cilantro", "Lime"],
       steps: [
-        "Dice onion, chop cilantro, and cut lime wedges.",
-        "Store lime separately so the herbs stay fresh."
+        "Thinly slice 1/2 onion, chop 1/2 cup dill pickles, cut 1 lime into wedges, and refrigerate.",
+        "Keep lime separate so the herbs stay fresh."
       ],
       storage: "Refrigerate."
     }
@@ -197,8 +195,8 @@ window.JEFES_KITCHEN_PREP = {
       title: "Slice beef and broccoli",
       items: ["Beef", "Broccoli", "Garlic", "Ginger"],
       steps: [
-        "Slice beef thinly across the grain.",
-        "Cut broccoli into small florets and mince garlic and ginger."
+        "Slice 1 lb beef thinly across the grain.",
+        "Cut 1 large head broccoli into small florets and mince 2 garlic cloves and 1 tbsp ginger."
       ],
       storage: "Refrigerate beef separately from vegetables."
     },
@@ -208,7 +206,7 @@ window.JEFES_KITCHEN_PREP = {
       title: "Mix the wok sauce",
       items: ["Soy sauce", "Cornstarch", "Brown sugar", "Sesame oil"],
       steps: [
-        "Whisk sauce ingredients until smooth.",
+        "Whisk 3 tbsp soy sauce, 2 tbsp oyster sauce, 1 tbsp rice vinegar, 1 tsp cornstarch, 1 tsp brown sugar, and 1/2 tsp sesame oil until smooth.",
         "Shake again before it hits the wok."
       ],
       storage: "Refrigerate."
@@ -221,8 +219,8 @@ window.JEFES_KITCHEN_PREP = {
       title: "Mash and mix the dip base",
       items: ["Chickpeas", "Hummus", "Hot sauce", "Cheese"],
       steps: [
-        "Drain chickpeas and mash most of them, leaving a little texture.",
-        "Mix with hummus, hot sauce, and optional cheese."
+        "Drain 1 can chickpeas and mash most of them, leaving a little texture.",
+        "Mix with 1/2 cup plain hummus, 2 tbsp buffalo-style hot sauce for mild, plus 2 tbsp more hot sauce and 1/8 tsp cayenne for medium."
       ],
       storage: "Refrigerate in the baking dish or a covered container."
     },
@@ -232,8 +230,8 @@ window.JEFES_KITCHEN_PREP = {
       title: "Cut pita chips",
       items: ["Pita", "Olive oil", "Salt"],
       steps: [
-        "Cut pita into chips and keep them dry until baking.",
-        "Toss with oil and salt right before they go into the oven."
+        "Cut 2 pitas into chips and keep them dry until baking.",
+        "Toss with 1 tbsp olive oil per 2 pitas and a pinch of salt right before they go into the oven."
       ],
       storage: "Room temperature in a bag or container."
     }
@@ -245,8 +243,7 @@ window.JEFES_KITCHEN_PREP = {
       title: "Cook the rice",
       items: ["White rice", "Water", "Salt"],
       steps: [
-        "Cook rice ahead and cool it before storing.",
-        "Reheat with a small splash of water."
+        "Cook 1 1/2 cups dry white rice, let it cool, and refrigerate.",
       ],
       storage: "Refrigerate."
     },
@@ -256,7 +253,7 @@ window.JEFES_KITCHEN_PREP = {
       title: "Prep elote topping",
       items: ["Corn", "White onion", "Cilantro", "Lime", "Cotija"],
       steps: [
-        "Chop onion and cilantro, cut lime wedges, and crumble cheese.",
+        "Chop 1/2 onion and cilantro, cut 1 lime into wedges, and crumble 1/4 cup Cotija.",
         "Keep corn separate until cooking."
       ],
       storage: "Refrigerate."
@@ -269,8 +266,8 @@ window.JEFES_KITCHEN_PREP = {
       title: "Marinate and skewer chicken",
       items: ["Chicken thighs", "Garlic", "Lemon", "Olive oil", "Paprika", "Oregano"],
       steps: [
-        "Cut chicken into skewer-size pieces and mix with the marinade.",
-        "Thread skewers if you have room to store them safely."
+        "Cut 1 1/2 lb chicken into skewer-size pieces, mix with the marinade, and refrigerate.",
+        "Thread skewers now only if you have room to store them safely."
       ],
       storage: "Refrigerate covered."
     },
@@ -280,7 +277,7 @@ window.JEFES_KITCHEN_PREP = {
       title: "Prep cucumber salad",
       items: ["Cucumber", "Red onion", "Greek yogurt", "Lemon"],
       steps: [
-        "Slice cucumber and onion.",
+        "Slice 1 cucumber and 1/4 red onion; refrigerate.",
         "Mix dressing separately if you want the cucumber extra crisp."
       ],
       storage: "Refrigerate."
@@ -293,7 +290,7 @@ window.JEFES_KITCHEN_PREP = {
       title: "Make the crunchy slaw",
       items: ["Cabbage", "Green onions", "Cilantro", "Lime"],
       steps: [
-        "Slice cabbage and green onions, chop cilantro, and cut lime.",
+        "Slice 3 cups cabbage and 2 green onions, chop 2 tbsp cilantro, cut 1 lime, and refrigerate.",
         "Dress lightly before serving so it stays crisp."
       ],
       storage: "Refrigerate."
@@ -304,8 +301,8 @@ window.JEFES_KITCHEN_PREP = {
       title: "Thaw and dry shrimp",
       items: ["Shrimp", "Cornstarch", "Spices"],
       steps: [
-        "Thaw shrimp if frozen and pat very dry.",
-        "Measure coating ingredients into a small bowl."
+        "Thaw 1 lb shrimp if frozen, pat very dry, and refrigerate.",
+        "Measure 2 tbsp cornstarch, 1 tsp chili powder, 1/2 tsp smoked paprika, and 1/2 tsp garlic powder into a small bowl."
       ],
       storage: "Refrigerate shrimp; keep coating dry."
     }
@@ -317,8 +314,7 @@ window.JEFES_KITCHEN_PREP = {
       title: "Cook rice ahead",
       items: ["White rice", "Water", "Salt"],
       steps: [
-        "Cook rice and cool it before storing.",
-        "Reheat with a small splash of water."
+        "Cook rice, let it cool, and refrigerate.",
       ],
       storage: "Refrigerate."
     },
@@ -328,8 +324,8 @@ window.JEFES_KITCHEN_PREP = {
       title: "Prep shrimp and aromatics",
       items: ["Shrimp", "Garlic", "Green onions", "Lime"],
       steps: [
-        "Thaw shrimp and pat dry.",
-        "Mince garlic, slice green onions, and cut lime wedges."
+        "Thaw 1 lb shrimp, pat dry, and refrigerate.",
+        "Mince 3 garlic cloves, slice 2 green onions, cut 1 lime into wedges, and refrigerate."
       ],
       storage: "Refrigerate shrimp separately."
     }
@@ -341,7 +337,7 @@ window.JEFES_KITCHEN_PREP = {
       title: "Mix and shape meatloaf",
       items: ["Ground beef", "Egg", "Breadcrumbs", "Onion", "Garlic"],
       steps: [
-        "Mix the meatloaf gently and shape it on the lined pan.",
+        "Mix 1 1/2 lb ground beef with 1 egg, 3/4 cup breadcrumbs, onion, and garlic; shape, cover, and refrigerate.",
         "Cover and chill until ready to bake."
       ],
       storage: "Refrigerate."
@@ -352,7 +348,7 @@ window.JEFES_KITCHEN_PREP = {
       title: "Mix horseradish glaze",
       items: ["Ketchup", "Horseradish", "Mustard"],
       steps: [
-        "Stir glaze ingredients together.",
+        "Stir 1/3 cup ketchup, 1 tbsp Dijon, 1 tbsp brown sugar or honey, 1 tsp Worcestershire, 1-2 tsp horseradish, and 1/4 tsp black pepper; refrigerate.",
         "Keep it separate until baking."
       ],
       storage: "Refrigerate."
@@ -365,7 +361,7 @@ window.JEFES_KITCHEN_PREP = {
       title: "Portion oat jars",
       items: ["Oats", "Greek yogurt", "Milk", "Fruit", "Granola"],
       steps: [
-        "Build jars with oats, yogurt, milk, and fruit.",
+        "Build jars with 1/2 cup oats, 1/2 cup yogurt, 1/3 cup milk, and fruit each; refrigerate.",
         "Keep granola separate until eating."
       ],
       storage: "Refrigerate jars; keep granola dry."
@@ -378,8 +374,7 @@ window.JEFES_KITCHEN_PREP = {
       title: "Cook rice ahead",
       items: ["White rice", "Water", "Salt"],
       steps: [
-        "Cook rice and cool before storing.",
-        "Reheat with a small splash of water."
+        "Cook rice, let it cool, and refrigerate.",
       ],
       storage: "Refrigerate."
     },
@@ -389,8 +384,8 @@ window.JEFES_KITCHEN_PREP = {
       title: "Stage sauce and green beans",
       items: ["Pineapple", "Orange", "Soy sauce", "Ginger", "Garlic", "Green beans"],
       steps: [
-        "Mix the sauce ingredients.",
-        "Trim green beans and keep them ready for the pan."
+        "Mix the teriyaki sauce with pineapple, orange, soy sauce, ginger, and garlic; refrigerate.",
+        "Trim 12 oz green beans and refrigerate."
       ],
       storage: "Refrigerate."
     }
@@ -402,8 +397,8 @@ window.JEFES_KITCHEN_PREP = {
       title: "Slice onions and stage toppings",
       items: ["Onion", "Pickles", "Cheese", "Slider buns"],
       steps: [
-        "Slice onions thinly and portion pickles and cheese.",
-        "Keep buns wrapped until cooking."
+        "Slice 1 onion thinly and portion pickles and cheese.",
+        "Refrigerate toppings; keep buns wrapped."
       ],
       storage: "Refrigerate toppings; keep buns at room temperature."
     },
@@ -413,7 +408,7 @@ window.JEFES_KITCHEN_PREP = {
       title: "Portion slider beef",
       items: ["Ground beef", "Salt", "Pepper"],
       steps: [
-        "Divide beef into loose balls.",
+        "Divide 1 lb ground beef into loose slider balls and refrigerate.",
         "Do not press them until they hit the hot pan."
       ],
       storage: "Refrigerate."
@@ -426,8 +421,8 @@ window.JEFES_KITCHEN_PREP = {
       title: "Cook and chill rice",
       items: ["White rice", "Water", "Salt"],
       steps: [
-        "Cook rice ahead if possible.",
-        "Cool it quickly and refrigerate so it fries cleanly."
+        "Cook 1 cup dry white rice ahead if possible, let it cool, and refrigerate.",
+        "Spread it out so it dries slightly before frying."
       ],
       storage: "Refrigerate."
     },
@@ -437,7 +432,7 @@ window.JEFES_KITCHEN_PREP = {
       title: "Prep steak and scallions",
       items: ["Steak", "Green onions", "Garlic", "Ginger"],
       steps: [
-        "Slice steak thinly and slice green onions.",
+        "Slice 12-16 oz steak thinly, slice 1 bunch green onions, and refrigerate.",
         "Mince garlic and ginger into their own small container."
       ],
       storage: "Refrigerate steak separately."
@@ -450,8 +445,7 @@ window.JEFES_KITCHEN_PREP = {
       title: "Cook rice ahead",
       items: ["White rice", "Water", "Salt"],
       steps: [
-        "Cook rice and cool before storing.",
-        "Reheat with a small splash of water."
+        "Cook rice, let it cool, and refrigerate.",
       ],
       storage: "Refrigerate."
     },
@@ -461,7 +455,7 @@ window.JEFES_KITCHEN_PREP = {
       title: "Prep bowl toppings",
       items: ["Cucumber", "Edamame", "Green onions", "Avocado"],
       steps: [
-        "Slice cucumber and green onions, and thaw edamame.",
+        "Slice 1 cucumber and 2 green onions, thaw 1 cup edamame, and refrigerate.",
         "Leave avocado whole until serving so it stays clean."
       ],
       storage: "Refrigerate sliced toppings."
@@ -472,7 +466,7 @@ window.JEFES_KITCHEN_PREP = {
       title: "Mix sriracha topping",
       items: ["Sriracha", "Mayo", "Soy sauce", "Lime"],
       steps: [
-        "Stir the sauce together.",
+        "Stir 3 tbsp sriracha, 2 tbsp soy sauce, 1 tbsp lime juice, 1 tsp sesame oil, 1-2 tsp honey or brown sugar, and 1 tsp grated ginger; refrigerate.",
         "Thin with a tiny splash of water if needed."
       ],
       storage: "Refrigerate."
@@ -485,8 +479,8 @@ window.JEFES_KITCHEN_PREP = {
       title: "Mix the seasoning",
       items: ["Edamame", "Soy sauce", "Sesame oil", "Garlic powder"],
       steps: [
-        "Measure the seasoning blend.",
-        "Keep edamame frozen until roasting for best texture."
+        "Measure 1 tbsp soy sauce, 1 tsp sesame oil, and 1/2 tsp garlic powder for 12 oz edamame.",
+        "Keep edamame frozen until roasting."
       ],
       storage: "Seasoning can sit covered at room temperature."
     }
