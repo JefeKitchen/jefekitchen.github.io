@@ -697,15 +697,35 @@ ol {
 }
 
 .pair-shell {
+  display: flex !important;
+  flex-direction: column !important;
+  height: calc(100dvh - 82px) !important;
   margin: 18px 20px 0 !important;
+  min-height: 0 !important;
+}
+
+.pair-shared {
+  flex: 0 0 auto !important;
+  margin: 0 0 10px !important;
+}
+
+.pair-shared .pair-task-head {
+  cursor: pointer !important;
+}
+
+.pair-shared .pair-task.is-collapsed .pair-pull,
+.pair-shared .pair-task.is-collapsed ol {
+  display: none !important;
 }
 
 .pair-board {
   display: grid !important;
+  flex: 1 1 auto !important;
   gap: 12px !important;
   grid-template-columns: minmax(260px, 1fr) minmax(260px, 1fr) !important;
-  height: calc(100vh - 170px) !important;
+  height: auto !important;
   margin-top: 14px !important;
+  min-height: 0 !important;
   overflow-x: auto !important;
   padding-bottom: 4px !important;
 }
@@ -747,8 +767,9 @@ ol {
 }
 
 .pair-scroll {
-  display: grid !important;
+  display: flex !important;
   align-content: start !important;
+  flex-direction: column !important;
   gap: 8px !important;
   flex: 1 1 auto !important;
   min-height: 0 !important;
@@ -762,6 +783,7 @@ ol {
   background: #141414 !important;
   border: 1px solid var(--border) !important;
   border-radius: 8px !important;
+  flex: 0 0 auto !important;
   overflow: hidden !important;
 }
 

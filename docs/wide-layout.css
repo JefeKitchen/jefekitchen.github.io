@@ -304,12 +304,34 @@ li > * { min-width: 0; }
   color: #111 !important;
 }
 
+.pair-shell {
+  display: flex;
+  flex-direction: column;
+  height: calc(100dvh - 82px);
+  min-height: 0;
+}
+
+.pair-shared {
+  flex: 0 0 auto;
+  margin-bottom: 10px;
+}
+
+.pair-shared .pair-task-head {
+  cursor: pointer;
+}
+
+.pair-shared .pair-task.is-collapsed .pair-pull,
+.pair-shared .pair-task.is-collapsed ol {
+  display: none;
+}
+
 .pair-board {
   display: grid;
+  flex: 1 1 auto;
   gap: 14px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  height: calc(100vh - 210px);
-  min-height: 520px;
+  height: auto;
+  min-height: 0;
 }
 
 .pair-column {
@@ -349,8 +371,9 @@ li > * { min-width: 0; }
 }
 
 .pair-scroll {
-  display: grid;
+  display: flex;
   align-content: start;
+  flex-direction: column;
   gap: 8px;
   flex: 1 1 auto;
   min-height: 0;
@@ -364,6 +387,7 @@ li > * { min-width: 0; }
   background: #141414;
   border: 1px solid var(--border);
   border-radius: 8px;
+  flex: 0 0 auto;
   overflow: hidden;
 }
 

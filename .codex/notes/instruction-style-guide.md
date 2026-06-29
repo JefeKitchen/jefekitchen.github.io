@@ -131,6 +131,19 @@ Rules:
 - Dense setup sections can be full-width and split into columns.
 - Drinks can be half-width unless they need full width for balance.
 
+## Pair Cook Layout
+
+Pair Cook mode must be verified on an iPad-like wide viewport, not only by checking source content.
+
+Rules:
+
+- The drink/beer/wine/cocktail section should be a shared starter above Jeff/Jaya columns, not assigned to one person.
+- Each lane should scroll independently.
+- Task cards must use their natural height. Do not put pair task cards in a shrinking CSS grid row; use a vertical flex stack and keep `.pair-task` from shrinking.
+- Step text must be readable by default in both columns. The page should never show only section headers and ingredient pills unless the user intentionally collapsed a task.
+- After changing pair layout CSS, inspect rendered card measurements: each `.pair-task` should be tall enough to contain its header, pull pills, and ordered steps without clipping.
+- If a task is marked done, it may compact visually, but tapping it again must restore the readable step.
+
 ## Cache
 
 When changing instruction content, renderer behavior, or shared instruction CSS:
@@ -149,6 +162,7 @@ Before finishing an instruction change:
 - Step numbers do not overlap text at phone or wide widths.
 - Ingredient pills are clean and section-specific.
 - Rendered ingredient pills are conservative: no duplicate variants, no quantities, no instruction phrases, and no generic serving vessels like `Glass`.
+- Pair Cook mode shows readable instructions in both columns; no task cards are clipping their `ol`/step content.
 - Ingredients are highlighted consistently.
 - Approximate quantities are present where the user would otherwise have to guess.
 - The service worker cache was bumped for app-facing changes.

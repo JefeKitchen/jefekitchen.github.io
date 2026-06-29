@@ -323,11 +323,17 @@
 
   const defaultPairLane = (section) => {
     const value = `${section.label} ${section.title}`.toLowerCase();
+    if (isPairSharedStarter(section)) return 'shared';
     const prepWords = /\b(drink|prep|mise|ready|pull|sauce|mix|whisk|stir|slice|dice|chop|mince|cucumber|salad|side|serve|plate|finish|assemble|bowls|topping|crunch)\b/;
     const cookWords = /\b(cook|fry|stir-fry|bake|roast|grill|sear|wok|skillet|oven|heat|boil|simmer|noodle|rice|salmon|chicken|beef|pork|shrimp|steak|meatball|carnitas)\b/;
     if (prepWords.test(value) && !/\b(fry|bake|roast|grill|sear|wok|skillet|oven|boil|simmer)\b/.test(value)) return 'prep';
     if (cookWords.test(value)) return 'cook';
     return 'prep';
+  };
+
+  const isPairSharedStarter = (section) => {
+    const value = `${section.label} ${section.title}`.toLowerCase();
+    return /\b(drink|beer|wine|cocktail|lager|cider|highball|mule|mojito|ranch water)\b/.test(value);
   };
 
   const pairTasksFromSections = (sections) => {
@@ -336,10 +342,11 @@
     sections.forEach((section, sectionIndex) => {
       section.steps.forEach((step, stepIndex) => {
         const key = `${sectionIndex}-${stepIndex}`;
+        const shared = isPairSharedStarter(section);
         tasks.push({
           key,
           originalIndex: tasks.length,
-          lane: assignments[key] || defaultPairLane(section),
+          lane: shared ? 'shared' : assignments[key] || defaultPairLane(section),
           label: section.label,
           title: section.title,
           pills: section.pills,
@@ -387,9 +394,11 @@
         ${group.tasks.map(task => `
           <li class="${readPairDone()[task.key] ? 'is-done' : ''}" data-pair-task="${task.key}" data-lane="${task.lane}">
             <span class="pair-step-text">${task.step}</span>
-            <button type="button" class="pair-move" data-pair-move="${task.key}">
-              ${task.lane === 'cook' ? 'Prep' : 'Cook'}
-            </button>
+            ${task.lane === 'shared' ? '' : `
+              <button type="button" class="pair-move" data-pair-move="${task.key}">
+                ${task.lane === 'cook' ? 'Prep' : 'Cook'}
+              </button>
+            `}
           </li>
         `).join('')}
       </ol>
@@ -409,7 +418,28 @@
         renderServingControl();
         wireIngredientPills();
         wirePairMoves();
+        wirePairSharedCollapse();
         wirePairStepDone();
+      });
+    });
+  };
+
+  const wirePairSharedCollapse = () => {
+    root.querySelectorAll('.pair-shared .pair-task-head').forEach(head => {
+      head.setAttribute('role', 'button');
+      head.setAttribute('tabindex', '0');
+      head.setAttribute('aria-expanded', head.closest('.pair-task')?.classList.contains('is-collapsed') ? 'false' : 'true');
+      const toggle = () => {
+        const task = head.closest('.pair-task');
+        if (!task) return;
+        const collapsed = task.classList.toggle('is-collapsed');
+        head.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+      };
+      head.addEventListener('click', toggle);
+      head.addEventListener('keydown', event => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        toggle();
       });
     });
   };
@@ -429,6 +459,7 @@
       };
       step.addEventListener('click', event => {
         if (event.target.closest('.pair-move')) return;
+        if (event.target.closest('.pair-task-head')) return;
         toggle();
       });
       step.addEventListener('keydown', event => {
@@ -522,6 +553,7 @@
     const heroSub = text(source, '.hero-sub') || metaSub || recipe.heroSub;
     const cookGroups = groupPairTasks(sections.filter(task => task.lane === 'cook').sort((a, b) => a.originalIndex - b.originalIndex));
     const prepGroups = groupPairTasks(sections.filter(task => task.lane === 'prep').sort((a, b) => a.originalIndex - b.originalIndex));
+    const sharedGroups = groupPairTasks(sections.filter(task => task.lane === 'shared').sort((a, b) => a.originalIndex - b.originalIndex));
 
     root.innerHTML = `
       <main class="shell pair-shell">
@@ -529,6 +561,11 @@
           <div class="hero-title">${heroTitle}</div>
           <div class="hero-sub">${heroSub.replace(/\s*·\s*/g, '<br>')}</div>
         </header>
+        ${sharedGroups.length ? `
+          <section class="pair-shared">
+            ${sharedGroups.map(renderPairGroup).join('')}
+          </section>
+        ` : ''}
         <div class="pair-board">
           <section class="pair-column pair-column-cook">
             <div class="pair-column-head">
@@ -600,5 +637,6 @@
   renderServingControl();
   wireIngredientPills();
   wirePairMoves();
+  wirePairSharedCollapse();
   wirePairStepDone();
 })();
