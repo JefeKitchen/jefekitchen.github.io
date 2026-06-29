@@ -377,8 +377,10 @@
     return groups;
   };
 
+  const pairGroupKey = (group) => group.tasks.map(task => task.key).join('|');
+
   const renderPairGroup = (group) => `
-    <article class="pair-task" data-lane="${group.lane}">
+    <article class="pair-task ${readPairDone()[pairGroupKey(group)] ? 'is-done' : ''}" data-lane="${group.lane}" data-pair-group="${pairGroupKey(group)}">
       <div class="pair-task-head">
         <span>
           <span class="pair-task-label">${group.label}</span>
@@ -392,11 +394,11 @@
       ` : ''}
       <ol>
         ${group.tasks.map(task => `
-          <li class="${readPairDone()[task.key] ? 'is-done' : ''}" data-pair-task="${task.key}" data-lane="${task.lane}">
+          <li data-pair-task="${task.key}" data-lane="${task.lane}">
             <span class="pair-step-text">${task.step}</span>
             ${task.lane === 'shared' ? '' : `
-              <button type="button" class="pair-move" data-pair-move="${task.key}">
-                ${task.lane === 'cook' ? 'Prep' : 'Cook'}
+              <button type="button" class="pair-move" data-pair-move="${task.key}" aria-label="Move to ${task.lane === 'cook' ? 'prep' : 'cook'}">
+                ${task.lane === 'cook' ? '&rarr;' : '&larr;'}
               </button>
             `}
           </li>
@@ -419,7 +421,8 @@
         wireIngredientPills();
         wirePairMoves();
         wirePairSharedCollapse();
-        wirePairStepDone();
+        wirePairHeaderScroll();
+        wirePairSectionDone();
       });
     });
   };
@@ -444,27 +447,37 @@
     });
   };
 
-  const wirePairStepDone = () => {
+  const wirePairHeaderScroll = () => {
+    const shell = root.querySelector('.pair-shell');
+    if (!shell) return;
+    const update = () => {
+      const scrolled = Array.from(root.querySelectorAll('.pair-scroll')).some(scroll => scroll.scrollTop > 8);
+      shell.classList.toggle('is-scrolled', scrolled);
+    };
+    root.querySelectorAll('.pair-scroll').forEach(scroll => {
+      scroll.addEventListener('scroll', update, { passive: true });
+    });
+    update();
+  };
+
+  const wirePairSectionDone = () => {
     const done = readPairDone();
-    root.querySelectorAll('[data-pair-task]').forEach(step => {
-      step.setAttribute('role', 'button');
-      step.setAttribute('tabindex', '0');
-      step.setAttribute('aria-pressed', step.classList.contains('is-done') ? 'true' : 'false');
+    root.querySelectorAll('.pair-board .pair-task-head').forEach(head => {
+      const task = head.closest('.pair-task');
+      const key = task?.dataset.pairGroup;
+      if (!task || !key) return;
+      head.setAttribute('role', 'button');
+      head.setAttribute('tabindex', '0');
+      head.setAttribute('aria-pressed', task.classList.contains('is-done') ? 'true' : 'false');
       const toggle = () => {
-        const key = step.dataset.pairTask;
         done[key] = !done[key];
-        step.classList.toggle('is-done', !!done[key]);
-        step.setAttribute('aria-pressed', done[key] ? 'true' : 'false');
+        task.classList.toggle('is-done', !!done[key]);
+        head.setAttribute('aria-pressed', done[key] ? 'true' : 'false');
         writePairDone(done);
       };
-      step.addEventListener('click', event => {
-        if (event.target.closest('.pair-move')) return;
-        if (event.target.closest('.pair-task-head')) return;
-        toggle();
-      });
-      step.addEventListener('keydown', event => {
+      head.addEventListener('click', toggle);
+      head.addEventListener('keydown', event => {
         if (event.key !== 'Enter' && event.key !== ' ') return;
-        if (event.target.closest('.pair-move')) return;
         event.preventDefault();
         toggle();
       });
@@ -557,7 +570,7 @@
 
     root.innerHTML = `
       <main class="shell pair-shell">
-        <header class="hero">
+        <header class="hero pair-hero">
           <div class="hero-title">${heroTitle}</div>
           <div class="hero-sub">${heroSub.replace(/\s*·\s*/g, '<br>')}</div>
         </header>
@@ -638,5 +651,6 @@
   wireIngredientPills();
   wirePairMoves();
   wirePairSharedCollapse();
-  wirePairStepDone();
+  wirePairHeaderScroll();
+  wirePairSectionDone();
 })();

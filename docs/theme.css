@@ -704,6 +704,46 @@ ol {
   min-height: 0 !important;
 }
 
+.pair-hero {
+  align-items: center !important;
+  flex: 0 0 auto !important;
+  gap: 10px !important;
+  margin-bottom: 10px !important;
+  padding: 6px 10px !important;
+  transition: padding 160ms ease, opacity 160ms ease !important;
+}
+
+.pair-hero .hero-title {
+  font-size: clamp(22px, 2.8vw, 34px) !important;
+  line-height: 0.95 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.pair-hero .hero-sub {
+  font-size: 11px !important;
+  line-height: 1.2 !important;
+  white-space: nowrap !important;
+}
+
+.pair-hero .instruction-controls {
+  margin-top: 0 !important;
+}
+
+.pair-shell.is-scrolled .pair-hero {
+  padding-bottom: 4px !important;
+  padding-top: 4px !important;
+}
+
+.pair-shell.is-scrolled .pair-hero .hero-title {
+  font-size: clamp(19px, 2.2vw, 28px) !important;
+}
+
+.pair-shell.is-scrolled .pair-hero .hero-sub {
+  opacity: 0.7 !important;
+}
+
 .pair-shared {
   flex: 0 0 auto !important;
   margin: 0 0 10px !important;
@@ -791,6 +831,7 @@ ol {
   align-items: center !important;
   background: var(--raised) !important;
   border-bottom: 1px solid var(--border) !important;
+  cursor: pointer !important;
   display: flex !important;
   gap: 10px !important;
   justify-content: space-between !important;
@@ -816,11 +857,18 @@ ol {
 }
 
 .pair-move {
-  color: var(--gold) !important;
+  align-items: center !important;
+  background: transparent !important;
+  border-color: rgba(184, 149, 58, 0.22) !important;
+  color: rgba(184, 149, 58, 0.82) !important;
+  display: inline-flex !important;
   flex: 0 0 auto !important;
-  font-size: 11px !important;
-  min-height: 24px !important;
-  padding: 4px 8px !important;
+  font-size: 14px !important;
+  height: 22px !important;
+  justify-content: center !important;
+  min-height: 22px !important;
+  padding: 0 !important;
+  width: 22px !important;
 }
 
 .pair-pull {
@@ -899,4 +947,18 @@ ol {
 
 .pair-task li.is-done .pair-move {
   opacity: 0.45 !important;
+}
+
+.pair-task.is-done .pair-task-head {
+  border-bottom: 0 !important;
+}
+
+.pair-task.is-done .pair-task-head strong {
+  color: var(--muted) !important;
+  text-decoration: line-through !important;
+}
+
+.pair-task.is-done .pair-pull,
+.pair-task.is-done ol {
+  display: none !important;
 }

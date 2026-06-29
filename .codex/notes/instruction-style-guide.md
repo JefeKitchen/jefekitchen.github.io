@@ -138,11 +138,14 @@ Pair Cook mode must be verified on an iPad-like wide viewport, not only by check
 Rules:
 
 - The drink/beer/wine/cocktail section should be a shared starter above Jeff/Jaya columns, not assigned to one person.
+- Pair Cook should use a compact title/header treatment. It is a work surface, so the recipe hero must not consume a large chunk of iPad space.
 - Each lane should scroll independently.
 - Task cards must use their natural height. Do not put pair task cards in a shrinking CSS grid row; use a vertical flex stack and keep `.pair-task` from shrinking.
 - Step text must be readable by default in both columns. The page should never show only section headers and ingredient pills unless the user intentionally collapsed a task.
 - After changing pair layout CSS, inspect rendered card measurements: each `.pair-task` should be tall enough to contain its header, pull pills, and ordered steps without clipping.
-- If a task is marked done, it may compact visually, but tapping it again must restore the readable step.
+- When changing pair-specific behavior, verify the browser is using the `renderPair` output, not only that a class or style exists somewhere in `renderWide`.
+- Pair Cook completion/compacting happens at the section card level. Tapping a section header can collapse that category; individual numbered steps should stay readable and should not be the done/collapse target.
+- Move controls between columns should be subtle arrow buttons, not large `Cook`/`Prep` text pills.
 
 ## Cache
 
