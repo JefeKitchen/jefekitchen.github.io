@@ -1433,54 +1433,86 @@ window.JEFES_KITCHEN_CATALOG = {
         "Produce": [
           [
             "onions",
-            "Onions",
-            "Several, for topping and caramelizing"
+            "White onions",
+            "4 onions; split between caramelized onions, smash onions, and raw topping"
           ]
         ],
         "Meat/Seafood": [
           [
             "ground-beef",
-            "Ground beef",
-            "For sliders"
+            "80/20 ground chuck",
+            "2 lb"
           ]
         ],
         "Dairy": [
           [
-            "cheese",
-            "Cheese",
-            "Pepper Jack, Gruyere, and/or cheddar"
+            "pepper-jack",
+            "Pepper Jack",
+            "4 slices or about 3 oz"
+          ],
+          [
+            "gruyere",
+            "Gruyere",
+            "4 slices or about 3 oz"
+          ],
+          [
+            "cheddar",
+            "Sharp cheddar",
+            "4 slices or about 3 oz"
           ],
           [
             "butter",
             "Butter",
-            "For buns and onions"
+            "4 tbsp"
+          ]
+        ],
+        "Bakery": [
+          [
+            "hawaiian-rolls",
+            "Hawaiian slider rolls",
+            "12 rolls"
           ]
         ],
         "Pantry": [
           [
-            "hawaiian-rolls",
-            "Hawaiian rolls",
-            "For sliders"
+            "dill-pickle-chips",
+            "Dill pickle chips",
+            "1 jar"
           ],
           [
-            "pickles",
-            "Pickles",
-            "For topping"
+            "pickled-jalapenos",
+            "Pickled jalapenos",
+            "1 jar"
           ],
           [
             "mayo",
             "Mayo",
-            "For sauce"
+            "3 tbsp"
           ],
           [
-            "mustard",
-            "Mustard",
-            "For sauce and topping"
+            "yellow-mustard",
+            "Yellow mustard",
+            "1 tsp, plus extra for topping"
+          ],
+          [
+            "dijon",
+            "Dijon mustard",
+            "Small jar"
           ],
           [
             "horseradish",
             "Horseradish",
-            "For French Press sliders"
+            "Small jar"
+          ],
+          [
+            "sriracha",
+            "Sriracha",
+            "1 1/2 tbsp"
+          ],
+          [
+            "parchment",
+            "Parchment paper",
+            "For smashing"
           ]
         ]
       },

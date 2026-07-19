@@ -90,7 +90,7 @@ window.JEFES_RECIPE_SERVINGS = {
     "servingType": "people"
   },
   "smash-sliders": {
-    "baseServings": 2,
+    "baseServings": 4,
     "defaultServings": 3,
     "servingType": "people"
   },
