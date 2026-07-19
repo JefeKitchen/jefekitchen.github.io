@@ -56,7 +56,7 @@ window.JEFES_KITCHEN_PREP = {
     { section: "Quick Cucumber Topping" },
     { section: "Sriracha Drizzle" }
   ],
-  "sliders": [
+  "smash-sliders": [
     { section: "Caramelized Onions" },
     { section: "Onions, Sauce & Cheese" },
     { section: "Portion the Beef & Heat Up", steps: [0, 2] }
