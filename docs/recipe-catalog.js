@@ -39,7 +39,8 @@ window.JEFES_KITCHEN_CATALOG = {
         "rotisserie-chicken-chow-mein",
         "chicken-skewers",
         "mild-chicken-noodle-bake",
-        "pineapple-orange-teriyaki"
+        "pineapple-orange-teriyaki",
+        "primavera-stuffed-chicken"
       ]
     },
     {
@@ -373,6 +374,43 @@ window.JEFES_KITCHEN_CATALOG = {
         ]
       },
       "grocery": "./docs/chicken-fried-rice/grocery-list-chicken-fried-rice.html"
+    },
+    "primavera-stuffed-chicken": {
+      "id": "primavera-stuffed-chicken",
+      "name": "Primavera Stuffed Chicken",
+      "title": "Primavera Stuffed Chicken",
+      "subtitle": "Zucchini · Tomato · Mozzarella",
+      "section": "chicken",
+      "menu": "./docs/primavera-stuffed-chicken/primavera-stuffed-chicken-menu.html",
+      "phone": "./docs/primavera-stuffed-chicken/primavera-stuffed-chicken-instructions.html",
+      "wide": "./docs/primavera-stuffed-chicken/primavera-stuffed-chicken-wide.html",
+      "items": {
+        "Produce": [
+          ["zucchini", "Zucchini", "1 medium"],
+          ["tomatoes", "Roma or medium tomatoes", "2-3"],
+          ["yellow-bell-peppers", "Yellow bell peppers", "2"],
+          ["red-onion", "Red onion", "1 small"],
+          ["garlic", "Garlic", "1 head"],
+          ["lemon", "Lemon", "1"],
+          ["parsley", "Parsley", "1 bunch"]
+        ],
+        "Meat/Seafood": [
+          ["chicken-breasts", "Boneless skinless chicken breasts", "About 1 1/4 lb, 3 breasts"]
+        ],
+        "Dairy": [
+          ["mozzarella", "Shredded mozzarella", "3/4 cup"],
+          ["parmesan", "Parmesan", "1/4 cup, optional for orzo"]
+        ],
+        "Pantry": [
+          ["orzo", "Orzo", "1 cup dry"],
+          ["chicken-broth", "Chicken broth", "2 cups"],
+          ["italian-seasoning", "Italian seasoning", "1 tsp"]
+        ],
+        "Alcohol/Drinks": [
+          ["crisp-white-wine", "Crisp white wine", "Optional pairing"]
+        ]
+      },
+      "grocery": "./docs/primavera-stuffed-chicken/grocery-list-primavera-stuffed-chicken.html"
     },
     "rotisserie-chicken-chow-mein": {
       "id": "rotisserie-chicken-chow-mein",

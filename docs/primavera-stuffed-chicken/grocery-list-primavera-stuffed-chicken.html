@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Grocery List - Primavera Stuffed Chicken</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../theme.css?v=4">
+</head>
+<body>
+<div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
+
+<div class="page-title">Grocery List</div>
+<div class="page-sub">Primavera Stuffed Chicken</div>
+
+<div class="section">
+  <div class="section-header need">Produce</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="psc1"><label for="psc1">Zucchini<span class="item-note">1 medium</span></label></div>
+    <div class="item"><input type="checkbox" id="psc2"><label for="psc2">Roma or medium tomatoes<span class="item-note">2-3</span></label></div>
+    <div class="item"><input type="checkbox" id="psc3"><label for="psc3">Yellow bell peppers<span class="item-note">2</span></label></div>
+    <div class="item"><input type="checkbox" id="psc4"><label for="psc4">Red onion<span class="item-note">1 small</span></label></div>
+    <div class="item"><input type="checkbox" id="psc5"><label for="psc5">Garlic<span class="item-note">1 head</span></label></div>
+    <div class="item"><input type="checkbox" id="psc6"><label for="psc6">Lemon<span class="item-note">1</span></label></div>
+    <div class="item"><input type="checkbox" id="psc7"><label for="psc7">Parsley<span class="item-note">1 bunch</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Meat/Seafood</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="psc8"><label for="psc8">Boneless skinless chicken breasts<span class="item-note">About 1 1/4 lb, 3 breasts</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Dairy</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="psc9"><label for="psc9">Shredded mozzarella<span class="item-note">3/4 cup</span></label></div>
+    <div class="item"><input type="checkbox" id="psc10"><label for="psc10">Parmesan<span class="item-note">1/4 cup, optional for orzo</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Pantry</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="psc11"><label for="psc11">Orzo<span class="item-note">1 cup dry</span></label></div>
+    <div class="item"><input type="checkbox" id="psc12"><label for="psc12">Chicken broth<span class="item-note">2 cups, for orzo</span></label></div>
+    <div class="item"><input type="checkbox" id="psc13"><label for="psc13">Italian seasoning<span class="item-note">1 tsp</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Alcohol/Drinks</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="psc14"><label for="psc14">Crisp white wine<span class="item-note">Optional pairing</span></label></div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    const key = `primavera-stuffed-chicken-${cb.id}`;
+    cb.checked = localStorage.getItem(key) === 'checked';
+    cb.addEventListener('change', () => {
+      localStorage.setItem(key, cb.checked ? 'checked' : '');
+    });
+  });
+</script>
+<script src="../grocery-boom.js?v=1"></script>
+</body>
+</html>

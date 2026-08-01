@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v194';
+const CACHE_NAME = 'jeffs-kitchen-v195';
 
 const PAGES = [
   './',
@@ -12,11 +12,11 @@ const PAGES = [
   './docs/menu-card.css',
   './docs/wide-layout.css',
   './docs/wide-pills.js',
-  './docs/instruction-content.js?v=23',
+  './docs/instruction-content.js?v=24',
   './docs/quantity-scaler.js?v=4',
-  './docs/recipe-catalog.js?v=2',
-  './docs/recipe-serving-data.js?v=3',
-  './docs/prep-catalog.js?v=4',
+  './docs/recipe-catalog.js?v=3',
+  './docs/recipe-serving-data.js?v=4',
+  './docs/prep-catalog.js?v=5',
   './docs/instruction-tools.js?v=1',
   './docs/firebase-config.js',
   './docs/firebase-state.js?v=4',
@@ -40,6 +40,10 @@ const PAGES = [
   './docs/chicken-fried-rice/chicken-fried-rice-instructions.html',
   './docs/chicken-fried-rice/grocery-list-chicken-fried-rice.html',
   './docs/chicken-fried-rice/chicken-fried-rice-menu.html',
+  './docs/primavera-stuffed-chicken/primavera-stuffed-chicken-menu.html',
+  './docs/primavera-stuffed-chicken/grocery-list-primavera-stuffed-chicken.html',
+  './docs/primavera-stuffed-chicken/primavera-stuffed-chicken-instructions.html',
+  './docs/primavera-stuffed-chicken/primavera-stuffed-chicken-wide.html',
   './docs/rotisserie-chicken-chow-mein/rotisserie-chicken-chow-mein-menu.html',
   './docs/rotisserie-chicken-chow-mein/grocery-list-rotisserie-chicken-chow-mein.html',
   './docs/rotisserie-chicken-chow-mein/rotisserie-chicken-chow-mein-instructions.html',
@@ -151,8 +155,8 @@ const APP_SHELL = [
   './assets/icons/apple-touch-icon.png',
   './assets/icons/favicon.png',
   './docs/theme.css',
-  './docs/recipe-catalog.js?v=2',
-  './docs/recipe-serving-data.js?v=3',
+  './docs/recipe-catalog.js?v=3',
+  './docs/recipe-serving-data.js?v=4',
   './docs/quantity-scaler.js?v=4',
   './docs/firebase-config.js',
   './docs/firebase-state.js?v=4',

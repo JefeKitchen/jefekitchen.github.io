@@ -410,3 +410,13 @@ body {
   .page { padding: 42px 26px 46px; }
   .title { font-size: 38px; }
 }
+
+
+body.theme-primavera {
+  --accent: #d6b950;
+  --accent-soft: rgba(214, 185, 80, 0.16);
+  --paper: #161a15;
+  --paper-soft: #20261f;
+  --ink: #f4efe4;
+  --muted: #b7ad9a;
+}

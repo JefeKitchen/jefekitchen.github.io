@@ -1,4 +1,8 @@
 window.JEFES_KITCHEN_PREP = {
+  "primavera-stuffed-chicken": [
+    { section: "Cut and Stuff" },
+    { section: "Lemon-Garlic Orzo", steps: [0] }
+  ],
   "beef-meatballs-buttered-noodles": [
     { section: "Make the Meatballs" }
   ],

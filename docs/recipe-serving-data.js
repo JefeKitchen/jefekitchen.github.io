@@ -1,4 +1,9 @@
 window.JEFES_RECIPE_SERVINGS = {
+  "primavera-stuffed-chicken": {
+    "baseServings": 3,
+    "defaultServings": 3,
+    "servingType": "people"
+  },
   "beef-meatballs-buttered-noodles": {
     "baseServings": 3.5,
     "defaultServings": 3,
