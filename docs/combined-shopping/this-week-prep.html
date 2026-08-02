@@ -115,7 +115,7 @@
 <script src="../instruction-content.js?v=25"></script>
 <script src="../recipe-serving-data.js?v=4"></script>
 <script src="../quantity-scaler.js?v=4"></script>
-<script src="../prep-catalog.js?v=5"></script>
+<script src="../prep-catalog.js?v=7"></script>
 <script src="../instruction-tools.js?v=1"></script>
 <script type="module" src="../firebase-state.js?v=4"></script>
 <script>
@@ -246,7 +246,30 @@
       sections.find(section => section.key === wanted) ||
       sections.find(section => section.title.toLowerCase().includes(wanted));
   }
-  function prepSectionFromSpec(sections, spec) {
+  function scalePrepStep(step, entry) {
+    const defaults = servingData[entry.id] || {};
+    const target = Number(entry.servings || 0);
+    const base = Number(defaults.baseServings || defaults.defaultServings || 0);
+    if (!target || !base || Math.abs(target / base - 1) < 0.01 || !window.KitchenQuantityScaler?.scaleQuantityText) return step;
+    const template = document.createElement('template');
+    template.innerHTML = step;
+    template.content.querySelectorAll('.ing').forEach(node => {
+      node.textContent = window.KitchenQuantityScaler.scaleQuantityText(node.textContent, target / base);
+    });
+    return template.innerHTML;
+  }
+  function prepSectionFromSpec(sections, spec, entry) {
+    if (Array.isArray(spec.prepSteps) && spec.prepSteps.length) {
+      const steps = spec.prepSteps.map(step => '<span class="st">' + scalePrepStep(step, entry) + '</span>');
+      return {
+        title: spec.title || spec.section || 'Prep',
+        label: spec.label || 'Prep Ahead',
+        pills: spec.pills || instructionTools.pillsFromSteps(steps),
+        steps,
+        full: Boolean(spec.full),
+        split: Boolean(spec.split)
+      };
+    }
     const section = findSection(sections, spec);
     if (!section) return null;
     if (isApplianceOnlySection(section)) return null;
@@ -321,7 +344,7 @@
       const recipe = recipeCatalog[entry.id];
       const sections = recipeSections(entry);
       const prepSections = prepCatalog[entry.id]
-        .map(spec => prepSectionFromSpec(sections, spec))
+        .map(spec => prepSectionFromSpec(sections, spec, entry))
         .filter(Boolean);
       if (!prepSections.length) return '';
       const balancedSections = balancePrepGrid(prepSections);
