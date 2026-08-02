@@ -404,7 +404,8 @@ window.JEFES_KITCHEN_CATALOG = {
         "Pantry": [
           ["orzo", "Orzo", "1 cup dry"],
           ["chicken-broth", "Chicken broth", "2 cups"],
-          ["italian-seasoning", "Italian seasoning", "1 tsp"]
+          ["italian-seasoning", "Italian seasoning", "1 tsp"],
+          ["red-sauce", "Red sauce or marinara", "About 1 cup"]
         ],
         "Alcohol/Drinks": [
           ["crisp-white-wine", "Crisp white wine", "Optional pairing"]
