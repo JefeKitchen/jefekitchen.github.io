@@ -113,5 +113,10 @@ window.JEFES_RECIPE_SERVINGS = {
     "baseServings": 4,
     "defaultServings": 8,
     "servingType": "servings"
+  },
+  "chicken-milanese": {
+    "baseServings": 3,
+    "defaultServings": 3,
+    "servingType": "people"
   }
 };

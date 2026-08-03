@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Grocery List - Chicken Milanese</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../theme.css?v=4">
+</head>
+<body>
+<div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
+
+<div class="page-title">Grocery List</div>
+<div class="page-sub">Chicken Milanese</div>
+
+<div class="section">
+  <div class="section-header need">Produce</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="cm1"><label for="cm1">Arugula<span class="item-note">Small container</span></label></div>
+    <div class="item"><input type="checkbox" id="cm2"><label for="cm2">Cherry or grape tomatoes<span class="item-note">1 pint</span></label></div>
+    <div class="item"><input type="checkbox" id="cm3"><label for="cm3">Fresh basil<span class="item-note">Small bunch</span></label></div>
+    <div class="item"><input type="checkbox" id="cm4"><label for="cm4">Garlic<span class="item-note">1 head</span></label></div>
+    <div class="item"><input type="checkbox" id="cm5"><label for="cm5">Lemons<span class="item-note">2</span></label></div>
+    <div class="item"><input type="checkbox" id="cm6"><label for="cm6">Parsley<span class="item-note">Small bunch, optional</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Meat/Seafood</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="cm7"><label for="cm7">Boneless skinless chicken breasts<span class="item-note">About 1 1/4 lb</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Dairy</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="cm8"><label for="cm8">Eggs<span class="item-note">2</span></label></div>
+    <div class="item"><input type="checkbox" id="cm9"><label for="cm9">Parmesan<span class="item-note">About 3/4 cup</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Pantry</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="cm10"><label for="cm10">Spaghetti<span class="item-note">8 oz</span></label></div>
+    <div class="item"><input type="checkbox" id="cm11"><label for="cm11">Panko breadcrumbs<span class="item-note">1 1/2 cups</span></label></div>
+    <div class="item"><input type="checkbox" id="cm12"><label for="cm12">Flour<span class="item-note">1/2 cup</span></label></div>
+    <div class="item"><input type="checkbox" id="cm13"><label for="cm13">Tomato basil sauce or marinara<span class="item-note">About 2 cups</span></label></div>
+    <div class="item"><input type="checkbox" id="cm14"><label for="cm14">Italian seasoning<span class="item-note">1 tsp</span></label></div>
+    <div class="item"><input type="checkbox" id="cm15"><label for="cm15">Neutral oil<span class="item-note">For shallow frying</span></label></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header need">Alcohol/Drinks</div>
+  <div class="item-list">
+    <div class="item"><input type="checkbox" id="cm16"><label for="cm16">Dry white wine<span class="item-note">Optional pairing</span></label></div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    const key = `chicken-milanese-${cb.id}`;
+    cb.checked = localStorage.getItem(key) === 'checked';
+    cb.addEventListener('change', () => {
+      localStorage.setItem(key, cb.checked ? 'checked' : '');
+    });
+  });
+</script>
+<script src="../grocery-boom.js?v=1"></script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v198';
+const CACHE_NAME = 'jeffs-kitchen-v199';
 
 const PAGES = [
   './',
@@ -12,11 +12,11 @@ const PAGES = [
   './docs/menu-card.css',
   './docs/wide-layout.css',
   './docs/wide-pills.js',
-  './docs/instruction-content.js?v=25',
+  './docs/instruction-content.js?v=26',
   './docs/quantity-scaler.js?v=4',
-  './docs/recipe-catalog.js?v=4',
-  './docs/recipe-serving-data.js?v=4',
-  './docs/prep-catalog.js?v=7',
+  './docs/recipe-catalog.js?v=5',
+  './docs/recipe-serving-data.js?v=5',
+  './docs/prep-catalog.js?v=8',
   './docs/instruction-tools.js?v=1',
   './docs/firebase-config.js',
   './docs/firebase-state.js?v=4',
@@ -44,6 +44,10 @@ const PAGES = [
   './docs/primavera-stuffed-chicken/grocery-list-primavera-stuffed-chicken.html',
   './docs/primavera-stuffed-chicken/primavera-stuffed-chicken-instructions.html',
   './docs/primavera-stuffed-chicken/primavera-stuffed-chicken-wide.html',
+  './docs/chicken-milanese/chicken-milanese-menu.html',
+  './docs/chicken-milanese/grocery-list-chicken-milanese.html',
+  './docs/chicken-milanese/chicken-milanese-instructions.html',
+  './docs/chicken-milanese/chicken-milanese-wide.html',
   './docs/rotisserie-chicken-chow-mein/rotisserie-chicken-chow-mein-menu.html',
   './docs/rotisserie-chicken-chow-mein/grocery-list-rotisserie-chicken-chow-mein.html',
   './docs/rotisserie-chicken-chow-mein/rotisserie-chicken-chow-mein-instructions.html',
@@ -155,8 +159,8 @@ const APP_SHELL = [
   './assets/icons/apple-touch-icon.png',
   './assets/icons/favicon.png',
   './docs/theme.css',
-  './docs/recipe-catalog.js?v=4',
-  './docs/recipe-serving-data.js?v=4',
+  './docs/recipe-catalog.js?v=5',
+  './docs/recipe-serving-data.js?v=5',
   './docs/quantity-scaler.js?v=4',
   './docs/firebase-config.js',
   './docs/firebase-state.js?v=4',

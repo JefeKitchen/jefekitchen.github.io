@@ -36,6 +36,7 @@ window.JEFES_KITCHEN_CATALOG = {
       "title": "Chicken",
       "recipes": [
         "chicken-fried-rice",
+        "chicken-milanese",
         "rotisserie-chicken-chow-mein",
         "chicken-skewers",
         "mild-chicken-noodle-bake",
@@ -386,29 +387,89 @@ window.JEFES_KITCHEN_CATALOG = {
       "wide": "./docs/primavera-stuffed-chicken/primavera-stuffed-chicken-wide.html",
       "items": {
         "Produce": [
-          ["zucchini", "Zucchini", "1 medium"],
-          ["tomatoes", "Roma or medium tomatoes", "2-3"],
-          ["yellow-bell-peppers", "Yellow bell peppers", "2"],
-          ["red-onion", "Red onion", "1 small"],
-          ["garlic", "Garlic", "1 head"],
-          ["lemon", "Lemon", "1"],
-          ["parsley", "Parsley", "1 bunch"]
+          [
+            "zucchini",
+            "Zucchini",
+            "1 medium"
+          ],
+          [
+            "tomatoes",
+            "Roma or medium tomatoes",
+            "2-3"
+          ],
+          [
+            "yellow-bell-peppers",
+            "Yellow bell peppers",
+            "2"
+          ],
+          [
+            "red-onion",
+            "Red onion",
+            "1 small"
+          ],
+          [
+            "garlic",
+            "Garlic",
+            "1 head"
+          ],
+          [
+            "lemon",
+            "Lemon",
+            "1"
+          ],
+          [
+            "parsley",
+            "Parsley",
+            "1 bunch"
+          ]
         ],
         "Meat/Seafood": [
-          ["chicken-breasts", "Boneless skinless chicken breasts", "About 1 1/4 lb, 3 breasts"]
+          [
+            "chicken-breasts",
+            "Boneless skinless chicken breasts",
+            "About 1 1/4 lb, 3 breasts"
+          ]
         ],
         "Dairy": [
-          ["mozzarella", "Shredded mozzarella", "3/4 cup"],
-          ["parmesan", "Parmesan", "1/4 cup, optional for orzo"]
+          [
+            "mozzarella",
+            "Shredded mozzarella",
+            "3/4 cup"
+          ],
+          [
+            "parmesan",
+            "Parmesan",
+            "1/4 cup, optional for orzo"
+          ]
         ],
         "Pantry": [
-          ["orzo", "Orzo", "1 cup dry"],
-          ["chicken-broth", "Chicken broth", "2 cups"],
-          ["italian-seasoning", "Italian seasoning", "1 tsp"],
-          ["red-sauce", "Red sauce or marinara", "About 1 cup"]
+          [
+            "orzo",
+            "Orzo",
+            "1 cup dry"
+          ],
+          [
+            "chicken-broth",
+            "Chicken broth",
+            "2 cups"
+          ],
+          [
+            "italian-seasoning",
+            "Italian seasoning",
+            "1 tsp"
+          ],
+          [
+            "red-sauce",
+            "Red sauce or marinara",
+            "About 1 cup"
+          ]
         ],
         "Alcohol/Drinks": [
-          ["crisp-white-wine", "Crisp white wine", "Optional pairing"]
+          [
+            "crisp-white-wine",
+            "Crisp white wine",
+            "Optional pairing"
+          ]
         ]
       },
       "grocery": "./docs/primavera-stuffed-chicken/grocery-list-primavera-stuffed-chicken.html"
@@ -419,38 +480,113 @@ window.JEFES_KITCHEN_CATALOG = {
       "title": "Rotisserie Chicken Chow Mein",
       "subtitle": "Rotisserie Chicken · Noodles · Cabbage",
       "section": "chicken",
-      "tags": ["rotisserie", "wok"],
+      "tags": [
+        "rotisserie",
+        "wok"
+      ],
       "menu": "./docs/rotisserie-chicken-chow-mein/rotisserie-chicken-chow-mein-menu.html",
       "phone": "./docs/rotisserie-chicken-chow-mein/rotisserie-chicken-chow-mein-instructions.html",
       "wide": "./docs/rotisserie-chicken-chow-mein/rotisserie-chicken-chow-mein-wide.html",
       "items": {
         "Produce": [
-          ["green-cabbage", "Green cabbage", "1 small head or bag shredded cabbage"],
-          ["carrots", "Carrots", "2 medium or matchstick carrots"],
-          ["green-onions", "Green onions", "1 bunch"],
-          ["garlic", "Garlic", "1 head"],
-          ["ginger", "Fresh ginger", "Small knob"],
-          ["cucumber", "Cucumber", "1, for side"],
-          ["lime", "Lime", "2"]
+          [
+            "green-cabbage",
+            "Green cabbage",
+            "1 small head or bag shredded cabbage"
+          ],
+          [
+            "carrots",
+            "Carrots",
+            "2 medium or matchstick carrots"
+          ],
+          [
+            "green-onions",
+            "Green onions",
+            "1 bunch"
+          ],
+          [
+            "garlic",
+            "Garlic",
+            "1 head"
+          ],
+          [
+            "ginger",
+            "Fresh ginger",
+            "Small knob"
+          ],
+          [
+            "cucumber",
+            "Cucumber",
+            "1, for side"
+          ],
+          [
+            "lime",
+            "Lime",
+            "2"
+          ]
         ],
         "Meat/Seafood": [
-          ["rotisserie-chicken", "Rotisserie chicken", "About 2 1/2 cups shredded"]
+          [
+            "rotisserie-chicken",
+            "Rotisserie chicken",
+            "About 2 1/2 cups shredded"
+          ]
         ],
         "Refrigerated": [
-          ["chow-mein-noodles", "Chow mein or yakisoba noodles", "16-18 oz refrigerated pack"]
+          [
+            "chow-mein-noodles",
+            "Chow mein or yakisoba noodles",
+            "16-18 oz refrigerated pack"
+          ]
         ],
         "Pantry": [
-          ["soy-sauce", "Soy sauce", "About 1/4 cup"],
-          ["oyster-sauce", "Oyster sauce", "Small bottle"],
-          ["rice-vinegar", "Rice vinegar", "For sauce and cucumber side"],
-          ["sesame-oil", "Sesame oil", "Small bottle, if needed"],
-          ["cornstarch", "Cornstarch", "For sauce gloss"],
-          ["neutral-oil", "Neutral oil", "For wok cooking, if needed"],
-          ["chili-crisp", "Chili crisp or sriracha", "Optional heat"]
+          [
+            "soy-sauce",
+            "Soy sauce",
+            "About 1/4 cup"
+          ],
+          [
+            "oyster-sauce",
+            "Oyster sauce",
+            "Small bottle"
+          ],
+          [
+            "rice-vinegar",
+            "Rice vinegar",
+            "For sauce and cucumber side"
+          ],
+          [
+            "sesame-oil",
+            "Sesame oil",
+            "Small bottle, if needed"
+          ],
+          [
+            "cornstarch",
+            "Cornstarch",
+            "For sauce gloss"
+          ],
+          [
+            "neutral-oil",
+            "Neutral oil",
+            "For wok cooking, if needed"
+          ],
+          [
+            "chili-crisp",
+            "Chili crisp or sriracha",
+            "Optional heat"
+          ]
         ],
         "Alcohol/Drinks": [
-          ["ginger-beer", "Ginger beer or ginger soda", "For drink"],
-          ["gin-vodka", "Gin or vodka", "Optional"]
+          [
+            "ginger-beer",
+            "Ginger beer or ginger soda",
+            "For drink"
+          ],
+          [
+            "gin-vodka",
+            "Gin or vodka",
+            "Optional"
+          ]
         ]
       },
       "grocery": "./docs/rotisserie-chicken-chow-mein/grocery-list-rotisserie-chicken-chow-mein.html"
@@ -1808,6 +1944,109 @@ window.JEFES_KITCHEN_CATALOG = {
             "garlic-powder",
             "Garlic powder",
             "If needed"
+          ]
+        ]
+      }
+    },
+    "chicken-milanese": {
+      "id": "chicken-milanese",
+      "name": "Chicken Milanese",
+      "title": "Chicken Milanese",
+      "subtitle": "Crispy Chicken · Tomato Basil Spaghetti",
+      "section": "chicken",
+      "menu": "./docs/chicken-milanese/chicken-milanese-menu.html",
+      "phone": "./docs/chicken-milanese/chicken-milanese-instructions.html",
+      "wide": "./docs/chicken-milanese/chicken-milanese-wide.html",
+      "grocery": "./docs/chicken-milanese/grocery-list-chicken-milanese.html",
+      "items": {
+        "Produce": [
+          [
+            "arugula",
+            "Arugula",
+            "Small container"
+          ],
+          [
+            "tomatoes",
+            "Cherry or grape tomatoes",
+            "1 pint"
+          ],
+          [
+            "basil",
+            "Fresh basil",
+            "Small bunch"
+          ],
+          [
+            "garlic",
+            "Garlic",
+            "1 head"
+          ],
+          [
+            "lemons",
+            "Lemons",
+            "2"
+          ],
+          [
+            "parsley",
+            "Parsley",
+            "Small bunch, optional"
+          ]
+        ],
+        "Meat/Seafood": [
+          [
+            "chicken-breasts",
+            "Boneless skinless chicken breasts",
+            "About 1 1/4 lb"
+          ]
+        ],
+        "Dairy": [
+          [
+            "eggs",
+            "Eggs",
+            "2"
+          ],
+          [
+            "parmesan",
+            "Parmesan",
+            "About 3/4 cup"
+          ]
+        ],
+        "Pantry": [
+          [
+            "spaghetti",
+            "Spaghetti",
+            "8 oz"
+          ],
+          [
+            "panko",
+            "Panko breadcrumbs",
+            "1 1/2 cups"
+          ],
+          [
+            "flour",
+            "Flour",
+            "1/2 cup"
+          ],
+          [
+            "marinara",
+            "Tomato basil sauce or marinara",
+            "About 2 cups"
+          ],
+          [
+            "italian-seasoning",
+            "Italian seasoning",
+            "1 tsp"
+          ],
+          [
+            "neutral-oil",
+            "Neutral oil",
+            "For shallow frying"
+          ]
+        ],
+        "Alcohol/Drinks": [
+          [
+            "white-wine",
+            "Dry white wine",
+            "Optional pairing"
           ]
         ]
       }
