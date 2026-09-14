@@ -3,26 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Recipe Title</title>
+<title>Recipe Title Instructions</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../docs/theme.css?v=2">
+<link rel="stylesheet" href="../theme.css?v=ASSET_VERSION">
+<!-- Add this only to the wide shell. -->
+<!-- <link rel="stylesheet" href="../wide-layout.css?v=ASSET_VERSION"> -->
+<script src="../instruction-content.js?v=ASSET_VERSION" defer></script>
+<script src="../recipe-serving-data.js?v=ASSET_VERSION" defer></script>
+<script src="../quantity-scaler.js?v=ASSET_VERSION" defer></script>
+<script src="../instruction-renderer.js?v=ASSET_VERSION" defer></script>
 </head>
-<body>
-<div class="back-bar"><a href="../index.html" aria-label="Back to kitchen">&#8249;</a></div>
-
-<div class="hero">
-  <div class="recipe-label">Optional subtitle</div>
-  <h1 class="recipe-title">Recipe <span>Title</span></h1>
-</div>
-
-<div class="section">
-  <div class="section-header">Section Name</div>
-  <div class="item-list">
-    <div class="item">
-      <p>Write the first item, ingredient, or instruction here.</p>
-    </div>
-  </div>
-</div>
-
+<body data-recipe="recipe-id" data-layout="phone">
+<div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
+<!-- Recipe steps live in docs/instruction-content.js, keyed by data-recipe. -->
+<div id="instruction-root"></div>
 </body>
 </html>
