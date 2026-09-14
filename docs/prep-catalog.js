@@ -1,4 +1,25 @@
 window.JEFES_KITCHEN_PREP = {
+  "beef-stroganoff-skillet": [
+    {
+      "title": "Slice the skillet vegetables",
+      "label": "Mise · Prep Ahead",
+      "pills": ["Yellow onion", "Mushrooms", "Garlic", "Parsley"],
+      "prepSteps": [
+        "Thinly slice <span class=\"ing\">1 medium yellow onion</span> and <span class=\"ing\">8 oz mushrooms</span>.",
+        "Mince <span class=\"ing\">3 garlic cloves</span> and chop a small handful of <span class=\"ing\">parsley</span> if using.",
+        "Refrigerate separately until cook time."
+      ]
+    },
+    {
+      "title": "Mix the sauce base",
+      "label": "Sauce · Prep Ahead",
+      "pills": ["Beef broth", "Dijon mustard", "Worcestershire sauce", "Flour"],
+      "prepSteps": [
+        "Whisk <span class=\"ing\">1 cup beef broth</span>, <span class=\"ing\">1 tbsp Dijon mustard</span>, <span class=\"ing\">2 tsp Worcestershire sauce</span>, and <span class=\"ing\">1 tbsp flour</span> until smooth.",
+        "Refrigerate and stir again before cooking."
+      ]
+    }
+  ],
   "beef-meatballs-buttered-noodles": [
     {
       "title": "Roll meatballs",
@@ -63,7 +84,7 @@ window.JEFES_KITCHEN_PREP = {
         "Egg noodles"
       ],
       "prepSteps": [
-        "Boil <span class=\"ing\">12 oz egg noodles</span> in salted water until just tender.",
+        "Boil <span class=\"ing\">8 oz egg noodles</span> in salted water until just tender.",
         "Drain, cool, and refrigerate until cook time."
       ]
     },
@@ -74,13 +95,17 @@ window.JEFES_KITCHEN_PREP = {
         "Chicken",
         "Pea and carrot medley",
         "Breadcrumbs",
-        "Parmesan"
+        "Parmesan",
+        "Onion powder",
+        "Garlic powder",
+        "Poultry seasoning"
       ],
       "prepSteps": [
         "Shred or portion <span class=\"ing\">2-3 cups cooked chicken</span>.",
         "Measure <span class=\"ing\">1 1/2 cups frozen pea and carrot medley</span>.",
         "If using topping, measure <span class=\"ing\">1/3 cup breadcrumbs</span> or crushed crackers and <span class=\"ing\">2 tbsp parmesan</span> separately.",
-        "Refrigerate chicken and vegetables until cook time."
+        "Refrigerate chicken and vegetables until cook time.",
+        "Measure <span class=\"ing\">1 tsp onion powder</span>, <span class=\"ing\">1 tsp garlic powder</span>, and <span class=\"ing\">1 tsp poultry seasoning</span> for the sauce."
       ]
     }
   ],

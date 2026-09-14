@@ -15,6 +15,7 @@ window.JEFES_KITCHEN_CATALOG = {
       "id": "beef",
       "title": "Beef",
       "recipes": [
+        "beef-stroganoff-skillet",
         "beef-meatballs-buttered-noodles",
         "beef-broccoli-wok",
         "smash-sliders",
@@ -71,6 +72,41 @@ window.JEFES_KITCHEN_CATALOG = {
     }
   ],
   "recipes": {
+    "beef-stroganoff-skillet": {
+      "id": "beef-stroganoff-skillet",
+      "name": "Beef Stroganoff Skillet",
+      "title": "Beef Stroganoff Skillet",
+      "subtitle": "Beef · Mushrooms · Creamy Egg Noodles",
+      "section": "beef",
+      "menu": "./docs/beef-stroganoff-skillet/beef-stroganoff-skillet-menu.html",
+      "phone": "./docs/beef-stroganoff-skillet/beef-stroganoff-skillet-instructions.html",
+      "wide": "./docs/beef-stroganoff-skillet/beef-stroganoff-skillet-wide.html",
+      "items": {
+        "Produce": [
+          ["yellow-onion", "Yellow onion", "1 medium"],
+          ["mushrooms", "Cremini or white mushrooms", "8 oz"],
+          ["garlic", "Garlic", "3 cloves"],
+          ["parsley", "Parsley", "Small bunch, optional"],
+          ["green-beans", "Green beans", "8 oz"]
+        ],
+        "Meat/Seafood": [
+          ["sirloin", "Sirloin steak", "1 lb"]
+        ],
+        "Dairy": [
+          ["sour-cream", "Sour cream", "3/4 cup"],
+          ["butter", "Butter", "2 tbsp"]
+        ],
+        "Pantry": [
+          ["egg-noodles", "Cooked egg noodles", "About 16 oz"],
+          ["beef-broth", "Beef broth", "1 cup"],
+          ["dijon", "Dijon mustard", "1 tbsp"],
+          ["worcestershire", "Worcestershire sauce", "2 tsp"],
+          ["flour", "Flour", "1 tbsp"],
+          ["red-wine", "Dry red wine", "1 bottle, optional pairing"]
+        ]
+      },
+      "grocery": "./docs/beef-stroganoff-skillet/grocery-list-beef-stroganoff-skillet.html"
+    },
     "beef-meatballs-buttered-noodles": {
       "id": "beef-meatballs-buttered-noodles",
       "name": "Beef Meatballs with Buttered Noodles",
@@ -255,7 +291,7 @@ window.JEFES_KITCHEN_CATALOG = {
           [
             "egg-noodles",
             "Egg noodles",
-            "12 oz"
+            "8 oz"
           ],
           [
             "broth",
@@ -266,6 +302,21 @@ window.JEFES_KITCHEN_CATALOG = {
             "flour",
             "Flour",
             "3 tbsp"
+          ],
+          [
+            "onion-powder",
+            "Onion powder",
+            "1 tsp"
+          ],
+          [
+            "garlic-powder",
+            "Garlic powder",
+            "1 tsp"
+          ],
+          [
+            "poultry-seasoning",
+            "Poultry seasoning",
+            "1 tsp"
           ],
           [
             "breadcrumbs",

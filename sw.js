@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v199';
+const CACHE_NAME = 'jeffs-kitchen-v201';
 
 const PAGES = [
   './',
@@ -12,11 +12,11 @@ const PAGES = [
   './docs/menu-card.css',
   './docs/wide-layout.css',
   './docs/wide-pills.js',
-  './docs/instruction-content.js?v=26',
+  './docs/instruction-content.js?v=28',
   './docs/quantity-scaler.js?v=4',
-  './docs/recipe-catalog.js?v=5',
+  './docs/recipe-catalog.js?v=7',
   './docs/recipe-serving-data.js?v=5',
-  './docs/prep-catalog.js?v=8',
+  './docs/prep-catalog.js?v=10',
   './docs/instruction-tools.js?v=1',
   './docs/firebase-config.js',
   './docs/firebase-state.js?v=4',
@@ -24,6 +24,10 @@ const PAGES = [
   './docs/grocery-boom.js',
   './docs/poll/dinner-poll.html',
   './docs/combined-shopping/this-week-prep.html',
+  './docs/beef-stroganoff-skillet/beef-stroganoff-skillet-menu.html',
+  './docs/beef-stroganoff-skillet/grocery-list-beef-stroganoff-skillet.html',
+  './docs/beef-stroganoff-skillet/beef-stroganoff-skillet-instructions.html',
+  './docs/beef-stroganoff-skillet/beef-stroganoff-skillet-wide.html',
   './docs/beef-meatballs-buttered-noodles/beef-meatballs-buttered-noodles-menu.html',
   './docs/beef-meatballs-buttered-noodles/grocery-list-beef-meatballs-buttered-noodles.html',
   './docs/beef-meatballs-buttered-noodles/beef-meatballs-buttered-noodles-instructions.html',
@@ -159,7 +163,7 @@ const APP_SHELL = [
   './assets/icons/apple-touch-icon.png',
   './assets/icons/favicon.png',
   './docs/theme.css',
-  './docs/recipe-catalog.js?v=5',
+  './docs/recipe-catalog.js?v=7',
   './docs/recipe-serving-data.js?v=5',
   './docs/quantity-scaler.js?v=4',
   './docs/firebase-config.js',

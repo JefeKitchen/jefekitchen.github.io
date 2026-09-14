@@ -1,4 +1,9 @@
 window.JEFES_RECIPE_SERVINGS = {
+  "beef-stroganoff-skillet": {
+    "baseServings": 3,
+    "defaultServings": 3,
+    "servingType": "people"
+  },
   "primavera-stuffed-chicken": {
     "baseServings": 3,
     "defaultServings": 3,
