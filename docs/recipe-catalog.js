@@ -272,7 +272,7 @@ window.JEFES_KITCHEN_CATALOG = {
           [
             "butter",
             "Butter",
-            "3 tbsp"
+            "1 1/2 tbsp"
           ],
           [
             "parmesan",
@@ -284,7 +284,7 @@ window.JEFES_KITCHEN_CATALOG = {
           [
             "peas-carrots",
             "Frozen pea and carrot medley",
-            "1 1/2 cups"
+            "2 cups"
           ]
         ],
         "Pantry": [
@@ -301,7 +301,7 @@ window.JEFES_KITCHEN_CATALOG = {
           [
             "flour",
             "Flour",
-            "3 tbsp"
+            "2 tbsp"
           ],
           [
             "onion-powder",
@@ -320,7 +320,7 @@ window.JEFES_KITCHEN_CATALOG = {
           ],
           [
             "breadcrumbs",
-            "Breadcrumbs or crackers",
+            "Panko or whole-wheat breadcrumbs",
             "Optional topping"
           ]
         ]

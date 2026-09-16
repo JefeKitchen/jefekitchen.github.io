@@ -69,6 +69,14 @@ Instruction pages:
 - Step numbers must never overlap instruction text. Fix shared CSS if needed.
 - Add new docs to sw.js when they should work offline, and bump the cache for app-facing changes.
 
+## Everyday Health Default
+
+- Favor a balanced, workout-friendly baseline without stripping a recipe of the texture and flavor that make it worth cooking. This is not a low-calorie-only recipe collection.
+- Where it does not meaningfully compromise the dish, prefer lean proteins, more vegetables, whole-grain or higher-fiber staples, low-sodium broth or soy sauce, and lower-fat dairy such as 2% milk, reduced-fat cheese, or Greek yogurt.
+- Keep richness where it is structurally important: a small amount of real butter for flavor, proper melting cheese, or a crisp fried coating can be the right call. Offer a lighter alternative rather than making a familiar dish bland by default.
+- Treat substitutions as recipe-specific. Do not force Greek yogurt, whole grains, or reduced-fat products into a dish when they would make the texture noticeably worse.
+- When revising an existing recipe, update its shared instructions, catalog shopping quantities, and dedicated grocery list together so the healthy default is consistent everywhere.
+
 ## Recipe Build Order
 
 1. Add or update docs/recipe-catalog.js first with the recipe id, title, subtitle, section, paths, and shopping items.
