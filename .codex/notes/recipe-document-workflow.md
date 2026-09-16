@@ -107,7 +107,7 @@ If any of those fail, fix before reporting back.
 
 ## This Week Prep Utility
 
-- The Prep card is not permanent on the home page. It is a removable This Week utility item added from the same + menu as recipes.
+- The Prep card is not permanent on the home page and is not an option in the This Week recipe picker. Show it automatically, directly after Grocery List, only when at least one current This Week meal has prep-catalog tasks.
 - Prep opens `docs/combined-shopping/this-week-prep.html` and derives upcoming meals from the shared This Week plan data.
 - Prep should use desktop width well: recipe cards span the page and prep tasks flow into columns inside each recipe. Do not make recipe cards into narrow side-by-side phone cards.
 - The Prep utility should render immediately after Grocery List in This Week whenever both are present.
