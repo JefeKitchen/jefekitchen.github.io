@@ -93,7 +93,7 @@ window.JEFES_KITCHEN_CATALOG = {
           ["sirloin", "Sirloin steak", "1 lb"]
         ],
         "Dairy": [
-          ["sour-cream", "Sour cream", "3/4 cup"],
+          ["sour-cream", "Sour cream", "1/2 cup, or split with Greek yogurt"],
           ["butter", "Butter", "2 tbsp"]
         ],
         "Pantry": [
