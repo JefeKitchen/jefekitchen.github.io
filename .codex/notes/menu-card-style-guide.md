@@ -51,10 +51,7 @@ Every menu card should use the classic menu structure:
   <section class="menu-item">
     <div class="item-name">Menu Item</div>
     <div class="item-sub">Ingredient &middot; ingredient &middot; ingredient</div>
-    <div class="item-desc">Short italic description of the dish or preparation.</div>
   </section>
-
-  <footer class="footer">Short closing line.</footer>
 </main>
 </body>
 </html>
@@ -123,9 +120,9 @@ Avoid:
 <div class="item-sub">Same tray &middot; cozy and simple</div>
 ```
 
-Use `.item-desc` for vibes, technique, or serving notes.
+Keep the one-sentence `.sub` beneath the title as the menu's only overview. Do not add an `.item-desc` for every course or a decorative footer by default; those repeat the course title and make the card feel wordy. Add section-level description text only when it conveys genuinely useful information the name and ingredients cannot.
 
-Keep text short. These are menu cards, not instructions.
+Keep text short. These are menu cards, not instructions or restaurant copy.
 
 ## Theme Rules
 
@@ -167,4 +164,5 @@ Before finishing a menu-card change:
 - There are no `.course`, `.menu-card`, `.mini-menu`, or `.footer-note` elements.
 - The back link goes to the right place.
 - The `.item-sub` lines contain only ingredients.
+- The title overview is concise, with no filler descriptions under every course or decorative footer.
 - The service worker cache was bumped.

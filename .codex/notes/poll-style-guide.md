@@ -101,7 +101,7 @@ Not good:
 
 `Same skillet · cozy and simple`
 
-Use the description line for the vibe or preparation note.
+Use the single overview beneath the menu title for the meal's vibe. Do not add a description beneath every entree, side, or drink by default; the section name and ingredient line are enough.
 
 ## Themes
 
