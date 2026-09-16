@@ -24,7 +24,7 @@ const plansCollection = collection(db, "households", householdId, "plans");
 const shoppingRecipesCollection = collection(db, "households", householdId, "shoppingRecipes");
 const shoppingItemsCollection = collection(db, "households", householdId, "shoppingItems");
 const purchasedItemsCollection = collection(db, "households", householdId, "purchasedItems");
-const pollVotesCollection = collection(db, "households", householdId, "polls", "current", "votes");
+const pollVotesCollection = collection(db, "households", householdId, "polls", "visitor-dinner-2026", "votes");
 
 function normalizePlan(docSnap) {
   const data = docSnap.data() || {};

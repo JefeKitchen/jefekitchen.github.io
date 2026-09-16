@@ -6,7 +6,7 @@ For complete new recipes, start with `.codex/notes/recipe-document-workflow.md`.
 
 ## Purpose
 
-The dinner poll should feel like a lightweight, fun ballot for picking dinner. It should be fast to scan on a phone, open the user's SMS app with a silly prewritten response, and optionally let the voter preview a small menu card before voting.
+The dinner poll should feel like a lightweight, fun ballot for picking dinner. It should be fast to scan on a phone, save one shared vote per person, and optionally let the voter preview a small menu card before voting.
 
 ## Poll Page
 
@@ -24,9 +24,9 @@ Use the existing `WHAT DIN?` page structure unless the user asks for a redesign.
 
 Each normal poll option should be a `.poll-row` with:
 
-- A main `.poll-option` that triggers SMS.
+- A main `.poll-option` that selects the choice for submission.
 - A right-side `.poll-menu-link` using the scroll emoji/menu icon when lightweight menu cards exist.
-- `data-choice` set to the natural lowercase choice text.
+- `data-choice` set to the natural display choice text.
 - `.option-title` as the visible dish name.
 - Do not include `.option-note` subtitles/footers by default. They tend to repeat the dish title and make the poll feel cluttered.
 - If the user specifically asks for subtitles, use a short, few-word summary of the dish. Do not list every ingredient, and do not auto-convert menu-card ingredient separators into comma lists.
@@ -136,23 +136,17 @@ Build full docs only when:
 
 When a poll option becomes a real recipe, follow the shared instruction-content pattern used by the rest of the app.
 
-## SMS Response Rules
+## Voting And Results
 
-Keep the current response concept:
-
-- Randomly select one response template per vote.
-- Choice should fit naturally into the sentence.
-- Keep choices lowercase unless the user explicitly asks otherwise.
-- Keep `Survey says: {choice}.` as one of the templates.
-- Preserve Android/iOS SMS link handling.
-
-Current response style examples:
-
-- `Survey says: {choice}.`
-- `I have consulted my heart and my belly, and they both request {choice}.`
-- `After careful deliberation, the council has selected {choice}.`
-- `Tonight feels like {choice}.`
+- Tapping an option selects it; `Submit Vote` saves the choice to Firebase for the current anonymous user. A later submission replaces that person's previous vote.
+- Keep the result panel compact. Show only choices with at least one vote so wildcards are immediately visible and zero-vote options do not create noise.
+- The wildcard option stays at the bottom. A blank wildcard submission removes the voter's existing vote.
 
 ## Home Page
 
 The Pick Din banner may be hidden or shown depending on the user's current preference. Do not assume it should be visible just because the poll changed. If the user says they want to send/use the poll, make sure the home page entry point matches their latest preference.
+
+## Poll Lifecycle
+
+- A new poll should begin with an empty vote collection. Do not reuse a prior poll's Firebase collection just because it was the last active one; stale snackie or dinner votes make results misleading.
+- When replacing an active poll, give `pollVotesCollection` in `docs/firebase-state.js` a new descriptive poll id and leave prior collections intact as history.

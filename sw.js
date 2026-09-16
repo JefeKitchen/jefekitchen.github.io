@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v205';
+const CACHE_NAME = 'jeffs-kitchen-v206';
 
 const PAGES = [
   './',
@@ -19,10 +19,18 @@ const PAGES = [
   './docs/prep-catalog.js?v=10',
   './docs/instruction-tools.js?v=1',
   './docs/firebase-config.js',
-  './docs/firebase-state.js?v=4',
+  './docs/firebase-state.js?v=5',
   './docs/instruction-renderer.js?v=24',
   './docs/grocery-boom.js',
   './docs/poll/dinner-poll.html',
+  './docs/sheet-pan-lemon-herb-chicken/sheet-pan-lemon-herb-chicken-menu.html',
+  './docs/chicken-piccata-orzo/chicken-piccata-orzo-menu.html',
+  './docs/chicken-shawarma-sheet-pan-pitas/chicken-shawarma-sheet-pan-pitas-menu.html',
+  './docs/creamy-sun-dried-tomato-chicken/creamy-sun-dried-tomato-chicken-menu.html',
+  './docs/miso-ginger-salmon-bowls/miso-ginger-salmon-bowls-menu.html',
+  './docs/sheet-pan-salmon-crispy-potatoes/sheet-pan-salmon-crispy-potatoes-menu.html',
+  './docs/garlic-shrimp-couscous-skillet/garlic-shrimp-couscous-skillet-menu.html',
+  './docs/steak-fajita-rice-bowls/steak-fajita-rice-bowls-menu.html',
   './docs/combined-shopping/this-week-prep.html',
   './docs/beef-stroganoff-skillet/beef-stroganoff-skillet-menu.html',
   './docs/beef-stroganoff-skillet/grocery-list-beef-stroganoff-skillet.html',
@@ -167,7 +175,7 @@ const APP_SHELL = [
   './docs/recipe-serving-data.js?v=6',
   './docs/quantity-scaler.js?v=4',
   './docs/firebase-config.js',
-  './docs/firebase-state.js?v=4',
+  './docs/firebase-state.js?v=5',
   './docs/combined-shopping/this-week-shopping-list.html'
 ];
 
