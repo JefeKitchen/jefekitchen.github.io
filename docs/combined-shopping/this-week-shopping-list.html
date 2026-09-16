@@ -301,7 +301,7 @@
   }
 </style>
 <script src="../recipe-catalog.js?v=8"></script>
-<script src="../recipe-serving-data.js?v=5"></script>
+<script src="../recipe-serving-data.js?v=6"></script>
 <script src="../quantity-scaler.js?v=4"></script>
 <script type="module" src="../firebase-state.js?v=4"></script>
 </head>
@@ -353,7 +353,7 @@
     const servingType = info.servingType || (recipe.section === 'snackies' ? 'servings' : 'people');
     return {
       baseServings: Number(info.baseServings || (servingType === 'servings' ? 4 : 2)),
-      defaultServings: Number(info.defaultServings || (servingType === 'servings' ? 8 : 2)),
+      defaultServings: Number(info.defaultServings || (servingType === 'servings' ? 8 : 4)),
       servingType
     };
   };

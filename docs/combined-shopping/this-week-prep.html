@@ -113,7 +113,7 @@
 
 <script src="../recipe-catalog.js?v=8"></script>
 <script src="../instruction-content.js?v=29"></script>
-<script src="../recipe-serving-data.js?v=5"></script>
+<script src="../recipe-serving-data.js?v=6"></script>
 <script src="../quantity-scaler.js?v=4"></script>
 <script src="../prep-catalog.js?v=10"></script>
 <script src="../instruction-tools.js?v=1"></script>
@@ -152,7 +152,7 @@
         day: entry.day || '',
         date: entry.date || '',
         meal: entry.meal || 'dinner',
-        servings: Number(entry.servings) || servingData[id]?.defaultServings || 3
+        servings: Number(entry.servings) || servingData[id]?.defaultServings || 4
       };
     }).filter(Boolean);
   }
@@ -235,7 +235,7 @@
     const defaults = servingData[entry.id] || {};
     return instructionTools.extractSections(recipe.body, {
       targetServings: entry.servings,
-      baseServings: defaults.baseServings || defaults.defaultServings || 3,
+      baseServings: defaults.baseServings || defaults.defaultServings || 4,
       servingType: defaults.servingType || 'people'
     });
   }

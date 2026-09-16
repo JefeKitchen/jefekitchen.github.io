@@ -102,7 +102,8 @@ If any of those fail, fix before reporting back.
 - Keep prep references practical: chop/store vegetables, cook rice ahead, portion proteins, mix sauces, measure spice blends, or stage toppings. Avoid filler tasks.
 - Do not include appliance-only setup in Prep. Things like preheating ovens, setting up a sandwich press, staging pans, or heating cookware belong at cook time unless they directly prep actual food ingredients.
 - Prep ingredient pills and bolded ingredient text should come from `docs/instruction-tools.js` extracting the real instruction section, not from hand-written Prep copy.
-- Normal meal defaults should target 3 servings. Snackies should keep serving-style estimates, usually 6-8 servings.
+- Normal meal defaults should target 4 servings so dinner reliably leaves a serving for each person. Snackies should keep serving-style estimates, usually 6-8 servings.
+- New normal meals added to This Week should start with Shop enabled so their ingredients are added to the shared weekly grocery list by default.
 
 ## This Week Prep Utility
 

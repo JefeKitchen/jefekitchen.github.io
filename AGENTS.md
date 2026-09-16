@@ -14,6 +14,8 @@ Start every recipe or planning change with [`.codex/notes/recipe-document-workfl
 - `docs/firebase-state.js`: shared Firebase-backed This Week, shopping, and poll state.
 - `sw.js`: offline app shell and cache version.
 
+New normal meals added to This Week default to 4 servings and have Shop enabled. Snackies retain their serving-style defaults.
+
 ## Non-Negotiables
 
 1. Prefer extending the shared catalog, renderers, and utilities over creating a second data source or hand-written duplicate markup.

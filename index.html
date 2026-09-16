@@ -596,7 +596,7 @@
   }
 </style>
 <script src="./docs/recipe-catalog.js?v=8"></script>
-<script src="./docs/recipe-serving-data.js?v=5"></script>
+<script src="./docs/recipe-serving-data.js?v=6"></script>
 <script type="module" src="./docs/firebase-state.js?v=4"></script>
 </head>
 <body>
@@ -702,7 +702,7 @@
     const servingType = info.servingType || (recipe.utility ? 'utility' : (recipe.section === 'snackies' ? 'servings' : 'people'));
     return {
       baseServings: Number(info.baseServings || (servingType === 'utility' ? 1 : (servingType === 'servings' ? 4 : 2))),
-      defaultServings: Number(info.defaultServings || (servingType === 'utility' ? 1 : (servingType === 'servings' ? 8 : 3))),
+      defaultServings: Number(info.defaultServings || (servingType === 'utility' ? 1 : (servingType === 'servings' ? 8 : 4))),
       servingType
     };
   }
@@ -1254,9 +1254,11 @@
   function syncWeekUtilityControls() {
     const recipe = thisWeekCatalog[weekRecipeChoice.value];
     const isUtility = !!recipe?.utility;
+    const returningFromUtility = !isUtility && weekRecipeShop.disabled;
     weekRecipeLunch.checked = isUtility ? false : weekRecipeLunch.checked;
     weekRecipeLunch.disabled = isUtility;
-    weekRecipeShop.checked = isUtility ? false : weekRecipeShop.checked;
+    // New meals should shop by default, including after someone briefly selects Prep.
+    weekRecipeShop.checked = isUtility ? false : (returningFromUtility && weekChoiceMode.type === 'add' ? true : weekRecipeShop.checked);
     weekRecipeShop.disabled = isUtility;
     weekRecipeServings.disabled = isUtility;
     weekRecipeServings.style.display = isUtility ? 'none' : '';
