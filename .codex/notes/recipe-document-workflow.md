@@ -106,6 +106,7 @@ If any of those fail, fix before reporting back.
 - When adding or materially changing a recipe, add prep-ahead section references in `docs/prep-catalog.js`.
 - `docs/prep-catalog.js` is metadata only. Do not write separate Prep step text, ingredient lists, storage notes, or formatting there.
 - Prep references should point to real instruction section titles from `docs/instruction-content.js`, with optional zero-based `steps` indexes if only part of a section is prep-ahead.
+- A `section` reference targets the outer recipe section label (for example, `Prep`), not merely the internal instruction-card action title. The shared extractor preserves both.
 - Prep tasks stay recipe-specific. Do not merge shared tasks across recipes, even if the ingredient is the same, because the user wants amounts stored with the correct meal.
 - Keep prep references practical: chop/store vegetables, cook rice ahead, portion proteins, mix sauces, measure spice blends, or stage toppings. Avoid filler tasks.
 - Do not include appliance-only setup in Prep. Things like preheating ovens, setting up a sandwich press, staging pans, or heating cookware belong at cook time unless they directly prep actual food ingredients.

@@ -666,7 +666,6 @@
       <select id="weekRecipeServings" aria-label="Servings"></select>
       <div class="week-check-row" aria-label="Add to">
         <label class="week-check"><input id="weekRecipeLunch" type="checkbox"> Lunch</label>
-        <label class="week-check"><input id="weekRecipePlan" type="checkbox" checked> Plan</label>
         <label class="week-check"><input id="weekRecipeShop" type="checkbox" checked> Shop</label>
       </div>
       <div class="choice-actions">
@@ -1137,7 +1136,6 @@
   const weekRecipeChoice = document.getElementById('weekRecipeChoice');
   const weekRecipeDay = document.getElementById('weekRecipeDay');
   const weekRecipeLunch = document.getElementById('weekRecipeLunch');
-  const weekRecipePlan = document.getElementById('weekRecipePlan');
   const weekRecipeShop = document.getElementById('weekRecipeShop');
   const weekRecipeServings = document.getElementById('weekRecipeServings');
   const cancelWeekRecipe = document.getElementById('cancelWeekRecipe');
@@ -1252,7 +1250,6 @@
     populateWeekRecipeForm(recipeId, entry?.servings);
     weekRecipeDay.value = entry?.day || '';
     weekRecipeLunch.checked = (entry?.meal || '') === 'lunch';
-    weekRecipePlan.checked = true;
     weekRecipeShop.checked = isEdit ? !!shoppingEntry : true;
     if (!isEdit) weekRecipeDay.value = dayForToday();
     if (entry?.servings) populateWeekServings(entry.servings);
@@ -1461,17 +1458,12 @@
     const day = weekRecipeDay.value;
     const meal = weekRecipeLunch.checked ? 'lunch' : '';
     const servings = weekRecipeServings.value;
-    const addPlan = weekRecipePlan.checked;
     const addShopping = weekRecipeShop.checked;
 
-    if (!addPlan && !addShopping) return;
-
     if (weekChoiceMode.type === 'edit') {
-      await updateRecipeEntry(weekChoiceMode.originalRecipeId, recipeId, day, meal, servings, addPlan, addShopping);
+      await updateRecipeEntry(weekChoiceMode.originalRecipeId, recipeId, day, meal, servings, true, addShopping);
     } else {
-      if (addPlan) {
-        await addRecipeEntry(thisWeekRecipesKey, recipeId, day, meal, servings);
-      }
+      await addRecipeEntry(thisWeekRecipesKey, recipeId, day, meal, servings);
       if (addShopping) {
         await addRecipeEntry(thisWeekShoppingRecipesKey, recipeId, day, meal, servings);
       }

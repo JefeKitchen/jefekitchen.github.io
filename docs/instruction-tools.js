@@ -182,6 +182,7 @@
 
       sections.push({
         key: `${label} ${title}`.toLowerCase(),
+        section: previousSectionName(block),
         label,
         title,
         pills,

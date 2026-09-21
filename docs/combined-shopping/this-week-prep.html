@@ -116,7 +116,7 @@
 <script src="../recipe-serving-data.js?v=7"></script>
 <script src="../quantity-scaler.js?v=4"></script>
 <script src="../prep-catalog.js?v=11"></script>
-<script src="../instruction-tools.js?v=1"></script>
+<script src="../instruction-tools.js?v=2"></script>
 <script type="module" src="../firebase-state.js?v=6"></script>
 <script>
   const plannedRecipesKey = 'this-week-planned-recipes-v1';
@@ -243,6 +243,7 @@
     const wanted = String(spec.section || spec.title || '').toLowerCase();
     if (!wanted) return null;
     return sections.find(section => section.title.toLowerCase() === wanted) ||
+      sections.find(section => String(section.section || '').toLowerCase() === wanted) ||
       sections.find(section => section.key === wanted) ||
       sections.find(section => section.title.toLowerCase().includes(wanted));
   }
@@ -337,16 +338,17 @@
     const hidden = loadSet(hiddenPrepMealsKey);
     const done = loadSet(prepDoneKey);
     const list = document.getElementById('prepList');
-    const prepReady = entries.filter(entry => Array.isArray(prepCatalog[entry.id]) && prepCatalog[entry.id].length);
-    renderMealFilters(prepReady);
-    const visible = prepReady.filter(entry => !hidden.has(entry.id));
-    list.innerHTML = visible.map(entry => {
-      const recipe = recipeCatalog[entry.id];
+    const prepReady = entries.map(entry => {
       const sections = recipeSections(entry);
-      const prepSections = prepCatalog[entry.id]
+      const prepSections = (prepCatalog[entry.id] || [])
         .map(spec => prepSectionFromSpec(sections, spec, entry))
-        .filter(Boolean);
-      if (!prepSections.length) return '';
+        .filter(section => section?.steps?.length);
+      return { entry, prepSections };
+    }).filter(item => item.prepSections.length);
+    renderMealFilters(prepReady.map(item => item.entry));
+    const visible = prepReady.filter(item => !hidden.has(item.entry.id));
+    list.innerHTML = visible.map(({ entry, prepSections }) => {
+      const recipe = recipeCatalog[entry.id];
       const balancedSections = balancePrepGrid(prepSections);
       const doneId = 'meal:' + entry.id;
       const checked = done.has(doneId);

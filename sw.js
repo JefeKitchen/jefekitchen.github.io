@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v212';
+const CACHE_NAME = 'jeffs-kitchen-v213';
 
 const PAGES = [
   './',
@@ -17,7 +17,7 @@ const PAGES = [
   './docs/recipe-catalog.js?v=9',
   './docs/recipe-serving-data.js?v=7',
   './docs/prep-catalog.js?v=11',
-  './docs/instruction-tools.js?v=1',
+  './docs/instruction-tools.js?v=2',
   './docs/firebase-config.js',
   './docs/firebase-state.js?v=6',
   './docs/instruction-renderer.js?v=24',
