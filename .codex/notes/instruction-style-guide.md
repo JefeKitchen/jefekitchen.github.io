@@ -10,6 +10,8 @@ Cooking instructions should be calm, readable, and hard to mess up while activel
 
 Timing labels should be plain: `Prep 15 min · Cook 35 min`. They are understood to be estimates, so do not prefix them with `~`.
 
+Four servings is the common batch. When scaling a smaller source recipe to four, favor practical kitchen amounts over mechanical quarter-increment math: for example, use `12 oz` pasta rather than `10 3/4 oz`, and `3 tbsp` rather than `2 3/4 tbsp`. Keep smaller fractions where they materially help the recipe.
+
 Use this guide any time creating or editing `*-instructions.html`, `*-wide.html`, or `docs/instruction-content.js`.
 
 ## Source Of Truth

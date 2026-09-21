@@ -302,7 +302,7 @@
 </style>
 <script src="../recipe-catalog.js?v=9"></script>
 <script src="../recipe-serving-data.js?v=7"></script>
-<script src="../quantity-scaler.js?v=4"></script>
+<script src="../quantity-scaler.js?v=5"></script>
 <script type="module" src="../firebase-state.js?v=6"></script>
 </head>
 <body>
@@ -369,12 +369,12 @@
     return normalizeServingCount(recipe, entry.servings) / info.baseServings;
   };
 
-  const scaleItemText = (text, factor) => window.KitchenQuantityScaler?.scaleQuantityText
-    ? window.KitchenQuantityScaler.scaleQuantityText(text, factor)
+  const scaleItemText = (text, factor, options) => window.KitchenQuantityScaler?.scaleQuantityText
+    ? window.KitchenQuantityScaler.scaleQuantityText(text, factor, options)
     : text;
 
-  const scaleItemNote = (note, factor) => window.KitchenQuantityScaler?.scaleStandaloneNote
-    ? window.KitchenQuantityScaler.scaleStandaloneNote(note, factor)
+  const scaleItemNote = (note, factor, options) => window.KitchenQuantityScaler?.scaleStandaloneNote
+    ? window.KitchenQuantityScaler.scaleStandaloneNote(note, factor, options)
     : note;
   const sectionAliases = {
     produce: 'Produce',
@@ -702,6 +702,10 @@
       if (hiddenMeals.has(entry.id)) return sections;
       const recipe = recipeCatalog[entry.id];
       const factor = servingFactor(recipe, entry);
+      const info = servingInfo(recipe);
+      const scalingOptions = {
+        friendlyFourServings: normalizeServingCount(recipe, entry.servings) === 4 && info.servingType === 'people'
+      };
       Object.entries(recipe.items).forEach(([sectionName, items]) => {
         const normalizedSection = normalizeSection(sectionName);
         if ((entry.meal || '').toLowerCase() === 'lunch' && normalizedSection === 'Alcohol/Drinks') return;
@@ -710,8 +714,8 @@
             id: `tw-${entry.id}-${id}`,
             recipe: recipe.name,
             recipeId: entry.id,
-            text: scaleItemText(text, factor),
-            note: scaleItemNote(note, factor)
+            text: scaleItemText(text, factor, scalingOptions),
+            note: scaleItemNote(note, factor, scalingOptions)
           }))
           .filter(item => !purchasedItems.has(item.id) && !removedItems.has(item.id));
         sections[normalizedSection] = [

@@ -26,12 +26,22 @@
     return Number(clean);
   };
 
-  const formatNumber = (value, unit = '') => {
+  const formatNumber = (value, unit = '', options = {}) => {
     if (!Number.isFinite(value) || value <= 0) return '0';
     const lowerUnit = unit.toLowerCase();
     const countLike = !unit || /^(cans?|cloves?|heads?|bunch(?:es)?|packages?|pkg|avocados?|limes?|lemons?|cucumbers?|carrots?|onions?|eggs?|fillets?|pitas?|tortillas?|rolls?|slices?)$/.test(lowerUnit);
     const step = countLike ? 1 : 0.25;
-    const rounded = Math.max(countLike ? 1 : 0.25, Math.round(value / step) * step);
+    let rounded = Math.max(countLike ? 1 : 0.25, Math.round(value / step) * step);
+
+    // Four servings is the app's everyday batch. Avoid mechanical artifacts such
+    // as 10 3/4 oz pasta or 2 3/4 tbsp sauce, while preserving useful small fractions.
+    if (options.friendlyFourServings && !countLike) {
+      if (/^oz$/.test(lowerUnit) && rounded >= 8) {
+        rounded = Math.ceil(rounded / 2) * 2;
+      } else if (/^(cups?|tbsp|tsp)$/.test(lowerUnit) && rounded >= 2 && !Number.isInteger(rounded)) {
+        rounded = Math.round(rounded);
+      }
+    }
     const whole = Math.floor(rounded);
     const frac = +(rounded - whole).toFixed(2);
     const fractions = { 0.25: '1/4', 0.5: '1/2', 0.75: '3/4' };
@@ -51,7 +61,7 @@
     return `${unit}s`;
   };
 
-  const scaleQuantityText = (text, factor) => {
+  const scaleQuantityText = (text, factor, options = {}) => {
     if (!factor || Math.abs(factor - 1) < 0.01 || noScale.test(text)) return text;
     let next = text;
     const rangeTokens = [];
@@ -62,8 +72,8 @@
       if (!Number.isFinite(a) || !Number.isFinite(b)) return match;
       const scaledLow = a * factor;
       const scaledHigh = b * factor;
-      const formattedLow = formatNumber(scaledLow, unit);
-      const formattedHigh = formatNumber(scaledHigh, unit);
+      const formattedLow = formatNumber(scaledLow, unit, options);
+      const formattedHigh = formatNumber(scaledHigh, unit, options);
       const unitText = pluralizeUnit(unit, parseQuantity(formattedHigh));
       const scaledRange = formattedLow === formattedHigh
         ? `${formattedHigh} ${unitText}`
@@ -78,7 +88,7 @@
       const value = parseQuantity(qty);
       if (!Number.isFinite(value)) return match;
       const scaled = value * factor;
-      const formatted = formatNumber(scaled, unit);
+      const formatted = formatNumber(scaled, unit, options);
       return `${formatted} ${pluralizeUnit(unit, parseQuantity(formatted))}`;
     });
     rangeTokens.forEach((value, index) => {
@@ -87,13 +97,13 @@
     return next;
   };
 
-  const scaleStandaloneNote = (note, factor) => {
+  const scaleStandaloneNote = (note, factor, options = {}) => {
     const clean = String(note || '').trim();
     if (!clean || !factor || Math.abs(factor - 1) < 0.01 || noScale.test(clean)) return clean;
-    if (foodUnit.test(clean)) return scaleQuantityText(clean, factor);
-    if (/^\d+(?:\.\d+)?$/.test(clean)) return formatNumber(Number(clean) * factor);
+    if (foodUnit.test(clean)) return scaleQuantityText(clean, factor, options);
+    if (/^\d+(?:\.\d+)?$/.test(clean)) return formatNumber(Number(clean) * factor, '', options);
     const range = clean.match(/^(\d+(?:\.\d+)?)\s*[-–]\s*(\d+(?:\.\d+)?)$/);
-    if (range) return `${formatNumber(Number(range[1]) * factor)}-${formatNumber(Number(range[2]) * factor)}`;
+    if (range) return `${formatNumber(Number(range[1]) * factor, '', options)}-${formatNumber(Number(range[2]) * factor, '', options)}`;
     return clean;
   };
 
@@ -123,7 +133,9 @@
     const factor = target / base;
     applyHeroServingLabel(root, target, options.servingType || 'people');
     root.querySelectorAll('.ing').forEach(node => {
-      node.textContent = scaleQuantityText(node.textContent, factor);
+      node.textContent = scaleQuantityText(node.textContent, factor, {
+        friendlyFourServings: target === 4 && options.servingType !== 'servings'
+      });
     });
   };
 
