@@ -12,7 +12,7 @@ const PAGES = [
   './docs/menu-card.css',
   './docs/wide-layout.css',
   './docs/wide-pills.js',
-  './docs/instruction-content.js?v=33',
+  './docs/instruction-content.js?v=34',
   './docs/quantity-scaler.js?v=4',
   './docs/recipe-catalog.js?v=9',
   './docs/recipe-serving-data.js?v=7',

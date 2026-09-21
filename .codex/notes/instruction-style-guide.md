@@ -8,6 +8,8 @@ For complete new recipes, start with `.codex/notes/recipe-document-workflow.md`.
 
 Cooking instructions should be calm, readable, and hard to mess up while actively cooking. The user follows instructions closely, so steps should include approximate quantities whenever an ingredient amount is not obvious.
 
+Timing labels should be plain: `Prep 15 min · Cook 35 min`. They are understood to be estimates, so do not prefix them with `~`.
+
 Use this guide any time creating or editing `*-instructions.html`, `*-wide.html`, or `docs/instruction-content.js`.
 
 ## Source Of Truth
