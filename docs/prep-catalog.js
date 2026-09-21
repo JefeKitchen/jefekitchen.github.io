@@ -923,7 +923,13 @@ window.JEFES_KITCHEN_PREP = {
   ],
   "sheet-pan-lemon-herb-chicken": [
     {
-      "section": "Prep"
+      "title": "Halve the potatoes",
+      "label": "Prep Ahead",
+      "pills": ["Baby potatoes"],
+      "prepSteps": [
+        "Halve <span class=\"ing\">1 1/2 lb baby potatoes</span>.",
+        "Refrigerate in a covered container until cook time. Toss with oil and seasonings just before they go onto the pan."
+      ]
     }
   ],
   "lemony-chicken-orzo-skillet": [
