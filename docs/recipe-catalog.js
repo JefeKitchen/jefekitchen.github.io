@@ -44,7 +44,8 @@ window.JEFES_KITCHEN_CATALOG = {
         "chicken-skewers",
         "mild-chicken-noodle-bake",
         "pineapple-orange-teriyaki",
-        "primavera-stuffed-chicken"
+        "primavera-stuffed-chicken",
+        "lemony-chicken-orzo-skillet"
       ]
     },
     {
@@ -2155,6 +2156,41 @@ window.JEFES_KITCHEN_CATALOG = {
             "Dry white wine",
             "Optional pairing"
           ]
+        ]
+      }
+    },
+    "lemony-chicken-orzo-skillet": {
+      "id": "lemony-chicken-orzo-skillet",
+      "name": "Lemony Chicken & Orzo Skillet",
+      "title": "Lemony Chicken & Orzo Skillet",
+      "subtitle": "Chicken · Orzo · Spinach",
+      "section": "chicken",
+      "menu": "./docs/lemony-chicken-orzo-skillet/lemony-chicken-orzo-skillet-menu.html",
+      "phone": "./docs/lemony-chicken-orzo-skillet/lemony-chicken-orzo-skillet-instructions.html",
+      "wide": "./docs/lemony-chicken-orzo-skillet/lemony-chicken-orzo-skillet-wide.html",
+      "grocery": "./docs/lemony-chicken-orzo-skillet/grocery-list-lemony-chicken-orzo-skillet.html",
+      "items": {
+        "Produce": [
+          ["shallot", "Large shallot or small yellow onion", "1"],
+          ["garlic", "Garlic", "4 cloves"],
+          ["lemon", "Lemon", "1"],
+          ["spinach", "Baby spinach", "5 oz bag"],
+          ["parsley", "Parsley", "Small bunch, optional"]
+        ],
+        "Meat/Seafood": [
+          ["chicken-breasts", "Boneless skinless chicken breasts", "About 1 1/2 lb, 4 breasts"]
+        ],
+        "Dairy": [
+          ["parmesan", "Parmesan", "About 1/2 cup"]
+        ],
+        "Pantry": [
+          ["orzo", "Orzo", "1 1/2 cups dry"],
+          ["chicken-broth", "Chicken broth", "3 cups"],
+          ["italian-seasoning", "Italian seasoning", "1 tsp"],
+          ["red-pepper-flakes", "Red pepper flakes", "Optional pinch"]
+        ],
+        "Alcohol/Drinks": [
+          ["pinot-grigio", "Pinot Grigio or Sauvignon Blanc", "For drink, if needed"]
         ]
       }
     }

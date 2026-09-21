@@ -129,5 +129,10 @@ window.JEFES_RECIPE_SERVINGS = {
     "defaultServings": 4,
     "servingType": "people"
   },
+  "lemony-chicken-orzo-skillet": {
+    "baseServings": 4,
+    "defaultServings": 4,
+    "servingType": "people"
+  },
 
 };

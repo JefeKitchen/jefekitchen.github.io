@@ -926,5 +926,26 @@ window.JEFES_KITCHEN_PREP = {
       "section": "Prep"
     }
   ],
+  "lemony-chicken-orzo-skillet": [
+    {
+      "title": "Chop the aromatics",
+      "label": "Prep Ahead",
+      "pills": ["Shallot", "Garlic", "Lemon"],
+      "prepSteps": [
+        "Finely dice <span class=\"ing\">1 large shallot</span> and mince <span class=\"ing\">4 garlic cloves</span>.",
+        "Zest <span class=\"ing\">1 lemon</span> and squeeze <span class=\"ing\">2 tbsp lemon juice</span> into a small container.",
+        "Refrigerate until cook time."
+      ]
+    },
+    {
+      "title": "Measure the skillet base",
+      "label": "Prep Ahead",
+      "pills": ["Orzo", "Chicken broth", "Italian seasoning", "Parmesan"],
+      "prepSteps": [
+        "Measure <span class=\"ing\">1 1/2 cups dry orzo</span>, <span class=\"ing\">3 cups chicken broth</span>, <span class=\"ing\">1 tsp Italian seasoning</span>, and <span class=\"ing\">1/2 cup finely grated Parmesan</span>.",
+        "Keep refrigerated or covered until cook time."
+      ]
+    }
+  ],
 
 };

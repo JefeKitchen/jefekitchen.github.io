@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v219';
+const CACHE_NAME = 'jeffs-kitchen-v220';
 
 const PAGES = [
   './',
@@ -12,11 +12,11 @@ const PAGES = [
   './docs/menu-card.css',
   './docs/wide-layout.css',
   './docs/wide-pills.js',
-  './docs/instruction-content.js?v=35',
+  './docs/instruction-content.js?v=36',
   './docs/quantity-scaler.js?v=6',
-  './docs/recipe-catalog.js?v=11',
-  './docs/recipe-serving-data.js?v=7',
-  './docs/prep-catalog.js?v=12',
+  './docs/recipe-catalog.js?v=12',
+  './docs/recipe-serving-data.js?v=8',
+  './docs/prep-catalog.js?v=13',
   './docs/instruction-tools.js?v=3',
   './docs/firebase-config.js',
   './docs/firebase-state.js?v=6',
@@ -35,6 +35,10 @@ const PAGES = [
   './docs/sheet-pan-lemon-herb-chicken/grocery-list-sheet-pan-lemon-herb-chicken.html',
   './docs/sheet-pan-lemon-herb-chicken/sheet-pan-lemon-herb-chicken-instructions.html',
   './docs/sheet-pan-lemon-herb-chicken/sheet-pan-lemon-herb-chicken-wide.html',
+  './docs/lemony-chicken-orzo-skillet/lemony-chicken-orzo-skillet-menu.html',
+  './docs/lemony-chicken-orzo-skillet/grocery-list-lemony-chicken-orzo-skillet.html',
+  './docs/lemony-chicken-orzo-skillet/lemony-chicken-orzo-skillet-instructions.html',
+  './docs/lemony-chicken-orzo-skillet/lemony-chicken-orzo-skillet-wide.html',
   './docs/chicken-piccata-orzo/chicken-piccata-orzo-menu.html',
   './docs/chicken-shawarma-sheet-pan-pitas/chicken-shawarma-sheet-pan-pitas-menu.html',
   './docs/creamy-sun-dried-tomato-chicken/creamy-sun-dried-tomato-chicken-menu.html',
@@ -182,8 +186,8 @@ const APP_SHELL = [
   './assets/icons/apple-touch-icon.png',
   './assets/icons/favicon.png',
   './docs/theme.css?v=5',
-  './docs/recipe-catalog.js?v=11',
-  './docs/recipe-serving-data.js?v=7',
+  './docs/recipe-catalog.js?v=12',
+  './docs/recipe-serving-data.js?v=8',
   './docs/quantity-scaler.js?v=6',
   './docs/grocery-list-renderer.js?v=1',
   './docs/firebase-config.js',
