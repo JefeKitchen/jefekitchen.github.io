@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v207';
+const CACHE_NAME = 'jeffs-kitchen-v209';
 
 const PAGES = [
   './',
@@ -19,10 +19,17 @@ const PAGES = [
   './docs/prep-catalog.js?v=10',
   './docs/instruction-tools.js?v=1',
   './docs/firebase-config.js',
-  './docs/firebase-state.js?v=5',
+  './docs/firebase-state.js?v=6',
   './docs/instruction-renderer.js?v=24',
   './docs/grocery-boom.js',
   './docs/poll/dinner-poll.html',
+  './docs/poll/visitor-dinner-poll.html',
+  './docs/poll/lunch-menus/rotisserie-chicken-chow-mein.html',
+  './docs/poll/lunch-menus/beef-broccoli-wok-bowls.html',
+  './docs/poll/lunch-menus/sheet-pan-lemon-herb-chicken.html',
+  './docs/poll/lunch-menus/chicken-shawarma-grain-bowls.html',
+  './docs/poll/lunch-menus/spicy-chicken-burrito-bowls.html',
+  './docs/poll/lunch-menus/egg-roll-chicken-cabbage-bowls.html',
   './docs/sheet-pan-lemon-herb-chicken/sheet-pan-lemon-herb-chicken-menu.html',
   './docs/chicken-piccata-orzo/chicken-piccata-orzo-menu.html',
   './docs/chicken-shawarma-sheet-pan-pitas/chicken-shawarma-sheet-pan-pitas-menu.html',
@@ -175,7 +182,7 @@ const APP_SHELL = [
   './docs/recipe-serving-data.js?v=6',
   './docs/quantity-scaler.js?v=4',
   './docs/firebase-config.js',
-  './docs/firebase-state.js?v=5',
+  './docs/firebase-state.js?v=6',
   './docs/combined-shopping/this-week-shopping-list.html'
 ];
 

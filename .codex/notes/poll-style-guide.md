@@ -12,11 +12,11 @@ The dinner poll should feel like a lightweight, fun ballot for picking dinner. I
 
 Primary file: `docs/poll/dinner-poll.html`.
 
-Use the existing `WHAT DIN?` page structure unless the user asks for a redesign. Keep the page minimal:
+Use the existing `WHAT DIN?` page structure unless the user asks for a redesign. For a lunch poll, use the current `WAT LUMCH?` prompt. Keep the page minimal:
 
 - No extra explanatory copy.
 - No numbering.
-- No large headers besides `WHAT DIN?`.
+- No large headers besides the poll's `WHAT ...?` prompt.
 - Keep the wildcard/write-in option at the bottom unless the user asks to remove it.
 - Keep choices lowercase in SMS responses. Do not shout the selected dinner in all caps.
 - Keep the response templates mad-lib style so the choice reads naturally.
@@ -69,6 +69,8 @@ Default sections:
 1. Entree
 2. Side
 3. Drink
+
+For lunch meal-prep polls, omit the Drink section entirely. The user does not want beverage pairing copy on a lunch-planning surface.
 
 The user likes each menu option to include an entree and at least one side. For poll cards, the drink section should be a real pairing option, not just water/tea unless the user specifically wants that.
 
@@ -149,4 +151,4 @@ The Pick Din banner may be hidden or shown depending on the user's current prefe
 ## Poll Lifecycle
 
 - A new poll should begin with an empty vote collection. Do not reuse a prior poll's Firebase collection just because it was the last active one; stale snackie or dinner votes make results misleading.
-- When replacing an active poll, give `pollVotesCollection` in `docs/firebase-state.js` a new descriptive poll id and leave prior collections intact as history.
+- Give each poll page a descriptive `data-poll-id` on its root `<html>` element. `docs/firebase-state.js` reads that id and selects its Firebase collection, so prior polls can remain intact as history.
