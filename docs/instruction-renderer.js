@@ -437,7 +437,6 @@
     <article class="pair-task ${readPairDone()[pairGroupKey(group)] ? 'is-done' : ''}" data-lane="${group.lane}" data-pair-group="${pairGroupKey(group)}">
       <div class="pair-task-head">
         <span>
-          <span class="pair-task-label">${group.label}</span>
           <strong>${group.title}</strong>
         </span>
         ${group.lane === 'shared' ? '' : `
@@ -581,7 +580,6 @@
           ${sections.map(section => `
             <section class="section-card ${section.full ? 'full' : ''} ${section.split ? 'split' : ''}">
               <div class="section-head">
-                <span class="section-label">${section.label}</span>
                 <h2>${section.title}</h2>
               </div>
               ${section.pills.length ? `

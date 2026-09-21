@@ -201,7 +201,6 @@
     return `
       <section class="section-card ${section.full ? 'full' : ''} ${section.split ? 'split' : ''} ${options.className || ''}">
         <div class="section-head">
-          <span class="section-label">${escapeHtml(section.label || 'Prep')}</span>
           <h2>${escapeHtml(section.title || 'Prep')}</h2>
         </div>
         ${pills.length ? `

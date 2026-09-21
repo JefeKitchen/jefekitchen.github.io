@@ -123,12 +123,10 @@ Wide instructions are for iPad/desktop and should use the same content as phone 
 
 Rules:
 
-- Section card headers should match the Smash Sliders style: a small uppercase context label above a concise title.
-- Use labels in the form `Component · Method` or `Component · Location`, such as `Meatballs · Skillet`, `Rice · Stovetop`, `Salmon · Oven`, or `Cucumber · No Heat`.
-- Avoid vague labels like `Start first`, `Gentle mix`, `Tiny sauce`, or `Build`; they look less polished in the wide card header.
-- Keep the main `h3`/wide `h2` title as the action, such as `Brown Gently and Simmer` or `Make the Cucumber Salad`.
-- Wide section headers should remain visually like Smash Sliders: gold small label, larger Playfair title in normal case, raised dark header background.
-- If a wide page also loads `theme.css`, make sure `wide-layout.css` explicitly wins for `.section-card .section-head`, `.section-card .section-label`, and `.section-card .section-head h2`.
+- Section cards use only one concise action title, such as `Brown Gently and Simmer` or `Make the Cucumber Salad`.
+- Do not add a small context label, badge, or `Component · Method` line above the action title. It is redundant and wastes cooking-space vertically.
+- Wide headers should retain the raised dark header background and Playfair action title.
+- If a wide page also loads `theme.css`, make sure `wide-layout.css` explicitly wins for `.section-card .section-head` and `.section-card .section-head h2`.
 - Avoid rows with awkward blank space.
 - Half-width cards should pair cleanly.
 - If a card would leave an odd blank slot, either pair it with another half-width card or make it full-width.
