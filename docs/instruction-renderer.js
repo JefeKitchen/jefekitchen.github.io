@@ -306,22 +306,22 @@
       full: section.forceFull || (!section.forceHalf && section.split)
     }));
 
-    let index = 0;
-    while (index < laidOut.length) {
-      if (laidOut[index].split) {
-        index += 1;
-        continue;
-      }
+    // Full-width cards start and end a row. A lone short card on either side
+    // should fill the row rather than leaving a conspicuous empty half.
+    let shortRun = [];
+    const fillOddRun = () => {
+      if (shortRun.length % 2 === 1) laidOut[shortRun[shortRun.length - 1]].full = true;
+      shortRun = [];
+    };
 
-      const start = index;
-      while (index < laidOut.length && !laidOut[index].split) {
-        index += 1;
+    laidOut.forEach((section, index) => {
+      if (section.full) {
+        fillOddRun();
+        return;
       }
-
-      if ((index - start) % 2 === 1) {
-        laidOut[index - 1].full = true;
-      }
-    }
+      shortRun.push(index);
+    });
+    fillOddRun();
 
     return laidOut;
   };
