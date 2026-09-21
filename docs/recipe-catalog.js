@@ -37,6 +37,7 @@ window.JEFES_KITCHEN_CATALOG = {
       "title": "Chicken",
       "recipes": [
         "chicken-fried-rice",
+        "sheet-pan-lemon-herb-chicken",
         "chicken-milanese",
         "rotisserie-chicken-chow-mein",
         "chicken-skewers",
@@ -326,6 +327,60 @@ window.JEFES_KITCHEN_CATALOG = {
         ]
       },
       "grocery": "./docs/mild-chicken-noodle-bake/grocery-list-mild-chicken-noodle-bake.html"
+    },
+    "sheet-pan-lemon-herb-chicken": {
+      "id": "sheet-pan-lemon-herb-chicken",
+      "name": "Sheet-Pan Lemon Herb Chicken",
+      "title": "Sheet-Pan Lemon Herb Chicken",
+      "subtitle": "Lemon Chicken · Potatoes · Green Beans",
+      "section": "chicken",
+      "menu": "./docs/sheet-pan-lemon-herb-chicken/sheet-pan-lemon-herb-chicken-menu.html",
+      "phone": "./docs/sheet-pan-lemon-herb-chicken/sheet-pan-lemon-herb-chicken-instructions.html",
+      "wide": "./docs/sheet-pan-lemon-herb-chicken/sheet-pan-lemon-herb-chicken-wide.html",
+      "items": {
+        "Produce": [
+          [
+            "lemon",
+            "Lemon",
+            "1"
+          ],
+          [
+            "baby-potatoes",
+            "Baby potatoes",
+            "1 1/2 lb"
+          ],
+          [
+            "green-beans",
+            "Green beans",
+            "12 oz"
+          ],
+          [
+            "garlic",
+            "Garlic",
+            "4 cloves"
+          ],
+          [
+            "parsley",
+            "Parsley",
+            "Small bunch, optional"
+          ]
+        ],
+        "Meat/Seafood": [
+          [
+            "chicken-thighs",
+            "Boneless skinless chicken thighs",
+            "2 lb"
+          ]
+        ],
+        "Alcohol/Drinks": [
+          [
+            "sauvignon-blanc",
+            "Sauvignon Blanc",
+            "1 bottle, optional dinner pairing"
+          ]
+        ]
+      },
+      "grocery": "./docs/sheet-pan-lemon-herb-chicken/grocery-list-sheet-pan-lemon-herb-chicken.html"
     },
     "chicken-fried-rice": {
       "id": "chicken-fried-rice",

@@ -38,7 +38,7 @@ Rules:
 
 - The drink should fit the meal's theme or vibe, not feel randomly attached.
 - If the pairing is simple wine, beer, or cider, use one short tongue-in-cheek instruction.
-- Breakfast and snack entries do not need drink sections unless the user asks.
+- Breakfast, snack, and lunch meal-prep entries do not need drink sections unless the user asks. A lunch recipe may still retain a dinner drink option; `?meal=lunch` removes it from rendered instructions.
 - Put the drink section in docs/instruction-content.js so phone and wide layouts both get it.
 
 ## Step Layout

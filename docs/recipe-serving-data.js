@@ -123,5 +123,11 @@ window.JEFES_RECIPE_SERVINGS = {
     "baseServings": 3,
     "defaultServings": 4,
     "servingType": "people"
-  }
+  },
+  "sheet-pan-lemon-herb-chicken": {
+    "baseServings": 4,
+    "defaultServings": 4,
+    "servingType": "people"
+  },
+
 };

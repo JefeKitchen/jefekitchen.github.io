@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v209';
+const CACHE_NAME = 'jeffs-kitchen-v211';
 
 const PAGES = [
   './',
@@ -12,11 +12,11 @@ const PAGES = [
   './docs/menu-card.css',
   './docs/wide-layout.css',
   './docs/wide-pills.js',
-  './docs/instruction-content.js?v=29',
+  './docs/instruction-content.js?v=30',
   './docs/quantity-scaler.js?v=4',
-  './docs/recipe-catalog.js?v=8',
-  './docs/recipe-serving-data.js?v=6',
-  './docs/prep-catalog.js?v=10',
+  './docs/recipe-catalog.js?v=9',
+  './docs/recipe-serving-data.js?v=7',
+  './docs/prep-catalog.js?v=11',
   './docs/instruction-tools.js?v=1',
   './docs/firebase-config.js',
   './docs/firebase-state.js?v=6',
@@ -31,6 +31,9 @@ const PAGES = [
   './docs/poll/lunch-menus/spicy-chicken-burrito-bowls.html',
   './docs/poll/lunch-menus/egg-roll-chicken-cabbage-bowls.html',
   './docs/sheet-pan-lemon-herb-chicken/sheet-pan-lemon-herb-chicken-menu.html',
+  './docs/sheet-pan-lemon-herb-chicken/grocery-list-sheet-pan-lemon-herb-chicken.html',
+  './docs/sheet-pan-lemon-herb-chicken/sheet-pan-lemon-herb-chicken-instructions.html',
+  './docs/sheet-pan-lemon-herb-chicken/sheet-pan-lemon-herb-chicken-wide.html',
   './docs/chicken-piccata-orzo/chicken-piccata-orzo-menu.html',
   './docs/chicken-shawarma-sheet-pan-pitas/chicken-shawarma-sheet-pan-pitas-menu.html',
   './docs/creamy-sun-dried-tomato-chicken/creamy-sun-dried-tomato-chicken-menu.html',
@@ -178,8 +181,8 @@ const APP_SHELL = [
   './assets/icons/apple-touch-icon.png',
   './assets/icons/favicon.png',
   './docs/theme.css',
-  './docs/recipe-catalog.js?v=8',
-  './docs/recipe-serving-data.js?v=6',
+  './docs/recipe-catalog.js?v=9',
+  './docs/recipe-serving-data.js?v=7',
   './docs/quantity-scaler.js?v=4',
   './docs/firebase-config.js',
   './docs/firebase-state.js?v=6',

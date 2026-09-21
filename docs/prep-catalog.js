@@ -920,5 +920,11 @@ window.JEFES_KITCHEN_PREP = {
         "Keep ready for cook time."
       ]
     }
-  ]
+  ],
+  "sheet-pan-lemon-herb-chicken": [
+    {
+      "section": "Prep"
+    }
+  ],
+
 };

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Grocery List — Sheet-Pan Lemon Herb Chicken</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../theme.css?v=17">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #f2f2f0; color: #111; font-family: 'Source Sans 3', sans-serif; font-size: 15px; margin: 0 auto; max-width: 480px; padding: 32px 20px 60px; }
+  .back-bar { background: #171717; border-bottom: 1px solid #2c2c2c; margin: -32px -20px 28px; padding: 4px 10px; position: sticky; top: 0; z-index: 1000; }
+  .back-bar a { align-items: center; color: #b8953a; display: inline-flex; font-family: -apple-system, sans-serif; font-size: 30px; height: 32px; justify-content: center; line-height: 1; text-decoration: none; width: 36px; }
+  .page-title { color: #111; font-family: 'Bebas Neue', sans-serif; font-size: 42px; letter-spacing: 2px; line-height: 1; margin-bottom: 4px; }
+  .page-sub { color: #888; font-size: 12px; letter-spacing: 3px; margin-bottom: 28px; text-transform: uppercase; }
+  .section { background: #fff; border: 1px solid #ddd; border-radius: 6px; margin-bottom: 16px; overflow: hidden; }
+  .section-header { background: #111; color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 14px; letter-spacing: 3px; padding: 9px 16px; }
+  .item { align-items: flex-start; border-bottom: 1px solid #f0f0f0; cursor: pointer; display: flex; gap: 14px; padding: 10px 16px; }
+  .item:last-child { border-bottom: 0; }
+  .item input { accent-color: #111; cursor: pointer; flex-shrink: 0; height: 16px; margin-top: 2px; width: 16px; }
+  .item label { color: #111; cursor: pointer; flex: 1; font-size: 14.5px; line-height: 1.4; pointer-events: none; }
+  .item input:checked ~ label { color: #aaa; text-decoration: line-through; }
+  .item-note { color: #999; display: block; font-size: 11.5px; margin-top: 1px; }
+</style>
+</head>
+<body>
+<div class="back-bar"><a href="../../index.html" aria-label="Back to kitchen">&#8249;</a></div>
+<div class="page-title">Grocery List</div>
+<div class="page-sub">Sheet-Pan Lemon Herb Chicken</div>
+<div class="section"><div class="section-header">Produce</div>
+  <div class="item"><input type="checkbox" id="lemon"><label for="lemon">Lemon<span class="item-note">1</span></label></div>
+  <div class="item"><input type="checkbox" id="potatoes"><label for="potatoes">Baby potatoes<span class="item-note">1 1/2 lb</span></label></div>
+  <div class="item"><input type="checkbox" id="beans"><label for="beans">Green beans<span class="item-note">12 oz</span></label></div>
+  <div class="item"><input type="checkbox" id="garlic"><label for="garlic">Garlic<span class="item-note">4 cloves</span></label></div>
+  <div class="item"><input type="checkbox" id="parsley"><label for="parsley">Parsley<span class="item-note">Small bunch, optional</span></label></div>
+</div>
+<div class="section"><div class="section-header">Meat/Seafood</div>
+  <div class="item"><input type="checkbox" id="chicken"><label for="chicken">Boneless skinless chicken thighs<span class="item-note">2 lb</span></label></div>
+</div>
+<div class="section"><div class="section-header">Alcohol/Drinks</div>
+  <div class="item"><input type="checkbox" id="wine"><label for="wine">Sauvignon Blanc<span class="item-note">1 bottle, optional dinner pairing</span></label></div>
+</div>
+<script src="../grocery-boom.js?v=1"></script>
+<script>
+const boxes = [...document.querySelectorAll('input[type="checkbox"]')];
+const key = 'sheet-pan-lemon-herb-chicken-grocery-v1';
+const saved = JSON.parse(localStorage.getItem(key) || '{}');
+boxes.forEach((box) => {
+  box.checked = !!saved[box.id];
+  box.addEventListener('change', () => {
+    saved[box.id] = box.checked;
+    localStorage.setItem(key, JSON.stringify(saved));
+    window.GroceryBoom && window.GroceryBoom.check(boxes);
+  });
+});
+</script>
+</body>
+</html>

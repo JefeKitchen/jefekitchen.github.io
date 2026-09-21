@@ -15,7 +15,7 @@ A complete recipe usually means:
 - Home page card/catalog entry
 - Shared recipe metadata and shopping items in docs/recipe-catalog.js
 - Menu card
-- Theme-matched drink pairing for dinner recipes
+- Theme-matched drink pairing for dinner recipes (lunch meal-prep recipes may omit it)
 - Grocery list
 - Phone cooking instructions
 - Wide/desktop cooking instructions
@@ -56,7 +56,7 @@ Instruction pages:
 ## Non-Negotiables
 
 - Menu cards use the classic main.page, .header, .section-label, and .menu-item structure.
-- Dinner recipe menu cards include a Drink or Cocktail section with a pairing that fits the meal's theme or vibe.
+- Dinner recipe menu cards include a Drink or Cocktail section with a pairing that fits the meal's theme or vibe. Lunch meal-prep recipes may omit the drink from their lunch presentation, but can retain one for dinner use.
 - Breakfast and snack entries do not need a drink pairing unless the user asks.
 - Grocery lists use the established light grocery-list format with store sections, small aligned checkboxes, .item-note, and checked-item strikethrough.
 - Cooking instructions use shared content from docs/instruction-content.js; phone and wide pages are render shells.
