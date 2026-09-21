@@ -2101,7 +2101,7 @@ window.JEFES_KITCHEN_CATALOG = {
           [
             "chicken-breasts",
             "Boneless skinless chicken breasts",
-            "About 1 1/4 lb"
+            "About 1 1/4 lb, 3 chicken breasts"
           ]
         ],
         "Dairy": [

@@ -902,7 +902,7 @@ window.JEFES_KITCHEN_PREP = {
         "Parmesan"
       ],
       "prepSteps": [
-        "Pound <span class=\"ing\">about 1 1/4 lb chicken breasts</span> into <span class=\"ing\">1/4 inch</span> cutlets and season with salt and pepper.",
+        "Pound <span class=\"ing\">about 1 1/4 lb (3 chicken breasts)</span> into <span class=\"ing\">1/4 inch</span> cutlets and season with salt and pepper.",
         "Set up <span class=\"ing\">1/2 cup flour</span>, <span class=\"ing\">2 beaten eggs</span>, and <span class=\"ing\">1 1/2 cups panko</span> mixed with <span class=\"ing\">1/2 cup parmesan</span> and <span class=\"ing\">1 tsp Italian seasoning</span>.",
         "Bread the cutlets, layer with parchment if needed, and refrigerate uncovered or loosely covered until cook time."
       ]

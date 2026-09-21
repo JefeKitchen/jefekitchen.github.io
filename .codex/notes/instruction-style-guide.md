@@ -12,6 +12,8 @@ Timing labels should be plain: `Prep 15 min · Cook 35 min`. They are understood
 
 Four servings is the common batch. When scaling a smaller source recipe to four, favor practical kitchen amounts over mechanical quarter-increment math: for example, use `12 oz` pasta rather than `10 3/4 oz`, and `3 tbsp` rather than `2 3/4 tbsp`. Keep smaller fractions where they materially help the recipe.
 
+For countable protein pieces, always show whole pieces and round upward: chicken breasts, thighs, cutlets, patties, fillets, drumsticks, and wings should never display as a fractional count. Weight-based meat amounts such as ground beef can still use sensible fractions.
+
 Use this guide any time creating or editing `*-instructions.html`, `*-wide.html`, or `docs/instruction-content.js`.
 
 ## Source Of Truth

@@ -11,7 +11,7 @@
     '⅔': 2 / 3,
     '¾': 0.75
   };
-  const unitPattern = 'cups?|tbsp|tsp|oz|lb|lbs|pounds?|cans?|cloves?|heads?|bunch(?:es)?|packages?|pkg|avocados?|limes?|lemons?|cucumbers?|carrots?|onions?|eggs?|fillets?|pitas?|tortillas?|rolls?|slices?';
+  const unitPattern = 'cups?|tbsp|tsp|oz|lb|lbs|pounds?|cans?|cloves?|heads?|bunch(?:es)?|packages?|pkg|avocados?|limes?|lemons?|cucumbers?|carrots?|onions?|eggs?|fillets?|breasts?|thighs?|cutlets?|patties?|drumsticks?|wings?|pitas?|tortillas?|rolls?|slices?';
   const foodUnit = new RegExp(`\\b(${unitPattern})\\b`, 'i');
   const noScale = /\b(min|mins|minute|minutes|sec|second|seconds|hour|hours|f|degrees?|medium|high|low|full|inch|inches|thick|heat|timer)\b/i;
 
@@ -29,9 +29,10 @@
   const formatNumber = (value, unit = '', options = {}) => {
     if (!Number.isFinite(value) || value <= 0) return '0';
     const lowerUnit = unit.toLowerCase();
-    const countLike = !unit || /^(cans?|cloves?|heads?|bunch(?:es)?|packages?|pkg|avocados?|limes?|lemons?|cucumbers?|carrots?|onions?|eggs?|fillets?|pitas?|tortillas?|rolls?|slices?)$/.test(lowerUnit);
+    const wholePortion = /^(fillets?|breasts?|thighs?|cutlets?|patties?|drumsticks?|wings?)$/.test(lowerUnit);
+    const countLike = !unit || /^(cans?|cloves?|heads?|bunch(?:es)?|packages?|pkg|avocados?|limes?|lemons?|cucumbers?|carrots?|onions?|eggs?|fillets?|breasts?|thighs?|cutlets?|patties?|drumsticks?|wings?|pitas?|tortillas?|rolls?|slices?)$/.test(lowerUnit);
     const step = countLike ? 1 : 0.25;
-    let rounded = Math.max(countLike ? 1 : 0.25, Math.round(value / step) * step);
+    let rounded = Math.max(countLike ? 1 : 0.25, wholePortion ? Math.ceil(value) : Math.round(value / step) * step);
 
     // Four servings is the app's everyday batch. Avoid mechanical artifacts such
     // as 10 3/4 oz pasta or 2 3/4 tbsp sauce, while preserving useful small fractions.
@@ -62,9 +63,34 @@
   };
 
   const scaleQuantityText = (text, factor, options = {}) => {
-    if (!factor || Math.abs(factor - 1) < 0.01 || noScale.test(text)) return text;
+    if (!factor || noScale.test(text)) return text;
     let next = text;
+    const portionTokens = [];
     const rangeTokens = [];
+    const quantityPattern = '(\\d+(?:\\s+\\d+\\/\\d+|\\/\\d+|\\.\\d+)?|[¼½¾⅓⅔])';
+    const portionUnits = 'breasts?|thighs?|cutlets?|patties?|drumsticks?|wings?|fillets?';
+    const proteinName = '(?:boneless\\s+skinless\\s+)?(?:chicken|salmon|turkey|pork|beef)';
+    const portionRangeWithProtein = new RegExp(`\\b${quantityPattern}\\s*[-–]\\s*${quantityPattern}\\s+(${proteinName})\\s+(${portionUnits})\\b`, 'gi');
+    const portionWithProtein = new RegExp(`\\b${quantityPattern}\\s+(${proteinName})\\s+(${portionUnits})\\b`, 'gi');
+    const tokenForPortion = value => {
+      const token = `__JK_PORTION_${portionTokens.length}__`;
+      portionTokens.push(value);
+      return token;
+    };
+
+    next = next.replace(portionRangeWithProtein, (match, low, high, protein, unit) => {
+      const scaledLow = formatNumber(parseQuantity(low) * factor, unit, options);
+      const scaledHigh = formatNumber(parseQuantity(high) * factor, unit, options);
+      const unitText = pluralizeUnit(unit, parseQuantity(scaledHigh));
+      const amount = scaledLow === scaledHigh ? scaledHigh : `${scaledLow}-${scaledHigh}`;
+      return tokenForPortion(`${amount} ${protein} ${unitText}`);
+    });
+
+    next = next.replace(portionWithProtein, (match, quantity, protein, unit) => {
+      const scaled = formatNumber(parseQuantity(quantity) * factor, unit, options);
+      return tokenForPortion(`${scaled} ${protein} ${pluralizeUnit(unit, parseQuantity(scaled))}`);
+    });
+
     const rangeWithUnit = new RegExp(`\\b(\\d+(?:\\s+\\d+\/\\d+|\/\\d+|\\.\\d+)?|[¼½¾⅓⅔])\\s*[-–]\\s*(\\d+(?:\\s+\\d+\/\\d+|\/\\d+|\\.\\d+)?|[¼½¾⅓⅔])\\s*(${unitPattern})\\b`, 'gi');
     next = next.replace(rangeWithUnit, (match, low, high, unit) => {
       const a = parseQuantity(low);
@@ -94,12 +120,15 @@
     rangeTokens.forEach((value, index) => {
       next = next.replace(`__JK_RANGE_${index}__`, value);
     });
+    portionTokens.forEach((value, index) => {
+      next = next.replace(`__JK_PORTION_${index}__`, value);
+    });
     return next;
   };
 
   const scaleStandaloneNote = (note, factor, options = {}) => {
     const clean = String(note || '').trim();
-    if (!clean || !factor || Math.abs(factor - 1) < 0.01 || noScale.test(clean)) return clean;
+    if (!clean || !factor || noScale.test(clean)) return clean;
     if (foodUnit.test(clean)) return scaleQuantityText(clean, factor, options);
     if (/^\d+(?:\.\d+)?$/.test(clean)) return formatNumber(Number(clean) * factor, '', options);
     const range = clean.match(/^(\d+(?:\.\d+)?)\s*[-–]\s*(\d+(?:\.\d+)?)$/);
