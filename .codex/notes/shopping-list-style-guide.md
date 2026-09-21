@@ -8,27 +8,27 @@ For complete new recipes, start with `.codex/notes/recipe-document-workflow.md`.
 
 Shopping lists should be fast to use in an actual grocery store: clear sections, tappable rows, small checkboxes, notes that do not crowd the item name, and checked items that strike through. They should feel utilitarian and familiar, not like recipe cards or menu cards.
 
-Use this guide any time creating or editing a `grocery-list-*.html` file or `docs/combined-shopping/this-week-shopping-list.html`.
+Use this guide any time creating or editing a `grocery-list-*.html` file, `docs/grocery-list-renderer.js`, or `docs/combined-shopping/this-week-shopping-list.html`.
 
 ## Canonical Examples
 
-Use established grocery lists as the model:
+Use the shared renderer as the model:
 
-- `docs/honey-mustard/grocery-list-honey-mustard.html`
-- `docs/chicken-skewers/grocery-list-chicken-skewers.html`
-- `docs/buffalo-chickpea-dip/grocery-list-buffalo-chickpea-dip.html`
+- `docs/grocery-list-renderer.js` for catalog-backed single-recipe lists
 - `docs/combined-shopping/this-week-shopping-list.html` for the dynamic This Week list
 
 If a new list looks different from those without a specific reason, fix it before finishing.
 
 ## Regular Recipe Lists
 
-Regular grocery lists should use:
+Regular grocery lists are thin shells with a `data-recipe` id. Their rows must be rendered from `docs/recipe-catalog.js` through `docs/grocery-list-renderer.js`; do not hand-copy ingredients or quantities into each HTML file.
+
+They should use:
 
 - Mobile-first width, around `max-width: 480px`.
-- Light grocery-list background.
 - `page-title` set to `Grocery List`.
 - `page-sub` set to the recipe name.
+- The normal serving selector, defaulting to 4 servings for meals and the recipe's configured serving count for snackies.
 - Sticky arrow-only back button to `../../index.html`.
 - White `.section` cards with subtle borders and `6px` radius.
 - Black `.section-header.need` for normal store sections.

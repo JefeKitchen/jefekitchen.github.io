@@ -58,7 +58,7 @@ Instruction pages:
 - Menu cards use the classic main.page, .header, .section-label, and .menu-item structure.
 - Dinner recipe menu cards include a Drink or Cocktail section with a pairing that fits the meal's theme or vibe. Lunch meal-prep recipes may omit the drink from their lunch presentation, but can retain one for dinner use.
 - Breakfast and snack entries do not need a drink pairing unless the user asks.
-- Grocery lists use the established light grocery-list format with store sections, small aligned checkboxes, .item-note, and checked-item strikethrough.
+- Grocery lists use the established store-section format with small aligned checkboxes, `.item-note`, and checked-item strikethrough. Catalog recipes use the shared `docs/grocery-list-renderer.js`; keep their list HTML as a thin `data-recipe` shell rather than duplicating ingredient rows.
 - Cooking instructions use shared content from docs/instruction-content.js; phone and wide pages are render shells.
 - Home planning and This Week shopping use docs/recipe-catalog.js as the shared recipe registry. Do not duplicate recipe names, paths, or shopping items inside index.html or the This Week grocery page.
 - Dinner cooking instructions put the drink as the first instruction section. Simple wine or beer pairings can be a short tongue-in-cheek instruction.
@@ -81,7 +81,7 @@ Instruction pages:
 
 1. Add or update docs/recipe-catalog.js first with the recipe id, title, subtitle, section, paths, and shopping items.
 2. Create phone and wide instruction shells from existing thin-render pages.
-3. Create the grocery list by copying a mature grocery list and changing content only.
+3. Create the grocery list as a thin shell that loads `docs/grocery-list-renderer.js`; the catalog is the sole source for its ingredients and quantities.
 4. Create the menu card by copying a mature menu card and changing content/theme only.
 5. Add or update shared instruction content in docs/instruction-content.js.
 6. Add any poll data needed.

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v217';
+const CACHE_NAME = 'jeffs-kitchen-v218';
 
 const PAGES = [
   './',
@@ -8,7 +8,7 @@ const PAGES = [
   './assets/icons/icon-512.png',
   './assets/icons/apple-touch-icon.png',
   './assets/icons/favicon.png',
-  './docs/theme.css',
+  './docs/theme.css?v=5',
   './docs/menu-card.css',
   './docs/wide-layout.css',
   './docs/wide-pills.js',
@@ -21,7 +21,8 @@ const PAGES = [
   './docs/firebase-config.js',
   './docs/firebase-state.js?v=6',
   './docs/instruction-renderer.js?v=25',
-  './docs/grocery-boom.js',
+  './docs/grocery-list-renderer.js?v=1',
+  './docs/grocery-boom.js?v=1',
   './docs/poll/dinner-poll.html',
   './docs/poll/visitor-dinner-poll.html',
   './docs/poll/lunch-menus/rotisserie-chicken-chow-mein.html',
@@ -180,10 +181,11 @@ const APP_SHELL = [
   './assets/icons/icon-512.png',
   './assets/icons/apple-touch-icon.png',
   './assets/icons/favicon.png',
-  './docs/theme.css',
+  './docs/theme.css?v=5',
   './docs/recipe-catalog.js?v=10',
   './docs/recipe-serving-data.js?v=7',
   './docs/quantity-scaler.js?v=6',
+  './docs/grocery-list-renderer.js?v=1',
   './docs/firebase-config.js',
   './docs/firebase-state.js?v=6',
   './docs/combined-shopping/this-week-shopping-list.html'

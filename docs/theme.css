@@ -652,6 +652,10 @@ ol {
   margin-top: 12px !important;
 }
 
+.grocery-serving-control {
+  margin: 0 20px 18px !important;
+}
+
 .serving-control {
   align-items: center !important;
   display: inline-flex !important;
