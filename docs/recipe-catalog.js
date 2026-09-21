@@ -4,6 +4,7 @@ window.JEFES_KITCHEN_CATALOG = {
     "Meat/Seafood",
     "Dairy",
     "Refrigerated",
+    "Frozen",
     "Bakery",
     "Pantry",
     "Snacks",
