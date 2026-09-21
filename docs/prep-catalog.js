@@ -923,6 +923,9 @@ window.JEFES_KITCHEN_PREP = {
   ],
   "sheet-pan-lemon-herb-chicken": [
     {
+      "section": "Prep"
+    },
+    {
       "title": "Halve the potatoes",
       "label": "Prep Ahead",
       "pills": ["Baby potatoes"],
