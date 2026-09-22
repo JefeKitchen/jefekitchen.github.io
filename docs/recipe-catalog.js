@@ -383,7 +383,7 @@ window.JEFES_KITCHEN_CATALOG = {
           [
             "butter",
             "Butter",
-            "1 tbsp"
+            "1 tbsp, optional"
           ]
         ],
         "Pantry": [
