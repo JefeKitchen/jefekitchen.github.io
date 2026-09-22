@@ -374,6 +374,25 @@ window.JEFES_KITCHEN_CATALOG = {
             "2 lb"
           ]
         ],
+        "Dairy": [
+          [
+            "parmesan",
+            "Parmesan",
+            "1/4 cup"
+          ],
+          [
+            "butter",
+            "Butter",
+            "1 tbsp"
+          ]
+        ],
+        "Pantry": [
+          [
+            "dijon",
+            "Dijon mustard",
+            "1 tsp"
+          ]
+        ],
         "Alcohol/Drinks": [
           [
             "sauvignon-blanc",
