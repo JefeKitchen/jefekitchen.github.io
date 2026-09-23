@@ -1148,7 +1148,7 @@ window.JEFES_KITCHEN_CATALOG = {
           [
             "chicken-thighs",
             "Chicken thighs",
-            "1.5-2 lb"
+            "1-1.25 lb"
           ]
         ],
         "Dairy": [

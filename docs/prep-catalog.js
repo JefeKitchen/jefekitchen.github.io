@@ -431,7 +431,7 @@ window.JEFES_KITCHEN_PREP = {
         "Dijon"
       ],
       "prepSteps": [
-        "Cut <span class=\"ing\">1.5-2 lb chicken thighs</span> into 1 1/2 inch pieces.",
+        "Cut <span class=\"ing\">1-1.25 lb chicken thighs</span> into 1 1/2 inch pieces.",
         "Toss with <span class=\"ing\">2 tbsp olive oil</span>, zest and juice from <span class=\"ing\">1 lemon</span>, <span class=\"ing\">2 grated garlic cloves</span>, <span class=\"ing\">1 1/2 tsp kosher salt</span>, pepper, <span class=\"ing\">1 tsp smoked paprika</span>, <span class=\"ing\">1 tsp oregano</span>, and <span class=\"ing\">1 tsp Dijon</span>.",
         "Refrigerate until cook time."
       ]
