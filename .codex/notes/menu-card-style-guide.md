@@ -121,7 +121,7 @@ Avoid:
 <div class="item-sub">Same tray &middot; cozy and simple</div>
 ```
 
-Keep the one-sentence `.sub` beneath the title as the menu overview. Every menu item should also have one short `.item-desc` describing its finished flavor, texture, or preparation, like the Chicken Skewers card. The description should add to the ingredient line rather than repeat it. Drinks get the same brief treatment. Avoid decorative footers and filler copy.
+Keep the one-sentence `.sub` beneath the title as the menu overview. Every menu item should also have one short `.item-desc` describing how the finished food tastes or feels, like the Chicken Skewers card. Do not narrate cooking steps or repeat the ingredient line. Drinks get the same brief treatment. Avoid decorative footers and filler copy.
 
 Keep text short. These are menu cards, not instructions or restaurant copy.
 
@@ -155,6 +155,10 @@ When creating or editing menu cards:
 - Add new menu HTML files to `PAGES` if they should be available offline.
 
 This matters because the user frequently tests from phone and home-screen Safari.
+
+## Link Previews
+
+Shared menu links should show an image of the actual menu card. After editing menu HTML or its shared styling, run `node scripts/generate-menu-previews.cjs` with Node 20+ and Playwright available. The script renders each menu and poll menu card to `share-preview.jpg` beside its HTML file and updates its absolute Open Graph image and description tags. A filename filter can be passed as the first argument to regenerate one menu. Commit both the image and HTML metadata together.
 
 ## Quick Checklist
 
