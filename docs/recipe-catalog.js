@@ -1121,7 +1121,7 @@ window.JEFES_KITCHEN_CATALOG = {
           [
             "lemons",
             "Lemons",
-            "3-4"
+            "2"
           ],
           [
             "garlic",
