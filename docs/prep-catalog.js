@@ -432,7 +432,7 @@ window.JEFES_KITCHEN_PREP = {
       ],
       "prepSteps": [
         "Cut <span class=\"ing\">1-1.25 lb chicken thighs</span> into 1 1/2 inch pieces.",
-        "Toss with <span class=\"ing\">2 tbsp olive oil</span>, zest and juice from <span class=\"ing\">1 lemon</span>, <span class=\"ing\">2 grated garlic cloves</span>, <span class=\"ing\">1 1/2 tsp kosher salt</span>, pepper, <span class=\"ing\">1 tsp smoked paprika</span>, <span class=\"ing\">1 tsp oregano</span>, and <span class=\"ing\">1 tsp Dijon</span>.",
+        "Zest and juice <span class=\"ing\">1 lemon</span>; reserve <span class=\"ing\">1 tbsp juice</span> for the sauce. Toss chicken with <span class=\"ing\">2 tbsp olive oil</span>, the remaining lemon and zest, <span class=\"ing\">2 grated garlic cloves</span>, <span class=\"ing\">1 1/2 tsp kosher salt</span>, pepper, <span class=\"ing\">1 tsp smoked paprika</span>, <span class=\"ing\">1 tsp oregano</span>, and <span class=\"ing\">1 tsp Dijon</span>.",
         "Refrigerate until cook time."
       ]
     },
@@ -446,7 +446,7 @@ window.JEFES_KITCHEN_PREP = {
         "Honey"
       ],
       "prepSteps": [
-        "Mix <span class=\"ing\">3/4 cup Greek yogurt</span>, <span class=\"ing\">1 tbsp lemon juice</span>, <span class=\"ing\">1 small grated garlic clove</span>, <span class=\"ing\">1 tsp honey</span>, salt, and pepper.",
+        "Mix <span class=\"ing\">3/4 cup Greek yogurt</span>, the reserved <span class=\"ing\">1 tbsp lemon juice</span>, <span class=\"ing\">1 tbsp Dijon</span>, <span class=\"ing\">1 tbsp prepared horseradish</span>, <span class=\"ing\">1 small grated garlic clove</span>, <span class=\"ing\">1 tsp honey</span>, salt, and pepper. Add up to <span class=\"ing\">1 more tbsp horseradish</span> if you want more bite.",
         "Refrigerate until serving."
       ]
     },
@@ -456,12 +456,13 @@ window.JEFES_KITCHEN_PREP = {
       "pills": [
         "Cucumber",
         "Tomatoes",
+        "Red onion",
         "Parsley",
         "Lemon"
       ],
       "prepSteps": [
-        "Chop <span class=\"ing\">1 English cucumber</span>, halve <span class=\"ing\">1 pint cherry tomatoes</span>, chop <span class=\"ing\">parsley</span>, and cut <span class=\"ing\">1 lemon</span> into wedges.",
-        "Refrigerate separately. Dress the salad at cook time."
+        "Slice <span class=\"ing\">1 English cucumber</span>, halve <span class=\"ing\">1 pint cherry tomatoes</span>, thinly slice <span class=\"ing\">1/2 small red onion</span>, and chop <span class=\"ing\">2 tbsp parsley</span>.",
+        "Refrigerate separately. Keep the second <span class=\"ing\">lemon</span> whole; juice and wedge it at cook time."
       ]
     }
   ],

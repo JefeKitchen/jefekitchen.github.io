@@ -162,6 +162,7 @@
     const factor = target / base;
     applyHeroServingLabel(root, target, options.servingType || 'people');
     root.querySelectorAll('.ing').forEach(node => {
+      if (node.closest('[data-no-scale]')) return;
       node.textContent = scaleQuantityText(node.textContent, factor, {
         friendlyFourServings: target === 4 && options.servingType !== 'servings'
       });

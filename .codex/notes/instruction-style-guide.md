@@ -177,5 +177,6 @@ Before finishing an instruction change:
 - Pair Cook mode shows readable instructions in both columns; no task cards are clipping their `ol`/step content.
 - Ingredients are highlighted consistently.
 - Approximate quantities are present where the user would otherwise have to guess.
+- When changing an existing recipe, audit its grocery entries, prep steps, and shared instructions together. They must use the same base quantities and scaled serving logic; never fix only one view.
 - The service worker cache was bumped for app-facing changes.
 - The browser loaded the expected `instruction-content.js`, `instruction-renderer.js`, and CSS query versions after cache bumps.

@@ -1142,6 +1142,11 @@ window.JEFES_KITCHEN_CATALOG = {
             "parsley",
             "Parsley",
             "Small bunch"
+          ],
+          [
+            "red-onion",
+            "Red onion",
+            "1"
           ]
         ],
         "Meat/Seafood": [
@@ -1155,14 +1160,14 @@ window.JEFES_KITCHEN_CATALOG = {
           [
             "greek-yogurt",
             "Greek yogurt",
-            "For sauce and dessert"
+            "1 1/2 cups"
           ]
         ],
         "Pantry": [
           [
             "pita",
             "Pita",
-            "For grilling"
+            "1 package (extra pita for optional dessert)"
           ],
           [
             "skewers",
@@ -1172,7 +1177,17 @@ window.JEFES_KITCHEN_CATALOG = {
           [
             "honey",
             "Honey",
-            "For sauce/drink/dessert"
+            "3 tbsp, plus highballs if making"
+          ],
+          [
+            "dijon",
+            "Dijon mustard",
+            "1 1/2 tbsp"
+          ],
+          [
+            "horseradish",
+            "Prepared horseradish",
+            "1 tbsp"
           ]
         ],
         "Alcohol/Drinks": [
