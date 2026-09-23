@@ -51,6 +51,7 @@ Every menu card should use the classic menu structure:
   <section class="menu-item">
     <div class="item-name">Menu Item</div>
     <div class="item-sub">Ingredient &middot; ingredient &middot; ingredient</div>
+    <div class="item-desc">One short sentence describing the finished item.</div>
   </section>
 </main>
 </body>
@@ -120,7 +121,7 @@ Avoid:
 <div class="item-sub">Same tray &middot; cozy and simple</div>
 ```
 
-Keep the one-sentence `.sub` beneath the title as the menu's only overview. Do not add an `.item-desc` for every course or a decorative footer by default; those repeat the course title and make the card feel wordy. Add section-level description text only when it conveys genuinely useful information the name and ingredients cannot.
+Keep the one-sentence `.sub` beneath the title as the menu overview. Every menu item should also have one short `.item-desc` describing its finished flavor, texture, or preparation, like the Chicken Skewers card. The description should add to the ingredient line rather than repeat it. Drinks get the same brief treatment. Avoid decorative footers and filler copy.
 
 Keep text short. These are menu cards, not instructions or restaurant copy.
 

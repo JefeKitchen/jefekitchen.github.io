@@ -45,6 +45,7 @@ Rules:
 - The drink should fit the meal's theme or vibe, not feel randomly attached.
 - If the pairing is simple wine, beer, or cider, use one short tongue-in-cheek instruction.
 - For individual fizzy drinks such as highballs, state the build **per drink** and add `data-no-scale` to that drink's cooking block. Do not multiply an individual pour when recipe servings change. Use a batch only for a deliberately pitcher-friendly drink.
+- Keep fixed per-item sizes (such as a 1.5 oz slider ball) outside serving scaling with `data-no-scale` on that ingredient span; separately mark the total count with `.ing` so the count scales. Check descriptive counts such as `garlic cloves` and `small meatballs` at another serving size.
 - Breakfast, snack, and lunch meal-prep entries do not need drink sections unless the user asks. A lunch recipe may still retain a dinner drink option; `?meal=lunch` removes it from rendered instructions.
 - Put the drink section in docs/instruction-content.js so phone and wide layouts both get it.
 

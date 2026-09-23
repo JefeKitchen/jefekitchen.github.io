@@ -14,13 +14,29 @@
     return template.content.cloneNode(true);
   };
 
-  const cleanIngredientName = (value) => String(value || '')
-    .replace(/^[\d./¼½¾–\-\s]+(?:oz|lb|lbs|tbsp|tsp|cups?|can|cans|clove|cloves|inch|inches|seconds?|sec|min(?:utes?)?)?\b\s*/i, '')
-    .replace(/\bpaper thin\b/i, '')
-    .replace(/\s+per\s+.+$/i, '')
-    .replace(/\b(?:day[- ]old|fresh)\s+rice(?:\s+fallback)?\b/i, 'Rice')
-    .replace(/\s+/g, ' ')
-    .trim();
+  const cleanIngredientName = (value) => {
+    const name = String(value || '')
+      .replace(/^[\d./¼½¾⅓⅔⅛–\-\s]+/, '')
+      .replace(/^(?:a\s+)?(?:small|tiny)\s+(?:drizzle|splash|pinch)\s+of\s+/i, '')
+      .replace(/^(?:splash|drizzle|pinch)\s+of\s+/i, '')
+      .replace(/^(?:more|about|roughly|extra)\s+/i, '')
+      .replace(/^(?:oz|lb|lbs|tbsp|tsp|cups?|pints?|can|cans|clove|cloves|inch|inches|seconds?|sec|min(?:utes?)?)\b\s*/i, '')
+      .replace(/^(?:more|about|roughly|extra)\s+/i, '')
+      .replace(/^(?:(?:small|medium|large|English|boneless|skinless|cherry|grated|sliced|chopped|prepared|packed|fresh|dried)\s+)+/i, '')
+      .replace(/\bpaper thin\b/i, '')
+      .replace(/\s+per\s+.+$/i, '')
+      .replace(/\b(?:day[- ]old|fresh)\s+rice(?:\s+fallback)?\b/i, 'Rice')
+      .replace(/\s+/g, ' ')
+      .trim();
+    if (/^garlic cloves?$/i.test(name)) return 'Garlic';
+    if (/^(?:lemons?|lemon juice|lemon zest)$/i.test(name)) return 'Lemon';
+    if (/^(?:limes?|lime juice|lime zest)$/i.test(name)) return 'Lime';
+    if (/^cucumbers?$/i.test(name)) return 'Cucumber';
+    if (/^tomato(?:es)?$/i.test(name)) return 'Tomatoes';
+    if (/^onions?$/i.test(name)) return 'Onions';
+    if (/^horseradish$/i.test(name)) return 'Horseradish';
+    return name;
+  };
 
   const isIngredientLike = (value) => {
     const lower = String(value || '').toLowerCase();
@@ -28,7 +44,7 @@
       value.length <= 32 &&
       !value.endsWith(':') &&
       !/\d/.test(value) &&
-      !/^(glass|plate|bowl|bowls|water|salt)$/i.test(value) &&
+      !/^(glass|plate|bowl|bowls|water|cold water|warm water|salt|kosher salt|sea salt|pepper|pieces|juice|spicy sauce)$/i.test(value) &&
       !/^(high|low|medium|medium-low|medium-high|full|one side|do not.*|for a .* batch|two separate bowls)$/i.test(value) &&
       !/\b(sec|second|seconds|min|minute|minutes|hour|hours|f|inch|inches|thick)\b/.test(lower);
   };
@@ -209,7 +225,7 @@
           </div>
         ` : ''}
         <ol>
-          ${steps.map(step => `<li>${step}</li>`).join('')}
+          ${steps.map(step => `<li><div class="instruction-step-copy">${step}</div></li>`).join('')}
         </ol>
       </section>
     `;

@@ -104,9 +104,9 @@ If any of those fail, fix before reporting back.
 ## Prep List Metadata
 
 - When adding or materially changing a recipe, add prep-ahead section references in `docs/prep-catalog.js`.
-- `docs/prep-catalog.js` is metadata only. Do not write separate Prep step text, ingredient lists, storage notes, or formatting there.
+- `docs/prep-catalog.js` is metadata only. Do not copy instruction steps, amounts, ingredient lists, or formatting there. A brief storage note is allowed when make-ahead food needs one.
 - Prep references should point to real instruction section titles from `docs/instruction-content.js`, with optional zero-based `steps` indexes if only part of a section is prep-ahead.
-- A `section` reference targets the outer recipe section label (for example, `Prep`), not merely the internal instruction-card action title. The shared extractor preserves both.
+- A `section` reference should target the unique instruction-card title (for example, `Mix the Quick Sauce`). Use zero-based `steps` indexes to select only the actions safe to do ahead.
 - Prep tasks stay recipe-specific. Do not merge shared tasks across recipes, even if the ingredient is the same, because the user wants amounts stored with the correct meal.
 - Keep prep references practical: chop/store vegetables, cook rice ahead, portion proteins, mix sauces, measure spice blends, or stage toppings. Avoid filler tasks.
 - Do not include appliance-only setup in Prep. Things like preheating ovens, setting up a sandwich press, staging pans, or heating cookware belong at cook time unless they directly prep actual food ingredients.
@@ -125,8 +125,15 @@ If any of those fail, fix before reporting back.
 - Prep should render instruction cards through shared instruction helpers (`docs/instruction-tools.js`) rather than recreating card markup or ingredient parsing inside the Prep page.
 - Prep should visually group tasks by recipe. The recipe name belongs in the group heading; individual task card labels should stay short, usually only the prep category, with no servings/lunch metadata.
 - Prep must override the shared phone-first `theme.css` body width on desktop/tablet. The wide Prep view should use a full-width shell, not the default 480px document width.
-- Prep completion should happen at the recipe group level, not the individual task level. The recipe group header carries day/serving metadata once and acts as the subtle completion control; do not show a checkbox unless the user asks for one.
-- Prep recipe headings should be lightweight script-style dividers, not full-width boxed cards. Keep the task cards looking like normal instruction cards underneath.
+- The recipe group header carries day/serving metadata once and acts as the subtle whole-recipe completion control. Individual prep steps can also be tapped to collapse to one line, then tapped again to reopen; keep this reversible and keyboard-accessible without adding visible checkboxes. When every step in a task card is done, collapse its ingredient pills as well.
+- On wide Prep, paired task cards may stretch to the height of the taller card. Vertically balance a short second step within its remaining card space so it does not cling to the divider above a large blank area.
+- Prep recipe headings should match the shared instruction-card header treatment inside their recipe group. Keep the task cards looking like normal instruction cards underneath.
 - Do not render separate storage/reheat footers in Prep. Fold only the useful storage action into the step itself, and skip reheat notes.
 - Prep steps should mirror the recipe exactly for prep-ahead work. Use the recipe's actual amounts and wording, including fuzzy language like `pinch` or `splash` when that is what the recipe calls for. Do not introduce new approximate amounts or vague substitutions that are not in the recipe.
 - Dated This Week entries with dates before today should be pruned from plans and shopping data, not merely hidden with CSS.
+
+## Catalog Audit
+
+- Run `node scripts/audit-recipes.cjs` after changing any recipe. It catches missing shared instructions, inconsistent recipe IDs, missing serving data, broken page links, missing offline-cache entries, and stale Prep step references.
+- For shared renderer or scaling changes, smoke-test phone, wide, grocery, and Prep views with a non-default serving count. Older recipes should use the same shell and data flow as new ones.
+- Per-glass drink instructions stay per drink when meal servings change. Mark each dinner drink cook-block `data-no-scale`; do not mark meal food sections this way.

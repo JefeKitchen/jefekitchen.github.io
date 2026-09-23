@@ -1759,7 +1759,7 @@ window.JEFES_KITCHEN_CATALOG = {
           [
             "ground-beef",
             "80/20 ground chuck",
-            "2 lb"
+            "1 1/4 lb"
           ]
         ],
         "Dairy": [

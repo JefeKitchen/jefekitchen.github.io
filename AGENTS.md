@@ -33,6 +33,7 @@ New normal meals added to This Week default to 4 servings and have Shop enabled.
 - Update `sw.js` when adding offline pages or changing shared cached assets. Keep cache/query versions aligned.
 - Verify at least one rendered phone and one wide instruction view when touching shared recipe/instruction behavior.
 - Run `git diff --check` and syntax-check touched shared JavaScript before committing.
+- Run `node scripts/audit-recipes.cjs` after recipe/catalog/prep changes; it checks every active recipe and its shared wiring.
 
 ## Detailed References
 

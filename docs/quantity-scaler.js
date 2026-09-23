@@ -11,7 +11,7 @@
     '⅔': 2 / 3,
     '¾': 0.75
   };
-  const unitPattern = 'cups?|tbsp|tsp|oz|lb|lbs|pounds?|cans?|cloves?|heads?|bunch(?:es)?|packages?|pkg|avocados?|limes?|lemons?|cucumbers?|carrots?|onions?|eggs?|fillets?|breasts?|thighs?|cutlets?|patties?|drumsticks?|wings?|pitas?|tortillas?|rolls?|slices?';
+  const unitPattern = 'cups?|tbsp|tsp|oz|lb|lbs|pounds?|pints?|cans?|cloves?|heads?|bunch(?:es)?|packages?|pkg|avocados?|limes?|lemons?|cucumbers?|carrots?|tomato(?:es)?|potato(?:es)?|onions?|shallots?|zucchinis?|eggs?|meatballs?|balls?|jars?|containers?|fillets?|breasts?|thighs?|cutlets?|patties?|drumsticks?|wings?|pitas?|tortillas?|rolls?|slices?';
   const foodUnit = new RegExp(`\\b(${unitPattern})\\b`, 'i');
   const noScale = /\b(min|mins|minute|minutes|sec|second|seconds|hour|hours|f|degrees?|medium|high|low|full|inch|inches|thick|heat|timer)\b/i;
 
@@ -30,7 +30,7 @@
     if (!Number.isFinite(value) || value <= 0) return '0';
     const lowerUnit = unit.toLowerCase();
     const wholePortion = /^(fillets?|breasts?|thighs?|cutlets?|patties?|drumsticks?|wings?)$/.test(lowerUnit);
-    const countLike = !unit || /^(cans?|cloves?|heads?|bunch(?:es)?|packages?|pkg|avocados?|limes?|lemons?|cucumbers?|carrots?|onions?|eggs?|fillets?|breasts?|thighs?|cutlets?|patties?|drumsticks?|wings?|pitas?|tortillas?|rolls?|slices?)$/.test(lowerUnit);
+    const countLike = !unit || /^(cans?|cloves?|heads?|bunch(?:es)?|packages?|pkg|avocados?|limes?|lemons?|cucumbers?|carrots?|tomato(?:es)?|potato(?:es)?|onions?|shallots?|zucchinis?|eggs?|meatballs?|balls?|jars?|containers?|fillets?|breasts?|thighs?|cutlets?|patties?|drumsticks?|wings?|pitas?|tortillas?|rolls?|slices?)$/.test(lowerUnit);
     const step = countLike ? 1 : 0.25;
     let rounded = Math.max(countLike ? 1 : 0.25, wholePortion ? Math.ceil(value) : Math.round(value / step) * step);
 
@@ -55,6 +55,8 @@
     if (!unit) return '';
     if (Math.abs(quantity - 1) < 0.01 || (/^cups?$/i.test(unit) && quantity < 1)) return unit.replace(/s$/, '');
     if (/^(lb|lbs)$/i.test(unit)) return 'lb';
+    if (/^zucchinis?$/i.test(unit)) return 'zucchini';
+    if (/^(?:tomato|potato)$/i.test(unit)) return `${unit}es`;
     if (/^(tbsp|tsp|oz)$/i.test(unit)) return unit;
     if (/pkg$/i.test(unit)) return 'packages';
     if (unit.endsWith('s')) return unit;
@@ -68,6 +70,7 @@
     const portionTokens = [];
     const rangeTokens = [];
     const quantityPattern = '(\\d+(?:\\s+\\d+\\/\\d+|\\/\\d+|\\.\\d+)?|[¼½¾⅓⅔])';
+    const descriptorPattern = '((?:\\s+(?:small|medium|large|english|white|yellow|red|green|grated|sliced|minced|chopped|packed|extra|fresh|whole|baby|cherry|garlic|beaten|more)){0,3})';
     const portionUnits = 'breasts?|thighs?|cutlets?|patties?|drumsticks?|wings?|fillets?';
     const proteinName = '(?:boneless\\s+skinless\\s+)?(?:chicken|salmon|turkey|pork|beef)';
     const portionRangeWithProtein = new RegExp(`\\b${quantityPattern}\\s*[-–]\\s*${quantityPattern}\\s+(${proteinName})\\s+(${portionUnits})\\b`, 'gi');
@@ -91,8 +94,8 @@
       return tokenForPortion(`${scaled} ${protein} ${pluralizeUnit(unit, parseQuantity(scaled))}`);
     });
 
-    const rangeWithUnit = new RegExp(`\\b(\\d+(?:\\s+\\d+\/\\d+|\/\\d+|\\.\\d+)?|[¼½¾⅓⅔])\\s*[-–]\\s*(\\d+(?:\\s+\\d+\/\\d+|\/\\d+|\\.\\d+)?|[¼½¾⅓⅔])\\s*(${unitPattern})\\b`, 'gi');
-    next = next.replace(rangeWithUnit, (match, low, high, unit) => {
+    const rangeWithUnit = new RegExp(`\\b(\\d+(?:\\s+\\d+\/\\d+|\/\\d+|\\.\\d+)?|[¼½¾⅓⅔])\\s*[-–]\\s*(\\d+(?:\\s+\\d+\/\\d+|\/\\d+|\\.\\d+)?|[¼½¾⅓⅔])${descriptorPattern}\\s+(${unitPattern})\\b`, 'gi');
+    next = next.replace(rangeWithUnit, (match, low, high, descriptors, unit) => {
       const a = parseQuantity(low);
       const b = parseQuantity(high);
       if (!Number.isFinite(a) || !Number.isFinite(b)) return match;
@@ -102,20 +105,20 @@
       const formattedHigh = formatNumber(scaledHigh, unit, options);
       const unitText = pluralizeUnit(unit, parseQuantity(formattedHigh));
       const scaledRange = formattedLow === formattedHigh
-        ? `${formattedHigh} ${unitText}`
-        : `${formattedLow}-${formattedHigh} ${unitText}`;
+        ? `${formattedHigh}${descriptors} ${unitText}`
+        : `${formattedLow}-${formattedHigh}${descriptors} ${unitText}`;
       const token = `__JK_RANGE_${rangeTokens.length}__`;
       rangeTokens.push(scaledRange);
       return token;
     });
 
-    const singleWithUnit = new RegExp(`\\b(\\d+(?:\\s+\\d+\/\\d+|\/\\d+|\\.\\d+)?|[¼½¾⅓⅔])\\s*(${unitPattern})\\b`, 'gi');
-    next = next.replace(singleWithUnit, (match, qty, unit) => {
+    const singleWithUnit = new RegExp(`\\b(\\d+(?:\\s+\\d+\/\\d+|\/\\d+|\\.\\d+)?|[¼½¾⅓⅔])${descriptorPattern}\\s+(${unitPattern})\\b`, 'gi');
+    next = next.replace(singleWithUnit, (match, qty, descriptors, unit) => {
       const value = parseQuantity(qty);
       if (!Number.isFinite(value)) return match;
       const scaled = value * factor;
       const formatted = formatNumber(scaled, unit, options);
-      return `${formatted} ${pluralizeUnit(unit, parseQuantity(formatted))}`;
+      return `${formatted}${descriptors} ${pluralizeUnit(unit, parseQuantity(formatted))}`;
     });
     rangeTokens.forEach((value, index) => {
       next = next.replace(`__JK_RANGE_${index}__`, value);

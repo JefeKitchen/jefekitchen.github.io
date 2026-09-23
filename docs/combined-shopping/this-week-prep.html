@@ -80,6 +80,17 @@
     margin: 0 !important;
     position: relative;
   }
+  .prep-task.is-done { align-self: start; }
+  .prep-task.is-done .pull { display: none; }
+  .prep-task li { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .prep-task li:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
+  .prep-task li.is-done { align-items: center; flex: 0 !important; opacity: .6; padding: 6px 0; }
+  .prep-task li.is-done .instruction-step-copy {
+    overflow: hidden;
+    text-decoration: line-through;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   @media (max-width: 719px) {
     body { max-width: 480px !important; margin: 0 auto !important; padding: 0 0 60px !important; }
     .back-bar { position: sticky !important; }
@@ -97,6 +108,8 @@
     .prep-meal-board {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+    .prep-task:not(.full):not(.split) ol { display: flex; flex: 1; flex-direction: column; }
+    .prep-task:not(.full):not(.split) li:nth-child(2):last-child { align-items: center; flex: 1; }
   }
 </style>
 </head>
@@ -111,12 +124,12 @@
   <div class="board prep-board" id="prepList"></div>
 </main>
 
-<script src="../recipe-catalog.js?v=16"></script>
-<script src="../instruction-content.js?v=41"></script>
+<script src="../recipe-catalog.js?v=17"></script>
+<script src="../instruction-content.js?v=42"></script>
 <script src="../recipe-serving-data.js?v=9"></script>
-<script src="../quantity-scaler.js?v=6"></script>
-<script src="../prep-catalog.js?v=17"></script>
-<script src="../instruction-tools.js?v=3"></script>
+<script src="../quantity-scaler.js?v=7"></script>
+<script src="../prep-catalog.js?v=18"></script>
+<script src="../instruction-tools.js?v=4"></script>
 <script type="module" src="../firebase-state.js?v=6"></script>
 <script>
   const plannedRecipesKey = 'this-week-planned-recipes-v1';
@@ -247,77 +260,21 @@
       sections.find(section => section.key === wanted) ||
       sections.find(section => section.title.toLowerCase().includes(wanted));
   }
-  function scalePrepStep(step, entry) {
-    const defaults = servingData[entry.id] || {};
-    const target = Number(entry.servings || 0);
-    const base = Number(defaults.baseServings || defaults.defaultServings || 0);
-    if (!target || !base || Math.abs(target / base - 1) < 0.01 || !window.KitchenQuantityScaler?.scaleQuantityText) return step;
-    const template = document.createElement('template');
-    template.innerHTML = step;
-    template.content.querySelectorAll('.ing').forEach(node => {
-      node.textContent = window.KitchenQuantityScaler.scaleQuantityText(node.textContent, target / base, {
-        friendlyFourServings: target === 4 && (defaults.servingType || 'people') === 'people'
-      });
-    });
-    return template.innerHTML;
-  }
-  function prepSectionFromSpec(sections, spec, entry) {
-    if (Array.isArray(spec.prepSteps) && spec.prepSteps.length) {
-      const steps = spec.prepSteps.map(step => '<span class="st">' + scalePrepStep(step, entry) + '</span>');
-      return {
-        title: spec.title || spec.section || 'Prep',
-        label: spec.label || 'Prep Ahead',
-        pills: spec.pills || instructionTools.pillsFromSteps(steps),
-        steps,
-        full: Boolean(spec.full),
-        split: Boolean(spec.split)
-      };
-    }
+  function prepSectionFromSpec(sections, spec) {
     const section = findSection(sections, spec);
     if (!section) return null;
-    if (isApplianceOnlySection(section)) return null;
     const next = { ...section };
-    if (Array.isArray(spec.steps) && spec.steps.length) {
+    if (Array.isArray(spec.steps)) {
       next.steps = spec.steps
         .map(index => section.steps[index])
         .filter(Boolean);
-      next.pills = instructionTools.pillsFromSteps(next.steps);
-      next.full = next.steps.length >= 4 || section.full;
-      next.split = next.steps.length >= 4 && section.split;
     }
-    next.steps = adaptPrepAheadSteps(next.steps);
-    next.pills = instructionTools.pillsFromSteps(next.steps).length ? instructionTools.pillsFromSteps(next.steps) : next.pills;
-    return next;
-  }
-  function isApplianceOnlySection(section) {
-    const title = String(section.title || '').toLowerCase();
-    const label = String(section.label || '').toLowerCase();
-    const setupOnly = /\b(set up|setup|preheat|heat up|warm up|stage)\b/.test(title + ' ' + label);
-    const appliance = /\b(oven|breville|toaster|press|grill|wok|skillet|sheet pan|pan|casserole|rack)\b/.test(title + ' ' + label);
-    return setupOnly && appliance;
-  }
-  function stepText(step) {
-    const wrapper = document.createElement('div');
-    wrapper.innerHTML = step;
-    return wrapper.textContent.trim();
-  }
-  function adaptPrepAheadSteps(steps) {
-    const next = [];
-    steps.forEach(step => {
-      const text = stepText(step);
-      const lower = text.toLowerCase();
-      if (/\b(serve immediately|serve with|build plates|build the bowls|plate it up|finish and serve)\b/.test(lower)) return;
-      if (/\b(keep covered off heat|hold just fine|keep it next to the stove|keep near the stove|set aside|let it sit while|hang out while|until serving|until the .* ready|right before serving)\b/.test(lower)) {
-        if (!next.some(existing => /refrigerate/i.test(stepText(existing)))) {
-          const cooked = /\b(rice|noodles?|cook|warm|heat|hot)\b/.test(lower);
-          next.push(cooked
-            ? '<span>Let cool, then refrigerate until cook time.</span>'
-            : '<span>Refrigerate until cook time.</span>');
-        }
-        return;
-      }
-      next.push(step);
-    });
+    next.title = spec.title || section.title;
+    const storage = spec.storage || (spec.chill ? 'Refrigerate until cook time.' : '');
+    if (storage) next.steps.push('<span class="st">' + escapeHtml(storage) + '</span>');
+    next.pills = instructionTools.pillsFromSteps(next.steps);
+    next.full = Boolean(spec.full) || next.steps.length >= 4;
+    next.split = Boolean(spec.split) || next.steps.length >= 4;
     return next;
   }
   function renderTask(section) {
@@ -343,7 +300,7 @@
     const prepReady = entries.map(entry => {
       const sections = recipeSections(entry);
       const prepSections = (prepCatalog[entry.id] || [])
-        .map(spec => prepSectionFromSpec(sections, spec, entry))
+        .map(spec => prepSectionFromSpec(sections, spec))
         .filter(section => section?.steps?.length);
       return { entry, prepSections };
     }).filter(item => item.prepSections.length);
@@ -378,6 +335,41 @@
         if (event.key !== 'Enter' && event.key !== ' ') return;
         event.preventDefault();
         toggleMeal();
+      });
+    });
+    visible.forEach(({ entry, prepSections }, mealIndex) => {
+      const meal = list.children[mealIndex];
+      meal.querySelectorAll('.prep-task').forEach((task, sectionIndex) => {
+        const updateTaskState = () => {
+          task.classList.toggle('is-done', [...task.querySelectorAll('li')].every(step => step.classList.contains('is-done')));
+        };
+        task.querySelectorAll('li').forEach((step, stepIndex) => {
+          const section = prepSections[sectionIndex];
+          const doneId = 'step:' + entry.id + ':' + section.key + ':' + section.title + ':' + stepIndex;
+          const checked = done.has(doneId);
+          step.classList.toggle('is-done', checked);
+          step.dataset.doneId = doneId;
+          step.setAttribute('role', 'button');
+          step.setAttribute('tabindex', '0');
+          step.setAttribute('aria-pressed', checked ? 'true' : 'false');
+          const toggleStep = () => {
+            const nextDone = loadSet(prepDoneKey);
+            const nextChecked = !step.classList.contains('is-done');
+            if (nextChecked) nextDone.add(doneId);
+            else nextDone.delete(doneId);
+            saveSet(prepDoneKey, nextDone);
+            step.classList.toggle('is-done', nextChecked);
+            step.setAttribute('aria-pressed', nextChecked ? 'true' : 'false');
+            updateTaskState();
+          };
+          step.addEventListener('click', toggleStep);
+          step.addEventListener('keydown', event => {
+            if (event.key !== 'Enter' && event.key !== ' ') return;
+            event.preventDefault();
+            toggleStep();
+          });
+        });
+        updateTaskState();
       });
     });
   }

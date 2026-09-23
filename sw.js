@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v232';
+const CACHE_NAME = 'jeffs-kitchen-v233';
 
 const PAGES = [
   './',
@@ -12,12 +12,12 @@ const PAGES = [
   './docs/menu-card.css',
   './docs/wide-layout.css',
   './docs/wide-pills.js',
-  './docs/instruction-content.js?v=41',
-  './docs/quantity-scaler.js?v=6',
-  './docs/recipe-catalog.js?v=16',
+  './docs/instruction-content.js?v=42',
+  './docs/quantity-scaler.js?v=7',
+  './docs/recipe-catalog.js?v=17',
   './docs/recipe-serving-data.js?v=9',
-  './docs/prep-catalog.js?v=17',
-  './docs/instruction-tools.js?v=3',
+  './docs/prep-catalog.js?v=18',
+  './docs/instruction-tools.js?v=4',
   './docs/firebase-config.js',
   './docs/firebase-state.js?v=6',
   './docs/instruction-renderer.js?v=27',
@@ -190,9 +190,9 @@ const APP_SHELL = [
   './assets/icons/apple-touch-icon.png',
   './assets/icons/favicon.png',
   './docs/theme.css?v=5',
-  './docs/recipe-catalog.js?v=16',
+  './docs/recipe-catalog.js?v=17',
   './docs/recipe-serving-data.js?v=9',
-  './docs/quantity-scaler.js?v=6',
+  './docs/quantity-scaler.js?v=7',
   './docs/grocery-list-renderer.js?v=1',
   './docs/firebase-config.js',
   './docs/firebase-state.js?v=6',
