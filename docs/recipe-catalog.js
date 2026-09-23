@@ -55,7 +55,8 @@ window.JEFES_KITCHEN_CATALOG = {
         "baked-salmon-rice-cucumber",
         "garlic-shrimp-rice-bowls",
         "crispy-shrimp-tacos",
-        "sriracha-salmon-rice-bowls"
+        "sriracha-salmon-rice-bowls",
+        "lemon-garlic-shrimp-couscous"
       ]
     },
     {
@@ -2210,6 +2211,42 @@ window.JEFES_KITCHEN_CATALOG = {
         ],
         "Alcohol/Drinks": [
           ["pinot-grigio", "Pinot Grigio or Sauvignon Blanc", "For drink, if needed"]
+        ]
+      }
+    },
+    "lemon-garlic-shrimp-couscous": {
+      "id": "lemon-garlic-shrimp-couscous",
+      "name": "Lemon Garlic Shrimp Couscous",
+      "title": "Lemon Garlic Shrimp Couscous",
+      "subtitle": "Shrimp · Couscous · Zucchini",
+      "section": "seafood",
+      "menu": "./docs/lemon-garlic-shrimp-couscous/lemon-garlic-shrimp-couscous-menu.html",
+      "phone": "./docs/lemon-garlic-shrimp-couscous/lemon-garlic-shrimp-couscous-instructions.html",
+      "wide": "./docs/lemon-garlic-shrimp-couscous/lemon-garlic-shrimp-couscous-wide.html",
+      "grocery": "./docs/lemon-garlic-shrimp-couscous/grocery-list-lemon-garlic-shrimp-couscous.html",
+      "items": {
+        "Produce": [
+          ["zucchini", "Zucchini", "2 medium"],
+          ["cherry-tomatoes", "Cherry or grape tomatoes", "1 pint"],
+          ["garlic", "Garlic", "5 cloves"],
+          ["lemon", "Lemons", "2"],
+          ["spinach", "Baby spinach", "5 oz bag"],
+          ["parsley", "Parsley", "Small bunch"]
+        ],
+        "Meat/Seafood": [
+          ["shrimp", "Large raw shrimp, peeled and deveined", "1 1/2 lb"]
+        ],
+        "Dairy": [
+          ["feta", "Feta", "About 1/2 cup"]
+        ],
+        "Pantry": [
+          ["couscous", "Plain couscous", "2 cups dry"],
+          ["chicken-broth", "Chicken broth", "2 1/2 cups"],
+          ["italian-seasoning", "Italian seasoning", "1 tsp"],
+          ["red-pepper-flakes", "Red pepper flakes", "Optional pinch"]
+        ],
+        "Alcohol/Drinks": [
+          ["sauvignon-blanc", "Sauvignon Blanc or Pinot Grigio", "For drink, if needed"]
         ]
       }
     }

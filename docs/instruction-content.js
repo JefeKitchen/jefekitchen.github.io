@@ -206,5 +206,31 @@ window.INSTRUCTION_CONTENT = {
 <div class="sec">Finish</div>
 <div class="ingredient-pull"><div class="ingredient-pull-title">Pull Out</div><div class="ingredient-pull-list"><span class="ingredient-pill">Spinach</span><span class="ingredient-pill">Lemon</span><span class="ingredient-pill">Parmesan</span><span class="ingredient-pill">Parsley</span></div></div>
 <div class="cook-block wide-full"><div class="cook-head"><span><h3>Make It Bright</h3></span></div><ol class="cook-steps"><li><span class="st">Take the skillet off heat. Fold in <span class="ing">5 oz baby spinach</span> until wilted, then stir in the lemon zest, <span class="ing">2 tbsp lemon juice</span>, and <span class="ing">1/2 cup finely grated Parmesan</span>; reserve another <span class="ing">1/4 cup Parmesan</span> for topping.</span></li><li><span class="st">Taste and add salt, pepper, or a pinch of <span class="ing">red pepper flakes</span> if you want a little heat. Loosen with a tiny splash of broth if the orzo tightens before serving.</span></li><li><span class="st">Finish with <span class="ing">2 tbsp chopped parsley</span> if using and the reserved <span class="ing">1/4 cup Parmesan</span>. Serve straight from the skillet.</span></li></ol></div>`
+  },
+  "lemon-garlic-shrimp-couscous": {
+    "title": "Lemon Garlic Shrimp Couscous Instructions",
+    "heroTitle": "Lemon Garlic<br><span>Shrimp Couscous</span>",
+    "heroSub": "Serves 4 · Prep 20 min · Cook 20 min",
+    "body": `<div class="hero"><div class="hero-title">Lemon Garlic<br><span>Shrimp Couscous</span></div><div class="hero-sub">Serves 4 · Prep 20 min · Cook 20 min</div></div>
+
+<div class="sec">Drink</div>
+<div class="ingredient-pull"><div class="ingredient-pull-title">Pull Out</div><div class="ingredient-pull-list"><span class="ingredient-pill">Dry white wine</span></div></div>
+<div class="cook-block wide-half"><div class="cook-head"><span><h3>Cold Crisp White</h3></span></div><ol class="cook-steps"><li><span class="st">Pour a cold glass of <span class="ing">Sauvignon Blanc or Pinot Grigio</span>. The lemony shrimp appreciates a wine that is equally awake.</span></li></ol></div>
+
+<div class="sec">Prep</div>
+<div class="ingredient-pull"><div class="ingredient-pull-title">Pull Out</div><div class="ingredient-pull-list"><span class="ingredient-pill">Shrimp</span><span class="ingredient-pill">Zucchini</span><span class="ingredient-pill">Tomatoes</span><span class="ingredient-pill">Garlic</span><span class="ingredient-pill">Lemons</span><span class="ingredient-pill">Italian seasoning</span></div></div>
+<div class="cook-block wide-full"><div class="cook-head"><span><h3>Get Everything Ready</h3></span></div><ol class="cook-steps"><li><span class="st">Pat <span class="ing">1 1/2 lb large raw shrimp</span> very dry. Season with <span class="ing">1 tsp Italian seasoning</span>, salt, pepper, and optional <span class="ing">1/2 tsp red pepper flakes</span>.</span></li><li><span class="st">Cut <span class="ing">2 medium zucchini</span> into half moons, halve <span class="ing">1 pint cherry tomatoes</span>, and mince <span class="ing">5 garlic cloves</span>. Zest <span class="ing">1 lemon</span> and squeeze <span class="ing">3 tbsp lemon juice</span>; cut the second lemon into wedges.</span></li></ol></div>
+
+<div class="sec">Shrimp</div>
+<div class="ingredient-pull"><div class="ingredient-pull-title">Pull Out</div><div class="ingredient-pull-list"><span class="ingredient-pill">Shrimp</span><span class="ingredient-pill">Garlic</span></div></div>
+<div class="cook-block wide-half"><div class="cook-head"><span><h3>Sear the Shrimp</h3></span></div><ol class="cook-steps"><li><span class="st">Heat a large deep skillet over medium-high with <span class="ing">1 tbsp olive oil</span>. Add shrimp in a single layer and cook for <span class="ing">about 1 minute</span>, then flip and cook for <span class="ing">30-60 seconds</span>, just until opaque. Move to a plate.</span></li></ol></div>
+
+<div class="sec">Couscous</div>
+<div class="ingredient-pull"><div class="ingredient-pull-title">Pull Out</div><div class="ingredient-pull-list"><span class="ingredient-pill">Zucchini</span><span class="ingredient-pill">Tomatoes</span><span class="ingredient-pill">Garlic</span><span class="ingredient-pill">Couscous</span><span class="ingredient-pill">Chicken broth</span></div></div>
+<div class="cook-block wide-full"><div class="cook-head"><span><h3>Build the Skillet</h3></span></div><ol class="cook-steps"><li><span class="st">Lower heat to medium. Add the zucchini with a small drizzle of oil if the skillet looks dry; cook for <span class="ing">3-4 minutes</span>, until lightly browned.</span></li><li><span class="st">Add tomatoes and garlic. Cook for <span class="ing">1 minute</span>, just until the tomatoes soften and the garlic smells good.</span></li><li><span class="st">Pour in <span class="ing">2 1/2 cups chicken broth</span> and bring to a simmer. Stir in <span class="ing">2 cups dry couscous</span>, cover, remove from heat, and let stand for <span class="ing">5 minutes</span>.</span></li></ol></div>
+
+<div class="sec">Finish</div>
+<div class="ingredient-pull"><div class="ingredient-pull-title">Pull Out</div><div class="ingredient-pull-list"><span class="ingredient-pill">Shrimp</span><span class="ingredient-pill">Spinach</span><span class="ingredient-pill">Lemon</span><span class="ingredient-pill">Feta</span><span class="ingredient-pill">Parsley</span></div></div>
+<div class="cook-block wide-full"><div class="cook-head"><span><h3>Make It Bright</h3></span></div><ol class="cook-steps"><li><span class="st">Fluff the couscous with a fork. Fold in <span class="ing">5 oz baby spinach</span>, lemon zest, and <span class="ing">3 tbsp lemon juice</span> until the spinach wilts.</span></li><li><span class="st">Return the shrimp and any juices to the skillet. Top with <span class="ing">1/2 cup crumbled feta</span> and <span class="ing">2 tbsp chopped parsley</span>. Taste, then serve with lemon wedges.</span></li></ol></div>`
   }
 };

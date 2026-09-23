@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v226';
+const CACHE_NAME = 'jeffs-kitchen-v227';
 
 const PAGES = [
   './',
@@ -12,11 +12,11 @@ const PAGES = [
   './docs/menu-card.css',
   './docs/wide-layout.css',
   './docs/wide-pills.js',
-  './docs/instruction-content.js?v=39',
+  './docs/instruction-content.js?v=40',
   './docs/quantity-scaler.js?v=6',
-  './docs/recipe-catalog.js?v=15',
-  './docs/recipe-serving-data.js?v=8',
-  './docs/prep-catalog.js?v=16',
+  './docs/recipe-catalog.js?v=16',
+  './docs/recipe-serving-data.js?v=9',
+  './docs/prep-catalog.js?v=17',
   './docs/instruction-tools.js?v=3',
   './docs/firebase-config.js',
   './docs/firebase-state.js?v=6',
@@ -39,6 +39,10 @@ const PAGES = [
   './docs/lemony-chicken-orzo-skillet/grocery-list-lemony-chicken-orzo-skillet.html',
   './docs/lemony-chicken-orzo-skillet/lemony-chicken-orzo-skillet-instructions.html',
   './docs/lemony-chicken-orzo-skillet/lemony-chicken-orzo-skillet-wide.html',
+  './docs/lemon-garlic-shrimp-couscous/lemon-garlic-shrimp-couscous-menu.html',
+  './docs/lemon-garlic-shrimp-couscous/grocery-list-lemon-garlic-shrimp-couscous.html',
+  './docs/lemon-garlic-shrimp-couscous/lemon-garlic-shrimp-couscous-instructions.html',
+  './docs/lemon-garlic-shrimp-couscous/lemon-garlic-shrimp-couscous-wide.html',
   './docs/chicken-piccata-orzo/chicken-piccata-orzo-menu.html',
   './docs/chicken-shawarma-sheet-pan-pitas/chicken-shawarma-sheet-pan-pitas-menu.html',
   './docs/creamy-sun-dried-tomato-chicken/creamy-sun-dried-tomato-chicken-menu.html',
@@ -186,8 +190,8 @@ const APP_SHELL = [
   './assets/icons/apple-touch-icon.png',
   './assets/icons/favicon.png',
   './docs/theme.css?v=5',
-  './docs/recipe-catalog.js?v=15',
-  './docs/recipe-serving-data.js?v=8',
+  './docs/recipe-catalog.js?v=16',
+  './docs/recipe-serving-data.js?v=9',
   './docs/quantity-scaler.js?v=6',
   './docs/grocery-list-renderer.js?v=1',
   './docs/firebase-config.js',

@@ -134,5 +134,10 @@ window.JEFES_RECIPE_SERVINGS = {
     "defaultServings": 4,
     "servingType": "people"
   },
+  "lemon-garlic-shrimp-couscous": {
+    "baseServings": 4,
+    "defaultServings": 4,
+    "servingType": "people"
+  },
 
 };

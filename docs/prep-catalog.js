@@ -956,5 +956,26 @@ window.JEFES_KITCHEN_PREP = {
       ]
     }
   ],
+  "lemon-garlic-shrimp-couscous": [
+    {
+      "title": "Chop the vegetables",
+      "label": "Prep Ahead",
+      "pills": ["Zucchini", "Tomatoes", "Garlic", "Lemons", "Parsley"],
+      "prepSteps": [
+        "Cut <span class=\"ing\">2 medium zucchini</span> into half moons, halve <span class=\"ing\">1 pint cherry tomatoes</span>, and mince <span class=\"ing\">5 garlic cloves</span>.",
+        "Zest <span class=\"ing\">1 lemon</span>, squeeze <span class=\"ing\">3 tbsp lemon juice</span>, cut the second lemon into wedges, and chop <span class=\"ing\">2 tbsp parsley</span>.",
+        "Refrigerate separately until cook time."
+      ]
+    },
+    {
+      "title": "Measure the couscous base",
+      "label": "Prep Ahead",
+      "pills": ["Couscous", "Chicken broth", "Italian seasoning", "Feta"],
+      "prepSteps": [
+        "Measure <span class=\"ing\">2 cups dry couscous</span>, <span class=\"ing\">2 1/2 cups chicken broth</span>, <span class=\"ing\">1 tsp Italian seasoning</span>, and <span class=\"ing\">1/2 cup crumbled feta</span>.",
+        "Keep covered or refrigerated until cook time."
+      ]
+    }
+  ],
 
 };
