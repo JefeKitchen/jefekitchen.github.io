@@ -951,7 +951,7 @@ window.JEFES_KITCHEN_PREP = {
       "label": "Prep Ahead",
       "pills": ["Orzo", "Chicken broth", "Italian seasoning", "Parmesan"],
       "prepSteps": [
-        "Measure <span class=\"ing\">1 1/2 cups dry orzo</span>, <span class=\"ing\">3 cups chicken broth</span>, <span class=\"ing\">1 tsp Italian seasoning</span>, and <span class=\"ing\">1/2 cup finely grated Parmesan</span>.",
+        "Measure <span class=\"ing\">2 cups dry orzo</span>, <span class=\"ing\">3 1/2 cups chicken broth</span>, <span class=\"ing\">1 tsp Italian seasoning</span>, and <span class=\"ing\">3/4 cup finely grated Parmesan</span>.",
         "Keep refrigerated or covered until cook time."
       ]
     }

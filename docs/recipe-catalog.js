@@ -2200,11 +2200,11 @@ window.JEFES_KITCHEN_CATALOG = {
           ["chicken-breasts", "Boneless skinless chicken breasts", "About 1 1/2 lb, 4 breasts"]
         ],
         "Dairy": [
-          ["parmesan", "Parmesan", "About 1/2 cup"]
+          ["parmesan", "Parmesan", "About 3/4 cup"]
         ],
         "Pantry": [
-          ["orzo", "Orzo", "1 1/2 cups dry"],
-          ["chicken-broth", "Chicken broth", "3 cups"],
+          ["orzo", "Orzo", "2 cups dry"],
+          ["chicken-broth", "Chicken broth", "3 1/2 cups"],
           ["italian-seasoning", "Italian seasoning", "1 tsp"],
           ["red-pepper-flakes", "Red pepper flakes", "Optional pinch"]
         ],
