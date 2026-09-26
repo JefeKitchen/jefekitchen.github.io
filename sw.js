@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v234';
+const CACHE_NAME = 'jeffs-kitchen-v235';
 
 const PAGES = [
   './',
@@ -13,6 +13,7 @@ const PAGES = [
   './docs/wide-layout.css',
   './docs/wide-pills.js',
   './docs/instruction-content.js?v=42',
+  './docs/instruction-content.js?v=43',
   './docs/quantity-scaler.js?v=7',
   './docs/recipe-catalog.js?v=17',
   './docs/recipe-serving-data.js?v=9',
