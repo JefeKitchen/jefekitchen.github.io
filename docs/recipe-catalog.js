@@ -1160,7 +1160,7 @@ window.JEFES_KITCHEN_CATALOG = {
           [
             "greek-yogurt",
             "Greek yogurt",
-            "1 1/2 cups"
+            "1 cup"
           ]
         ],
         "Pantry": [
@@ -1177,12 +1177,12 @@ window.JEFES_KITCHEN_CATALOG = {
           [
             "honey",
             "Honey",
-            "3 tbsp, plus highballs if making"
+            "2 tbsp, plus highballs if making"
           ],
           [
             "dijon",
             "Dijon mustard",
-            "1 1/2 tbsp"
+            "1 tbsp"
           ],
           [
             "horseradish",
