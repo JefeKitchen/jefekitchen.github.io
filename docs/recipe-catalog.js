@@ -1161,6 +1161,11 @@ window.JEFES_KITCHEN_CATALOG = {
             "greek-yogurt",
             "Greek yogurt",
             "1 cup"
+          ],
+          [
+            "butter",
+            "Butter",
+            "1 tsp, for optional dessert"
           ]
         ],
         "Pantry": [
@@ -1178,6 +1183,21 @@ window.JEFES_KITCHEN_CATALOG = {
             "honey",
             "Honey",
             "2 tbsp, plus highballs if making"
+          ],
+          [
+            "sugar",
+            "Sugar",
+            "2 tsp, for optional dessert"
+          ],
+          [
+            "cinnamon",
+            "Cinnamon",
+            "1/4 tsp, for optional dessert"
+          ],
+          [
+            "vanilla",
+            "Vanilla extract",
+            "1/4 tsp, for optional dessert"
           ],
           [
             "dijon",
