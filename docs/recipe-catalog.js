@@ -1131,12 +1131,12 @@ window.JEFES_KITCHEN_CATALOG = {
           [
             "cucumber",
             "English cucumber",
-            "1"
+            "3/4 cucumber"
           ],
           [
             "tomatoes",
             "Cherry tomatoes",
-            "1 pint"
+            "3/4 pint"
           ],
           [
             "parsley",
