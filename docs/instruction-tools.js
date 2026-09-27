@@ -22,12 +22,27 @@
       .replace(/^(?:more|about|roughly|extra)\s+/i, '')
       .replace(/^(?:oz|lb|lbs|tbsp|tsp|cups?|pints?|can|cans|clove|cloves|inch|inches|seconds?|sec|min(?:utes?)?)\b\s*/i, '')
       .replace(/^(?:more|about|roughly|extra)\s+/i, '')
-      .replace(/^(?:(?:small|medium|large|English|boneless|skinless|cherry|grated|sliced|chopped|prepared|packed|fresh|dried)\s+)+/i, '')
+      .replace(/^(?:bunch(?:es)?|heads?|slices?|cups?)\s+/i, '')
+      .replace(/^(?:(?:small|medium|large|English|boneless|skinless|cherry|grated|sliced|chopped|prepared|packed|fresh|dried|minced|trimmed|frozen|shelled|shredded|cooked|raw|beaten|melted|finely)\s+)+/i, '')
       .replace(/\bpaper thin\b/i, '')
       .replace(/\s+per\s+.+$/i, '')
       .replace(/\b(?:day[- ]old|fresh)\s+rice(?:\s+fallback)?\b/i, 'Rice')
       .replace(/\s+/g, ' ')
       .trim();
+    if (/^honey syrup$/i.test(name)) return 'Honey';
+    if (/^cucumber slices?$/i.test(name)) return 'Cucumber';
+    if (/^pitas?$/i.test(name)) return 'Pita';
+    if (/^cups? cabbage$/i.test(name)) return 'Cabbage';
+    if (/^heads? broccoli$/i.test(name)) return 'Broccoli';
+    if (/^garlic cloves? minced$/i.test(name)) return 'Garlic';
+    if (/^(?:lemon|lime) (?:wedges?|half)$/i.test(name)) return name.split(' ')[0];
+    if (/^(?:beef balls?|chunk of plain beef)$/i.test(name)) return 'Beef';
+    if (/^potato(?: chunk)?s?$/i.test(name)) return 'Potatoes';
+    if (/^broccoli$/i.test(name)) return 'Broccoli';
+    if (/^edamame$/i.test(name)) return 'Edamame';
+    if (/^chicken(?: breasts?| thighs?| cutlets?)?$/i.test(name)) return 'Chicken';
+    if (/^shrimp$/i.test(name)) return 'Shrimp';
+    if (/^(?:rice|white rice)$/i.test(name)) return 'Rice';
     if (/^garlic cloves?$/i.test(name)) return 'Garlic';
     if (/^(?:lemons?|lemon juice|lemon zest)$/i.test(name)) return 'Lemon';
     if (/^(?:limes?|lime juice|lime zest)$/i.test(name)) return 'Lime';
@@ -44,7 +59,7 @@
       value.length <= 32 &&
       !value.endsWith(':') &&
       !/\d/.test(value) &&
-      !/^(glass|plate|bowl|bowls|water|cold water|warm water|salt|kosher salt|sea salt|pepper|pieces|juice|spicy sauce)$/i.test(value) &&
+      !/^(glass|plate|bowl|bowls|water|cold water|warm water|salt|kosher salt|sea salt|pepper|black pepper|salt (?:&|and) pepper|pieces|chunks?|medallions|days?|per side|per sandwich|juice|ice|balls?|spicy sauce|skewers?|tongs? or spatula|sheet pan(?: or plate)?|small pan or skillet|baking dish|pressing pan|knife|cutting board|wok|foil|parchment|towel|jars? or containers?|containers?|high heat|medium-high to high heat|glaze check|(?:light|generous) layer of glaze|finished teriyaki dish|theo's meatball|beef and broccoli|fried rice|chow mein|stuffed chicken|tomato-pepper pan juices|cucumber bites|sandwiches|sauce|glaze)$/i.test(value) &&
       !/^(high|low|medium|medium-low|medium-high|full|one side|do not.*|for a .* batch|two separate bowls)$/i.test(value) &&
       !/\b(sec|second|seconds|min|minute|minutes|hour|hours|f|inch|inches|thick)\b/.test(lower);
   };
@@ -118,22 +133,6 @@
     return 'Cook';
   };
 
-  const previousPills = (node) => {
-    let cursor = node.previousElementSibling;
-    while (cursor && !isSectionHeader(cursor)) {
-      if (cursor.classList.contains('ingredient-pull')) {
-        return Array.from(cursor.querySelectorAll('.ingredient-pill')).map(pill => pill.textContent.trim());
-      }
-      cursor = cursor.previousElementSibling;
-    }
-    return [];
-  };
-
-  const cleanPills = (pills) => Array.from(new Map((pills || [])
-    .map(item => cleanIngredientName(item))
-    .filter(isIngredientLike)
-    .map(item => [item.toLowerCase(), item])).values());
-
   const pillsFromSteps = (steps) => {
     const skip = new Set(['high', 'low', 'medium', 'medium-low', 'medium-high']);
     const wrapper = document.createElement('div');
@@ -145,8 +144,6 @@
       .map(item => {
         if (/^onions?$/i.test(item)) return 'Onions';
         if (/^more onion$/i.test(item)) return 'Onions';
-        if (/^balls$/i.test(item)) return 'Beef balls';
-        if (/^meat balls?$/i.test(item)) return 'Meat balls';
         return item;
       })
       .filter(isIngredientLike)
@@ -180,7 +177,7 @@
         steps = Array.from(block.querySelectorAll('.cook-steps > li')).map(step => step.innerHTML.trim());
         label = text(block, '.badge') || previousSectionName(block);
         title = text(block, 'h3') || previousSectionName(block);
-        pills = cleanPills(previousPills(block));
+        pills = pillsFromSteps(steps);
       } else if (block.classList.contains('steps-list')) {
         steps = Array.from(block.querySelectorAll('.step-text')).map(step => step.innerHTML.trim());
         label = previousSectionName(block);
