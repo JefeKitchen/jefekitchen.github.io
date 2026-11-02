@@ -100,8 +100,8 @@ window.JEFES_KITCHEN_PREP = {
   ],
   "savory-roasted-edamame": [],
   "chicken-milanese": [
-    { section: "Make Tomato Checca", title: "Chop the tomatoes and herbs", steps: [0], storage: "Refrigerate the chopped ingredients separately until cook time." },
-    { section: "Bread the Chicken", steps: [0, 1, 2], storage: "Cover and refrigerate the breaded chicken until cook time." }
+    { section: "Make the Checca", steps: [0, 1], storage: "Keep refrigerated until serving; drain just before plating." },
+    { section: "Prepare the Cutlets", steps: [0], storage: "Cover and refrigerate the raw cutlets until cook time. Bread just before frying." }
   ],
   "sheet-pan-lemon-herb-chicken": [
     { section: "Season the Chicken and Beans", steps: [0, 1, 2], storage: "Keep the chicken and beans covered in separate containers in the refrigerator." },

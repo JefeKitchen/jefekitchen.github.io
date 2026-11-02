@@ -11,7 +11,7 @@
     '⅔': 2 / 3,
     '¾': 0.75
   };
-  const unitPattern = 'cups?|tbsp|tsp|oz|lb|lbs|pounds?|pints?|cans?|cloves?|heads?|bunch(?:es)?|packages?|pkg|avocados?|limes?|lemons?|cucumbers?|carrots?|tomato(?:es)?|potato(?:es)?|onions?|shallots?|zucchinis?|eggs?|meatballs?|balls?|jars?|containers?|fillets?|breasts?|thighs?|cutlets?|patties?|drumsticks?|wings?|pitas?|tortillas?|rolls?|slices?';
+  const unitPattern = 'cups?|tbsp|tsp|oz|lb|lbs|pounds?|pints?|cans?|cloves?|heads?|bunch(?:es)?|packages?|pkg|avocados?|limes?|lemons?|cucumbers?|carrots?|tomato(?:es)?|potato(?:es)?|onions?|shallots?|zucchinis?|eggs?|meatballs?|balls?|jars?|containers?|fillets?|breasts?|thighs?|cutlets?|patties?|drumsticks?|wings?|pitas?|tortillas?|rolls?|slices?|leaf|leaves';
   const foodUnit = new RegExp(`\\b(${unitPattern})\\b`, 'i');
   const noScale = /\b(min|mins|minute|minutes|sec|second|seconds|hour|hours|f|degrees?|medium|high|low|full|inch|inches|thick|heat|timer)\b/i;
 
@@ -30,7 +30,7 @@
     if (!Number.isFinite(value) || value <= 0) return '0';
     const lowerUnit = unit.toLowerCase();
     const wholePortion = /^(fillets?|breasts?|thighs?|cutlets?|patties?|drumsticks?|wings?)$/.test(lowerUnit);
-    const countLike = !unit || /^(cans?|cloves?|heads?|bunch(?:es)?|packages?|pkg|avocados?|limes?|lemons?|cucumbers?|carrots?|tomato(?:es)?|potato(?:es)?|onions?|shallots?|zucchinis?|eggs?|meatballs?|balls?|jars?|containers?|fillets?|breasts?|thighs?|cutlets?|patties?|drumsticks?|wings?|pitas?|tortillas?|rolls?|slices?)$/.test(lowerUnit);
+    const countLike = !unit || /^(cans?|cloves?|heads?|bunch(?:es)?|packages?|pkg|avocados?|limes?|lemons?|cucumbers?|carrots?|tomato(?:es)?|potato(?:es)?|onions?|shallots?|zucchinis?|eggs?|meatballs?|balls?|jars?|containers?|fillets?|breasts?|thighs?|cutlets?|patties?|drumsticks?|wings?|pitas?|tortillas?|rolls?|slices?|leaf|leaves)$/.test(lowerUnit);
     const step = countLike ? 1 : 0.25;
     let rounded = Math.max(countLike ? 1 : 0.25, wholePortion ? Math.ceil(value) : Math.round(value / step) * step);
 
@@ -53,6 +53,7 @@
 
   const pluralizeUnit = (unit, quantity) => {
     if (!unit) return '';
+    if (/^(?:leaf|leaves)$/i.test(unit)) return Math.abs(quantity - 1) < 0.01 ? 'leaf' : 'leaves';
     if (Math.abs(quantity - 1) < 0.01 || (/^cups?$/i.test(unit) && quantity < 1)) return unit.replace(/s$/, '');
     if (/^(lb|lbs)$/i.test(unit)) return 'lb';
     if (/^zucchinis?$/i.test(unit)) return 'zucchini';
@@ -70,7 +71,7 @@
     const portionTokens = [];
     const rangeTokens = [];
     const quantityPattern = '(\\d+(?:\\s+\\d+\\/\\d+|\\/\\d+|\\.\\d+)?|[¼½¾⅓⅔])';
-    const descriptorPattern = '((?:\\s+(?:small|medium|large|english|white|yellow|red|green|grated|sliced|minced|chopped|packed|extra|fresh|whole|baby|cherry|garlic|beaten|more)){0,3})';
+    const descriptorPattern = '((?:\\s+(?:small|medium|large|english|white|yellow|red|green|grated|sliced|minced|chopped|packed|extra|fresh|whole|baby|cherry|garlic|basil|beaten|more)){0,3})';
     const portionUnits = 'breasts?|thighs?|cutlets?|patties?|drumsticks?|wings?|fillets?';
     const proteinName = '(?:boneless\\s+skinless\\s+)?(?:chicken|salmon|turkey|pork|beef)';
     const portionRangeWithProtein = new RegExp(`\\b${quantityPattern}\\s*[-–]\\s*${quantityPattern}\\s+(${proteinName})\\s+(${portionUnits})\\b`, 'gi');

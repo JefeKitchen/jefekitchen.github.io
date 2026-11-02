@@ -40,6 +40,8 @@
     if (/^potato(?: chunk)?s?$/i.test(name)) return 'Potatoes';
     if (/^broccoli$/i.test(name)) return 'Broccoli';
     if (/^edamame$/i.test(name)) return 'Edamame';
+    if (/^basil leaves?$/i.test(name)) return 'Basil';
+    if (/^baby arugula$/i.test(name)) return 'Arugula';
     if (/^chicken(?: breasts?| thighs?| cutlets?)?$/i.test(name)) return 'Chicken';
     if (/^shrimp$/i.test(name)) return 'Shrimp';
     if (/^(?:rice|white rice)$/i.test(name)) return 'Rice';

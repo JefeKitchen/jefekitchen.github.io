@@ -327,6 +327,13 @@ window.JEFES_KITCHEN_CATALOG = {
             "Panko or whole-wheat breadcrumbs",
             "Optional topping"
           ]
+        ],
+        "Alcohol/Drinks": [
+          [
+            "pilsner",
+            "Pilsner",
+            "4 cans, optional pairing"
+          ]
         ]
       },
       "grocery": "./docs/mild-chicken-noodle-bake/grocery-list-mild-chicken-noodle-bake.html"
@@ -2115,7 +2122,7 @@ window.JEFES_KITCHEN_CATALOG = {
       "id": "chicken-milanese",
       "name": "Chicken Milanese",
       "title": "Chicken Milanese",
-      "subtitle": "Crispy Chicken · Tomato Basil Spaghetti",
+      "subtitle": "Crispy Chicken · Arugula · Tomato Checca",
       "section": "chicken",
       "menu": "./docs/chicken-milanese/chicken-milanese-menu.html",
       "phone": "./docs/chicken-milanese/chicken-milanese-instructions.html",
@@ -2125,84 +2132,54 @@ window.JEFES_KITCHEN_CATALOG = {
         "Produce": [
           [
             "arugula",
-            "Arugula",
-            "Small container"
+            "Baby arugula",
+            "8 cups loosely packed"
           ],
           [
             "tomatoes",
-            "Cherry or grape tomatoes",
-            "1 pint"
+            "Roma tomatoes",
+            "3/4 lb"
           ],
           [
             "basil",
             "Fresh basil",
-            "Small bunch"
+            "Small bunch (2 large leaves needed)"
           ],
           [
             "garlic",
             "Garlic",
-            "1 head"
+            "1 1/2 tsp minced"
           ],
           [
             "lemons",
             "Lemons",
             "2"
-          ],
-          [
-            "parsley",
-            "Parsley",
-            "Small bunch, optional"
           ]
         ],
         "Meat/Seafood": [
           [
             "chicken-breasts",
             "Boneless skinless chicken breasts",
-            "About 1 1/4 lb, 3 chicken breasts"
+            "4 breasts (about 2 lb), cut into 8 cutlets"
           ]
         ],
         "Dairy": [
           [
             "eggs",
             "Eggs",
-            "2"
+            "1 large egg"
           ],
           [
             "parmesan",
             "Parmesan",
-            "About 3/4 cup"
+            "2 oz, shaved"
           ]
         ],
         "Pantry": [
           [
-            "spaghetti",
-            "Spaghetti",
-            "8 oz"
-          ],
-          [
-            "panko",
-            "Panko breadcrumbs",
-            "1 1/2 cups"
-          ],
-          [
-            "flour",
-            "Flour",
-            "1/2 cup"
-          ],
-          [
-            "marinara",
-            "Tomato basil sauce or marinara",
-            "About 2 cups"
-          ],
-          [
-            "italian-seasoning",
-            "Italian seasoning",
-            "1 tsp"
-          ],
-          [
-            "neutral-oil",
-            "Neutral oil",
-            "For shallow frying"
+            "breadcrumbs",
+            "Plain dry breadcrumbs",
+            "1 cup"
           ]
         ],
         "Alcohol/Drinks": [

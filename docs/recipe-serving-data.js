@@ -120,7 +120,7 @@ window.JEFES_RECIPE_SERVINGS = {
     "servingType": "servings"
   },
   "chicken-milanese": {
-    "baseServings": 3,
+    "baseServings": 4,
     "defaultServings": 4,
     "servingType": "people"
   },
