@@ -104,8 +104,8 @@ window.JEFES_KITCHEN_PREP = {
     { section: "Prepare the Cutlets", steps: [0], storage: "Cover and refrigerate the raw cutlets until cook time. Bread just before frying." }
   ],
   "sheet-pan-lemon-herb-chicken": [
-    { section: "Season the Chicken and Beans", steps: [0, 1, 2], storage: "Keep the chicken and beans covered in separate containers in the refrigerator." },
-    { section: "Start the Potatoes", title: "Halve the potatoes", steps: [1], storage: "Refrigerate submerged in cold water; drain and dry before roasting." }
+    { section: "Season the Chicken and Beans", steps: [0, 1, 2], storage: "Refrigerate the chicken and beans separately until cook time." },
+    { section: "Start the Potatoes", title: "Cut the potatoes", steps: [1], storage: "Refrigerate submerged in cold water; drain and dry before roasting." }
   ],
   "lemony-chicken-orzo-skillet": [
     { section: "Set Up the Skillet", steps: [0, 1], storage: "Refrigerate the chicken and chopped aromatics separately until cook time." }

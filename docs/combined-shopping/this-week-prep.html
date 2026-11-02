@@ -128,8 +128,9 @@
 <script src="../instruction-content.js?v=48"></script>
 <script src="../recipe-serving-data.js?v=10"></script>
 <script src="../quantity-scaler.js?v=8"></script>
-<script src="../prep-catalog.js?v=19"></script>
+<script src="../prep-catalog.js?v=20"></script>
 <script src="../instruction-tools.js?v=6"></script>
+<script src="../instruction-variants.js?v=1"></script>
 <script type="module" src="../firebase-state.js?v=6"></script>
 <script>
   const plannedRecipesKey = 'this-week-planned-recipes-v1';
@@ -246,7 +247,9 @@
     const recipe = instructionContent[entry.id];
     if (!recipe || !instructionTools) return [];
     const defaults = servingData[entry.id] || {};
-    return instructionTools.extractSections(recipe.body, {
+    const variant = window.KitchenInstructionVariants?.forEntry(entry);
+    const body = window.KitchenInstructionVariants?.apply(entry.id, variant, recipe.body) || recipe.body;
+    return instructionTools.extractSections(body, {
       targetServings: entry.servings,
       baseServings: defaults.baseServings || defaults.defaultServings || 4,
       servingType: defaults.servingType || 'people'

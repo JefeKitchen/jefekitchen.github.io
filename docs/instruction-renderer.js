@@ -13,6 +13,7 @@
   const pairMode = params.get('pair') === '1';
 
   if (!root || !recipe) return;
+  const recipeBody = window.KitchenInstructionVariants?.apply(recipeId, params.get('variant'), recipe.body) || recipe.body;
 
   const makeTemplate = (html) => {
     const template = document.createElement('template');
@@ -123,7 +124,7 @@
 
   const sectionsFromPhoneContent = () => {
     const holder = document.createElement('div');
-    holder.innerHTML = recipe.body;
+    holder.innerHTML = recipeBody;
     removeDrinkSection(holder);
     scaleForServings(holder);
     highlightIngredients(holder);
@@ -429,7 +430,7 @@
   };
 
   const renderPhone = () => {
-    const content = makeTemplate(recipe.body);
+    const content = makeTemplate(recipeBody);
     removeDrinkSection(content);
     scaleForServings(content);
     updateHeroSub(content, " · ");
@@ -440,7 +441,7 @@
 
   const renderWide = () => {
     const sections = layoutWideSections(sectionsFromPhoneContent());
-    const source = makeTemplate(recipe.body);
+    const source = makeTemplate(recipeBody);
     scaleForServings(source);
     const heroTitle = html(source, '.hero-title') || html(source, '.recipe-title') || recipe.heroTitle || recipe.title;
     const metaSub = Array.from(source.querySelectorAll('.recipe-meta .meta-item'))
@@ -478,7 +479,7 @@
 
   const renderPair = () => {
     const sections = pairTasksFromSections(sectionsFromPhoneContent());
-    const source = makeTemplate(recipe.body);
+    const source = makeTemplate(recipeBody);
     scaleForServings(source);
     const heroTitle = html(source, '.hero-title') || html(source, '.recipe-title') || recipe.heroTitle || recipe.title;
     const metaSub = Array.from(source.querySelectorAll('.recipe-meta .meta-item'))

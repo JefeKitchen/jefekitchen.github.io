@@ -597,7 +597,8 @@
 </style>
 <script src="./docs/recipe-catalog.js?v=18"></script>
 <script src="./docs/recipe-serving-data.js?v=10"></script>
-<script src="./docs/prep-catalog.js?v=19"></script>
+<script src="./docs/prep-catalog.js?v=20"></script>
+<script src="./docs/instruction-variants.js?v=1"></script>
 <script type="module" src="./docs/firebase-state.js?v=6"></script>
 </head>
 <body>
@@ -720,6 +721,7 @@
     const [path, query = ''] = url.split('?');
     const params = new URLSearchParams(query);
     if (options.meal === 'lunch') params.set('meal', 'lunch');
+    if (options.variant) params.set('variant', options.variant);
     params.set('servings', String(servings));
     params.set('baseServings', String(info.baseServings));
     params.set('servingType', info.servingType);
@@ -796,8 +798,9 @@
     const servingsMeta = options.showServings && servings !== defaultServings ? servingLabel(recipe, servings) : '';
     const metaLabel = [options.day, mealLabel, servingsMeta].filter(Boolean).join(' · ');
     const planMeta = metaLabel ? `<span class="plan-meta">${metaLabel}</span>` : '';
-    const instructionPhone = withInstructionParams(recipe.phone, recipe, { meal: options.meal, servings });
-    const instructionWide = withInstructionParams(recipe.wide, recipe, { meal: options.meal, servings });
+    const variant = options.weekEntry ? window.KitchenInstructionVariants?.forEntry({ id: recipe.id, date: options.date }) : '';
+    const instructionPhone = withInstructionParams(recipe.phone, recipe, { meal: options.meal, servings, variant });
+    const instructionWide = withInstructionParams(recipe.wide, recipe, { meal: options.meal, servings, variant });
     const titleBlock = metaLabel
       ? `<div class="title-line">${planMeta}<div class="card-title">${recipe.title}</div></div>`
       : `<div class="card-title">${recipe.title}</div>`;
@@ -1050,6 +1053,7 @@
       if (entry.date) section.dataset.planDate = entry.date;
       section.innerHTML = recipeCardHtml(recipe, {
         day: entry.day,
+        date: entry.date,
         meal: entry.meal,
         servings: entry.servings,
         showServings: true,

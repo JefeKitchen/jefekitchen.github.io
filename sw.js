@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeffs-kitchen-v242';
+const CACHE_NAME = 'jeffs-kitchen-v243';
 
 const PAGES = [
   './',
@@ -27,8 +27,11 @@ const PAGES = [
   './docs/recipe-serving-data.js?v=10',
   './docs/prep-catalog.js?v=18',
   './docs/prep-catalog.js?v=19',
+  './docs/prep-catalog.js?v=20',
   './docs/instruction-tools.js?v=5',
   './docs/instruction-tools.js?v=6',
+  './docs/instruction-variants.js?v=1',
+  './docs/instruction-renderer.js?v=29',
   './docs/firebase-config.js',
   './docs/firebase-state.js?v=6',
   './docs/instruction-renderer.js?v=28',
@@ -204,6 +207,7 @@ const APP_SHELL = [
   './docs/recipe-catalog.js?v=18',
   './docs/recipe-serving-data.js?v=10',
   './docs/quantity-scaler.js?v=8',
+  './docs/instruction-variants.js?v=1',
   './docs/grocery-list-renderer.js?v=1',
   './docs/firebase-config.js',
   './docs/firebase-state.js?v=6',
